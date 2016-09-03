@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1038F1D6-6C9A-494B-AE40-C720DCCF5E25}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniqueDeclarationBaseForm</RootNamespace>
+    <AssemblyName>UniqueDeclarationBaseForm</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\myButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\myButton.Designer.cs">
+      <DependentUpon>myButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\myCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\myCheckBox.Designer.cs">
+      <DependentUpon>myCheckBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\myComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\myComboBox.Designer.cs">
+      <DependentUpon>myComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\myContextMenuStripCell.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\myContextMenuStripCell.Designer.cs">
+      <DependentUpon>myContextMenuStripCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\myDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\myDataGridView.Designer.cs">
+      <DependentUpon>myDataGridView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\myDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\myDateTimePicker.Designer.cs">
+      <DependentUpon>myDateTimePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\myLable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\myLable.Designer.cs">
+      <DependentUpon>myLable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\myTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\myTabControl.Designer.cs">
+      <DependentUpon>myTabControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\myTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\myTextBox.Designer.cs">
+      <DependentUpon>myTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBase.Designer.cs">
+      <DependentUpon>FormBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaseBOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaseBOM.Designer.cs">
+      <DependentUpon>FormBaseBOM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaseDialogInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaseDialogInput.Designer.cs">
+      <DependentUpon>FormBaseDialogInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaseInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaseInput.Designer.cs">
+      <DependentUpon>FormBaseInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaseLoading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaseLoading.Designer.cs">
+      <DependentUpon>FormBaseLoading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaseQueryCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaseQueryCondition.Designer.cs">
+      <DependentUpon>FormBaseQueryCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaseQueryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaseQueryList.Designer.cs">
+      <DependentUpon>FormBaseQueryList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaseQueryList2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaseQueryList2.Designer.cs">
+      <DependentUpon>FormBaseQueryList2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaseSingleSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaseSingleSelect.Designer.cs">
+      <DependentUpon>FormBaseSingleSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\myContextMenuStripCell.resx">
+      <DependentUpon>myContextMenuStripCell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\myDataGridView.resx">
+      <DependentUpon>myDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\myDateTimePicker.resx">
+      <DependentUpon>myDateTimePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\myTabControl.resx">
+      <DependentUpon>myTabControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\myTextBox.resx">
+      <DependentUpon>myTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBase.resx">
+      <DependentUpon>FormBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseBOM.resx">
+      <DependentUpon>FormBaseBOM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseDialogInput.resx">
+      <DependentUpon>FormBaseDialogInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseInput.resx">
+      <DependentUpon>FormBaseInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseLoading.resx">
+      <DependentUpon>FormBaseLoading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseQueryCondition.resx">
+      <DependentUpon>FormBaseQueryCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseQueryList.resx">
+      <DependentUpon>FormBaseQueryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseQueryList2.resx">
+      <DependentUpon>FormBaseQueryList2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseSingleSelect.resx">
+      <DependentUpon>FormBaseSingleSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{76211863-AA3D-439E-853F-4408F1F7B951}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniqueDeclarationPubilc\UniqueDeclarationPubilc.csproj">
+      <Project>{287C532F-02AD-444C-AC6B-D1B5E96114EF}</Project>
+      <Name>UniqueDeclarationPubilc</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Disk_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Excel_2013_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\first_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\last_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Magnify_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\next_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shopping_webshop_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\structure_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Find_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_24pxt.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
