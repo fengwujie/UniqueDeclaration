@@ -75,6 +75,24 @@ namespace UniqueDeclarationBaseForm
                     }
                 }
             }
+            else if (strControlName.StartsWith("cbox_"))  //下拉控件
+            {
+                myComboBox cbox = (myComboBox)control;
+                if (cbox.SelectedValue.ToString().Length > 0)
+                {
+                    string tag = cbox.Tag.ToString();
+                    string dataType = tag.Split(',')[0];
+                    strFieldName = tag.Split(',')[1];
+                    if (dataType == "string")
+                    {
+                        strReturnWhere += (strReturnWhere.Length > 0 ? " and " : "") + string.Format("{0}={1}", strFieldName, StringTools.SqlQ(cbox.SelectedValue.ToString()));
+                    }
+                    else if (dataType == "int")
+                    {
+                        strReturnWhere += (strReturnWhere.Length > 0 ? " and " : "") + string.Format("{0}={1}", strFieldName, cbox.SelectedValue);
+                    }
+                }
+            }
             else if (strControlName.StartsWith("date_"))  //日期控件
             {
                 myDateTimePicker dtp = (myDateTimePicker)control;
@@ -85,7 +103,7 @@ namespace UniqueDeclarationBaseForm
                     strFieldName = tag.Split(',')[1];
                     if (index == "0")    //表示是指定日期
                     {
-                        strReturnWhere += (strReturnWhere.Length > 0 ? " and " : "") + string.Format("{0}={1}",strFieldName,dtp.Value.ToShortDateString());
+                        strReturnWhere += (strReturnWhere.Length > 0 ? " and " : "") + string.Format("{0}={1}", strFieldName, dtp.Value.ToShortDateString());
                     }
                     else if (index == "1")  //表示起始日期
                     {
@@ -94,6 +112,24 @@ namespace UniqueDeclarationBaseForm
                     else if (index == "2")  //表示截止日期
                     {
                         strReturnWhere += (strReturnWhere.Length > 0 ? " and " : "") + string.Format("{0}<'{1} 23:59:59'", strFieldName, dtp.Value.ToShortDateString());
+                    }
+                }
+            }
+            else if (strControlName.StartsWith("datetime_"))  //日期(包含时间)控件
+            {
+                myDateTimePicker dtp = (myDateTimePicker)control;
+                if (dtp.Checked)
+                {
+                    string tag = dtp.Tag.ToString();
+                    string index = tag.Split(',')[0];
+                    strFieldName = tag.Split(',')[1];
+                    if (index == "1")  //表示起始时间
+                    {
+                        strReturnWhere += (strReturnWhere.Length > 0 ? " and " : "") + string.Format("{0}>='{1}'", strFieldName, dtp.Value);
+                    }
+                    else if (index == "2")  //表示截止时间
+                    {
+                        strReturnWhere += (strReturnWhere.Length > 0 ? " and " : "") + string.Format("{0}<'{1}'", strFieldName, dtp.Value);
                     }
                 }
             }

@@ -442,5 +442,21 @@ namespace UniqueDeclaration
                 LoadDataSourceDetails();
             }
         }
+
+        private void btnCheckIn_Click(object sender, EventArgs e)
+        {
+            if (this.myDataGridViewHead.CurrentRow == null) return;
+            FormMaterialsOutQuertList_CheckCondition objForm = new FormMaterialsOutQuertList_CheckCondition();
+            if( objForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                FormMaterialsOutQueryList_CheckQueryList checkQueryList = new FormMaterialsOutQueryList_CheckQueryList();
+                checkQueryList.ManualCode = objForm.ManualCode;
+                checkQueryList.InId =StringTools.intParse( this.myDataGridViewHead.CurrentRow.Cells["料件出库表id"].Value.ToString());
+                checkQueryList.InOutvalue = 2;
+                checkQueryList.passvalue = objForm.passvalue;
+                checkQueryList.MdiParent = this.MdiParent;
+                checkQueryList.Show();
+            }
+        }
     }
 }
