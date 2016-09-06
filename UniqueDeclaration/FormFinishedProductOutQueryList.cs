@@ -651,9 +651,9 @@ namespace UniqueDeclaration
                     {
                         subRows = dtDetailsSub.Select("产品配件id=0");
                     }
+                    ea.SetValue(string.Format( "A{0}",n), "  材料明细：");
                     foreach (DataRow subRow in subRows)
                     {
-                        ea.SetValue(string.Format( "A{0}",n), "  材料明细：");
                         ea.SetValue(string.Format("B{0}", n), subRow["报关类别"] == DBNull.Value ? "" : subRow["报关类别"].ToString());
                         if (subRow["总用量"] == DBNull.Value || subRow["总用量"].ToString() == "" || row["订单数量"] == DBNull.Value || StringTools.decimalParse(row["订单数量"].ToString()) == 0)
                         {
@@ -665,7 +665,7 @@ namespace UniqueDeclaration
                         }
                         ea.SetValue(string.Format("F{0}", n), subRow["单位"] == DBNull.Value ? "" : subRow["单位"].ToString());
                         ea.SetValue(string.Format("H{0}", n), subRow["总用量"] == DBNull.Value ? "" : StringTools.decimalParse(subRow["总用量"].ToString()).ToString("N3"));
-                        intSortWeight += row["总用量"] == DBNull.Value ? 0 : StringTools.decimalParse(subRow["总用量"].ToString());
+                        intSortWeight += subRow["总用量"] == DBNull.Value ? 0 : StringTools.decimalParse(subRow["总用量"].ToString());
                         n++;
                     }
                     ea.SetValue(string.Format("B{0}", n), "    合计：");
