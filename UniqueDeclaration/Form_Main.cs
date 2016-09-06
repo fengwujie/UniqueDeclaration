@@ -73,13 +73,14 @@ namespace UniqueDeclaration
             }
         }  
 
+        //预先订单录入
         private void FormOrderInput_Click(object sender, EventArgs e)
         {
             FormOrderInput objForm = new FormOrderInput();
             objForm.MdiParent = this;
             objForm.Show();
         }
-
+        //预先订单查询
         private void FormOrderQueryCondition_Click(object sender, EventArgs e)
         {
             FormOrderQueryCondition queryConditionForm = new FormOrderQueryCondition();
@@ -93,14 +94,14 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
-
+        //制造通知单录入
         private void FormMakeNoticeInput_Click(object sender, EventArgs e)
         {
             FormMakeNoticeInput objForm = new FormMakeNoticeInput();
             objForm.MdiParent = this;
             objForm.Show();
         }
-
+        //制造通知单查询
         private void FormMakeNoticeQueryCondition_Click(object sender, EventArgs e)
         {
             FormMakeNoticeQueryCondition queryConditionForm = new FormMakeNoticeQueryCondition();
@@ -136,7 +137,7 @@ namespace UniqueDeclaration
             this.BackgroundImage = null;
             SetBackgroupImage();
         }
-
+        //料件出库查询
         private void FormMaterialsOutQueryCondition_Click(object sender, EventArgs e)
         {
             FormMaterialsOutQueryCondition queryConditionForm = new FormMaterialsOutQueryCondition();
@@ -149,12 +150,33 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
-
+        //料件出库录入
         private void FormMaterialsOut_Click(object sender, EventArgs e)
         {
             FormMaterialsOutInput objForm = new FormMaterialsOutInput();
             objForm.MdiParent = this;
             objForm.Show();
         }
+        //成品出货录入
+        private void FormFinishedProductOutInput_Click(object sender, EventArgs e)
+        {
+            FormFinishedProductOutInput objForm = new FormFinishedProductOutInput();
+            objForm.MdiParent = this;
+            objForm.Show();
+        }
+        //成品出货查询
+        private void FormFinishedProductOutQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormFinishedProductOutQueryCondition queryConditionForm = new FormFinishedProductOutQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string strWhere = queryConditionForm.strReturnWhere;
+                FormFinishedProductOutQueryList queryListForm = new FormFinishedProductOutQueryList();
+                queryListForm.gstrWhere = strWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
+
     }
 }

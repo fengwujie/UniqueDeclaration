@@ -56,6 +56,9 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.Business = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormFinishedProductOutInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormFinishedProductOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -63,6 +66,7 @@
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Business,
             this.Order,
             this.Materials,
             this.windowsMenu,
@@ -260,6 +264,29 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(32, 17);
             this.toolStripStatusLabel.Text = "状态";
             // 
+            // Business
+            // 
+            this.Business.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FormFinishedProductOutInput,
+            this.FormFinishedProductOutQueryCondition});
+            this.Business.Name = "Business";
+            this.Business.Size = new System.Drawing.Size(68, 21);
+            this.Business.Text = "业务管理";
+            // 
+            // FormFinishedProductOutInput
+            // 
+            this.FormFinishedProductOutInput.Name = "FormFinishedProductOutInput";
+            this.FormFinishedProductOutInput.Size = new System.Drawing.Size(152, 22);
+            this.FormFinishedProductOutInput.Text = "成品出货录入";
+            this.FormFinishedProductOutInput.Click += new System.EventHandler(this.FormFinishedProductOutInput_Click);
+            // 
+            // FormFinishedProductOutQueryCondition
+            // 
+            this.FormFinishedProductOutQueryCondition.Name = "FormFinishedProductOutQueryCondition";
+            this.FormFinishedProductOutQueryCondition.Size = new System.Drawing.Size(152, 22);
+            this.FormFinishedProductOutQueryCondition.Text = "成品出货查询";
+            this.FormFinishedProductOutQueryCondition.Click += new System.EventHandler(this.FormFinishedProductOutQueryCondition_Click);
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -312,6 +339,9 @@
         private System.Windows.Forms.ToolStripMenuItem Materials;
         private System.Windows.Forms.ToolStripMenuItem FormMaterialsOut;
         private System.Windows.Forms.ToolStripMenuItem FormMaterialsOutQueryCondition;
+        private System.Windows.Forms.ToolStripMenuItem Business;
+        private System.Windows.Forms.ToolStripMenuItem FormFinishedProductOutInput;
+        private System.Windows.Forms.ToolStripMenuItem FormFinishedProductOutQueryCondition;
     }
 }
 

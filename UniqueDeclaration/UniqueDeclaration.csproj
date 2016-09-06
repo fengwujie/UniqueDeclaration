@@ -53,6 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -64,11 +65,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormFinishedProductOutInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFinishedProductOutInput.Designer.cs">
+      <DependentUpon>FormFinishedProductOutInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormFinishedProductOutQueryCondition.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormFinishedProductOutQueryCondition.Designer.cs">
       <DependentUpon>FormFinishedProductOutQueryCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFinishedProductOutQueryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFinishedProductOutQueryList.Designer.cs">
+      <DependentUpon>FormFinishedProductOutQueryList.cs</DependentUpon>
     </Compile>
     <Compile Include="FormMakeNoticeBOM.cs">
       <SubType>Form</SubType>
@@ -171,6 +184,9 @@
     <EmbeddedResource Include="FormFinishedProductOutQueryCondition.resx">
       <DependentUpon>FormFinishedProductOutQueryCondition.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormFinishedProductOutQueryList.resx">
+      <DependentUpon>FormFinishedProductOutQueryList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMakeNoticeBOM.resx">
       <DependentUpon>FormMakeNoticeBOM.cs</DependentUpon>
     </EmbeddedResource>
@@ -227,6 +243,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config">
       <SubType>Designer</SubType>
@@ -287,6 +304,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
+    <None Include="bin\Debug\Image\structure_24px.png" />
+    <None Include="bin\Debug\Image\shopping_webshop_24px.png" />
+    <None Include="bin\Debug\Image\Save_24pxt.png" />
+    <None Include="bin\Debug\Image\Print_24px.png" />
+    <None Include="bin\Debug\Image\next_24px.png" />
+    <None Include="bin\Debug\Image\Magnify_24px.png" />
+    <None Include="bin\Debug\Image\last_24px.png" />
+    <None Include="bin\Debug\Image\first_24px.png" />
+    <None Include="bin\Debug\Image\Find_24px.png" />
+    <None Include="bin\Debug\Image\Excel_2013_24px.png" />
+    <None Include="bin\Debug\Image\Edit_24px.png" />
+    <None Include="bin\Debug\Image\Disk_24px.png" />
+    <None Include="bin\Debug\Image\Delete_24px.png" />
+    <None Include="bin\Debug\Image\close_24px.png" />
+    <None Include="bin\Debug\Image\back_24px.png" />
+    <None Include="bin\Debug\Image\Add_24px.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

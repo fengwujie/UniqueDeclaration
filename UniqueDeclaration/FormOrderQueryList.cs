@@ -235,7 +235,7 @@ namespace UniqueDeclaration
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
-                string strSQL = string.Format("exec 预先订单归并前明细用量明细 {0},{1}", iOrderID, strBooksNo);
+                string strSQL = string.Format("exec 预先订单归并前明细用量明细 {0},'{1}'", iOrderID, strBooksNo);
                 DataTable dtMergeBeforeDetailsSumCount = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
 

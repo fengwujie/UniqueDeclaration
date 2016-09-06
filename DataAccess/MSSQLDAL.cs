@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
 
 namespace DataAccess
 {
     public class MSSQLDAL : IDataAccess
     {
         private SqlConnection _con;
+        private int CommandTimeout = Convert.ToInt16(ConfigurationManager.AppSettings["CommandTimeout"].ToString());
         public MSSQLDAL(string conStr)
         {
             _con = new SqlConnection(conStr);
@@ -84,7 +86,7 @@ namespace DataAccess
         {
             DataTable dt = new DataTable();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandTimeout = 60;
+            cmd.CommandTimeout = CommandTimeout;
             PrepareCommand(cmd, CommandType.Text, sql, para);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             da.Fill(dt);
@@ -95,7 +97,7 @@ namespace DataAccess
         {
             DataSet ds = new DataSet();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandTimeout = 60;
+            cmd.CommandTimeout = CommandTimeout;
             PrepareCommand(cmd, CommandType.Text, sql, para);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             da.Fill(ds);
@@ -116,7 +118,7 @@ namespace DataAccess
             cmd.CommandText = commandtext;
             cmd.Connection = this._con;
             cmd.Transaction = this._tran;
-            cmd.CommandTimeout = 60;
+            cmd.CommandTimeout = CommandTimeout;
             if (commandQueryParameter != null && commandQueryParameter.Length > 0)
             {
                 for (int i = 0; i < commandQueryParameter.Length; i++)
