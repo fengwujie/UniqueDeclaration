@@ -667,61 +667,6 @@ namespace UniqueDeclaration
         }
         #endregion
 
-        #region 表头toolStrip事件（基类FORM已做处理）
-        //public override void tool1_Add_Click(object sender, EventArgs e)
-        //{
-        //    base.tool1_Add_Click(sender, e);
-        //    DialogResult result = CheckModify();
-        //    switch (result)
-        //    {
-        //        case System.Windows.Forms.DialogResult.Yes:
-        //            if (Save(false))
-        //                LoadDataSource();
-        //            break;
-        //        case System.Windows.Forms.DialogResult.No:
-        //            {
-        //                giOrderID =0 ;
-        //                LoadDataSource();
-        //            }
-        //            break;
-        //        case System.Windows.Forms.DialogResult.Cancel:
-
-        //            break;
-        //    }
-        //}
-
-        //public override void tool1_Save_Click(object sender, EventArgs e)
-        //{
-        //    base.tool1_Save_Click(sender, e);
-
-        //    Save(true);
-
-        //    //this.Close();
-        //}
-
-        //public override void tool1_Close_Click(object sender, EventArgs e)
-        //{
-        //    base.tool1_Close_Click(sender, e);
-        //    this.Close();
-        //    //DialogResult result = CheckModify();
-        //    //switch (result)
-        //    //{
-        //    //    case System.Windows.Forms.DialogResult.Yes:
-        //    //        if (Save(false))
-        //    //        {
-        //    //            this.Close();
-        //    //        }
-        //    //        break;
-        //    //    case System.Windows.Forms.DialogResult.No:
-        //    //        this.Close();
-        //    //        break;
-        //    //    case System.Windows.Forms.DialogResult.Cancel:
-
-        //    //        break;
-        //    //}
-        //}
-        #endregion
-
         #region 表身toolStrip事件
         //public override void tool2_First_Click(object sender, EventArgs e)
         //{

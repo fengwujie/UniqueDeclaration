@@ -181,6 +181,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormFinishedProductOutInput.resx">
+      <DependentUpon>FormFinishedProductOutInput.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormFinishedProductOutQueryCondition.resx">
       <DependentUpon>FormFinishedProductOutQueryCondition.cs</DependentUpon>
     </EmbeddedResource>
