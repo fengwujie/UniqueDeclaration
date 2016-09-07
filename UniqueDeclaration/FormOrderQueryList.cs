@@ -675,7 +675,7 @@ namespace UniqueDeclaration
                 strBuilder.AppendLine(string.Format("delete from 报关预先订单表 where 订单id={0}", iOrderID));
                 dataAccess.CommitTran();
                 dataAccess.Close();
-                string strSuccess = string.Format("{0}[{1}]成功！", btnExportDetails.Text, this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value);
+                string strSuccess = string.Format("{0}[{1}]成功！", btnDelete.Text, this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value);
                 this.dataGridViewHead.Rows.Remove(this.dataGridViewHead.CurrentRow);
                 setTool1Enabled();
                 SysMessage.InformationMsg(strSuccess);
@@ -684,7 +684,7 @@ namespace UniqueDeclaration
             {
                 dataAccess.RollbackTran();
                 dataAccess.Close();
-                string strError = string.Format("{0} 出现错误：错误信息：{1}", btnExportDetails.Text, ex.Message);
+                string strError = string.Format("{0} 出现错误：错误信息：{1}", btnDelete.Text, ex.Message);
                 SysMessage.ErrorMsg(strError);
             }
         }

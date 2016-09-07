@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using DataAccess;
 using UniqueDeclarationPubilc;
 using System.IO;
+using UniqueDeclarationBaseForm;
+using System.Configuration;
 
 namespace UniqueDeclaration
 {
@@ -345,7 +347,85 @@ namespace UniqueDeclaration
 
         private void tool1_Import_Click(object sender, EventArgs e)
         {
-
+            if (this.dataGridViewDetails.CurrentRow == null) return;
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            try
+            {
+                DataTable dtDetails = (DataTable)this.dataGridViewDetails.DataSource;
+                long Pid, Fid, OrderID, OrderListID;
+                StringBuilder strBuilder = new StringBuilder();
+                DataTable dtTemp = null;
+                OrderID = this.dataGridViewHead.CurrentRow.Cells["订单id"].Value == DBNull.Value ? 0 : Convert.ToInt64(this.dataGridViewHead.CurrentRow.Cells["订单id"].Value);
+                foreach (DataRow rowD in dtDetails.Rows)
+                {
+                    strBuilder.Clear();
+                    Pid = rowD["产品id"] == DBNull.Value ? 0 : Convert.ToInt64(rowD["产品id"]);
+                    Fid = rowD["配件id"] == DBNull.Value ? 0 : Convert.ToInt64(rowD["配件id"]);
+                    OrderListID = rowD["订单明细表id"] == DBNull.Value ? 0 : Convert.ToInt64(rowD["订单明细表id"]);
+                    if (Fid == 0)
+                    {
+                        strBuilder.AppendLine(string.Format("delete from 产品配件改样报关材料明细表  where 订单id ={0} and 订单明细表id ={1} and 产品id = {2}", OrderID, OrderListID, Pid));
+                        strBuilder.AppendLine(string.Format("delete from 产品配件改样报关材料表 where 订单id ={0} and 订单明细表id ={1} and 产品id = {2}", OrderID, OrderListID, Pid));
+                    }
+                    else
+                    {
+                        strBuilder.AppendLine(string.Format("delete from 产品配件改样报关材料明细表  where 订单id ={0} and 订单明细表id ={1} and 配件id = {2}", OrderID, OrderListID, Fid));
+                        strBuilder.AppendLine(string.Format("delete from 产品配件改样报关材料表 where 订单id ={0} and 订单明细表id ={1} and 配件id = {2}", OrderID, OrderListID, Fid));
+                    }
+                    dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
+                    if (rowD["制造通知单id"] != DBNull.Value)
+                    {
+                        strBuilder.Clear();
+                        if (Pid != 0)
+                        {
+                            strBuilder.AppendLine(string.Format("select 制造通知单id,制造通知单明细表id,产品id from 报关制造通知单明细表 WHERE 制造通知单id={0} and 产品id={1}", rowD["制造通知单id"], Pid));
+                            dtTemp = dataAccess.GetTable(strBuilder.ToString(), null);
+                            strBuilder.Clear();
+                            if (dtTemp.Rows.Count > 0)
+                            {
+                                strBuilder.AppendLine(string.Format(@"INSERT INTO 产品配件改样报关材料明细表(订单id,订单明细表id,产品id,配件id,料件id,型号,显示型号,品名,项号,编号,商品编码,商品名称,
+                                                                            规格型号,计量单位,数量,单位,单耗,单耗单位,损耗率,换算率) 
+                                                                    SELECT {0},{1},产品id,配件id,料件id,型号,显示型号,品名,项号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,单耗,单耗单位,
+                                                                            损耗率,换算率 From 产品配件改样报关前材料明细表 WHERE 制造通知单id={2} and 制造通知单明细表id={3} and 产品id={4}",
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["产品id"]));
+                                strBuilder.AppendLine(string.Format(@"INSERT INTO 产品配件改样报关材料表(订单id,订单明细表id,产品id,配件id,料件id,序号,编号,商品编码,商品名称,规格型号,计量单位,数量,
+                                                                                单位,备注,损耗率,区域) 
+                                                                    SELECT {0},{1},产品id,配件id,料件id,序号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,备注,损耗率,区域 
+                                                                            From 产品配件改样报关前材料表 WHERE 制造通知单id={2} and 制造通知单明细表id={3} and 产品id={4}",
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["产品id"]));
+                                dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
+                            }
+                        }
+                        else
+                        {
+                            strBuilder.AppendLine(string.Format("select 制造通知单id,制造通知单明细表id,配件id from 报关制造通知单明细表 WHERE 制造通知单id={0} and 配件id={1}", rowD["制造通知单id"], Fid));
+                            dtTemp = dataAccess.GetTable(strBuilder.ToString(), null);
+                            strBuilder.Clear();
+                            if (dtTemp.Rows.Count > 0)
+                            {
+                                strBuilder.AppendLine(string.Format(@"INSERT INTO 产品配件改样报关材料明细表(订单id,订单明细表id,产品id,配件id,料件id,型号,显示型号,品名,项号,编号,商品编码,商品名称,
+                                                                            规格型号,计量单位,数量,单位,单耗,单耗单位,损耗率,换算率) 
+                                                                    SELECT {0},{1},产品id,配件id,料件id,型号,显示型号,品名,项号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,单耗,单耗单位,
+                                                                            损耗率,换算率 From 产品配件改样报关前材料明细表 WHERE 制造通知单id={2} and 制造通知单明细表id={3} and 配件id={4}",
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["配件id"]));
+                                strBuilder.AppendLine(string.Format(@"INSERT INTO 产品配件改样报关材料表(订单id,订单明细表id,产品id,配件id,料件id,序号,编号,商品编码,商品名称,规格型号,计量单位,数量,
+                                                                            单位,备注,损耗率,区域) 
+                                                                    SELECT {0},{1},产品id,配件id,料件id,序号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,备注,损耗率,区域 
+                                                                            From 产品配件改样报关前材料表 WHERE 制造通知单id={2} and 制造通知单明细表id={3} and 配件id={4}",
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["配件id"]));
+                                dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
+                            }
+                        }
+                    }
+                }
+                dataAccess.Close();
+            }
+            catch (Exception ex)
+            {
+                SysMessage.ErrorMsg(ex.Message);
+                dataAccess.Close();
+            }
         }
 
         private void tool1_Modify_Click(object sender, EventArgs e)
@@ -354,7 +434,7 @@ namespace UniqueDeclaration
             int iOrderID = Convert.ToInt32(this.dataGridViewHead.CurrentRow.Cells["订单id"].Value);
             foreach (Form childFrm in this.MdiParent.MdiChildren)
             {
-                if (childFrm.Name == "FormOrderInput")
+                if (childFrm.Name == "FormFinishedProductOutInput")
                 {
                     FormFinishedProductOutInput inputForm = (FormFinishedProductOutInput)childFrm;
                     if (inputForm.giOrderID != 0 && inputForm.giOrderID == iOrderID)
@@ -380,7 +460,7 @@ namespace UniqueDeclaration
             int iOrderID = Convert.ToInt32(this.dataGridViewHead.CurrentRow.Cells["订单id"].Value);
             IDataAccess data = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             data.Open();
-            DataTable dtList = data.GetTable(string.Format("select * from 产品配件改样报关订单材料明细表 where 订单id ={0}", iOrderID), null);
+            DataTable dtList = data.GetTable(string.Format("select * from 产品配件改样报关材料明细表 where 订单id ={0}", iOrderID), null);
             data.Close();
             if (dtList.Rows.Count > 0)
             {
@@ -388,27 +468,24 @@ namespace UniqueDeclaration
                 return;
             }
             data.Open();
-            dtList = data.GetTable(string.Format("select * from 产品配件改样报关订单材料表 where 订单id ={0}", iOrderID), null);
+            dtList = data.GetTable(string.Format("select * from 产品配件改样报关材料表 where 订单id ={0}", iOrderID), null);
             data.Close();
             if (dtList.Rows.Count > 0)
             {
                 SysMessage.InformationMsg("已存在材料明细，此订单不能删除！");
                 return;
             }
-
-            string strText = string.Format("真的要删除订单 【{0}】 吗？", this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value);
-            if (SysMessage.OKCancelMsg(strText) == System.Windows.Forms.DialogResult.Cancel) return;
+            if (SysMessage.YesNoMsg(string.Format("真的要删除订单【{0}】吗？", this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value)) == System.Windows.Forms.DialogResult.No) return;
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            dataAccess.BeginTran();
             try
             {
-                dataAccess.Open();
-                dataAccess.BeginTran();
                 StringBuilder strBuilder = new StringBuilder();
-                strBuilder.AppendLine(string.Format("delete from 产品配件改样报关订单材料明细表  where 订单id ={0}", iOrderID));
-                strBuilder.AppendLine(string.Format("delete from 产品配件改样报关订单材料表 where 订单id ={0}", iOrderID));
-                strBuilder.AppendLine(string.Format("delete from 报关预先订单明细表 where 订单id ={0}", iOrderID));
-                strBuilder.AppendLine(string.Format("delete from 报关预先订单表 where 订单id={0}", iOrderID));
-                dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
+                strBuilder.AppendLine(string.Format("delete from 产品配件改样报关材料明细表  where 订单id ={0}", iOrderID));
+                strBuilder.AppendLine(string.Format("delete from 产品配件改样报关材料表 where 订单id ={0}", iOrderID));
+                strBuilder.AppendLine(string.Format("delete from 报关订单明细表 where 订单id={0}", iOrderID));
+                strBuilder.AppendLine(string.Format("delete from 报关订单表 where 订单id={0}", iOrderID));
                 dataAccess.CommitTran();
                 dataAccess.Close();
                 string strSuccess = string.Format("{0}[{1}]成功！", tool1_Delete.Text, this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value);
@@ -508,8 +585,7 @@ namespace UniqueDeclaration
 
         private void tool1_Query_Click(object sender, EventArgs e)
         {
-            FormOrderQueryCondition queryConditionForm = new FormOrderQueryCondition();
-            //queryConditionForm.MdiParent = this;
+            FormFinishedProductOutQueryCondition queryConditionForm = new FormFinishedProductOutQueryCondition();
             if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 gstrWhere = queryConditionForm.strReturnWhere;
@@ -742,17 +818,146 @@ namespace UniqueDeclaration
         //打印订单
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            if (this.dataGridViewHead.CurrentRow == null) return;
+            if (SysMessage.YesNoMsg("是否确定导出到Excel") == System.Windows.Forms.DialogResult.No) return;
+            #region 打开EXCEL
+            string strSourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\Order.xls");
+            string strDestFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"ExcelTemp\Order{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss")));
+            File.Copy(strSourceFile, strDestFile);
+            File.SetAttributes(strDestFile, File.GetAttributes(strDestFile) | FileAttributes.ReadOnly);
+            string fn = strDestFile;
+            ExcelTools ea = new ExcelTools();
+            ea.SafeOpen(fn);
+            ea.ActiveSheet(1); // 激活
+            #endregion
 
+            #region 赋值公司信息
+            string locateValue = ConfigurationManager.AppSettings["LocateValue"].ToString();
+            string strCompany = string.Format("SELECT KeyField, SecondField, Addr1, Addr2, Addr3, Addr4, Country, Tel1, Tel2, Tel3, Fax,email, Signing FROM tabCompany where KeyField='{0}'",locateValue);
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            DataTable dtCompany = dataAccess.GetTable(strCompany, null);
+            dataAccess.Close();
+            DataRow rowCompany = dtCompany.Rows[0];
+            ea.SetValue("Company", rowCompany["secondfield"] == DBNull.Value ? "" : rowCompany["secondfield"].ToString());
+            //如果ADDR1为DBNULL.VALUE或“”，则“”，否则ADDR1，+（如果ADDR2为DBNULL.VALUE或者为“”，则“”，否则为“，+ADDR2”）
+            string strAddr1 =  (rowCompany["Addr1"] == DBNull.Value || rowCompany["Addr1"].ToString() == "") ? "" : rowCompany["Addr1"].ToString();
+            string strAddr2 = (rowCompany["Addr2"] == DBNull.Value || rowCompany["Addr2"].ToString() == "") ? "" : rowCompany["Addr2"].ToString();
+            string strAddress1 =strAddr1.Length > 0 ? (strAddr1 + (strAddr2 == "" ? "" : ",") + strAddr2) : strAddr2;
+            ea.SetValue("Address1", strAddress1);
+            //如果ADDR3为DBNULL.VALUE或“”，则“”，否则ADDR3，+（如果ADDR4为DBNULL.VALUE或者为“”，则“”，否则为“，+ADDR4”）
+            string strAddr3 = (rowCompany["Addr3"] == DBNull.Value || rowCompany["Addr3"].ToString() == "") ? "" : rowCompany["Addr3"].ToString();
+            string strAddr4 = (rowCompany["Addr4"] == DBNull.Value || rowCompany["Addr4"].ToString() == "") ? "" : rowCompany["Addr4"].ToString();
+            string strAddress2 = strAddr3.Length > 0 ? (strAddr3 + (strAddr4 == "" ? "" : ",") + strAddr4) : strAddr4;
+            ea.SetValue("Address2", strAddress2);
+            ea.SetValue("FAX", rowCompany["FAX"] == DBNull.Value ? "" : rowCompany["FAX"].ToString());
+            ea.SetValue("TEL", rowCompany["TEL1"] == DBNull.Value ? "" : rowCompany["TEL1"].ToString());
+
+            ea.SetValue("date", "Date:" + Convert.ToDateTime(dataGridViewHead.CurrentRow.Cells["出货日期"].Value).ToString("yyyy-MM-dd"));
+            ea.SetValue("orderno", "OrderNo:" + (dataGridViewHead.CurrentRow.Cells["订单号码"].Value == DBNull.Value ? "" : dataGridViewHead.CurrentRow.Cells["订单号码"].Value));
+            ea.SetValue("customer", "Customer:(" + (dataGridViewHead.CurrentRow.Cells["客户代码"].Value == DBNull.Value ? "" : dataGridViewHead.CurrentRow.Cells["客户代码"].Value) +
+                (dataGridViewHead.CurrentRow.Cells["客户名称"].Value == DBNull.Value ? "" : dataGridViewHead.CurrentRow.Cells["客户名称"].Value) + ")");
+            ea.SetValue("label45", Convert.ToDateTime(dataGridViewHead.CurrentRow.Cells["出货日期"].Value).ToString("yyyy-MM-dd"));
+            #endregion
+
+            #region 赋值明细
+            int n = 24;
+            DataTable dtDetails = (DataTable)this.dataGridViewDetails.DataSource;
+            foreach(DataRow rowD in dtDetails.Rows)
+            {
+                ea.SetValue(string.Format("A{0}", n), rowD["客人型号"] == DBNull.Value ? "" : rowD["客人型号"].ToString());
+                ea.SetValue(string.Format("C{0}", n), rowD["优丽型号"] == DBNull.Value ? "" : rowD["优丽型号"].ToString());
+                ea.SetValue(string.Format("F{0}", n), rowD["颜色"] == DBNull.Value ? "" : rowD["颜色"].ToString());
+                ea.SetValue(string.Format("G{0}", n), rowD["订单数量"] == DBNull.Value ? "" : StringTools.decimalParse(rowD["订单数量"].ToString()).ToString());
+                ea.SetValue(string.Format("H{0}", n), rowD["单位"] == DBNull.Value ? "" : rowD["单位"].ToString());
+                ea.SetBorderStyle(string.Format("A{0}:K{0}",n),1);
+                n++;
+            }
+
+            string strSQL = string.Format("SELECT 单位 as packUnit, SUM(订单数量) AS UnitQuantity FROM 报关订单明细表 where 订单id = {0} GROUP BY 单位 ", dataGridViewHead.CurrentRow.Cells["订单id"].Value);
+            dataAccess.Open();
+            DataTable dtSUM = dataAccess.GetTable(strSQL, null);
+            dataAccess.Close();
+            for(int iSum=0; iSum<dtSUM.Rows.Count;iSum++)
+            {
+                DataRow rowSUM = dtSUM.Rows[iSum];
+                if(iSum == 0)
+                {
+                    ea.SetValue(string.Format("G{0}", n), "Total:" + StringTools.decimalParse(rowSUM["UnitQuantity"].ToString()).ToString("N2") + " " + rowSUM["packUnit"]);
+                }
+                else
+                {
+                    ea.SetValue(string.Format("G{0}", n), StringTools.decimalParse(rowSUM["UnitQuantity"].ToString()).ToString("N2") + " " + rowSUM["packUnit"]);
+                }
+                ea.SetMerge(string.Format("G{0}:H{0}",n));
+                ea.SetHorisontalAlignment(string.Format("G{0}:H{0}", n),4);
+                n++;
+            }
+            n++;
+            n++;
+            n++;
+
+            ea.SetValue(string.Format("A{0}", n), "Accept&Confirmed");
+            ea.SetValue(string.Format("F{0}", n), dtCompany.Rows[0]["secondfield"].ToString());
+
+            n++;
+            ea.SetValue(string.Format("A{0}", n), "________________");
+            ea.SetValue(string.Format("F{0}", n), "________________");
+            #endregion
+            ea.Visible = true;
+            ea.Dispose();
         }
         //删除订单
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
+            if (this.dataGridViewHead.CurrentRow == null) return;
+            if (SysMessage.YesNoMsg(string.Format("真的要删除订单【{0}】吗？", this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value)) == System.Windows.Forms.DialogResult.No) return;
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            dataAccess.BeginTran();
+            try
+            {
+                object id =this.dataGridViewHead.CurrentRow.Cells["订单id"].Value.ToString();
+                StringBuilder strBuilder = new StringBuilder();
+                strBuilder.AppendLine(string.Format("delete from 产品配件改样报关材料明细表  where 订单id ={0}", id));
+                strBuilder.AppendLine(string.Format("delete from 产品配件改样报关材料表 where 订单id ={0}", id));
+                strBuilder.AppendLine(string.Format("delete from 报关订单明细表 where 订单id={0}", id));
+                strBuilder.AppendLine(string.Format("delete from 报关订单表 where 订单id={0}", id));
+                dataAccess.CommitTran();
+                dataAccess.Close();
+                string strSuccess = string.Format("{0}[{1}]成功！", btnDelete.Text, this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value);
+                this.dataGridViewHead.Rows.Remove(this.dataGridViewHead.CurrentRow);
+                setTool1Enabled();
+                SysMessage.InformationMsg(strSuccess);
+            }
+            catch (Exception ex)
+            {
+                dataAccess.RollbackTran();
+                dataAccess.Close();
+                string strError = string.Format("{0} 出现错误：错误信息：{1}", btnDelete.Text, ex.Message);
+                SysMessage.ErrorMsg(strError);
+            }
         }
         //数据检查
         private void btnCheckData_Click(object sender, EventArgs e)
         {
-
+            if (this.dataGridViewHead.CurrentRow == null) return;
+            string strSQL = string.Format("SELECT 报关订单明细表.客人型号,报关订单明细表.优丽型号,报关订单明细表.颜色,产品配件改样报关材料明细表.料件id,产品配件改样报关材料明细表.商品编码,产品配件改样报关材料明细表.商品名称 from 产品配件改样报关材料明细表 RIGHT OUTER JOIN 报关订单明细表 ON ISNULL(产品配件改样报关材料明细表.配件id, 0) = ISNULL(报关订单明细表.配件id, 0) AND ISNULL(产品配件改样报关材料明细表.产品id, 0) = ISNULL(报关订单明细表.产品id, 0) AND 产品配件改样报关材料明细表.订单明细表id = 报关订单明细表.订单明细表id AND 产品配件改样报关材料明细表.订单id = 报关订单明细表.订单id where NOT (产品配件改样报关材料明细表.产品id IS NULL and 产品配件改样报关材料明细表.料件id IS NULL) and 产品配件改样报关材料明细表.料件id is null and 报关订单明细表.订单id={0}",this.dataGridViewHead.CurrentRow.Cells["订单id"].Value);
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            DataTable dtTemp = dataAccess.GetTable(strSQL, null);
+            dataAccess.Close();
+            if (dtTemp.Rows.Count > 0)
+            {
+                FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
+                formSelect.strFormText = "数据异常";
+                formSelect.dtData = dtTemp;
+                formSelect.ShowDialog();
+            }
+            else
+            {
+                SysMessage.InformationMsg("数据完整");
+            }
         }
         #endregion
     }
