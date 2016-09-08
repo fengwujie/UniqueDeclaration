@@ -272,6 +272,10 @@ namespace UniqueDeclaration
                     return false;
                 }
                 #endregion
+
+                if (SysMessage.YesNoMsg("要过帐吗？") == System.Windows.Forms.DialogResult.Yes)
+                    rowHead["过帐标志"] = 1;
+
                 StringBuilder strBuilder = new StringBuilder();
                 if (rowHead.RowState == DataRowState.Added)
                 {

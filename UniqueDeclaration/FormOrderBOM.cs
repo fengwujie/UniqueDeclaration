@@ -997,6 +997,9 @@ namespace UniqueDeclaration
         }
         private void FormOrderBOM_FormClosing(object sender, FormClosingEventArgs e)
         {
+            SaveModifyAfterHead();
+            SaveModifyAfterDetail();
+            /*
             DialogResult result = CheckModify();
             switch (result)
             {
@@ -1020,6 +1023,7 @@ namespace UniqueDeclaration
                     e.Cancel = true;
                     break;
             }
+             */
         }
         public override void myTabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1027,6 +1031,7 @@ namespace UniqueDeclaration
             {
                 SaveModifyAfterHead();
                 SaveModifyAfterDetail();
+                LoadDataSource();
             }
             if (this.myTabControl1.SelectedIndex == 2)
             {
@@ -1271,7 +1276,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 dataAccess.Close();
                 dtModifyAfterDetail.AcceptChanges();
             }
-            //Sum总重();
+            Sum总重();
         }
 
         private void SaveModifyAfterHead()
@@ -1357,7 +1362,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 dataAccess.Close();
                 dtModifyAfterHead.AcceptChanges();
             }
-            //Sum总重();
+            Sum总重();
         }
 
         private void Sum总重()
@@ -1486,6 +1491,24 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
         {
             DataRow newRow = dtModifyAfterHead.NewRow();
             newRow["数量"] = "0.0";
+            newRow["订单id"] = OrderId;
+            newRow["订单明细表id"]= OrderListId;
+            if (Pid == 0)
+            {
+                newRow["产品id"] = DBNull.Value;
+            }
+            else
+            {
+                newRow["产品id"] = Pid;
+            }
+            if (Fid == 0)
+            {
+                newRow["配件id"] = DBNull.Value;
+            }
+            else
+            {
+                newRow["配件id"] = Fid;
+            }
             dtModifyAfterHead.Rows.Add(newRow);
         }
 
@@ -1495,6 +1518,24 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
         private void dtModifyAfterDetailAddRow()
         {
             DataRow newRow = dtModifyAfterDetail.NewRow();
+            newRow["订单id"] = OrderId;
+            newRow["订单明细表id"] = OrderListId;
+            if (Pid == 0)
+            {
+                newRow["产品id"] = DBNull.Value;
+            }
+            else
+            {
+                newRow["产品id"] = Pid;
+            }
+            if (Fid == 0)
+            {
+                newRow["配件id"] = DBNull.Value;
+            }
+            else
+            {
+                newRow["配件id"] = Fid;
+            }
             newRow["单位"] = "KGS";
             newRow["区域"] = "A";
             newRow["数量"] = "0.00000";
@@ -1664,7 +1705,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                             bCellEndEdit = false;
                             dgv.CurrentCell = dgv["损耗率", cell.RowIndex];
                             bCellEndEdit = true;
-                            SaveModifyAfterHead();
+                            //SaveModifyAfterHead();
                         }
                     }
                     else
@@ -1672,7 +1713,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                         if (dgv.CurrentRow.Cells["数量"].Value.ToString() != cell.EditedFormattedValue.ToString())
                         {
                             validate数量(dgv, cell);
-                            SaveModifyAfterHead();
+                            //SaveModifyAfterHead();
                         }
                     }
                     #endregion
@@ -1693,7 +1734,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                             bCellEndEdit = false;
                             dgv.CurrentCell = dgv["单耗", cell.RowIndex];
                             bCellEndEdit = true;
-                            SaveModifyAfterHead();
+                            //SaveModifyAfterHead();
                         }
                     }
                     else
@@ -1701,7 +1742,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                         if (dgv.CurrentRow.Cells["换算率"].Value.ToString() != cell.EditedFormattedValue.ToString())
                         {
                             validate换算率(dgv, cell);
-                            SaveModifyAfterHead();
+                            //SaveModifyAfterHead();
                         }
                     }
                     #endregion
@@ -1737,8 +1778,6 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                             //否则跳转到下一行的客人型号，如果是最后一行，则新增一行
                             if (cell.RowIndex == dgv.Rows.Count - 1)
                             {
-                                //int iRow = dgv.Rows.Add();
-                                //dgv.CurrentCell = dgv["客人型号", iRow];
                                 dtModifyAfterHeadAddRow();
                                 dgv.CurrentCell = dgv["型号", cell.RowIndex + 1];
                             }
@@ -1747,7 +1786,6 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                                 dgv.CurrentCell = dgv["型号", cell.RowIndex + 1];
                             }
                         }
-                        //dgv.CurrentCell = dgv["型号", cell.RowIndex];
                     }
                     #endregion
                     break;
@@ -1826,18 +1864,18 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     DataRow row = dtData.Rows[0];
                     dgv.Rows[cell.RowIndex].Cells["项号"].Value = dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 2) + "-"
                         + dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(3, 2);
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dgv.Rows[cell.RowIndex].Cells["商品编码"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
                     if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "A" ||
                         dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "B")
                     {
                         dgv.Rows[cell.RowIndex].Cells["编号"].Value = dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 8);
                     }
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dgv.Rows[cell.RowIndex].Cells["商品编码"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = dgv.Rows[cell.RowIndex].Cells["商品名称"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = dgv.Rows[cell.RowIndex].Cells["规格型号"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = dgv.Rows[cell.RowIndex].Cells["计量单位"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
+                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = row["商品名称"];
+                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = row["商品规格"];
+                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = row["计量单位"];
                     dgv.Rows[cell.RowIndex].Cells["单耗单位"].Value = "KGS";
-                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = row["损耗率"];
                 }
             }
             return true;
@@ -1916,18 +1954,18 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     DataRow row = dtData.Rows[0];
                     dgv.Rows[cell.RowIndex].Cells["项号"].Value = dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 2) + "-"
                         + dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(3, 2);
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dgv.Rows[cell.RowIndex].Cells["商品编码"].Value.ToString();
-                    if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 1) == "A" ||
-                        dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 1) == "B")
+                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
+                    if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "A" ||
+                        dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "B")
                     {
                         dgv.Rows[cell.RowIndex].Cells["编号"].Value = dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 8);
                     }
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dgv.Rows[cell.RowIndex].Cells["商品编码"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = dgv.Rows[cell.RowIndex].Cells["商品名称"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = dgv.Rows[cell.RowIndex].Cells["规格型号"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = dgv.Rows[cell.RowIndex].Cells["计量单位"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
+                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = row["商品名称"];
+                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = row["商品规格"];
+                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = row["计量单位"];
                     dgv.Rows[cell.RowIndex].Cells["单耗单位"].Value = "KGS";
-                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = row["损耗率"];
                 }
             }
             return true;
@@ -2252,7 +2290,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                             bCellEndEdit = false;
                             dgv.CurrentCell = dgv["损耗率", cell.RowIndex];
                             bCellEndEdit = true;
-                            SaveModifyAfterDetail();
+                            //SaveModifyAfterDetail();
                         }
                     }
                     else
@@ -2260,7 +2298,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                         if (dgv.Rows[cell.RowIndex].Cells["数量"].Value.ToString() != cell.EditedFormattedValue.ToString())
                         {
                             validate数量2(dgv, cell);
-                            SaveModifyAfterDetail();
+                            //SaveModifyAfterDetail();
                         }
                     }
                     #endregion
@@ -2277,6 +2315,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
+                        //bool bAddNew = false;
                         if (dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString() == cell.EditedFormattedValue.ToString())
                         {
                             bCellEndEdit = false;
@@ -2292,8 +2331,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                                 //否则跳转到下一行的客人型号，如果是最后一行，则新增一行
                                 if (cell.RowIndex == dgv.Rows.Count - 1)
                                 {
-                                    //int iRow = dgv.Rows.Add();
-                                    //dgv.CurrentCell = dgv["客人型号", iRow];
+                                    //bAddNew = true;
                                     dtModifyAfterDetailAddRow();
                                     dgv.CurrentCell = dgv["料件id", cell.RowIndex + 1];
                                 }
@@ -2303,6 +2341,11 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                                 }
                             }
                             bCellEndEdit = true;
+                            //if (bAddNew)
+                            //{
+                            //    dtModifyAfterDetailAddRow();
+                            //    dgv.CurrentCell = dgv["料件id", cell.RowIndex + 1];
+                            //}
                         }
                         else
                         {
@@ -2322,8 +2365,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                                 //否则跳转到下一行的客人型号，如果是最后一行，则新增一行
                                 if (cell.RowIndex == dgv.Rows.Count - 1)
                                 {
-                                    //int iRow = dgv.Rows.Add();
-                                    //dgv.CurrentCell = dgv["客人型号", iRow];
+                                    //bAddNew = true;
                                     dtModifyAfterDetailAddRow();
                                     dgv.CurrentCell = dgv["料件id", cell.RowIndex + 1];
                                 }
@@ -2333,7 +2375,12 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                                 }
                             }
                             bCellEndEdit = true;
-                            SaveModifyAfterDetail();
+                            //SaveModifyAfterDetail();
+                            //if (bAddNew)
+                            //{
+                            //    dtModifyAfterDetailAddRow();
+                            //    dgv.CurrentCell = dgv["料件id", cell.RowIndex + 1];
+                            //}
                         }
                     }
                     else
@@ -2341,7 +2388,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                         if (dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString() != cell.EditedFormattedValue.ToString())
                         {
                             validate损耗率2(dgv, cell);
-                            SaveModifyAfterDetail();
+                            //SaveModifyAfterDetail();
                         }
                     }
                     #endregion
@@ -2373,12 +2420,14 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
             dataAccess.Open();
             DataTable dtData = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
+            object 编号 = string.Empty;
             if (dtData.Rows.Count == 1)
             {
                 DataRow row = dtData.Rows[0];
                 dgv.Rows[cell.RowIndex].Cells["料件id"].Value = row["料件id"];
                 dgv.Rows[cell.RowIndex].Cells["料件型号"].Value = row["料件型号"];
                 dgv.Rows[cell.RowIndex].Cells["编号"].Value = row["显示型号"];
+                编号 = row["显示型号"];
                 dgv.Rows[cell.RowIndex].Cells["品名"].Value = row["料件名"];
                 if (row["显示型号"] != DBNull.Value && row["显示型号"].ToString().StartsWith("A") || row["显示型号"].ToString().StartsWith("B"))
                 {
@@ -2399,6 +2448,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     dgv.Rows[cell.RowIndex].Cells["料件id"].Value = formSelect.returnRow["料件id"];
                     dgv.Rows[cell.RowIndex].Cells["料件型号"].Value = formSelect.returnRow["料件型号"];
                     dgv.Rows[cell.RowIndex].Cells["编号"].Value = formSelect.returnRow["显示型号"];
+                    编号 = formSelect.returnRow["显示型号"];
                     dgv.Rows[cell.RowIndex].Cells["品名"].Value = formSelect.returnRow["料件名"];
                     if (formSelect.returnRow["显示型号"] != DBNull.Value && formSelect.returnRow["显示型号"].ToString().StartsWith("A") || formSelect.returnRow["显示型号"].ToString().StartsWith("B"))
                     {
@@ -2434,13 +2484,14 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 if (dtData.Rows.Count > 0)
                 {
                     DataRow row = dtData.Rows[0];
-                    dgv.Rows[cell.RowIndex].Cells["序号"].Value = dgv.Rows[cell.RowIndex].Cells["序号"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dgv.Rows[cell.RowIndex].Cells["商品编码"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = dgv.Rows[cell.RowIndex].Cells["商品名称"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = dgv.Rows[cell.RowIndex].Cells["商品规格"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = dgv.Rows[cell.RowIndex].Cells["计量单位"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["序号"].Value = row["序号"];
+                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
+                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = row["商品名称"];
+                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = row["商品规格"];
+                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = row["计量单位"];
                     dgv.Rows[cell.RowIndex].Cells["单位"].Value = "KGS";
-                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = row["损耗率"];
+                    dgv.Rows[cell.RowIndex].Cells["编号"].Value = 编号;
                 }
             }
             return true;
@@ -2514,6 +2565,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
             base.tool_Save_Click(sender, e);
             SaveModifyAfterHead();
             SaveModifyAfterDetail();
+            LoadDataSource();
             //dtModifyAfterDetail.AcceptChanges();
             //dtModifyAfterHead.AcceptChanges();
         }

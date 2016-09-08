@@ -1043,6 +1043,9 @@ namespace UniqueDeclaration
         }
         private void FormMakeNoticeBOM_FormClosing(object sender, FormClosingEventArgs e)
         {
+            SaveModifyAfterHead();
+            SaveModifyAfterDetail();
+            /*
             DialogResult result = CheckModify();
             switch (result)
             {
@@ -1066,6 +1069,7 @@ namespace UniqueDeclaration
                     e.Cancel = true;
                     break;
             }
+             */
         }
         public override void myTabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1073,6 +1077,7 @@ namespace UniqueDeclaration
             {
                 SaveModifyAfterHead();
                 SaveModifyAfterDetail();
+                LoadDataSource();
             }
             if (this.myTabControl1.SelectedIndex == 2)
             {
@@ -1324,7 +1329,7 @@ namespace UniqueDeclaration
                 dataAccess.Close();
                 dtModifyAfterDetail.AcceptChanges();
             }
-            //Sum总重();
+            Sum总重();
         }
 
         private void SaveModifyAfterHead()
@@ -1339,7 +1344,7 @@ namespace UniqueDeclaration
                     strSQL += string.Format(@"INSERT INTO [dbo].[产品配件改样报关前材料明细表]
                                            ([制造通知单id],[制造通知单明细表id],[产品id],[配件id],[料件id],[型号],[显示型号],[品名],[项号],[编号]
                                            ,[商品编码],[商品名称],[规格型号],[计量单位],[数量],[单位],[单耗],[单耗单位],[损耗率],[换算率],[剩余库存量])
-                                     VALUES ({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19})" + Environment.NewLine,
+                                     VALUES ({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20})" + Environment.NewLine,
                                     row["制造通知单id"] == DBNull.Value ? "NULL" : row["制造通知单id"],
                                     row["制造通知单明细表id"] == DBNull.Value ? "NULL" : row["制造通知单明细表id"],
                                     row["产品id"] == DBNull.Value ? "NULL" : row["产品id"],
@@ -1412,7 +1417,7 @@ namespace UniqueDeclaration
                 dataAccess.Close();
                 dtModifyAfterHead.AcceptChanges();
             }
-            //Sum总重();
+            Sum总重();
         }
 
         private void Sum总重()
@@ -1424,6 +1429,7 @@ namespace UniqueDeclaration
             }
             foreach (DataRow row in dtModifyAfterDetail.Rows)
             {
+                if (row.RowState == DataRowState.Deleted) continue ;
                 FactWeight += float.Parse(row["数量"].ToString());
             }
             if (FactWeight != 0)
@@ -1557,6 +1563,24 @@ namespace UniqueDeclaration
         private void dtModifyAfterHeadAddRow()
         {
             DataRow newRow = dtModifyAfterHead.NewRow();
+            newRow["制造通知单id"] = OrderId;
+            newRow["制造通知单明细表id"] = OrderListId;
+            if (Pid == 0)
+            {
+                newRow["产品id"] = DBNull.Value;
+            }
+            else
+            {
+                newRow["产品id"] = Pid;
+            }
+            if (Fid == 0)
+            {
+                newRow["配件id"] = DBNull.Value;
+            }
+            else
+            {
+                newRow["配件id"] = Fid;
+            }
             newRow["数量"] = "0.0";
             dtModifyAfterHead.Rows.Add(newRow);
         }
@@ -1567,6 +1591,24 @@ namespace UniqueDeclaration
         private void dtModifyAfterDetailAddRow()
         {
             DataRow newRow = dtModifyAfterDetail.NewRow();
+            newRow["制造通知单id"] = OrderId;
+            newRow["制造通知单明细表id"] = OrderListId;
+            if (Pid == 0)
+            {
+                newRow["产品id"] = DBNull.Value;
+            }
+            else
+            {
+                newRow["产品id"] = Pid;
+            }
+            if (Fid == 0)
+            {
+                newRow["配件id"] = DBNull.Value;
+            }
+            else
+            {
+                newRow["配件id"] = Fid;
+            }
             newRow["单位"] = "KGS";
             newRow["区域"] = "A";
             newRow["数量"] = "0.00000";
@@ -1902,18 +1944,18 @@ namespace UniqueDeclaration
                     DataRow row = dtData.Rows[0];
                     dgv.Rows[cell.RowIndex].Cells["项号"].Value = dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 2) + "-"
                         + dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(3, 2);
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dgv.Rows[cell.RowIndex].Cells["商品编码"].Value.ToString();
-                    if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 1) == "A" ||
-                        dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 1) == "B")
+                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
+                    if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "A" ||
+                        dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "B")
                     {
                         dgv.Rows[cell.RowIndex].Cells["编号"].Value = dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 8);
                     }
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dgv.Rows[cell.RowIndex].Cells["商品编码"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = dgv.Rows[cell.RowIndex].Cells["商品名称"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = dgv.Rows[cell.RowIndex].Cells["规格型号"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = dgv.Rows[cell.RowIndex].Cells["计量单位"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
+                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = row["商品名称"];
+                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = row["商品规格"];
+                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = row["计量单位"];
                     dgv.Rows[cell.RowIndex].Cells["单耗单位"].Value = "KGS";
-                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = row["损耗率"];
                 }
             }
             return true;
@@ -1994,18 +2036,18 @@ namespace UniqueDeclaration
                     DataRow row = dtData.Rows[0];
                     dgv.Rows[cell.RowIndex].Cells["项号"].Value = dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 2) + "-"
                         + dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(3, 2);
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dgv.Rows[cell.RowIndex].Cells["商品编码"].Value.ToString();
-                    if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 1) == "A" ||
-                        dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 1) == "B")
+                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
+                    if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "A" ||
+                        dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "B")
                     {
                         dgv.Rows[cell.RowIndex].Cells["编号"].Value = dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 8);
                     }
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dgv.Rows[cell.RowIndex].Cells["商品编码"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = dgv.Rows[cell.RowIndex].Cells["商品名称"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = dgv.Rows[cell.RowIndex].Cells["规格型号"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = dgv.Rows[cell.RowIndex].Cells["计量单位"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
+                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = row["商品名称"];
+                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = row["商品规格"];
+                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = row["计量单位"];
                     dgv.Rows[cell.RowIndex].Cells["单耗单位"].Value = "KGS";
-                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = row["损耗率"];
                 }
             }
             return true;
@@ -2035,7 +2077,7 @@ namespace UniqueDeclaration
                         dgv.Rows[cell.RowIndex].Cells["单耗"].Value = Convert.ToDecimal(cell.EditedFormattedValue) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["换算率"].Value);
                     } 
                     dtModifyAfterHead.Rows[cell.RowIndex].EndEdit();
-                    SaveModifyAfterHead();
+                    //SaveModifyAfterHead();
                     check库存量(dgv, cell);
                 }
                 catch
@@ -2074,7 +2116,7 @@ namespace UniqueDeclaration
                         dgv.Rows[cell.RowIndex].Cells["单耗"].Value = Convert.ToDecimal(cell.EditedFormattedValue) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["数量"].Value);
                     }
                     dtModifyAfterHead.Rows[cell.RowIndex].EndEdit();
-                    SaveModifyAfterHead();
+                    //SaveModifyAfterHead();
                     check库存量(dgv, cell);
                 }
                 catch
@@ -2345,12 +2387,14 @@ namespace UniqueDeclaration
             dataAccess.Open();
             DataTable dtData = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
+            object 编号 = string.Empty;
             if (dtData.Rows.Count == 1)
             {
                 DataRow row = dtData.Rows[0];
                 dgv.Rows[cell.RowIndex].Cells["料件id"].Value = row["料件id"];
                 dgv.Rows[cell.RowIndex].Cells["料件型号"].Value = row["料件型号"];
                 dgv.Rows[cell.RowIndex].Cells["编号"].Value = row["显示型号"];
+                编号 = row["显示型号"];
                 dgv.Rows[cell.RowIndex].Cells["品名"].Value = row["料件名"];
                 if(row["显示型号"] == DBNull.Value || row["显示型号"].ToString().Trim()=="")
                 {
@@ -2376,6 +2420,7 @@ namespace UniqueDeclaration
                     dgv.Rows[cell.RowIndex].Cells["料件id"].Value = formSelect.returnRow["料件id"];
                     dgv.Rows[cell.RowIndex].Cells["型号"].Value = formSelect.returnRow["料件型号"];
                     dgv.Rows[cell.RowIndex].Cells["显示型号"].Value = formSelect.returnRow["显示型号"];
+                    编号 = formSelect.returnRow["显示型号"];
                     dgv.Rows[cell.RowIndex].Cells["品名"].Value = formSelect.returnRow["料件名"];
                     if (formSelect.returnRow["显示型号"] == DBNull.Value || formSelect.returnRow["显示型号"].ToString().Trim() == "")
                     {
@@ -2414,13 +2459,14 @@ namespace UniqueDeclaration
                 if (dtData.Rows.Count > 0)
                 {
                     DataRow row = dtData.Rows[0];
-                    dgv.Rows[cell.RowIndex].Cells["序号"].Value = dgv.Rows[cell.RowIndex].Cells["序号"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dgv.Rows[cell.RowIndex].Cells["商品编码"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = dgv.Rows[cell.RowIndex].Cells["商品名称"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = dgv.Rows[cell.RowIndex].Cells["商品规格"].Value.ToString();
-                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = dgv.Rows[cell.RowIndex].Cells["计量单位"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["序号"].Value = row["序号"];
+                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
+                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = row["商品名称"];
+                    dgv.Rows[cell.RowIndex].Cells["规格型号"].Value = row["商品规格"];
+                    dgv.Rows[cell.RowIndex].Cells["计量单位"].Value = row["计量单位"];
                     dgv.Rows[cell.RowIndex].Cells["单位"].Value = "KGS";
-                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString();
+                    dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = row["损耗率"];
+                    dgv.Rows[cell.RowIndex].Cells["编号"].Value = 编号;
                 }
             }
             return true;
@@ -2446,7 +2492,7 @@ namespace UniqueDeclaration
                     dgv.Rows[cell.RowIndex].Cells["数量"].Value = cell.EditedFormattedValue;
                     //dtModifyAfterDetail.Rows[cell.RowIndex].EndEdit();
                     (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
-                    SaveModifyAfterDetail();
+                    //SaveModifyAfterDetail();
                     check库存量(dgv, cell);
                 }
                 catch
@@ -2475,7 +2521,7 @@ namespace UniqueDeclaration
                     dgv.Rows[cell.RowIndex].Cells["损耗率"].Value = cell.EditedFormattedValue;
                     //dtModifyAfterDetail.Rows[cell.RowIndex].EndEdit();
                     (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
-                    SaveModifyAfterDetail();
+                    //SaveModifyAfterDetail();
                     check库存量(dgv, cell);
                 }
                 catch
@@ -2492,6 +2538,7 @@ namespace UniqueDeclaration
             base.tool_Save_Click(sender, e);
             SaveModifyAfterHead();
             SaveModifyAfterDetail();
+            LoadDataSource();
             //dtModifyAfterDetail.AcceptChanges();
             //dtModifyAfterHead.AcceptChanges();
         }
@@ -2687,8 +2734,8 @@ namespace UniqueDeclaration
                     if (!b显示型号)
                     {
                         DataRow newRow = dtModifyAfterHead.NewRow();
-                        newRow["订单id"] = OrderId;
-                        newRow["订单明细表id"] = OrderListId;
+                        newRow["制造通知单id"] = OrderId;
+                        newRow["制造通知单明细表id"] = OrderListId;
                         newRow["产品id"] = Pid;
                         newRow["配件id"] = Fid;
                         newRow["料件id"] = row["料件id"];
@@ -2752,8 +2799,8 @@ namespace UniqueDeclaration
                         newRow["数量"] = 0;
                         newRow["单位"] = "KGS";
                         newRow["区域"] = "A";
-                        newRow["订单id"] = OrderId;
-                        newRow["订单明细表id"] = OrderListId;
+                        newRow["制造通知单id"] = OrderId;
+                        newRow["制造通知单明细表id"] = OrderListId;
                         newRow["产品id"] = Pid;
                         newRow["配件id"] = Fid;
                         newRow["料件id"] = row["料件id"];

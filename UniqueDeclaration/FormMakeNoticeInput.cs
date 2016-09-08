@@ -1886,7 +1886,7 @@ namespace UniqueDeclaration
             {
                 string strSQL = string.Format(@"select 商品编号,品名规格型号,单位 from 出口成品表,手册资料表 
                                                             where  出口成品表.手册id=手册资料表.手册id and 手册资料表.手册编号='{0}' and 序号={1}",
-                                                cbox_电子帐册号.Text, dgv["成品项号", cell.RowIndex].Value);
+                                                cbox_电子帐册号.Text, cell.EditedFormattedValue);
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
                 dataAccess.Open();
                 DataTable dtQueryList = dataAccess.GetTable(strSQL, null);

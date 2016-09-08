@@ -40,6 +40,11 @@ namespace UniqueDeclarationBaseForm
 
         }
 
+        public virtual void tool1_Import_Click(object sender, EventArgs e)
+        {
+
+        }
+
         public virtual void tool1_Modify_Click(object sender, EventArgs e)
         {
 
@@ -84,5 +89,6 @@ namespace UniqueDeclarationBaseForm
         {
 
         }
+
     }
 }

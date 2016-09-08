@@ -29,10 +29,21 @@
         private void InitializeComponent()
         {
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.tool1_First = new System.Windows.Forms.ToolStripButton();
+            this.tool1_up = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Down = new System.Windows.Forms.ToolStripButton();
+            this.tool1_End = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool1_Import = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Modify = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Delete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool1_BOM = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool1_Query = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool1_Print = new System.Windows.Forms.ToolStripButton();
+            this.tool1_ExportExcel = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new UniqueDeclarationBaseForm.Controls.myTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -43,16 +54,6 @@
             this.btnExportExcel = new UniqueDeclarationBaseForm.Controls.myButton();
             this.btnDelete = new UniqueDeclarationBaseForm.Controls.myButton();
             this.myCheckBox1 = new UniqueDeclarationBaseForm.Controls.myCheckBox();
-            this.tool1_First = new System.Windows.Forms.ToolStripButton();
-            this.tool1_up = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Down = new System.Windows.Forms.ToolStripButton();
-            this.tool1_End = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Modify = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Delete = new System.Windows.Forms.ToolStripButton();
-            this.tool1_BOM = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Query = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Print = new System.Windows.Forms.ToolStripButton();
-            this.tool1_ExportExcel = new System.Windows.Forms.ToolStripButton();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -68,6 +69,7 @@
             this.tool1_Down,
             this.tool1_End,
             this.toolStripSeparator1,
+            this.tool1_Import,
             this.tool1_Modify,
             this.tool1_Delete,
             this.toolStripSeparator2,
@@ -83,25 +85,138 @@
             this.toolStrip2.TabIndex = 2;
             this.toolStrip2.Text = "toolStrip2";
             // 
+            // tool1_First
+            // 
+            this.tool1_First.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_First.Image = global::UniqueDeclarationBaseForm.Properties.Resources.first_24px;
+            this.tool1_First.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_First.Name = "tool1_First";
+            this.tool1_First.Size = new System.Drawing.Size(23, 22);
+            this.tool1_First.Text = "首笔";
+            this.tool1_First.Click += new System.EventHandler(this.tool1_First_Click);
+            // 
+            // tool1_up
+            // 
+            this.tool1_up.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_up.Image = global::UniqueDeclarationBaseForm.Properties.Resources.back_24px;
+            this.tool1_up.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_up.Name = "tool1_up";
+            this.tool1_up.Size = new System.Drawing.Size(23, 22);
+            this.tool1_up.Text = "上笔";
+            this.tool1_up.Click += new System.EventHandler(this.tool1_up_Click);
+            // 
+            // tool1_Down
+            // 
+            this.tool1_Down.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Down.Image = global::UniqueDeclarationBaseForm.Properties.Resources.next_24px;
+            this.tool1_Down.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Down.Name = "tool1_Down";
+            this.tool1_Down.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Down.Text = "下笔";
+            this.tool1_Down.Click += new System.EventHandler(this.tool1_Down_Click);
+            // 
+            // tool1_End
+            // 
+            this.tool1_End.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_End.Image = global::UniqueDeclarationBaseForm.Properties.Resources.last_24px;
+            this.tool1_End.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_End.Name = "tool1_End";
+            this.tool1_End.Size = new System.Drawing.Size(23, 22);
+            this.tool1_End.Text = "末笔";
+            this.tool1_End.Click += new System.EventHandler(this.tool1_End_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tool1_Import
+            // 
+            this.tool1_Import.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Import.Image = global::UniqueDeclarationBaseForm.Properties.Resources.shopping_webshop_24px;
+            this.tool1_Import.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Import.Name = "tool1_Import";
+            this.tool1_Import.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Import.Text = "导入BOM";
+            this.tool1_Import.Visible = false;
+            this.tool1_Import.Click += new System.EventHandler(this.tool1_Import_Click);
+            // 
+            // tool1_Modify
+            // 
+            this.tool1_Modify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Modify.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Edit_24px;
+            this.tool1_Modify.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Modify.Name = "tool1_Modify";
+            this.tool1_Modify.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Modify.Text = "修改";
+            this.tool1_Modify.Click += new System.EventHandler(this.tool1_Modify_Click);
+            // 
+            // tool1_Delete
+            // 
+            this.tool1_Delete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Delete.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Delete_24px;
+            this.tool1_Delete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Delete.Name = "tool1_Delete";
+            this.tool1_Delete.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Delete.Text = "删除";
+            this.tool1_Delete.Click += new System.EventHandler(this.tool1_Delete_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
+            // tool1_BOM
+            // 
+            this.tool1_BOM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_BOM.Image = global::UniqueDeclarationBaseForm.Properties.Resources.structure_24px;
+            this.tool1_BOM.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_BOM.Name = "tool1_BOM";
+            this.tool1_BOM.Size = new System.Drawing.Size(23, 22);
+            this.tool1_BOM.Text = "Bom";
+            this.tool1_BOM.Click += new System.EventHandler(this.tool1_BOM_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
+            // tool1_Query
+            // 
+            this.tool1_Query.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Query.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Find_24px;
+            this.tool1_Query.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Query.Name = "tool1_Query";
+            this.tool1_Query.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Query.Text = "查询";
+            this.tool1_Query.ToolTipText = "查询";
+            this.tool1_Query.Click += new System.EventHandler(this.tool1_Query_Click);
+            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tool1_Print
+            // 
+            this.tool1_Print.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Print.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Print_24px;
+            this.tool1_Print.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Print.Name = "tool1_Print";
+            this.tool1_Print.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Print.Text = "打印";
+            this.tool1_Print.Visible = false;
+            this.tool1_Print.Click += new System.EventHandler(this.tool1_Print_Click);
+            // 
+            // tool1_ExportExcel
+            // 
+            this.tool1_ExportExcel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_ExportExcel.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Excel_2013_24px;
+            this.tool1_ExportExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_ExportExcel.Name = "tool1_ExportExcel";
+            this.tool1_ExportExcel.Size = new System.Drawing.Size(23, 22);
+            this.tool1_ExportExcel.Text = "导出EXCEL";
+            this.tool1_ExportExcel.Click += new System.EventHandler(this.tool1_ExportExcel_Click);
             // 
             // splitContainer1
             // 
@@ -211,108 +326,6 @@
             this.myCheckBox1.Text = "导出实重";
             this.myCheckBox1.UseVisualStyleBackColor = true;
             // 
-            // tool1_First
-            // 
-            this.tool1_First.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_First.Image = global::UniqueDeclarationBaseForm.Properties.Resources.first_24px;
-            this.tool1_First.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_First.Name = "tool1_First";
-            this.tool1_First.Size = new System.Drawing.Size(23, 22);
-            this.tool1_First.Text = "首笔";
-            this.tool1_First.Click += new System.EventHandler(this.tool1_First_Click);
-            // 
-            // tool1_up
-            // 
-            this.tool1_up.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_up.Image = global::UniqueDeclarationBaseForm.Properties.Resources.back_24px;
-            this.tool1_up.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_up.Name = "tool1_up";
-            this.tool1_up.Size = new System.Drawing.Size(23, 22);
-            this.tool1_up.Text = "上笔";
-            this.tool1_up.Click += new System.EventHandler(this.tool1_up_Click);
-            // 
-            // tool1_Down
-            // 
-            this.tool1_Down.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Down.Image = global::UniqueDeclarationBaseForm.Properties.Resources.next_24px;
-            this.tool1_Down.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Down.Name = "tool1_Down";
-            this.tool1_Down.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Down.Text = "下笔";
-            this.tool1_Down.Click += new System.EventHandler(this.tool1_Down_Click);
-            // 
-            // tool1_End
-            // 
-            this.tool1_End.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_End.Image = global::UniqueDeclarationBaseForm.Properties.Resources.last_24px;
-            this.tool1_End.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_End.Name = "tool1_End";
-            this.tool1_End.Size = new System.Drawing.Size(23, 22);
-            this.tool1_End.Text = "末笔";
-            this.tool1_End.Click += new System.EventHandler(this.tool1_End_Click);
-            // 
-            // tool1_Modify
-            // 
-            this.tool1_Modify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Modify.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Edit_24px;
-            this.tool1_Modify.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Modify.Name = "tool1_Modify";
-            this.tool1_Modify.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Modify.Text = "修改";
-            this.tool1_Modify.Click += new System.EventHandler(this.tool1_Modify_Click);
-            // 
-            // tool1_Delete
-            // 
-            this.tool1_Delete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Delete.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Delete_24px;
-            this.tool1_Delete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Delete.Name = "tool1_Delete";
-            this.tool1_Delete.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Delete.Text = "删除";
-            this.tool1_Delete.Click += new System.EventHandler(this.tool1_Delete_Click);
-            // 
-            // tool1_BOM
-            // 
-            this.tool1_BOM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_BOM.Image = global::UniqueDeclarationBaseForm.Properties.Resources.structure_24px;
-            this.tool1_BOM.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_BOM.Name = "tool1_BOM";
-            this.tool1_BOM.Size = new System.Drawing.Size(23, 22);
-            this.tool1_BOM.Text = "Bom";
-            this.tool1_BOM.Click += new System.EventHandler(this.tool1_BOM_Click);
-            // 
-            // tool1_Query
-            // 
-            this.tool1_Query.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Query.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Find_24px;
-            this.tool1_Query.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Query.Name = "tool1_Query";
-            this.tool1_Query.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Query.Text = "查询";
-            this.tool1_Query.ToolTipText = "查询";
-            this.tool1_Query.Click += new System.EventHandler(this.tool1_Query_Click);
-            // 
-            // tool1_Print
-            // 
-            this.tool1_Print.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Print.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Print_24px;
-            this.tool1_Print.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Print.Name = "tool1_Print";
-            this.tool1_Print.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Print.Text = "打印";
-            this.tool1_Print.Visible = false;
-            this.tool1_Print.Click += new System.EventHandler(this.tool1_Print_Click);
-            // 
-            // tool1_ExportExcel
-            // 
-            this.tool1_ExportExcel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_ExportExcel.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Excel_2013_24px;
-            this.tool1_ExportExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_ExportExcel.Name = "tool1_ExportExcel";
-            this.tool1_ExportExcel.Size = new System.Drawing.Size(23, 22);
-            this.tool1_ExportExcel.Text = "导出EXCEL";
-            this.tool1_ExportExcel.Click += new System.EventHandler(this.tool1_ExportExcel_Click);
-            // 
             // FormBaseQueryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -365,5 +378,6 @@
         public Controls.myButton btnExportExcel;
         public Controls.myButton btnDelete;
         private Controls.myCheckBox myCheckBox1;
+        public System.Windows.Forms.ToolStripButton tool1_Import;
     }
 }

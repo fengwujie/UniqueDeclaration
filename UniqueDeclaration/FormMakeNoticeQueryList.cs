@@ -258,17 +258,7 @@ namespace UniqueDeclaration
         #region Form事件及其他控件事件
         private void FormOrderQueryList_Load(object sender, EventArgs e)
         {
-            /*
-            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-            dataAccess.Open();
-            string strSQL = "SELECT 报关预先订单表.* FROM 报关预先订单表 " + (gstrWhere.Length>0 ? " where " : "") + gstrWhere;
-            DataTable dtHead = dataAccess.GetTable(strSQL, null);
-            dataAccess.Close();
-            bTriggerGridViewHead_SelectionChanged = false;
-            this.dataGridViewHead.DataSource = dtHead;
-            bTriggerGridViewHead_SelectionChanged = true;
-            this.dataGridViewHead_SelectionChanged(null, null);
-             * */
+            this.tool1_Import.Visible = true;
             LoadDataSourceHead();
         }
         //明细页签变化事件
@@ -342,6 +332,92 @@ namespace UniqueDeclaration
             this.dataGridViewHead.Rows[this.dataGridViewHead.RowCount - 1].Selected = true;
             this.dataGridViewHead.CurrentCell = this.dataGridViewHead.Rows[this.dataGridViewHead.RowCount - 1].Cells["导单"];
             setTool1Enabled();
+        }
+
+        public override void tool1_Import_Click(object sender, EventArgs e)
+        {
+            base.tool1_Import_Click(sender, e);
+            if (this.dataGridViewDetails.CurrentRow == null) return;
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            try
+            {
+                DataTable dtDetails = (DataTable)this.dataGridViewDetails.DataSource;
+                long Pid, Fid, OrderID, OrderListID;
+                StringBuilder strBuilder = new StringBuilder();
+                DataTable dtTemp = null;
+                OrderID = this.dataGridViewHead.CurrentRow.Cells["制造通知单id"].Value == DBNull.Value ? 0 : Convert.ToInt64(this.dataGridViewHead.CurrentRow.Cells["制造通知单id"].Value);
+                foreach (DataRow rowD in dtDetails.Rows)
+                {
+                    strBuilder.Clear();
+                    Pid = rowD["产品id"] == DBNull.Value ? 0 : Convert.ToInt64(rowD["产品id"]);
+                    Fid = rowD["配件id"] == DBNull.Value ? 0 : Convert.ToInt64(rowD["配件id"]);
+                    OrderListID = rowD["制造通知单明细表id"] == DBNull.Value ? 0 : Convert.ToInt64(rowD["制造通知单明细表id"]);
+                    if (Fid == 0)
+                    {
+                        strBuilder.AppendLine(string.Format("delete from 产品配件改样报关前材料明细表  where 制造通知单id ={0} and 制造通知单明细表id ={1} and 产品id ={2}", OrderID, OrderListID, Pid));
+                        strBuilder.AppendLine(string.Format("delete from 产品配件改样报关前材料表 where 制造通知单id ={0} and 制造通知单明细表id ={1} and 产品id ={2}", OrderID, OrderListID, Pid));
+                    }
+                    else
+                    {
+                        strBuilder.AppendLine(string.Format("delete from 产品配件改样报关前材料明细表  where 制造通知单id ={0} and 制造通知单明细表id ={1} and 配件id ={2}", OrderID, OrderListID, Fid));
+                        strBuilder.AppendLine(string.Format("delete from 产品配件改样报关前材料表 where 制造通知单id ={0} and 制造通知单明细表id ={1} and 配件id ={2}", OrderID, OrderListID, Fid));
+                    }
+                    dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
+                    if (rowD["订单id"] != DBNull.Value)
+                    {
+                        strBuilder.Clear();
+                        if (Pid != 0)
+                        {
+                            strBuilder.AppendLine(string.Format("select 订单id,订单明细表id,产品id from 报关预先订单明细表 WHERE 订单id={0} and 产品id={1}", rowD["订单id"], Pid));
+                            dtTemp = dataAccess.GetTable(strBuilder.ToString(), null);
+                            strBuilder.Clear();
+                            if (dtTemp.Rows.Count > 0)
+                            {
+                                strBuilder.AppendLine(string.Format(@"INSERT INTO 产品配件改样报关前材料明细表(制造通知单id,制造通知单明细表id,产品id,配件id,料件id,型号,显示型号,品名,
+                                                                                项号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,单耗,单耗单位,损耗率,换算率) 
+                                                                        SELECT {0},{1},产品id,配件id,料件id,型号,显示型号,品名,项号,编号,商品编码,商品名称,规格型号,
+                                                                                计量单位,数量,单位,单耗,单耗单位,损耗率,换算率 From 产品配件改样报关订单材料明细表 
+                                                                            WHERE 订单id={2} and 订单明细表id={3} and 产品id={4}",
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["订单id"], dtTemp.Rows[0]["订单明细表id"], dtTemp.Rows[0]["产品id"]));
+                                strBuilder.AppendLine(string.Format(@"INSERT INTO 产品配件改样报关前材料表(制造通知单id,制造通知单明细表id,产品id,配件id,料件id,序号,编号,商品编码,
+                                                                                商品名称,规格型号,计量单位,数量,单位,备注,损耗率,区域) 
+                                                                        SELECT {0},{1},产品id,配件id,料件id,序号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,备注,损耗率,区域 
+                                                                                From 产品配件改样报关订单材料表 WHERE 订单id={2} and 订单明细表id={3} and 产品id={4}",
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["订单id"], dtTemp.Rows[0]["订单明细表id"], dtTemp.Rows[0]["产品id"]));
+                                dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
+                            }
+                        }
+                        else
+                        {
+                            strBuilder.AppendLine(string.Format("select 订单id,订单明细表id,配件id from 报关预先订单明细表 WHERE 订单id={0} and 配件id={1}", rowD["订单id"], Fid));
+                            dtTemp = dataAccess.GetTable(strBuilder.ToString(), null);
+                            strBuilder.Clear();
+                            if (dtTemp.Rows.Count > 0)
+                            {
+                                strBuilder.AppendLine(string.Format(@"INSERT INTO 产品配件改样报关前材料明细表(制造通知单id,制造通知单明细表id,产品id,配件id,料件id,型号,显示型号,
+                                                                                品名,项号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,单耗,单耗单位,损耗率,换算率) 
+                                                                        SELECT {0},{1},产品id,配件id,料件id,型号,显示型号,品名,项号,编号,商品编码,商品名称,规格型号,计量单位,
+                                                                                    数量,单位,单耗,单耗单位,损耗率,换算率 From 产品配件改样报关订单材料明细表 
+                                                                                WHERE 订单id={2} and 订单明细表id={3} and 配件id={4}",
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["订单id"], dtTemp.Rows[0]["订单明细表id"], dtTemp.Rows[0]["配件id"]));
+                                strBuilder.AppendLine(string.Format(@"INSERT INTO 产品配件改样报关前材料表(制造通知单id,制造通知单明细表id,产品id,配件id,料件id,序号,编号,商品编码,
+                                                                                商品名称,规格型号,计量单位,数量,单位,备注,损耗率,区域) 
+                                                                        SELECT {0},{1},产品id,配件id,料件id,序号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,备注,损耗率,区域 
+                                                                                From 产品配件改样报关订单材料表 WHERE 订单id={2} and 订单明细表id={3} and 配件id={4}",
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["订单id"], dtTemp.Rows[0]["订单明细表id"], dtTemp.Rows[0]["配件id"]));
+                                dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
+                            }
+                        }
+                    }
+                }
+                dataAccess.Close();
+            }
+            catch (Exception ex)
+            {
+                SysMessage.ErrorMsg(ex.Message);
+                dataAccess.Close();
+            }
         }
 
         public override void tool1_Modify_Click(object sender, EventArgs e)
