@@ -830,7 +830,7 @@ namespace UniqueDeclaration
             // 
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             DataGridViewTextBoxColumn 损耗率 = new DataGridViewTextBoxColumn();
-            dataGridViewCellStyle2.Format = "N1";
+            dataGridViewCellStyle2.Format = "N2";
             dataGridViewCellStyle2.NullValue = null;
             损耗率.DefaultCellStyle = dataGridViewCellStyle2;
             损耗率.DataPropertyName = "损耗率";
@@ -1214,10 +1214,10 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                                          row["料件id"] == DBNull.Value ? "NULL" : row["料件id"],
                                          row["料件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["料件型号"].ToString()),
                                          row["序号"] == DBNull.Value ? "NULL" : row["序号"],
-                                         row["料件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["料件型号"].ToString()),
                                          row["编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["编号"].ToString()),
                                          row["品名"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["品名"].ToString()),
-                                         row["商品编码"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["商品编码"].ToString()),
+                                         row["商品编码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["商品编码"].ToString()),
+                                         row["商品名称"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["商品名称"].ToString()),
                                          row["规格型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["规格型号"].ToString()),
                                          row["计量单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["计量单位"].ToString()),
                                          row["数量"] == DBNull.Value ? "NULL" : row["数量"],
@@ -1253,10 +1253,10 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                                          row["料件id"] == DBNull.Value ? "NULL" : row["料件id"],
                                          row["料件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["料件型号"].ToString()),
                                          row["序号"] == DBNull.Value ? "NULL" : row["序号"],
-                                         row["料件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["料件型号"].ToString()),
                                          row["编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["编号"].ToString()),
                                          row["品名"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["品名"].ToString()),
                                          row["商品编码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["商品编码"].ToString()),
+                                         row["商品名称"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["商品名称"].ToString()),
                                          row["规格型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["规格型号"].ToString()),
                                          row["计量单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["计量单位"].ToString()),
                                          row["数量"] == DBNull.Value ? "NULL" : row["数量"],
