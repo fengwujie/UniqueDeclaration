@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBaseInput));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridViewDetail = new UniqueDeclarationBaseForm.Controls.myDataGridView();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
@@ -39,6 +40,7 @@
             this.tool2_Import = new System.Windows.Forms.ToolStripButton();
             this.tool2_Add = new System.Windows.Forms.ToolStripButton();
             this.tool2_Delete = new System.Windows.Forms.ToolStripButton();
+            this.tool2_Number = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tool1_Add = new System.Windows.Forms.ToolStripButton();
@@ -88,7 +90,8 @@
             this.toolStripSeparator1,
             this.tool2_Import,
             this.tool2_Add,
-            this.tool2_Delete});
+            this.tool2_Delete,
+            this.tool2_Number});
             this.toolStrip2.Location = new System.Drawing.Point(3, 17);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(913, 25);
@@ -169,6 +172,17 @@
             this.tool2_Delete.Size = new System.Drawing.Size(23, 22);
             this.tool2_Delete.Text = "删除";
             this.tool2_Delete.Click += new System.EventHandler(this.tool2_Delete_Click);
+            // 
+            // tool2_Number
+            // 
+            this.tool2_Number.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool2_Number.Image = ((System.Drawing.Image)(resources.GetObject("tool2_Number.Image")));
+            this.tool2_Number.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool2_Number.Name = "tool2_Number";
+            this.tool2_Number.Size = new System.Drawing.Size(23, 22);
+            this.tool2_Number.Text = "编号";
+            this.tool2_Number.Visible = false;
+            this.tool2_Number.Click += new System.EventHandler(this.tool2_Number_Click);
             // 
             // groupBox1
             // 
@@ -262,5 +276,6 @@
         public System.Windows.Forms.ToolStripButton tool2_Delete;
         public System.Windows.Forms.ToolStrip toolStrip1;
         public Controls.myDataGridView dataGridViewDetail;
+        public System.Windows.Forms.ToolStripButton tool2_Number;
     }
 }

@@ -115,6 +115,7 @@ namespace UniqueDeclaration
                 dataAccess.Close();
                 bTriggerGridViewHead_SelectionChanged = false;
                 this.myDataGridViewHead.DataSource = dtHead;
+                DataTableTools.AddEmptyRow(dtHead);
                 bTriggerGridViewHead_SelectionChanged = true;
                 this.myDataGridViewHead_SelectionChanged(null, null);
             }
@@ -134,8 +135,11 @@ namespace UniqueDeclaration
                 string strBooksNo = string.Empty;
                 if (this.myDataGridViewHead.CurrentRow !=null)
                 {
-                    iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["料件出库表id"].Value;
-                    strBooksNo = this.myDataGridViewHead.CurrentRow.Cells["电子帐册号"].Value.ToString();
+                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["料件出库表id"].Value != DBNull.Value)
+                    {
+                        iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["料件出库表id"].Value;
+                        strBooksNo = this.myDataGridViewHead.CurrentRow.Cells["电子帐册号"].Value.ToString();
+                    }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
@@ -143,7 +147,7 @@ namespace UniqueDeclaration
                 string strSQL = string.Format("exec 进口料件出库修改查询 {0},{1}", iOrderID,StringTools.SqlQ( strBooksNo));
                 DataTable dtDetails = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
-
+                DataTableTools.AddEmptyRow(dtDetails);
                 this.myDataGridViewDetails.DataSource = dtDetails;
             }
             catch (Exception ex)

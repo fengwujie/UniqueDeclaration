@@ -52,13 +52,9 @@ namespace UniqueDeclaration
                 DataTable dtHead = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
                 bTriggerGridViewHead_SelectionChanged = false;
+                DataTableTools.AddEmptyRow(dtHead);
                 this.dataGridViewHead.DataSource = dtHead;
                 bTriggerGridViewHead_SelectionChanged = true;
-                //if (this.dataGridViewHead.RowCount > 0)
-                //{
-                //    this.dataGridViewHead.CurrentCell = this.dataGridViewHead.Rows[0].Cells["订单号码"];
-                //    this.dataGridViewHead.Rows[0].Selected = true;
-                //}
                 this.dataGridViewHead_SelectionChanged(null, null);
             }
             catch (Exception ex)
@@ -94,7 +90,8 @@ namespace UniqueDeclaration
                 int iOrderID = 0;
                 if (this.dataGridViewHead.CurrentRow.Index >= 0)
                 {
-                    iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
+                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value !=DBNull.Value)
+                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
@@ -102,7 +99,7 @@ namespace UniqueDeclaration
                 string strSQL = string.Format("exec 报关预先订单录入查询 {0}",iOrderID);
                 DataTable dtDetails = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
-
+                DataTableTools.AddEmptyRow(dtDetails);
                 this.dataGridViewDetails.DataSource = dtDetails;
             }
             catch (Exception ex)
@@ -139,15 +136,18 @@ namespace UniqueDeclaration
                 string strBooksNo = string.Empty;
                 if (this.dataGridViewHead.CurrentRow.Index >= 0)
                 {
-                    iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
-                    strBooksNo = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value != DBNull.Value)
+                    {
+                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
+                        strBooksNo = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+                    }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
                 string strSQL = string.Format("exec 预先订单用量明细 {0},{1}", iOrderID, strBooksNo);
                 DataTable dtMergeAfterSumCount = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
-
+                DataTableTools.AddEmptyRow(dtMergeAfterSumCount);
                 this.dataGridViewMergeAfterSumCount.DataSource = dtMergeAfterSumCount;
                 //this.dataGridViewMergeAfterSumCount.Columns["单耗"].Visible = false;
             }
@@ -185,15 +185,18 @@ namespace UniqueDeclaration
                 string strBooksNo = string.Empty;
                 if (this.dataGridViewHead.CurrentRow.Index >= 0)
                 {
-                    iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
-                    strBooksNo = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value != DBNull.Value)
+                    {
+                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
+                        strBooksNo = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+                    }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
                 string strSQL = string.Format("exec 预先订单归并前用量明细 {0},{1}", iOrderID, strBooksNo);
                 DataTable dtMergeBeforeSumCount = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
-
+                DataTableTools.AddEmptyRow(dtMergeBeforeSumCount);
                 this.dataGridViewMergeBeforeSumCount.DataSource = dtMergeBeforeSumCount;
             }
             catch (Exception ex)
@@ -230,15 +233,18 @@ namespace UniqueDeclaration
                 string strBooksNo = string.Empty;
                 if (this.dataGridViewHead.CurrentRow.Index >= 0)
                 {
-                    iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
-                    strBooksNo = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value != DBNull.Value)
+                    {
+                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
+                        strBooksNo = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+                    }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
                 string strSQL = string.Format("exec 预先订单归并前明细用量明细 {0},'{1}'", iOrderID, strBooksNo);
                 DataTable dtMergeBeforeDetailsSumCount = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
-
+                DataTableTools.AddEmptyRow(dtMergeBeforeDetailsSumCount);
                 this.dataGridViewMergeBeforeDetailsSumCount.DataSource = dtMergeBeforeDetailsSumCount;
             }
             catch (Exception ex)

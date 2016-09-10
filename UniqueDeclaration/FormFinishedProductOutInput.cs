@@ -28,6 +28,7 @@ namespace UniqueDeclaration
         public override void FormBaseInput_Load(object sender, EventArgs e)
         {
             base.gstrDetailFirstField = "制造通知单号";
+            this.tool2_Number.Visible = true;
             base.FormBaseInput_Load(sender, e);
         }
         #endregion
@@ -823,6 +824,9 @@ namespace UniqueDeclaration
             dataAccess.Open();
             dtList = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
+            DataRow lastRow = (this.dataGridViewDetail.Rows[this.dataGridViewDetail.Rows.Count-1].DataBoundItem as DataRowView).Row;
+            if (lastRow["客人型号"] == DBNull.Value || lastRow["客人型号"].ToString()=="")
+                this.dataGridViewDetail.Rows.RemoveAt(this.dataGridViewDetail.Rows.Count - 1);
             foreach (DataRow row in dtList.Rows)
             {
                 DataRow newRow = dtDetails.NewRow();
@@ -850,6 +854,122 @@ namespace UniqueDeclaration
                 dtDetails.Rows.Add(newRow);
             }
             setTool1Enabled();
+        }
+
+        public override void tool2_Number_Click(object sender, EventArgs e)
+        {
+            base.tool2_Number_Click(sender, e);
+            if (dataGridViewDetail.Rows.Count > 0)
+            {
+                string strSQL = string.Format("SELECT 出口成品表.手册Id FROM 手册资料表 LEFT OUTER JOIN 出口成品表 ON 手册资料表.手册id = 出口成品表.手册Id where 手册资料表.手册编号='{0}'",cbox_电子帐册号.SelectedValue);
+                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                dataAccess.Open();
+                DataTable dtTemp = dataAccess.GetTable(strSQL, null);
+                dataAccess.Close();
+                if (dtTemp.Rows.Count == 0) return;
+                int m = dtTemp.Rows.Count;
+                long[] Numbers = new long[m];
+                long[] InNumbers = new long[m];
+                long IDValue = 0;
+                dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                dataAccess.Open();
+                foreach (DataRow row in dtDetails.Rows)
+                {
+                    if (row.RowState == DataRowState.Deleted) continue;
+
+                    #region 处理版本号
+                    if (row["版本号"] == DBNull.Value || row["版本号"].ToString() == "")
+                    {
+                        //如果成品项号为空时，不做版本号处理
+                        if (row["成品项号"] == DBNull.Value || row["成品项号"].ToString() == "")
+                        {
+                        }
+                        else
+                        {
+                            strSQL = string.Format(@"SELECT max(报关订单明细表.版本号) as 版本号 FROM 报关订单表 LEFT OUTER JOIN 报关订单明细表 ON 报关订单表.订单id =报关订单明细表.订单id 
+                                                        where 报关订单明细表.版本号 is not null and 报关订单表.手册编号='{0}' and 报关订单明细表.成品项号={1}",
+                                                            cbox_电子帐册号.SelectedValue, row["成品项号"]);
+                            dtTemp = dataAccess.GetTable(strSQL, null);
+                            if (dtTemp.Rows.Count > 0)
+                            {
+                                DataRow rowT = dtTemp.Rows[0];
+                                if (IDValue != ((row["产品id"] == DBNull.Value ? 0 : Convert.ToInt64(row["产品id"])) + 
+                                    (row["配件id"] == DBNull.Value ? 0 : Convert.ToInt64(row["配件id"]))))
+                                {
+                                    if (Numbers[Convert.ToInt64(row["成品项号"])] == 0)
+                                    {
+                                        row["版本号"] = (rowT["版本号"] == DBNull.Value ? 0 : Convert.ToInt64(rowT["版本号"])) + 1;
+                                        Numbers[Convert.ToInt64(row["成品项号"])] = Convert.ToInt64(rowT["版本号"]) + 1;
+                                    }
+                                    else
+                                    {
+                                        row["版本号"] = Numbers[Convert.ToInt64(row["成品项号"])] + 1;
+                                        Numbers[Convert.ToInt64(row["成品项号"])] = Numbers[Convert.ToInt64(row["成品项号"])] + 1;
+                                    }
+                                }
+                                else
+                                {
+                                    if (Numbers[Convert.ToInt64(row["成品项号"])] == 0)
+                                    {
+                                        row["版本号"] = (rowT["版本号"] == DBNull.Value ? 0 : Convert.ToInt64(rowT["版本号"]));
+                                        Numbers[Convert.ToInt64(row["成品项号"])] = Convert.ToInt64(rowT["版本号"]);
+                                    }
+                                    else
+                                    {
+                                        row["版本号"] = Numbers[Convert.ToInt64(row["成品项号"])];
+                                        Numbers[Convert.ToInt64(row["成品项号"])] = Numbers[Convert.ToInt64(row["成品项号"])];
+                                    }
+                                }
+                                /*
+                                 */
+                            }
+                            else
+                            {
+                                row["版本号"] = 1;
+                            }
+                        }
+                    }
+                    #endregion
+
+                    #region 处理内部版本号
+                    if (row["内部版本号"] == DBNull.Value || row["内部版本号"].ToString() == "")
+                    {
+                        //如果成品项号为空时，不做版本号处理
+                        if (row["成品项号"] == DBNull.Value || row["成品项号"].ToString() == "")
+                        {
+                        }
+                        else
+                        {
+                            strSQL = string.Format(@"SELECT max(报关订单明细表.内部版本号) as 内部版本号 FROM 报关订单表 LEFT OUTER JOIN 报关订单明细表 ON 报关订单表.订单id =报关订单明细表.订单id 
+                                                        where 报关订单明细表.版本号 is not null and 报关订单表.手册编号='{0}' and 报关订单明细表.成品项号={1}",
+                                                            cbox_电子帐册号.SelectedValue, row["成品项号"]);
+                            dtTemp = dataAccess.GetTable(strSQL, null);
+                            if (dtTemp.Rows.Count > 0)
+                            {
+                                DataRow rowT = dtTemp.Rows[0];
+                                if (InNumbers[Convert.ToInt64(row["成品项号"])] == 0)
+                                {
+                                    row["内部版本号"] = (rowT["内部版本号"] == DBNull.Value ? 0 : Convert.ToInt64(rowT["内部版本号"])) + 1;
+                                    InNumbers[Convert.ToInt64(row["成品项号"])] = Convert.ToInt64(rowT["内部版本号"]) + 1;
+                                }
+                                else
+                                {
+                                    row["内部版本号"] = InNumbers[Convert.ToInt64(row["成品项号"])];
+                                }
+                            }
+                            else
+                            {
+                                row["内部版本号"] = 1;
+                            }
+                        }
+                    }
+                    #endregion
+
+                    IDValue = ((row["产品id"] == DBNull.Value ? 0 : Convert.ToInt64(row["产品id"])) +
+                                    (row["配件id"] == DBNull.Value ? 0 : Convert.ToInt64(row["配件id"])));
+                }
+                dataAccess.Close();
+            }
         }
         #endregion
 

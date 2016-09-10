@@ -89,6 +89,7 @@ namespace UniqueDeclaration
                 DataTable dtHead = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
                 bTriggerGridViewHead_SelectionChanged = false;
+                DataTableTools.AddEmptyRow(dtHead);
                 this.dataGridViewHead.DataSource = dtHead;
                 bTriggerGridViewHead_SelectionChanged = true;
                 //if (this.dataGridViewHead.RowCount > 0)
@@ -131,7 +132,8 @@ namespace UniqueDeclaration
                 int iOrderID = 0;
                 if (this.dataGridViewHead.CurrentRow != null && this.dataGridViewHead.CurrentRow.Index >= 0)
                 {
-                    iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
+                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value != DBNull.Value)
+                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
@@ -139,6 +141,7 @@ namespace UniqueDeclaration
                 DataTable dtDetails = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
 
+                DataTableTools.AddEmptyRow(dtDetails);
                 this.dataGridViewDetails.DataSource = dtDetails;
             }
             catch (Exception ex)
@@ -175,8 +178,11 @@ namespace UniqueDeclaration
                 string strBooksNo = string.Empty;
                 if (this.dataGridViewHead.CurrentRow != null && this.dataGridViewHead.CurrentRow.Index >= 0)
                 {
-                    iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
-                    strBooksNo = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value != DBNull.Value)
+                    {
+                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
+                        strBooksNo = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+                    }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
@@ -184,6 +190,7 @@ namespace UniqueDeclaration
                 DataTable dtMergeBeforeDetailsSumCount = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
 
+                DataTableTools.AddEmptyRow(dtMergeBeforeDetailsSumCount);
                 this.dataGridViewDetailsSumCount.DataSource = dtMergeBeforeDetailsSumCount;
 
                 InitGridDetailsSumCount();

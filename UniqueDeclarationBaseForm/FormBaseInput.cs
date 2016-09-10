@@ -235,7 +235,12 @@ namespace UniqueDeclarationBaseForm
             this.dataGridViewDetail.Rows.RemoveAt(this.dataGridViewDetail.CurrentRow.Index);
             setTool1Enabled();
         }
-        
+        //编号（成品出货录入时用到）
+        public virtual void tool2_Number_Click(object sender, EventArgs e)
+        {
+
+        }
+
         /// <summary>
         /// 设置tools的按钮是否可用
         /// </summary>

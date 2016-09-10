@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTableTools.cs" />
     <Compile Include="ExcelCommonMethod.cs" />
     <Compile Include="ExcelTool.cs" />
     <Compile Include="StringTools.cs" />

@@ -138,14 +138,14 @@
             // FormMaterialsOut
             // 
             this.FormMaterialsOut.Name = "FormMaterialsOut";
-            this.FormMaterialsOut.Size = new System.Drawing.Size(152, 22);
+            this.FormMaterialsOut.Size = new System.Drawing.Size(148, 22);
             this.FormMaterialsOut.Text = "料件出库";
             this.FormMaterialsOut.Click += new System.EventHandler(this.FormMaterialsOut_Click);
             // 
             // FormMaterialsOutQueryCondition
             // 
             this.FormMaterialsOutQueryCondition.Name = "FormMaterialsOutQueryCondition";
-            this.FormMaterialsOutQueryCondition.Size = new System.Drawing.Size(152, 22);
+            this.FormMaterialsOutQueryCondition.Size = new System.Drawing.Size(148, 22);
             this.FormMaterialsOutQueryCondition.Text = "料件出库查询";
             this.FormMaterialsOutQueryCondition.Click += new System.EventHandler(this.FormMaterialsOutQueryCondition_Click);
             // 
@@ -160,7 +160,6 @@
             // 
             // FormFinishedProductOutInput
             // 
-            this.FormFinishedProductOutInput.Enabled = false;
             this.FormFinishedProductOutInput.Name = "FormFinishedProductOutInput";
             this.FormFinishedProductOutInput.Size = new System.Drawing.Size(152, 22);
             this.FormFinishedProductOutInput.Text = "成品出货录入";
