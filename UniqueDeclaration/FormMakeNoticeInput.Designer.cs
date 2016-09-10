@@ -201,7 +201,6 @@
             this.ClientSize = new System.Drawing.Size(919, 440);
             this.Name = "FormMakeNoticeInput";
             this.Text = "制造通知单录入";
-            this.Load += new System.EventHandler(this.FormOrderInput_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

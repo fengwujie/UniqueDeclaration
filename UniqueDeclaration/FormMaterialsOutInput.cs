@@ -273,7 +273,7 @@ namespace UniqueDeclaration
                 }
                 #endregion
 
-                if (SysMessage.YesNoMsg("要过帐吗？") == System.Windows.Forms.DialogResult.Yes)
+                if (!Convert.ToBoolean(rowHead["过帐标志"]) && SysMessage.YesNoMsg("要过帐吗？") == System.Windows.Forms.DialogResult.Yes)
                     rowHead["过帐标志"] = 1;
 
                 StringBuilder strBuilder = new StringBuilder();

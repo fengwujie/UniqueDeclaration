@@ -1099,38 +1099,6 @@ namespace UniqueDeclaration
 
         #region GRID事件
 
-        //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        //{
-        //    return base.ProcessCmdKey(ref msg, keyData);
-        //    //if (keyData == Keys.Enter && this.ActiveControl.GetType().Name == "DataGridViewTextBoxEditingControl")  //DataGridViewTextBoxColumn
-        //    //{
-        //    //    this.OnKeyPress(new KeyPressEventArgs('r'));
-        //    //    return true;
-        //    //}
-        //    //else
-        //    //    return base.ProcessCmdKey(ref msg, keyData);
-
-        //}
-
-        //public override void dataGridViewDetail_KeyPress(object sender, KeyPressEventArgs e)
-        //{
-        //    base.dataGridViewDetail_KeyPress(sender, e);
-        //    if (e.KeyChar == SystemConst.GridKeysEnter)
-        //    {
-        //        myDataGridView dgv = sender as myDataGridView;
-        //        DataGridViewCell cell = dgv.CurrentCell;
-        //        GridKeyEnter(dgv, cell,true);
-        //    }  
-        //}
-        
-        //public override void dataGridViewDetail_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    base.dataGridViewDetail_CellEndEdit(sender, e);
-        //    myDataGridView dgv = sender as myDataGridView;
-        //    DataGridViewCell cell = dgv[e.ColumnIndex, e.RowIndex];
-        //    GridKeyEnter(dgv, cell,false);
-        //}
-
         /// <summary>
         /// GRID的回车事件
         /// </summary>

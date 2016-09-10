@@ -26,15 +26,6 @@ namespace UniqueDeclaration
         private bool bcbox_电子帐册号_SelectedIndexChanged = true;
         #endregion
 
-        #region Form事件
-        private void FormOrderInput_Load(object sender, EventArgs e)
-        {
-            InitGrid();
-            InitControlData();
-            LoadDataSource();
-        }
-        #endregion
-
         #region 方法
         /// <summary>
         /// 初始化GRID
@@ -714,24 +705,6 @@ namespace UniqueDeclaration
                 dtDetails.Rows.Add(newRow);
             }
             setTool1Enabled();
-        }
-        /// <summary>
-        /// 根据产品ID获取产品颜色
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        private string GetColor(long id)
-        {
-            string cColorName = string.Empty;
-            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-            dataAccess.Open();
-            DataTable dtColor = dataAccess.GetTable(string.Format("select * from 产品资料表 where 产品id={0}", id), null);
-            dataAccess.Close();
-            if (dtColor.Rows.Count > 0)
-            {
-                cColorName = dtColor.Rows[0]["产品颜色"].ToString();
-            }
-            return cColorName;
         }
         #endregion
 
@@ -1734,7 +1707,7 @@ namespace UniqueDeclaration
                     dgv.CurrentCell = cell;
                     return false;
                 }
-                else if (dtQueryList.Rows.Count == 0)
+                else if (dtQueryList.Rows.Count == 1)
                 {
                     DataRow rowSelect = dtQueryList.Rows[0];
                     dgv.Rows[cell.RowIndex].Cells["型号"].Value = rowSelect["型号"];
