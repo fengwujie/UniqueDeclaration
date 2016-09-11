@@ -102,5 +102,10 @@ namespace UniqueDeclarationBaseForm
         {
 
         }
+
+        public virtual void tool_ExportExcel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

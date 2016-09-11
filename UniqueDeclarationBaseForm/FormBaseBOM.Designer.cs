@@ -60,6 +60,7 @@
             this.myContextModifyAfterDetail = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
             this.myContextMergerAfterHead = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
             this.myContextMergerAfterDetail = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
+            this.tool_ExportExcel = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.myTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -91,6 +92,7 @@
             this.toolStripSeparator1,
             this.tool_Import,
             this.toolStripSeparator2,
+            this.tool_ExportExcel,
             this.tool_Close});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -232,9 +234,9 @@
             // dgv_ModifyAfterHead
             // 
             this.dgv_ModifyAfterHead.AllowUserToAddRows = false;
-            this.dgv_ModifyAfterHead.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgv_ModifyAfterHead.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_ModifyAfterHead.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgv_ModifyAfterHead.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_ModifyAfterHead.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
@@ -329,9 +331,9 @@
             // dgv_ModifyAfterDetail
             // 
             this.dgv_ModifyAfterDetail.AllowUserToAddRows = false;
-            this.dgv_ModifyAfterDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgv_ModifyAfterDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_ModifyAfterDetail.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgv_ModifyAfterDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_ModifyAfterDetail.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
@@ -441,6 +443,17 @@
             this.myContextMergerAfterDetail.Name = "myContextMenuStripCell1";
             this.myContextMergerAfterDetail.Size = new System.Drawing.Size(101, 26);
             // 
+            // tool_ExportExcel
+            // 
+            this.tool_ExportExcel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool_ExportExcel.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Excel_2013_24px;
+            this.tool_ExportExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_ExportExcel.Name = "tool_ExportExcel";
+            this.tool_ExportExcel.Size = new System.Drawing.Size(23, 22);
+            this.tool_ExportExcel.Text = "toolStripButton1";
+            this.tool_ExportExcel.Visible = false;
+            this.tool_ExportExcel.Click += new System.EventHandler(this.tool_ExportExcel_Click);
+            // 
             // FormBaseBOM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -489,7 +502,6 @@
         public System.Windows.Forms.ToolStripButton tool_Import;
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         public System.Windows.Forms.ToolStripButton tool_Close;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -515,5 +527,7 @@
         public Controls.myContextMenuStripCell myContextMergerAfterDetail;
         public Controls.myLable myLable2;
         public Controls.myLable myLable1;
+        public System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.ToolStripButton tool_ExportExcel;
     }
 }

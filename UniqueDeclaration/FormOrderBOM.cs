@@ -994,6 +994,7 @@ namespace UniqueDeclaration
             InitMergeAfterDetail();
 
             LoadDataSource();
+            this.myTabControl1.SelectedIndex = 1;
         }
         private void FormOrderBOM_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1221,7 +1222,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                                          row["规格型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["规格型号"].ToString()),
                                          row["计量单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["计量单位"].ToString()),
                                          row["数量"] == DBNull.Value ? "NULL" : row["数量"],
-                                         row["数量"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["数量"].ToString()),
+                                         row["单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["单位"].ToString()),
                                          row["备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["备注"].ToString()),
                                          row["损耗率"] == DBNull.Value ? "NULL" : row["损耗率"],
                                          row["区域"] == DBNull.Value ? "NULL" : StringTools.SqlQ( row["区域"].ToString()));
@@ -1260,7 +1261,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                                          row["规格型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["规格型号"].ToString()),
                                          row["计量单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["计量单位"].ToString()),
                                          row["数量"] == DBNull.Value ? "NULL" : row["数量"],
-                                         row["数量"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["数量"].ToString()),
+                                         row["单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["单位"].ToString()),
                                          row["备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["备注"].ToString()),
                                          row["损耗率"] == DBNull.Value ? "NULL" : row["损耗率"],
                                          row["区域"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["区域"].ToString()),
@@ -1693,7 +1694,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        if (dgv.CurrentRow.Cells["数量"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        if (StringTools.decimalParse( dgv.CurrentRow.Cells["数量"].Value.ToString()) ==StringTools.decimalParse( cell.EditedFormattedValue.ToString()))
                         {
                             dgv.CurrentCell = dgv["损耗率", cell.RowIndex];
                         }
@@ -1710,7 +1711,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     }
                     else
                     {
-                        if (dgv.CurrentRow.Cells["数量"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        if (StringTools.decimalParse( dgv.CurrentRow.Cells["数量"].Value.ToString()) !=StringTools.decimalParse( cell.EditedFormattedValue.ToString()))
                         {
                             validate数量(dgv, cell);
                             //SaveModifyAfterHead();
@@ -1722,7 +1723,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        if (dgv.CurrentRow.Cells["换算率"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        if (StringTools.decimalParse( dgv.CurrentRow.Cells["换算率"].Value.ToString()) ==StringTools.decimalParse( cell.EditedFormattedValue.ToString()))
                         {
                             dgv.CurrentCell = dgv["单耗", cell.RowIndex];
                         }
@@ -1739,7 +1740,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     }
                     else
                     {
-                        if (dgv.CurrentRow.Cells["换算率"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        if (StringTools.decimalParse( dgv.CurrentRow.Cells["换算率"].Value.ToString()) !=StringTools.decimalParse( cell.EditedFormattedValue.ToString()))
                         {
                             validate换算率(dgv, cell);
                             //SaveModifyAfterHead();
@@ -1862,8 +1863,8 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 if (dtData.Rows.Count > 0)
                 {
                     DataRow row = dtData.Rows[0];
-                    dgv.Rows[cell.RowIndex].Cells["项号"].Value = dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 2) + "-"
-                        + dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(3, 2);
+                    dgv.Rows[cell.RowIndex].Cells["项号"].Value =StringTools.intParse( dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 2)) + "-"
+                        + StringTools.intParse( dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(3, 2));
                     dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
                     if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "A" ||
                         dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "B")
@@ -1952,8 +1953,8 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 if (dtData.Rows.Count > 0)
                 {
                     DataRow row = dtData.Rows[0];
-                    dgv.Rows[cell.RowIndex].Cells["项号"].Value = dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 2) + "-"
-                        + dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(3, 2);
+                    dgv.Rows[cell.RowIndex].Cells["项号"].Value =StringTools.intParse( dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 2)) + "-"
+                        + StringTools.intParse( dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(3, 2));
                     dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = row["商品编码"];
                     if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "A" ||
                         dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(0, 1) == "B")
@@ -1989,10 +1990,10 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 try
                 {
                     decimal.Parse(cell.EditedFormattedValue.ToString());
+                    dgv.Rows[cell.RowIndex].Cells["数量"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
                     if (dgv.Rows[cell.RowIndex].Cells["换算率"].Value != DBNull.Value)
                     {
                         //数量*换算率=单耗
-                        dgv.Rows[cell.RowIndex].Cells["数量"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
                         dgv.Rows[cell.RowIndex].Cells["单耗"].Value = Convert.ToDecimal(cell.EditedFormattedValue) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["换算率"].Value);
                     }
                 }
@@ -2277,7 +2278,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        if (dgv.Rows[cell.RowIndex].Cells["数量"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        if (StringTools.decimalParse( dgv.Rows[cell.RowIndex].Cells["数量"].Value.ToString()) ==StringTools.decimalParse( cell.EditedFormattedValue.ToString()))
                         {
                             bCellEndEdit = false;
                             dgv.CurrentCell = dgv["损耗率", cell.RowIndex];
@@ -2295,7 +2296,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     }
                     else
                     {
-                        if (dgv.Rows[cell.RowIndex].Cells["数量"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        if (StringTools.decimalParse( dgv.Rows[cell.RowIndex].Cells["数量"].Value.ToString()) !=StringTools.decimalParse( cell.EditedFormattedValue.ToString()))
                         {
                             validate数量2(dgv, cell);
                             //SaveModifyAfterDetail();
@@ -2316,7 +2317,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     if (bKeyEnter)
                     {
                         //bool bAddNew = false;
-                        if (dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        if (StringTools.decimalParse( dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString()) ==StringTools.decimalParse( cell.EditedFormattedValue.ToString()))
                         {
                             bCellEndEdit = false;
                             //dgv.CurrentCell = dgv["料件id", cell.RowIndex];
@@ -2385,7 +2386,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     }
                     else
                     {
-                        if (dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        if (StringTools.decimalParse( dgv.Rows[cell.RowIndex].Cells["损耗率"].Value.ToString()) !=StringTools.decimalParse( cell.EditedFormattedValue.ToString()))
                         {
                             validate损耗率2(dgv, cell);
                             //SaveModifyAfterDetail();

@@ -580,7 +580,7 @@ namespace UniqueDeclaration
             formBOM.ProductCode = this.dataGridViewDetails.CurrentRow.Cells["成品项号"].Value.ToString();
             formBOM.AllWeight = (this.dataGridViewDetails.CurrentRow.Cells["实际总重"].Value == null || this.dataGridViewDetails.CurrentRow.Cells["实际总重"].Value == DBNull.Value) ? 0 : float.Parse(this.dataGridViewDetails.CurrentRow.Cells["实际总重"].Value.ToString());
             formBOM.FactWeight = this.dataGridViewDetails.CurrentRow.Cells["总重"].Value == DBNull.Value ? 0 : float.Parse(this.dataGridViewDetails.CurrentRow.Cells["总重"].Value.ToString());
-            formBOM.Unitname = this.dataGridViewDetails.CurrentRow.Cells["成品项号"].Value.ToString();
+            formBOM.Unitname = this.dataGridViewDetails.CurrentRow.Cells["申报单位"].Value.ToString();
             formBOM.modename = this.dataGridViewDetails.CurrentRow.Cells["成品规格型号"].Value.ToString();
             if (this.dataGridViewDetails.CurrentRow.Cells["成品名称及商编"].Value != DBNull.Value)
             {

@@ -147,7 +147,7 @@
             this.tool1_Import.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool1_Import.Name = "tool1_Import";
             this.tool1_Import.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Import.Text = "过帐";
+            this.tool1_Import.Text = "导入BOM";
             this.tool1_Import.Click += new System.EventHandler(this.tool1_Import_Click);
             // 
             // tool1_Modify
@@ -182,7 +182,7 @@
             this.tool1_BOM.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tool1_BOM.Name = "tool1_BOM";
             this.tool1_BOM.Size = new System.Drawing.Size(23, 22);
-            this.tool1_BOM.Text = "toolStripButton1";
+            this.tool1_BOM.Text = "BOM结构";
             this.tool1_BOM.Click += new System.EventHandler(this.tool1_BOM_Click);
             // 
             // tool1_Query

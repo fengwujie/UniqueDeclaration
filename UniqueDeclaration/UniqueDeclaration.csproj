@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormFinishedProductOutBOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFinishedProductOutBOM.Designer.cs">
+      <DependentUpon>FormFinishedProductOutBOM.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormFinishedProductOutInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +187,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormFinishedProductOutBOM.resx">
+      <DependentUpon>FormFinishedProductOutBOM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormFinishedProductOutInput.resx">
       <DependentUpon>FormFinishedProductOutInput.cs</DependentUpon>
     </EmbeddedResource>

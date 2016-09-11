@@ -520,9 +520,9 @@ namespace UniqueDeclaration
             #region 判断是否已经有打开的BOM窗体
             foreach (Form childFrm in this.MdiParent.MdiChildren)
             {
-                if (childFrm.Name == "FormOrderBOM")
+                if (childFrm.Name == "FormFinishedProductOutBOM")
                 {
-                    FormOrderBOM orderBomForm = (FormOrderBOM)childFrm;
+                    FormFinishedProductOutBOM orderBomForm = (FormFinishedProductOutBOM)childFrm;
                     if (orderBomForm.OrderId == Convert.ToInt32(this.dataGridViewHead.CurrentRow.Cells["订单id"].Value)
                         && orderBomForm.OrderListId == Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["订单明细表id"].Value))
                     {
@@ -537,43 +537,45 @@ namespace UniqueDeclaration
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             dataAccess.Open();
             int iOrderID = Convert.ToInt32(this.dataGridViewHead.CurrentRow.Cells["订单id"].Value);
-            string strSQL = string.Format("delete from 产品配件改样报关订单材料明细表  where 订单id ={0} and 订单明细表id not in (select 订单明细表id from 报关预先订单明细表 where 订单id ={0})", iOrderID);
+            string strSQL = string.Format("delete from 产品配件改样报关材料明细表  where 订单id ={0} and 订单明细表id not in (select 订单明细表id from 报关订单明细表 where 订单id ={0})", iOrderID);
             dataAccess.ExecuteNonQuery(strSQL, null);
-            strSQL = string.Format("delete from 产品配件改样报关订单材料表 where 订单id ={0} and 订单明细表id not in (select 订单明细表id from 报关预先订单明细表 where 订单id ={0})", iOrderID);
+            strSQL = string.Format("delete from 产品配件改样报关材料表 where 订单id ={0} and 订单明细表id not in (select 订单明细表id from 报关订单明细表 where 订单id ={0})", iOrderID);
             dataAccess.ExecuteNonQuery(strSQL, null);
             dataAccess.Close();
             int iOrderDetailID = Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["订单明细表id"].Value);
             if (this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value == DBNull.Value || Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value) == 0)
             {
                 dataAccess.Open();
-                strSQL = string.Format("delete from 产品配件改样报关订单材料明细表 where 配件id is not null and 订单id ={0} and 订单明细表id ={1} and 配件id<> {2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["配件id"].Value.ToString()));
+                strSQL = string.Format("delete from 产品配件改样报关材料明细表 where 配件id is not null and 订单id ={0} and 订单明细表id ={1} and 配件id<> {2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["配件id"].Value.ToString()));
                 dataAccess.ExecuteNonQuery(strSQL, null);
-                strSQL = string.Format("delete from 产品配件改样报关订单材料表 where 配件id is not null and 订单id ={0} and 订单明细表id ={1} and 配件id<>{2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["配件id"].Value.ToString()));
+                strSQL = string.Format("delete from 产品配件改样报关材料表 where 配件id is not null and 订单id ={0} and 订单明细表id ={1} and 配件id<>{2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["配件id"].Value.ToString()));
                 dataAccess.ExecuteNonQuery(strSQL, null);
                 dataAccess.Close();
             }
             else
             {
                 dataAccess.Open();
-                strSQL = string.Format("delete from 产品配件改样报关订单材料明细表 where 产品id is not null and 订单id ={0} and 订单明细表id ={1} and 产品id<> {2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value.ToString()));
+                strSQL = string.Format("delete from 产品配件改样报关材料明细表 where 配件id is not null and 订单id ={0} and 订单明细表id ={1} and 产品id<> {2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value.ToString()));
                 dataAccess.ExecuteNonQuery(strSQL, null);
-                strSQL = string.Format("delete from 产品配件改样报关订单材料表 where 产品id is not null and 订单id ={0} and 订单明细表id ={1} and 产品id<>{2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value.ToString()));
+                strSQL = string.Format("delete from 产品配件改样报关材料表 where 配件id is not null and 订单id ={0} and 订单明细表id ={1} and 产品id<>{2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value.ToString()));
                 dataAccess.ExecuteNonQuery(strSQL, null);
                 dataAccess.Close();
             }
             #endregion
 
-            FormOrderBOM formBOM = new FormOrderBOM();
+            FormFinishedProductOutBOM formBOM = new FormFinishedProductOutBOM();
             formBOM.Pid = this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value == DBNull.Value ? 0 : Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value);
             formBOM.Fid = this.dataGridViewDetails.CurrentRow.Cells["配件id"].Value == DBNull.Value ? 0 : Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["配件id"].Value);
             formBOM.OrderId = iOrderID;
+            formBOM.OrderCode = this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value.ToString();
             formBOM.OrderListId = iOrderDetailID;
             formBOM.ManualCode = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
             formBOM.mstrName = this.dataGridViewDetails.CurrentRow.Cells["型号"].Value.ToString();
             formBOM.ProductCode = this.dataGridViewDetails.CurrentRow.Cells["成品项号"].Value.ToString();
+            formBOM.Amount = this.dataGridViewDetails.CurrentRow.Cells["订单数量"].Value == DBNull.Value ? 0 : StringTools.decimalParse(this.dataGridViewDetails.CurrentRow.Cells["订单数量"].Value.ToString());
             formBOM.AllWeight = (this.dataGridViewDetails.CurrentRow.Cells["实际总重"].Value == null || this.dataGridViewDetails.CurrentRow.Cells["实际总重"].Value == DBNull.Value) ? 0 : float.Parse(this.dataGridViewDetails.CurrentRow.Cells["实际总重"].Value.ToString());
             formBOM.FactWeight = this.dataGridViewDetails.CurrentRow.Cells["总重"].Value == DBNull.Value ? 0 : float.Parse(this.dataGridViewDetails.CurrentRow.Cells["总重"].Value.ToString());
-            formBOM.Unitname = this.dataGridViewDetails.CurrentRow.Cells["成品项号"].Value.ToString();
+            formBOM.Unitname = this.dataGridViewDetails.CurrentRow.Cells["申报单位"].Value.ToString();
             formBOM.modename = this.dataGridViewDetails.CurrentRow.Cells["成品规格型号"].Value.ToString();
             if (this.dataGridViewDetails.CurrentRow.Cells["成品名称及商编"].Value != DBNull.Value)
             {
