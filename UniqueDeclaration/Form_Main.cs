@@ -177,6 +177,24 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
+        //装箱单录入
+        private void FormPackingListInput_Click(object sender, EventArgs e)
+        {
+
+        }
+        //装箱明细单查询
+        private void FormPackingListQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormPackingListQueryCondition queryConditionForm = new FormPackingListQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string strWhere = queryConditionForm.strReturnWhere;
+                FormPackingListQueryList queryListForm = new FormPackingListQueryList();
+                queryListForm.gstrWhere = strWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
 
     }
 }

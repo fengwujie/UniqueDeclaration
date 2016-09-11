@@ -60,7 +60,7 @@ namespace UniqueDeclaration
             }
             catch (Exception ex)
             {
-                SysMessage.ErrorMsg(string.Format("加载【预先订单录入】数据出错，错误信息如下：{0}{1}", Environment.NewLine, ex.Message));
+                SysMessage.ErrorMsg(string.Format("加载【制造通知单】数据出错，错误信息如下：{0}{1}", Environment.NewLine, ex.Message));
             }
             //finally
             //{

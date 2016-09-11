@@ -317,7 +317,7 @@
         public Controls.myDataGridView myDataGridViewHead;
         public Controls.myDataGridView myDataGridViewDetails;
         public Controls.myLable myLable1;
-        private System.Windows.Forms.ToolStripButton tool1_Import;
         public System.Windows.Forms.ToolStripButton tool1_Add;
+        public System.Windows.Forms.ToolStripButton tool1_Import;
     }
 }
