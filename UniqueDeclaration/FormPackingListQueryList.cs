@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using DataAccess;
 using UniqueDeclarationPubilc;
+using System.IO;
 
 namespace UniqueDeclaration
 {
@@ -31,6 +32,16 @@ namespace UniqueDeclaration
             InitGridDetails();
             InitGridHead();
 
+        }
+
+        public override void myDataGridViewHead_SelectionChanged(object sender, EventArgs e)
+        {
+            base.myDataGridViewHead_SelectionChanged(sender, e);
+            if (bTriggerGridViewHead_SelectionChanged)
+            {
+                setTool1Enabled();
+                LoadDataSourceDetails();
+            }
         }
 
         #region 初始化GRID
@@ -171,17 +182,178 @@ namespace UniqueDeclaration
             }
         }
         #endregion
-
-        public override void myDataGridViewHead_SelectionChanged(object sender, EventArgs e)
+        
+        #region tools事件
+        public override void tool1_First_Click(object sender, EventArgs e)
         {
-            base.myDataGridViewHead_SelectionChanged(sender, e);
-            if (bTriggerGridViewHead_SelectionChanged)
+            base.tool1_First_Click(sender, e);
+            this.myDataGridViewHead.ClearSelection();
+            this.myDataGridViewHead.Rows[0].Selected = true;
+            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[0].Cells["装箱单号"];
+            setTool1Enabled();
+        }
+
+        public override void tool1_up_Click(object sender, EventArgs e)
+        {
+            base.tool1_up_Click(sender, e);
+            int iSelectRow = this.myDataGridViewHead.CurrentRow.Index;
+            this.myDataGridViewHead.ClearSelection();
+            this.myDataGridViewHead.Rows[iSelectRow - 1].Selected = true;
+            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[iSelectRow - 1].Cells["装箱单号"];
+            setTool1Enabled();
+
+        }
+
+        public override void tool1_Down_Click(object sender, EventArgs e)
+        {
+            base.tool1_Down_Click(sender, e);
+            int iSelectRow = this.myDataGridViewHead.CurrentRow.Index;
+            this.myDataGridViewHead.ClearSelection();
+            this.myDataGridViewHead.Rows[iSelectRow + 1].Selected = true;
+            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[iSelectRow + 1].Cells["装箱单号"];
+            setTool1Enabled();
+        }
+
+        public override void tool1_End_Click(object sender, EventArgs e)
+        {
+            base.tool1_End_Click(sender, e);
+            this.myDataGridViewHead.ClearSelection();
+            this.myDataGridViewHead.Rows[this.myDataGridViewHead.RowCount - 1].Selected = true;
+            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[this.myDataGridViewHead.RowCount - 1].Cells["装箱单号"];
+            setTool1Enabled();
+        }
+
+        public override void tool1_Add_Click(object sender, EventArgs e)
+        {
+            base.tool1_Add_Click(sender, e);
+            //FormMaterialsOutInput objForm = new FormMaterialsOutInput();
+            //objForm.MdiParent = this.MdiParent;
+            //objForm.Show();
+        }
+
+        public override void tool1_Modify_Click(object sender, EventArgs e)
+        {
+            base.tool1_Modify_Click(sender, e);
+            //bool bHave = false;
+            //int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["料件出库表id"].Value);
+            //string strBooksNo = this.myDataGridViewHead.CurrentRow.Cells["电子帐册号"].Value.ToString();
+            //foreach (Form childFrm in this.MdiParent.MdiChildren)
+            //{
+            //    if (childFrm.Name == "FormMaterialsOutInput")
+            //    {
+            //        FormMaterialsOutInput inputForm = (FormMaterialsOutInput)childFrm;
+            //        if (inputForm.giOrderID != 0 && inputForm.giOrderID == iOrderID)
+            //        {
+            //            bHave = true;
+            //            childFrm.Activate();
+            //            break;
+            //        }
+            //    }
+            //}
+            //if (!bHave)
+            //{
+            //    FormMaterialsOutInput objForm = new FormMaterialsOutInput();
+            //    objForm.MdiParent = this.MdiParent;
+            //    objForm.giOrderID = iOrderID;
+            //    objForm.strBooksNo = strBooksNo;
+            //    objForm.Show();
+            //}
+        }
+
+        public override void tool1_Delete_Click(object sender, EventArgs e)
+        {
+            base.tool1_Delete_Click(sender, e);
+            if (this.myDataGridViewHead.CurrentRow == null) return;
+            string strText = string.Format("真的要删除订单 【{0}】 吗？", this.myDataGridViewHead.CurrentRow.Cells["订单号码"].Value);
+            if (SysMessage.OKCancelMsg(strText) == System.Windows.Forms.DialogResult.Cancel) return;
+            try
             {
+                StringBuilder strBuilder = new StringBuilder();
+                strBuilder.AppendLine(string.Format("delete from 装箱单明细表 where 订单id=", this.myDataGridViewHead.CurrentRow.Cells["订单id"].Value));
+                strBuilder.AppendLine(string.Format("delete from 装箱单表 where 订单id=", this.myDataGridViewHead.CurrentRow.Cells["订单id"].Value));
+                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                dataAccess.Open();
+                dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
+                dataAccess.Close();
+                string strSuccess = string.Format("{0}[{1}]成功！", tool1_Delete.Text, this.myDataGridViewHead.CurrentRow.Cells["订单号码"].Value);
+                this.myDataGridViewHead.Rows.Remove(this.myDataGridViewHead.CurrentRow);
                 setTool1Enabled();
-                LoadDataSourceDetails();
+                SysMessage.InformationMsg(strSuccess);
+            }
+            catch (Exception ex)
+            {
+                string strError = string.Format("{0} 出现错误：错误信息：{1}", tool1_Delete.Text, ex.Message);
+                SysMessage.ErrorMsg(strError);
             }
         }
 
+        public override void tool1_Query_Click(object sender, EventArgs e)
+        {
+            base.tool1_Query_Click(sender, e);
+            FormPackingListQueryCondition queryConditionForm = new FormPackingListQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                gstrWhere = queryConditionForm.strReturnWhere;
+                LoadDataSourceHead();
+            }
+        }
+
+        public override void tool1_ExportExcel_Click(object sender, EventArgs e)
+        {
+            base.tool1_ExportExcel_Click(sender, e);
+
+            if (SysMessage.YesNoMsg("数据是否导入EXCEL文件？") == System.Windows.Forms.DialogResult.No) return;
+            if (this.myDataGridViewHead.CurrentRow == null) return;
+
+            string strSourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\清单明细表.xls");
+            string strDestFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"ExcelTemp\清单明细表{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss")));
+            File.Copy(strSourceFile, strDestFile);
+            File.SetAttributes(strDestFile, File.GetAttributes(strDestFile) | FileAttributes.ReadOnly);
+            string fn = strDestFile;
+            ExcelTools ea = new ExcelTools();
+            ea.SafeOpen(fn);
+            ea.ActiveSheet(1); // 激活
+            ea.SetValue("A8", "INVOICE NO.:" + myDataGridViewHead.CurrentRow.Cells["装箱单号"].Value.ToString());
+            ea.SetValue("C8", "CustNo：" + myDataGridViewHead.CurrentRow.Cells["客户代码"].Value.ToString());
+            ea.SetValue("F8", "DATE：" + Convert.ToDateTime(myDataGridViewHead.CurrentRow.Cells["出货日期"].Value).ToString("yyyy-MM-dd"));
+
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+            dataAccess.Open();
+            DataTable dtExcel = dataAccess.GetTable(string.Format("select * from 装箱单明细表 where 订单id={0}", myDataGridViewHead.CurrentRow.Cells["订单id"].Value), null);
+            dataAccess.Close();
+            ea.SetValue("E8", dtExcel.Rows.Count>0 ? dtExcel.Rows[0]["手册编号"].ToString() : "");
+            int iExcelModelBeginIndex = 10;
+            int iExcelModelEndIndex = 48;
+            string 成品名称及商编 = string.Empty;
+            int iIndex = 0;
+            for (int iRow = 0; iRow < dtExcel.Rows.Count; iRow++)
+            {
+                DataRow row = dtExcel.Rows[iRow];
+                iIndex = iExcelModelBeginIndex + iRow;
+                if (iIndex > iExcelModelEndIndex - 1)
+                    ea.InsertRows(iIndex);
+                ea.SetValue(string.Format("A{0}", iIndex), row["箱号"] == DBNull.Value ? "" : row["箱号"].ToString());
+                ea.SetValue(string.Format("B{0}", iIndex), row["客人型号"] == DBNull.Value ? "" : row["客人型号"].ToString());
+                ea.SetValue(string.Format("C{0}", iIndex), row["归并前成品序号"] == DBNull.Value ? "" : row["归并前成品序号"].ToString());
+                ea.SetValue(string.Format("D{0}", iIndex), row["成品项号"] == DBNull.Value ? "" : row["成品项号"].ToString());
+                成品名称及商编 = row["成品名称及商编"] == DBNull.Value ? "" : row["成品名称及商编"].ToString().Trim();
+                if (成品名称及商编.Length > 0)
+                {
+                    string[] arr = 成品名称及商编.Split('/');
+                    if (arr.Length > 0)
+                        成品名称及商编 = arr[0];
+                }
+                ea.SetValue(string.Format("E{0}", iIndex), 成品名称及商编);
+                ea.SetValue(string.Format("F{0}", iIndex), row["成品规格型号"] == DBNull.Value ? "" : row["成品规格型号"].ToString());
+                ea.SetValue(string.Format("G{0}", iIndex), row["数量"] == DBNull.Value ? "" : row["数量"].ToString());
+                ea.SetValue(string.Format("H{0}", iIndex), row["单位"] == DBNull.Value ? "" : row["单位"].ToString());
+            }
+            //ea.Save(saveFileDialog.FileName);
+
+            ea.Visible = true;
+            ea.Dispose();
+
+        }
 
         /// <summary>
         /// 设置tools的按钮是否可用
@@ -245,6 +417,34 @@ namespace UniqueDeclaration
                 this.tool1_ExportExcel.Enabled = false;
                 this.tool1_Print.Enabled = false;
             }
+        }
+        #endregion
+
+        //出口料件统计
+        private void btnOuterMaterialTotal_Click(object sender, EventArgs e)
+        {
+            FormOuterMaterialTotal objForm = new FormOuterMaterialTotal();
+            objForm.mstrFilterString = string.Format(string.Format("@订单号码={0}{1}", this.myDataGridViewHead.CurrentRow.Cells["订单号码"].Value,(myCheckBox1.Checked == true ? ",@类别=1" : "")));
+            objForm.Show();
+        }
+        //用料明细表
+        private void btnMaterialDetails_Click(object sender, EventArgs e)
+        {
+            //10980702
+            string idvalue = DateTime.Now.ToString("yyyyMMddhhmmss");
+            DataTable dtDetails = (DataTable)this.myDataGridViewDetails.DataSource;
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            string str订单号码=this.myDataGridViewHead.CurrentRow.Cells["订单号码"].Value.ToString();
+            foreach (DataRow row in dtDetails.Rows)
+            {
+                if (row["订单明细表id"] == DBNull.Value) continue;
+                dataAccess.ExecuteNonQuery(string.Format("装箱单料件明细 '{0}',{1},{2},{3},'{4}'", str订单号码, row["归并前成品序号"], row["成品项号"], row["数量"], idvalue), null);
+            }
+            dataAccess.Close();
+            FormMaterialSheet objForm = new FormMaterialSheet();
+            objForm.idvalue = idvalue;
+            objForm.Show();
         }
     }
 }

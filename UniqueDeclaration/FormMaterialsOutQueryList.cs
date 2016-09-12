@@ -275,7 +275,7 @@ namespace UniqueDeclaration
         {
             base.tool1_ExportExcel_Click(sender, e);
 
-            //if (SysMessage.YesNoMsg("数据是否导入EXCEL文件？") == System.Windows.Forms.DialogResult.No) return;
+            if (SysMessage.YesNoMsg("数据是否导入EXCEL文件？") == System.Windows.Forms.DialogResult.No) return;
             if (this.myDataGridViewHead.CurrentRow == null) return;
 
             //// 保存对话框

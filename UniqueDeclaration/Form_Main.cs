@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using UniqueDeclarationPubilc;
 
 namespace UniqueDeclaration
 {
@@ -51,9 +52,11 @@ namespace UniqueDeclaration
 
         private void Form_Main_Load(object sender, EventArgs e)
         {
+            this.toolStatus_Version.Text = string.Format("当前系统版本：{0}",Application.ProductVersion);
             SetBackgroupImage();
             Form_Login loginForm = new Form_Login();
             loginForm.ShowDialog();
+            this.toolStatus_User.Text = string.Format("当前用户：{0}", SystemGlobal.SystemGlobal_UserInfo.UserName);
             DeleteExcelTempAllFile();
         }
 

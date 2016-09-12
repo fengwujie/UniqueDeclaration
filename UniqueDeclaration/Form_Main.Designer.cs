@@ -43,6 +43,8 @@
             this.Business = new System.Windows.Forms.ToolStripMenuItem();
             this.FormFinishedProductOutInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormFinishedProductOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormPackingListInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormPackingListQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.newWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,10 +59,10 @@
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStatus_User = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStatus_Version = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.FormPackingListInput = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormPackingListQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -76,7 +78,7 @@
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.MdiWindowListItem = this.windowsMenu;
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(761, 25);
+            this.menuStrip.Size = new System.Drawing.Size(1147, 25);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
@@ -175,6 +177,20 @@
             this.FormFinishedProductOutQueryCondition.Size = new System.Drawing.Size(160, 22);
             this.FormFinishedProductOutQueryCondition.Text = "成品出货查询";
             this.FormFinishedProductOutQueryCondition.Click += new System.EventHandler(this.FormFinishedProductOutQueryCondition_Click);
+            // 
+            // FormPackingListInput
+            // 
+            this.FormPackingListInput.Name = "FormPackingListInput";
+            this.FormPackingListInput.Size = new System.Drawing.Size(160, 22);
+            this.FormPackingListInput.Text = "装箱单录入";
+            this.FormPackingListInput.Click += new System.EventHandler(this.FormPackingListInput_Click);
+            // 
+            // FormPackingListQueryCondition
+            // 
+            this.FormPackingListQueryCondition.Name = "FormPackingListQueryCondition";
+            this.FormPackingListQueryCondition.Size = new System.Drawing.Size(160, 22);
+            this.FormPackingListQueryCondition.Text = "装箱明细单查询";
+            this.FormPackingListQueryCondition.Click += new System.EventHandler(this.FormPackingListQueryCondition_Click);
             // 
             // windowsMenu
             // 
@@ -279,39 +295,44 @@
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 419);
+            this.toolStatus_User,
+            this.toolStripStatusLabel1,
+            this.toolStatus_Version});
+            this.statusStrip.Location = new System.Drawing.Point(0, 527);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(761, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1147, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "StatusStrip";
             // 
-            // toolStripStatusLabel
+            // toolStatus_User
             // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(32, 17);
-            this.toolStripStatusLabel.Text = "状态";
+            this.toolStatus_User.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStatus_User.ForeColor = System.Drawing.Color.Blue;
+            this.toolStatus_User.Name = "toolStatus_User";
+            this.toolStatus_User.Size = new System.Drawing.Size(68, 17);
+            this.toolStatus_User.Text = "您还未登录";
             // 
-            // FormPackingListInput
+            // toolStripStatusLabel1
             // 
-            this.FormPackingListInput.Name = "FormPackingListInput";
-            this.FormPackingListInput.Size = new System.Drawing.Size(160, 22);
-            this.FormPackingListInput.Text = "装箱单录入";
-            this.FormPackingListInput.Click += new System.EventHandler(this.FormPackingListInput_Click);
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(12, 17);
+            this.toolStripStatusLabel1.Text = "|";
             // 
-            // FormPackingListQueryCondition
+            // toolStatus_Version
             // 
-            this.FormPackingListQueryCondition.Name = "FormPackingListQueryCondition";
-            this.FormPackingListQueryCondition.Size = new System.Drawing.Size(160, 22);
-            this.FormPackingListQueryCondition.Text = "装箱明细单查询";
-            this.FormPackingListQueryCondition.Click += new System.EventHandler(this.FormPackingListQueryCondition_Click);
+            this.toolStatus_Version.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStatus_Version.ForeColor = System.Drawing.Color.Blue;
+            this.toolStatus_Version.Name = "toolStatus_Version";
+            this.toolStatus_Version.Size = new System.Drawing.Size(80, 17);
+            this.toolStatus_Version.Text = "当前系统版本";
             // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(761, 441);
+            this.ClientSize = new System.Drawing.Size(1147, 549);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;
@@ -335,7 +356,7 @@
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStatus_User;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tileHorizontalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsMenu;
@@ -363,6 +384,8 @@
         private System.Windows.Forms.ToolStripMenuItem FormFinishedProductOutQueryCondition;
         private System.Windows.Forms.ToolStripMenuItem FormPackingListInput;
         private System.Windows.Forms.ToolStripMenuItem FormPackingListQueryCondition;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStatus_Version;
     }
 }
 

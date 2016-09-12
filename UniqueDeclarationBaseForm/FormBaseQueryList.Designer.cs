@@ -81,7 +81,7 @@
             this.tool1_ExportExcel});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(919, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(1113, 25);
             this.toolStrip2.TabIndex = 2;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -228,8 +228,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(919, 415);
-            this.splitContainer1.SplitterDistance = 247;
+            this.splitContainer1.Size = new System.Drawing.Size(1113, 524);
+            this.splitContainer1.SplitterDistance = 299;
             this.splitContainer1.TabIndex = 3;
             // 
             // tabControl1
@@ -243,7 +243,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(666, 413);
+            this.tabControl1.Size = new System.Drawing.Size(808, 522);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -251,7 +251,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(658, 387);
+            this.tabPage1.Size = new System.Drawing.Size(800, 496);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "订单内容";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -329,7 +329,7 @@
             // FormBaseQueryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(919, 440);
+            this.ClientSize = new System.Drawing.Size(1113, 549);
             this.Controls.Add(this.myCheckBox1);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnExportExcel);

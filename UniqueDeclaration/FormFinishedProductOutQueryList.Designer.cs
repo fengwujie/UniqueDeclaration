@@ -91,7 +91,7 @@
             this.tool1_ExportExcel});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1214, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(1168, 25);
             this.toolStrip2.TabIndex = 4;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -234,8 +234,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(1214, 496);
-            this.splitContainer1.SplitterDistance = 404;
+            this.splitContainer1.Size = new System.Drawing.Size(1168, 496);
+            this.splitContainer1.SplitterDistance = 345;
             this.splitContainer1.TabIndex = 5;
             // 
             // dataGridViewHead
@@ -249,7 +249,7 @@
             this.dataGridViewHead.Name = "dataGridViewHead";
             this.dataGridViewHead.ReadOnly = true;
             this.dataGridViewHead.RowTemplate.Height = 23;
-            this.dataGridViewHead.Size = new System.Drawing.Size(404, 496);
+            this.dataGridViewHead.Size = new System.Drawing.Size(345, 496);
             this.dataGridViewHead.TabIndex = 0;
             this.dataGridViewHead.SelectionChanged += new System.EventHandler(this.dataGridViewHead_SelectionChanged);
             // 
@@ -261,7 +261,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(806, 496);
+            this.tabControl1.Size = new System.Drawing.Size(819, 496);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -271,7 +271,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(798, 470);
+            this.tabPage1.Size = new System.Drawing.Size(811, 470);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "订单内容";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -287,7 +287,7 @@
             this.dataGridViewDetails.Name = "dataGridViewDetails";
             this.dataGridViewDetails.ReadOnly = true;
             this.dataGridViewDetails.RowTemplate.Height = 23;
-            this.dataGridViewDetails.Size = new System.Drawing.Size(792, 464);
+            this.dataGridViewDetails.Size = new System.Drawing.Size(805, 464);
             this.dataGridViewDetails.TabIndex = 0;
             // 
             // tabPage2
@@ -296,7 +296,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(798, 470);
+            this.tabPage2.Size = new System.Drawing.Size(843, 470);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "材料总用量表";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -312,7 +312,7 @@
             this.dataGridViewDetailsSumCount.Name = "dataGridViewDetailsSumCount";
             this.dataGridViewDetailsSumCount.ReadOnly = true;
             this.dataGridViewDetailsSumCount.RowTemplate.Height = 23;
-            this.dataGridViewDetailsSumCount.Size = new System.Drawing.Size(792, 464);
+            this.dataGridViewDetailsSumCount.Size = new System.Drawing.Size(837, 464);
             this.dataGridViewDetailsSumCount.TabIndex = 1;
             // 
             // myContextHead
@@ -335,17 +335,18 @@
             // 
             // btnMaterialComparison
             // 
-            this.btnMaterialComparison.Location = new System.Drawing.Point(410, 0);
+            this.btnMaterialComparison.Location = new System.Drawing.Point(349, 2);
             this.btnMaterialComparison.Name = "btnMaterialComparison";
             this.btnMaterialComparison.Size = new System.Drawing.Size(80, 23);
             this.btnMaterialComparison.TabIndex = 6;
             this.btnMaterialComparison.Text = "材料对照表";
             this.btnMaterialComparison.UseVisualStyleBackColor = true;
+            this.btnMaterialComparison.Visible = false;
             this.btnMaterialComparison.Click += new System.EventHandler(this.btnMaterialComparison_Click);
             // 
             // btnExportExcel
             // 
-            this.btnExportExcel.Location = new System.Drawing.Point(497, 0);
+            this.btnExportExcel.Location = new System.Drawing.Point(436, 2);
             this.btnExportExcel.Name = "btnExportExcel";
             this.btnExportExcel.Size = new System.Drawing.Size(80, 23);
             this.btnExportExcel.TabIndex = 7;
@@ -355,7 +356,7 @@
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(584, 0);
+            this.btnPrint.Location = new System.Drawing.Point(523, 2);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(80, 23);
             this.btnPrint.TabIndex = 8;
@@ -365,7 +366,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(671, 0);
+            this.btnDelete.Location = new System.Drawing.Point(610, 2);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(80, 23);
             this.btnDelete.TabIndex = 9;
@@ -375,7 +376,7 @@
             // 
             // btnCheckData
             // 
-            this.btnCheckData.Location = new System.Drawing.Point(758, 0);
+            this.btnCheckData.Location = new System.Drawing.Point(697, 2);
             this.btnCheckData.Name = "btnCheckData";
             this.btnCheckData.Size = new System.Drawing.Size(80, 23);
             this.btnCheckData.TabIndex = 10;
@@ -388,7 +389,7 @@
             this.myCheckBox1.AutoSize = true;
             this.myCheckBox1.Checked = true;
             this.myCheckBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.myCheckBox1.Location = new System.Drawing.Point(845, 3);
+            this.myCheckBox1.Location = new System.Drawing.Point(784, 5);
             this.myCheckBox1.Name = "myCheckBox1";
             this.myCheckBox1.Size = new System.Drawing.Size(72, 16);
             this.myCheckBox1.TabIndex = 11;
@@ -398,7 +399,7 @@
             // FormFinishedProductOutQueryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(1214, 521);
+            this.ClientSize = new System.Drawing.Size(1168, 521);
             this.Controls.Add(this.myCheckBox1);
             this.Controls.Add(this.btnCheckData);
             this.Controls.Add(this.btnDelete);

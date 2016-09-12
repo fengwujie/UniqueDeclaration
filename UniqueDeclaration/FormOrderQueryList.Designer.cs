@@ -32,24 +32,8 @@ namespace UniqueDeclaration
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewDetails = new UniqueDeclarationBaseForm.Controls.myDataGridView();
-            this.dataGridViewMergeAfterSumCount = new UniqueDeclarationBaseForm.Controls.myDataGridView();
-            this.dataGridViewMergeBeforeSumCount = new UniqueDeclarationBaseForm.Controls.myDataGridView();
-            this.dataGridViewMergeBeforeDetailsSumCount = new UniqueDeclarationBaseForm.Controls.myDataGridView();
-            this.dataGridViewHead = new UniqueDeclarationBaseForm.Controls.myDataGridView();
-            this.myContextHead = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
-            this.myContextDetails = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
-            this.myContextMergeAfterSumCount = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
-            this.myContextMergeBeforeSumCount = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
-            this.myContextMergeBeforeDetailsSumCount = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
-            this.订单id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.订单号码 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.流水号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.手册编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.客户代码 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.客户名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.出货日期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.录入日期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.客人型号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.myContextDetails = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
             this.优丽型号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.颜色 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.订单数量 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,7 +56,9 @@ namespace UniqueDeclaration
             this.订单明细表id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.产品id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.配件id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewMergeAfterSumCount = new UniqueDeclarationBaseForm.Controls.myDataGridView();
             this.序号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.myContextMergeAfterSumCount = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
             this.商品编码 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.商品名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.规格型号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,7 +66,9 @@ namespace UniqueDeclaration
             this.损耗率 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.总用量 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.单耗 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewMergeBeforeSumCount = new UniqueDeclarationBaseForm.Controls.myDataGridView();
             this.编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.myContextMergeBeforeSumCount = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -88,7 +76,9 @@ namespace UniqueDeclaration
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewMergeBeforeDetailsSumCount = new UniqueDeclarationBaseForm.Controls.myDataGridView();
             this.编号2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.myContextMergeBeforeDetailsSumCount = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
             this.商品编码2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.商品名称2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -96,6 +86,16 @@ namespace UniqueDeclaration
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewHead = new UniqueDeclarationBaseForm.Controls.myDataGridView();
+            this.订单id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.myContextHead = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
+            this.订单号码 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.流水号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.手册编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.客户代码 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.客户名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.出货日期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.录入日期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -118,32 +118,33 @@ namespace UniqueDeclaration
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.dataGridViewHead);
-            this.splitContainer1.SplitterDistance = 230;
+            this.splitContainer1.Size = new System.Drawing.Size(1177, 529);
+            this.splitContainer1.SplitterDistance = 293;
             // 
             // tabControl1
             // 
-            this.tabControl1.Size = new System.Drawing.Size(683, 413);
+            this.tabControl1.Size = new System.Drawing.Size(878, 527);
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.dataGridViewDetails);
-            this.tabPage1.Size = new System.Drawing.Size(675, 387);
+            this.tabPage1.Size = new System.Drawing.Size(870, 501);
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.dataGridViewMergeAfterSumCount);
-            this.tabPage2.Size = new System.Drawing.Size(675, 387);
+            this.tabPage2.Size = new System.Drawing.Size(869, 496);
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.dataGridViewMergeBeforeSumCount);
-            this.tabPage3.Size = new System.Drawing.Size(675, 387);
+            this.tabPage3.Size = new System.Drawing.Size(869, 496);
             // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.dataGridViewMergeBeforeDetailsSumCount);
-            this.tabPage4.Size = new System.Drawing.Size(675, 387);
+            this.tabPage4.Size = new System.Drawing.Size(869, 496);
             // 
             // dataGridViewDetails
             // 
@@ -180,203 +181,8 @@ namespace UniqueDeclaration
             this.dataGridViewDetails.Name = "dataGridViewDetails";
             this.dataGridViewDetails.ReadOnly = true;
             this.dataGridViewDetails.RowTemplate.Height = 23;
-            this.dataGridViewDetails.Size = new System.Drawing.Size(669, 381);
+            this.dataGridViewDetails.Size = new System.Drawing.Size(864, 495);
             this.dataGridViewDetails.TabIndex = 0;
-            // 
-            // dataGridViewMergeAfterSumCount
-            // 
-            this.dataGridViewMergeAfterSumCount.AllowUserToAddRows = false;
-            this.dataGridViewMergeAfterSumCount.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewMergeAfterSumCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewMergeAfterSumCount.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.序号,
-            this.商品编码,
-            this.商品名称,
-            this.规格型号,
-            this.计量单位,
-            this.损耗率,
-            this.总用量,
-            this.单耗});
-            this.dataGridViewMergeAfterSumCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewMergeAfterSumCount.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridViewMergeAfterSumCount.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewMergeAfterSumCount.Name = "dataGridViewMergeAfterSumCount";
-            this.dataGridViewMergeAfterSumCount.ReadOnly = true;
-            this.dataGridViewMergeAfterSumCount.RowTemplate.Height = 23;
-            this.dataGridViewMergeAfterSumCount.Size = new System.Drawing.Size(669, 381);
-            this.dataGridViewMergeAfterSumCount.TabIndex = 1;
-            // 
-            // dataGridViewMergeBeforeSumCount
-            // 
-            this.dataGridViewMergeBeforeSumCount.AllowUserToAddRows = false;
-            this.dataGridViewMergeBeforeSumCount.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewMergeBeforeSumCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewMergeBeforeSumCount.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.编号,
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7});
-            this.dataGridViewMergeBeforeSumCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewMergeBeforeSumCount.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridViewMergeBeforeSumCount.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewMergeBeforeSumCount.Name = "dataGridViewMergeBeforeSumCount";
-            this.dataGridViewMergeBeforeSumCount.ReadOnly = true;
-            this.dataGridViewMergeBeforeSumCount.RowTemplate.Height = 23;
-            this.dataGridViewMergeBeforeSumCount.Size = new System.Drawing.Size(675, 387);
-            this.dataGridViewMergeBeforeSumCount.TabIndex = 1;
-            // 
-            // dataGridViewMergeBeforeDetailsSumCount
-            // 
-            this.dataGridViewMergeBeforeDetailsSumCount.AllowUserToAddRows = false;
-            this.dataGridViewMergeBeforeDetailsSumCount.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewMergeBeforeDetailsSumCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewMergeBeforeDetailsSumCount.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.编号2,
-            this.商品编码2,
-            this.商品名称2,
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9,
-            this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12});
-            this.dataGridViewMergeBeforeDetailsSumCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewMergeBeforeDetailsSumCount.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridViewMergeBeforeDetailsSumCount.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewMergeBeforeDetailsSumCount.Name = "dataGridViewMergeBeforeDetailsSumCount";
-            this.dataGridViewMergeBeforeDetailsSumCount.ReadOnly = true;
-            this.dataGridViewMergeBeforeDetailsSumCount.RowTemplate.Height = 23;
-            this.dataGridViewMergeBeforeDetailsSumCount.Size = new System.Drawing.Size(675, 387);
-            this.dataGridViewMergeBeforeDetailsSumCount.TabIndex = 1;
-            // 
-            // dataGridViewHead
-            // 
-            this.dataGridViewHead.AllowUserToAddRows = false;
-            this.dataGridViewHead.AllowUserToDeleteRows = false;
-            this.dataGridViewHead.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewHead.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewHead.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.订单id,
-            this.订单号码,
-            this.流水号,
-            this.手册编号,
-            this.客户代码,
-            this.客户名称,
-            this.出货日期,
-            this.录入日期});
-            this.dataGridViewHead.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewHead.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridViewHead.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewHead.Name = "dataGridViewHead";
-            this.dataGridViewHead.ReadOnly = true;
-            this.dataGridViewHead.RowTemplate.Height = 23;
-            this.dataGridViewHead.Size = new System.Drawing.Size(228, 413);
-            this.dataGridViewHead.TabIndex = 0;
-            this.dataGridViewHead.SelectionChanged += new System.EventHandler(this.dataGridViewHead_SelectionChanged);
-            // 
-            // myContextHead
-            // 
-            this.myContextHead.MyDataGridView = this.dataGridViewHead;
-            this.myContextHead.Name = "myContextHead";
-            this.myContextHead.Size = new System.Drawing.Size(101, 26);
-            // 
-            // myContextDetails
-            // 
-            this.myContextDetails.MyDataGridView = this.dataGridViewDetails;
-            this.myContextDetails.Name = "myContextDetails";
-            this.myContextDetails.Size = new System.Drawing.Size(101, 26);
-            // 
-            // myContextMergeAfterSumCount
-            // 
-            this.myContextMergeAfterSumCount.MyDataGridView = this.dataGridViewMergeAfterSumCount;
-            this.myContextMergeAfterSumCount.Name = "myContextMergeAfterSumCount";
-            this.myContextMergeAfterSumCount.Size = new System.Drawing.Size(101, 26);
-            // 
-            // myContextMergeBeforeSumCount
-            // 
-            this.myContextMergeBeforeSumCount.MyDataGridView = this.dataGridViewMergeBeforeSumCount;
-            this.myContextMergeBeforeSumCount.Name = "myContextMergeBeforeSumCount";
-            this.myContextMergeBeforeSumCount.Size = new System.Drawing.Size(101, 26);
-            // 
-            // myContextMergeBeforeDetailsSumCount
-            // 
-            this.myContextMergeBeforeDetailsSumCount.MyDataGridView = this.dataGridViewMergeBeforeDetailsSumCount;
-            this.myContextMergeBeforeDetailsSumCount.Name = "myContextMergeBeforeDetailsSumCount";
-            this.myContextMergeBeforeDetailsSumCount.Size = new System.Drawing.Size(101, 26);
-            // 
-            // 订单id
-            // 
-            this.订单id.ContextMenuStrip = this.myContextHead;
-            this.订单id.DataPropertyName = "订单id";
-            this.订单id.HeaderText = "订单id";
-            this.订单id.Name = "订单id";
-            this.订单id.ReadOnly = true;
-            this.订单id.Visible = false;
-            // 
-            // 订单号码
-            // 
-            this.订单号码.ContextMenuStrip = this.myContextHead;
-            this.订单号码.DataPropertyName = "订单号码";
-            this.订单号码.HeaderText = "订单号码";
-            this.订单号码.Name = "订单号码";
-            this.订单号码.ReadOnly = true;
-            this.订单号码.Width = 80;
-            // 
-            // 流水号
-            // 
-            this.流水号.ContextMenuStrip = this.myContextHead;
-            this.流水号.DataPropertyName = "流水号";
-            this.流水号.HeaderText = "流水号";
-            this.流水号.Name = "流水号";
-            this.流水号.ReadOnly = true;
-            // 
-            // 手册编号
-            // 
-            this.手册编号.ContextMenuStrip = this.myContextHead;
-            this.手册编号.DataPropertyName = "手册编号";
-            this.手册编号.HeaderText = "电子帐册号";
-            this.手册编号.Name = "手册编号";
-            this.手册编号.ReadOnly = true;
-            this.手册编号.Width = 90;
-            // 
-            // 客户代码
-            // 
-            this.客户代码.ContextMenuStrip = this.myContextHead;
-            this.客户代码.DataPropertyName = "客户代码";
-            this.客户代码.HeaderText = "客户代码";
-            this.客户代码.Name = "客户代码";
-            this.客户代码.ReadOnly = true;
-            this.客户代码.Width = 80;
-            // 
-            // 客户名称
-            // 
-            this.客户名称.ContextMenuStrip = this.myContextHead;
-            this.客户名称.DataPropertyName = "客户名称";
-            this.客户名称.HeaderText = "客户名称";
-            this.客户名称.Name = "客户名称";
-            this.客户名称.ReadOnly = true;
-            this.客户名称.Width = 80;
-            // 
-            // 出货日期
-            // 
-            this.出货日期.ContextMenuStrip = this.myContextHead;
-            this.出货日期.DataPropertyName = "出货日期";
-            this.出货日期.HeaderText = "出货日期";
-            this.出货日期.Name = "出货日期";
-            this.出货日期.ReadOnly = true;
-            this.出货日期.Width = 80;
-            // 
-            // 录入日期
-            // 
-            this.录入日期.ContextMenuStrip = this.myContextHead;
-            this.录入日期.DataPropertyName = "录入日期";
-            this.录入日期.HeaderText = "录入日期";
-            this.录入日期.Name = "录入日期";
-            this.录入日期.ReadOnly = true;
-            this.录入日期.Width = 80;
             // 
             // 客人型号
             // 
@@ -386,6 +192,12 @@ namespace UniqueDeclaration
             this.客人型号.Name = "客人型号";
             this.客人型号.ReadOnly = true;
             this.客人型号.Width = 78;
+            // 
+            // myContextDetails
+            // 
+            this.myContextDetails.MyDataGridView = this.dataGridViewDetails;
+            this.myContextDetails.Name = "myContextDetails";
+            this.myContextDetails.Size = new System.Drawing.Size(101, 26);
             // 
             // 优丽型号
             // 
@@ -590,6 +402,29 @@ namespace UniqueDeclaration
             this.配件id.ReadOnly = true;
             this.配件id.Visible = false;
             // 
+            // dataGridViewMergeAfterSumCount
+            // 
+            this.dataGridViewMergeAfterSumCount.AllowUserToAddRows = false;
+            this.dataGridViewMergeAfterSumCount.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewMergeAfterSumCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewMergeAfterSumCount.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.序号,
+            this.商品编码,
+            this.商品名称,
+            this.规格型号,
+            this.计量单位,
+            this.损耗率,
+            this.总用量,
+            this.单耗});
+            this.dataGridViewMergeAfterSumCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewMergeAfterSumCount.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridViewMergeAfterSumCount.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewMergeAfterSumCount.Name = "dataGridViewMergeAfterSumCount";
+            this.dataGridViewMergeAfterSumCount.ReadOnly = true;
+            this.dataGridViewMergeAfterSumCount.RowTemplate.Height = 23;
+            this.dataGridViewMergeAfterSumCount.Size = new System.Drawing.Size(863, 490);
+            this.dataGridViewMergeAfterSumCount.TabIndex = 1;
+            // 
             // 序号
             // 
             this.序号.ContextMenuStrip = this.myContextMergeAfterSumCount;
@@ -598,6 +433,12 @@ namespace UniqueDeclaration
             this.序号.Name = "序号";
             this.序号.ReadOnly = true;
             this.序号.Width = 60;
+            // 
+            // myContextMergeAfterSumCount
+            // 
+            this.myContextMergeAfterSumCount.MyDataGridView = this.dataGridViewMergeAfterSumCount;
+            this.myContextMergeAfterSumCount.Name = "myContextMergeAfterSumCount";
+            this.myContextMergeAfterSumCount.Size = new System.Drawing.Size(101, 26);
             // 
             // 商品编码
             // 
@@ -658,6 +499,29 @@ namespace UniqueDeclaration
             this.单耗.ReadOnly = true;
             this.单耗.Visible = false;
             // 
+            // dataGridViewMergeBeforeSumCount
+            // 
+            this.dataGridViewMergeBeforeSumCount.AllowUserToAddRows = false;
+            this.dataGridViewMergeBeforeSumCount.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewMergeBeforeSumCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewMergeBeforeSumCount.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.编号,
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7});
+            this.dataGridViewMergeBeforeSumCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewMergeBeforeSumCount.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridViewMergeBeforeSumCount.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewMergeBeforeSumCount.Name = "dataGridViewMergeBeforeSumCount";
+            this.dataGridViewMergeBeforeSumCount.ReadOnly = true;
+            this.dataGridViewMergeBeforeSumCount.RowTemplate.Height = 23;
+            this.dataGridViewMergeBeforeSumCount.Size = new System.Drawing.Size(869, 496);
+            this.dataGridViewMergeBeforeSumCount.TabIndex = 1;
+            // 
             // 编号
             // 
             this.编号.ContextMenuStrip = this.myContextMergeBeforeSumCount;
@@ -665,6 +529,12 @@ namespace UniqueDeclaration
             this.编号.HeaderText = "编号";
             this.编号.Name = "编号";
             this.编号.ReadOnly = true;
+            // 
+            // myContextMergeBeforeSumCount
+            // 
+            this.myContextMergeBeforeSumCount.MyDataGridView = this.dataGridViewMergeBeforeSumCount;
+            this.myContextMergeBeforeSumCount.Name = "myContextMergeBeforeSumCount";
+            this.myContextMergeBeforeSumCount.Size = new System.Drawing.Size(101, 26);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -725,6 +595,29 @@ namespace UniqueDeclaration
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
             this.dataGridViewTextBoxColumn7.Visible = false;
             // 
+            // dataGridViewMergeBeforeDetailsSumCount
+            // 
+            this.dataGridViewMergeBeforeDetailsSumCount.AllowUserToAddRows = false;
+            this.dataGridViewMergeBeforeDetailsSumCount.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewMergeBeforeDetailsSumCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewMergeBeforeDetailsSumCount.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.编号2,
+            this.商品编码2,
+            this.商品名称2,
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9,
+            this.dataGridViewTextBoxColumn10,
+            this.dataGridViewTextBoxColumn11,
+            this.dataGridViewTextBoxColumn12});
+            this.dataGridViewMergeBeforeDetailsSumCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewMergeBeforeDetailsSumCount.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridViewMergeBeforeDetailsSumCount.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewMergeBeforeDetailsSumCount.Name = "dataGridViewMergeBeforeDetailsSumCount";
+            this.dataGridViewMergeBeforeDetailsSumCount.ReadOnly = true;
+            this.dataGridViewMergeBeforeDetailsSumCount.RowTemplate.Height = 23;
+            this.dataGridViewMergeBeforeDetailsSumCount.Size = new System.Drawing.Size(869, 496);
+            this.dataGridViewMergeBeforeDetailsSumCount.TabIndex = 1;
+            // 
             // 编号2
             // 
             this.编号2.ContextMenuStrip = this.myContextMergeBeforeDetailsSumCount;
@@ -732,6 +625,12 @@ namespace UniqueDeclaration
             this.编号2.HeaderText = "编号";
             this.编号2.Name = "编号2";
             this.编号2.ReadOnly = true;
+            // 
+            // myContextMergeBeforeDetailsSumCount
+            // 
+            this.myContextMergeBeforeDetailsSumCount.MyDataGridView = this.dataGridViewMergeBeforeDetailsSumCount;
+            this.myContextMergeBeforeDetailsSumCount.Name = "myContextMergeBeforeDetailsSumCount";
+            this.myContextMergeBeforeDetailsSumCount.Size = new System.Drawing.Size(101, 26);
             // 
             // 商品编码2
             // 
@@ -792,10 +691,112 @@ namespace UniqueDeclaration
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
             this.dataGridViewTextBoxColumn12.Visible = false;
             // 
+            // dataGridViewHead
+            // 
+            this.dataGridViewHead.AllowUserToAddRows = false;
+            this.dataGridViewHead.AllowUserToDeleteRows = false;
+            this.dataGridViewHead.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewHead.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewHead.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.订单id,
+            this.订单号码,
+            this.流水号,
+            this.手册编号,
+            this.客户代码,
+            this.客户名称,
+            this.出货日期,
+            this.录入日期});
+            this.dataGridViewHead.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewHead.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridViewHead.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewHead.Name = "dataGridViewHead";
+            this.dataGridViewHead.ReadOnly = true;
+            this.dataGridViewHead.RowTemplate.Height = 23;
+            this.dataGridViewHead.Size = new System.Drawing.Size(291, 527);
+            this.dataGridViewHead.TabIndex = 0;
+            this.dataGridViewHead.SelectionChanged += new System.EventHandler(this.dataGridViewHead_SelectionChanged);
+            // 
+            // 订单id
+            // 
+            this.订单id.ContextMenuStrip = this.myContextHead;
+            this.订单id.DataPropertyName = "订单id";
+            this.订单id.HeaderText = "订单id";
+            this.订单id.Name = "订单id";
+            this.订单id.ReadOnly = true;
+            this.订单id.Visible = false;
+            // 
+            // myContextHead
+            // 
+            this.myContextHead.MyDataGridView = this.dataGridViewHead;
+            this.myContextHead.Name = "myContextHead";
+            this.myContextHead.Size = new System.Drawing.Size(101, 26);
+            // 
+            // 订单号码
+            // 
+            this.订单号码.ContextMenuStrip = this.myContextHead;
+            this.订单号码.DataPropertyName = "订单号码";
+            this.订单号码.HeaderText = "订单号码";
+            this.订单号码.Name = "订单号码";
+            this.订单号码.ReadOnly = true;
+            this.订单号码.Width = 80;
+            // 
+            // 流水号
+            // 
+            this.流水号.ContextMenuStrip = this.myContextHead;
+            this.流水号.DataPropertyName = "流水号";
+            this.流水号.HeaderText = "流水号";
+            this.流水号.Name = "流水号";
+            this.流水号.ReadOnly = true;
+            // 
+            // 手册编号
+            // 
+            this.手册编号.ContextMenuStrip = this.myContextHead;
+            this.手册编号.DataPropertyName = "手册编号";
+            this.手册编号.HeaderText = "电子帐册号";
+            this.手册编号.Name = "手册编号";
+            this.手册编号.ReadOnly = true;
+            this.手册编号.Width = 90;
+            // 
+            // 客户代码
+            // 
+            this.客户代码.ContextMenuStrip = this.myContextHead;
+            this.客户代码.DataPropertyName = "客户代码";
+            this.客户代码.HeaderText = "客户代码";
+            this.客户代码.Name = "客户代码";
+            this.客户代码.ReadOnly = true;
+            this.客户代码.Width = 80;
+            // 
+            // 客户名称
+            // 
+            this.客户名称.ContextMenuStrip = this.myContextHead;
+            this.客户名称.DataPropertyName = "客户名称";
+            this.客户名称.HeaderText = "客户名称";
+            this.客户名称.Name = "客户名称";
+            this.客户名称.ReadOnly = true;
+            this.客户名称.Width = 80;
+            // 
+            // 出货日期
+            // 
+            this.出货日期.ContextMenuStrip = this.myContextHead;
+            this.出货日期.DataPropertyName = "出货日期";
+            this.出货日期.HeaderText = "出货日期";
+            this.出货日期.Name = "出货日期";
+            this.出货日期.ReadOnly = true;
+            this.出货日期.Width = 80;
+            // 
+            // 录入日期
+            // 
+            this.录入日期.ContextMenuStrip = this.myContextHead;
+            this.录入日期.DataPropertyName = "录入日期";
+            this.录入日期.HeaderText = "录入日期";
+            this.录入日期.Name = "录入日期";
+            this.录入日期.ReadOnly = true;
+            this.录入日期.Width = 80;
+            // 
             // FormOrderQueryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(919, 440);
+            this.ClientSize = new System.Drawing.Size(1177, 554);
             this.Name = "FormOrderQueryList";
             this.Text = "预先订单查询";
             this.Load += new System.EventHandler(this.FormOrderQueryList_Load);

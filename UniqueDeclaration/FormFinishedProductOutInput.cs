@@ -1751,7 +1751,7 @@ namespace UniqueDeclaration
             #endregion
 
             DataRow rowCurrent = (dgv.CurrentRow.DataBoundItem as DataRowView).Row;
-            if (rowCurrent.RowState != DataRowState.Added && rowCurrent["型号",DataRowVersion.Original].ToString() != row产品配件["型号"])
+            if (rowCurrent.RowState != DataRowState.Added && rowCurrent["型号",DataRowVersion.Original].ToString() != row产品配件["型号"].ToString())
             {
                 if (配件id == 0)
                 {

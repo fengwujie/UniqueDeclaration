@@ -113,6 +113,12 @@
     <Compile Include="FormMakeNoticeQueryList.Designer.cs">
       <DependentUpon>FormMakeNoticeQueryList.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMaterialSheet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMaterialSheet.Designer.cs">
+      <DependentUpon>FormMaterialSheet.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMaterialsOutInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,18 @@
     </Compile>
     <Compile Include="FormOrderQueryList.Designer.cs">
       <DependentUpon>FormOrderQueryList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormOuterMaterialTotal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOuterMaterialTotal.Designer.cs">
+      <DependentUpon>FormOuterMaterialTotal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormOuterMaterialTotalQueryCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOuterMaterialTotalQueryCondition.Designer.cs">
+      <DependentUpon>FormOuterMaterialTotalQueryCondition.cs</DependentUpon>
     </Compile>
     <Compile Include="FormPackingListQueryCondition.cs">
       <SubType>Form</SubType>
@@ -223,6 +241,9 @@
     <EmbeddedResource Include="FormMakeNoticeQueryList.resx">
       <DependentUpon>FormMakeNoticeQueryList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormMaterialSheet.resx">
+      <DependentUpon>FormMaterialSheet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMaterialsOutInput.resx">
       <DependentUpon>FormMaterialsOutInput.cs</DependentUpon>
     </EmbeddedResource>
@@ -249,6 +270,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormOrderQueryList.resx">
       <DependentUpon>FormOrderQueryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOuterMaterialTotal.resx">
+      <DependentUpon>FormOuterMaterialTotal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOuterMaterialTotalQueryCondition.resx">
+      <DependentUpon>FormOuterMaterialTotalQueryCondition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPackingListQueryCondition.resx">
       <DependentUpon>FormPackingListQueryCondition.cs</DependentUpon>

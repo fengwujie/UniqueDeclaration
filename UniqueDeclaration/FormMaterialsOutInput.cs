@@ -103,6 +103,7 @@ namespace UniqueDeclaration
         {
             base.InitControlData();
             this.gstrDetailFirstField = "料件编号";
+            bcbox_电子帐册号_SelectedIndexChanged = false;
             this.cbox_电子帐册号.InitialData(DataAccess.DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade,
                 "SELECT 手册编号 FROM 手册资料表 ORDER BY 有效期限 DESC", "手册编号", "手册编号");
             bcbox_电子帐册号_SelectedIndexChanged = true;
@@ -726,7 +727,8 @@ namespace UniqueDeclaration
 
         private void cbox_电子帐册号_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (bcbox_电子帐册号_SelectedIndexChanged && rowHead["手册编号"].ToString() != cbox_电子帐册号.SelectedValue.ToString())
+                rowHead["手册编号"] = cbox_电子帐册号.SelectedValue;
         }
 
         private void date_出库时间_ValueChanged(object sender, EventArgs e)

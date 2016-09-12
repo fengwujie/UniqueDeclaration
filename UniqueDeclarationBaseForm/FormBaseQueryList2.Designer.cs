@@ -77,7 +77,7 @@
             this.tool1_ExportExcel});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(919, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(1125, 25);
             this.toolStrip2.TabIndex = 3;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -224,8 +224,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.myDataGridViewDetails);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(919, 415);
-            this.splitContainer1.SplitterDistance = 191;
+            this.splitContainer1.Size = new System.Drawing.Size(1125, 489);
+            this.splitContainer1.SplitterDistance = 225;
             this.splitContainer1.TabIndex = 4;
             // 
             // myDataGridViewHead
@@ -239,7 +239,7 @@
             this.myDataGridViewHead.Name = "myDataGridViewHead";
             this.myDataGridViewHead.ReadOnly = true;
             this.myDataGridViewHead.RowTemplate.Height = 23;
-            this.myDataGridViewHead.Size = new System.Drawing.Size(917, 189);
+            this.myDataGridViewHead.Size = new System.Drawing.Size(1123, 223);
             this.myDataGridViewHead.TabIndex = 0;
             this.myDataGridViewHead.SelectionChanged += new System.EventHandler(this.myDataGridViewHead_SelectionChanged);
             // 
@@ -254,7 +254,7 @@
             this.myDataGridViewDetails.Name = "myDataGridViewDetails";
             this.myDataGridViewDetails.ReadOnly = true;
             this.myDataGridViewDetails.RowTemplate.Height = 23;
-            this.myDataGridViewDetails.Size = new System.Drawing.Size(917, 198);
+            this.myDataGridViewDetails.Size = new System.Drawing.Size(1123, 238);
             this.myDataGridViewDetails.TabIndex = 0;
             // 
             // panel1
@@ -263,7 +263,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(917, 20);
+            this.panel1.Size = new System.Drawing.Size(1123, 20);
             this.panel1.TabIndex = 1;
             // 
             // myLable1
@@ -271,7 +271,7 @@
             this.myLable1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myLable1.Location = new System.Drawing.Point(0, 0);
             this.myLable1.Name = "myLable1";
-            this.myLable1.Size = new System.Drawing.Size(917, 20);
+            this.myLable1.Size = new System.Drawing.Size(1123, 20);
             this.myLable1.TabIndex = 0;
             this.myLable1.Text = "myLable1";
             this.myLable1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -279,9 +279,10 @@
             // FormBaseQueryList2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(919, 440);
+            this.ClientSize = new System.Drawing.Size(1125, 514);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip2);
+            this.IsScaling = false;
             this.Name = "FormBaseQueryList2";
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
