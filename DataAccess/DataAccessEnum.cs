@@ -13,7 +13,8 @@ namespace DataAccess
         public enum DataAccessName
         {
             DataAccessName_Uniquegrade,
-            DataAccessName_Manufacture
+            DataAccessName_Manufacture,
+            DataAccessName_ErpGwt
         }
     }
 }

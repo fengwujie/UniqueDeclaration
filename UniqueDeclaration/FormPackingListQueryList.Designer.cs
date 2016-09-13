@@ -47,7 +47,7 @@
             // 
             // myLable1
             // 
-            this.myLable1.Size = new System.Drawing.Size(788, 22);
+            this.myLable1.Size = new System.Drawing.Size(788, 20);
             this.myLable1.Text = "装箱单明细";
             // 
             // myContextHead
@@ -90,6 +90,7 @@
             this.btnBOMExport.TabIndex = 9;
             this.btnBOMExport.Text = "企业工程BOM导出";
             this.btnBOMExport.UseVisualStyleBackColor = true;
+            this.btnBOMExport.Click += new System.EventHandler(this.btnBOMExport_Click);
             // 
             // btnDataImport
             // 
@@ -99,6 +100,7 @@
             this.btnDataImport.TabIndex = 10;
             this.btnDataImport.Text = "电子账册清单数据导入";
             this.btnDataImport.UseVisualStyleBackColor = true;
+            this.btnDataImport.Click += new System.EventHandler(this.btnDataImport_Click);
             // 
             // myCheckBox1
             // 
@@ -119,7 +121,6 @@
             this.Controls.Add(this.btnBOMExport);
             this.Controls.Add(this.btnMaterialDetails);
             this.Controls.Add(this.btnOuterMaterialTotal);
-            this.IsScaling = false;
             this.Name = "FormPackingListQueryList";
             this.Text = "装箱单明细查询";
             this.Load += new System.EventHandler(this.FormPackingListQueryList_Load);

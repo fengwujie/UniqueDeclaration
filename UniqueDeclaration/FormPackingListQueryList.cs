@@ -446,5 +446,192 @@ namespace UniqueDeclaration
             objForm.idvalue = idvalue;
             objForm.Show();
         }
+        //企业工程BOM导出
+        private void btnBOMExport_Click(object sender, EventArgs e)
+        {
+            if (this.myDataGridViewDetails.CurrentRow == null) return;
+            string strSourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\企业工程BOM导入.xls");
+            string strDestFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"ExcelTemp\企业工程BOM导入{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss")));
+            File.Copy(strSourceFile, strDestFile);
+            File.SetAttributes(strDestFile, File.GetAttributes(strDestFile) | FileAttributes.ReadOnly);
+            string fn = strDestFile;
+            ExcelTools ea = new ExcelTools();
+            ea.SafeOpen(fn);
+            ea.ActiveSheet(1); // 激活
+            DataTable dtExcel = (DataTable)this.myDataGridViewDetails.DataSource;
+            DataTable dtTemp = null;
+            DataTable dtTemp1 = null;
+            DataTable dtTemp2 = null;
+            string codevalue = string.Empty;
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            int n = 2;
+            foreach (DataRow row in dtExcel.Rows)
+            {
+                if (row["订单号码"] != DBNull.Value && row["订单号码"].ToString() != "")
+                {
+                    dtTemp = dataAccess.GetTable(string.Format(@"SELECT D.订单号码,DM.订单id, DM.订单明细表id, DM.产品id, DM.配件id 
+                                                FROM 报关订单表 D LEFT OUTER JOIN 报关订单明细表 DM ON D.订单id = DM.订单id 
+                                                where D.订单号码= '{0}' AND DM.成品项号={1} AND DM.版本号={2}", 
+                                               row["订单号码"], row["成品项号"]==DBNull.Value ? 0 :StringTools.intParse(row["成品项号"].ToString()),
+                                                row["归并前成品序号"] == DBNull.Value ? 0 : StringTools.intParse(row["归并前成品序号"].ToString())), null);
+                    if (dtTemp.Rows.Count > 0)
+                    {
+                        dtTemp1 = dataAccess.GetTable(string.Format("装箱单BOM明细查询 '{0}',{1},{2},{3},{4}",row["手册编号"],dtTemp.Rows[0]["订单id"],
+                            dtTemp.Rows[0]["订单明细表id"], dtTemp.Rows[0]["产品id"] == DBNull.Value ? 0 : StringTools.intParse(dtTemp.Rows[0]["产品id"].ToString()),
+                            dtTemp.Rows[0]["配件id"] == DBNull.Value ? 0 : StringTools.intParse(dtTemp.Rows[0]["配件id"].ToString())), null);
+                        dtTemp2 = dataAccess.GetTable(string.Format(@"SELECT Q.产品编号 FROM 归并后成品清单 H 
+                                                                            LEFT OUTER JOIN 归并前成品清单 Q ON H.归并后成品id = Q.归并后成品id 
+                                                            where H.电子帐册号='{0}' AND H.产品编号='{1}' and Q.序号={2}", row["手册编号"], row["成品项号"], 
+                                                            row["归并前成品序号"] == DBNull.Value ? 0 : StringTools.intParse(row["归并前成品序号"].ToString())), null);
+                        if (dtTemp2.Rows.Count > 0)
+                            codevalue = dtTemp2.Rows[0]["产品编号"].ToString();
+                        else
+                            codevalue = "";
+                        foreach(DataRow rowTemp1 in dtTemp1.Rows)
+                        {
+                            ea.SetValue(string.Format("A{0}",n),codevalue);
+                            ea.SetValue(string.Format("B{0}",n),rowTemp1["料号"].ToString());
+                            ea.SetValue(string.Format("C{0}",n),rowTemp1["单耗"].ToString());
+                            ea.SetValue(string.Format("D{0}",n),rowTemp1["损耗率"] == DBNull.Value ? "0" : (StringTools.decimalParse(rowTemp1["损耗率"].ToString())*100).ToString());
+                            ea.SetValue(string.Format("E{0}",n),row["归并前成品序号"] == DBNull.Value ? "" : StringTools.intParse(row["归并前成品序号"].ToString()).ToString());
+                            ea.SetValue(string.Format("F{0}",n),row["内部版本号"] == DBNull.Value ? "" : StringTools.intParse(row["内部版本号"].ToString()).ToString());
+                            n++;
+                        }
+                    }
+                }
+            }
+            dataAccess.Close();
+            ea.Visible = true;
+            ea.Dispose();
+        }
+        //电子账册清单数据导入
+        private void btnDataImport_Click(object sender, EventArgs e)
+        {
+            if (this.myDataGridViewHead.CurrentRow == null) return;
+            if (SysMessage.YesNoMsg("数据是否导出？") == System.Windows.Forms.DialogResult.No) return;
+            long n;
+            string 申报单位Char, 法定单位Char, 产品编号char;
+            decimal 数量var, 单价val;//PriceValue, 
+            IDataAccess dataUniquegrade = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+            dataUniquegrade.Open();
+            string strSQL = string.Format(@"SELECT D.装箱单号, D.用途, D.征免方式, D.产销国, D.币制, D.申报地海关代码,D.进口岸代码, D.代理单位代码, DM.成品项号, 
+                                                    DM.手册编号,DM.成品名称及商编, DM.成品规格型号, DM.数量,DM.单价, DM.单位,DM.归并前成品序号, DM.内部版本号 
+                                            FROM 装箱单表 D LEFT OUTER JOIN 装箱单明细表 DM ON D.订单id = DM.订单id 
+                                            WHERE D.订单id={0} order by case when DM.成品项号=2 then 99 else DM.成品项号 end",
+                                                this.myDataGridViewHead.CurrentRow.Cells["订单id"].Value);
+            DataTable dtData = dataUniquegrade.GetTable(strSQL, null);
+            dataUniquegrade.Close();
+            if (dtData.Rows.Count > 0)
+            {
+                IDataAccess dataManufacture = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                IDataAccess dataErpGwt = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_ErpGwt);
+                n = 1;
+                foreach (DataRow row in dtData.Rows)
+                {
+                    申报单位Char = "";
+                    if (row["单位"] != DBNull.Value || row["单位"].ToString() != "")
+                    {
+                        dataErpGwt.Open();
+                        DataTable dt单位 = dataErpGwt.GetTable(string.Format("SELECT * FROM unit where ut_name='{0}'", row["单位"]), null);
+                        dataErpGwt.Close();
+                        if (dt单位.Rows.Count > 0)
+                            申报单位Char = dt单位.Rows[0]["Unit"].ToString();
+                        else
+                            申报单位Char = row["单位"].ToString();
+                    }
+                    法定单位Char = "";
+                    dataManufacture.Open();
+                    DataTable dt归并后成品清单 = dataManufacture.GetTable(string.Format(@"SELECT H.电子帐册号, H.序号, Q.序号 AS 归并前序号, Q.产品编号, H.商品编码,
+                                                                                    H.商品名称, Q.商品规格, Q.单价, H.计量单位, H.法定单位 
+                                                                    FROM 归并后成品清单 H LEFT OUTER JOIN 归并前成品清单 Q ON H.归并后成品id = Q.归并后成品id 
+                                                                    WHERE H.电子帐册号='{0}' and H.产品编号='{1}' and Q.序号={2}",
+                                                                    row["手册编号"], row["成品项号"], 
+                                                        row["归并前成品序号"] == DBNull.Value ? 0 : StringTools.intParse(row["归并前成品序号"].ToString())),null);
+                    dataManufacture.Close();
+                    if (dt归并后成品清单.Rows.Count > 0)
+                    {
+                        产品编号char = dt归并后成品清单.Rows[0]["产品编号"].ToString();
+                        单价val = dt归并后成品清单.Rows[0]["产品编号"] == DBNull.Value ? Convert.ToDecimal(Convert.ToDecimal("0").ToString("N2")) :
+                            Convert.ToDecimal((StringTools.decimalParse(dt归并后成品清单.Rows[0]["产品编号"].ToString())).ToString("N2"));
+                        if (dt归并后成品清单.Rows[0]["法定单位"] != DBNull.Value || dt归并后成品清单.Rows[0]["法定单位"].ToString() != "")
+                        {
+                            dataErpGwt.Open();
+                            DataTable dt法定单位 = dataErpGwt.GetTable(string.Format("SELECT * FROM unit where ut_name='{0}'", dt归并后成品清单.Rows[0]["法定单位"]), null);
+                            dataErpGwt.Close();
+                            if (dt法定单位.Rows.Count > 0)
+                                法定单位Char = dt法定单位.Rows[0]["Unit"].ToString();
+                            else
+                                法定单位Char = dt归并后成品清单.Rows[0]["法定单位"].ToString();
+                        }
+                    }
+                    数量var = 0;
+                    if (row["数量"] != DBNull.Value && StringTools.decimalParse(row["数量"].ToString()) > 0)
+                    {
+                        if (row["成品规格型号"] != DBNull.Value && row["成品规格型号"].ToString() != "")
+                        {
+                            if (row["成品规格型号"].ToString().Contains("G"))
+                            {
+                                数量var =StringTools.decimalParse( row["成品规格型号"].ToString().Substring(0, row["成品规格型号"].ToString().IndexOf("G")-1));
+                            }
+                            else
+                            {
+                                数量var =StringTools.decimalParse(row["成品规格型号"].ToString());
+                            }
+                        }
+                    }
+                    单价val = 0;
+                    if (row["单价"] != DBNull.Value && StringTools.decimalParse(row["单价"].ToString()) != 0)
+                    {
+                        单价val =StringTools.decimalParse( StringTools.decimalParse(row["单价"].ToString()).ToString("N2"));
+                    }
+                    产品编号char = row["产品编号"] != DBNull.Value ? "" : row["产品编号"].ToString();
+                    if (row["成品项号"] != DBNull.Value)
+                    {
+                        string strGWT_EMS_CL = string.Empty;
+                        if (StringTools.intParse(row["成品项号"].ToString()) == 2)
+                        {
+                            strGWT_EMS_CL = string.Format(@"INSERT INTO GWT_EMS_CL(Ems_No,owner_code, Cop_List_No, I_E_Mark, G_Mark,List_Declare_Date,List_G_No,
+                                                    Cop_G_No,Qty,Factor_1,Factor_2,Unit,Unit_1,Unit_2,Dec_Price,Dec_Total,Use_Type,Duty_Mode,Country_Code,Curr,enc_version) 
+                                                VALUES('{0}','3502948415','{1}','E','4','{2}',{3},'{4}',{5},{6},{7},'{8}','{9}','{10}',{11},{12},'{13}','{14}','{15}','{16}','{17}')",
+                            row["手册编号"],row["装箱单号"],DateTime.Now.ToString("yyyy-MM-dd"),n,产品编号char, 
+                                row["数量"]==DBNull.Value ? "0.00" : StringTools.decimalParse(row["数量"].ToString()).ToString("N2"), 
+                                row["数量"]==DBNull.Value ? "0.00" : StringTools.decimalParse(row["数量"].ToString()).ToString("N2"), 
+                                row["数量"]==DBNull.Value ? "0.00" : ((StringTools.decimalParse(row["数量"].ToString()) * 数量var)/1000).ToString("N2"),
+                            申报单位Char,申报单位Char,法定单位Char,单价val,
+                            row["数量"]==DBNull.Value ? "0.00" : ((StringTools.decimalParse(row["数量"].ToString()) * 单价val)).ToString("N2"),
+                            this.myDataGridViewHead.CurrentRow.Cells["用途"].Value == DBNull.Value ? "" :this.myDataGridViewHead.CurrentRow.Cells["用途"].Value,
+                            this.myDataGridViewHead.CurrentRow.Cells["征免方式"].Value == DBNull.Value ? "" :this.myDataGridViewHead.CurrentRow.Cells["征免方式"].Value,
+                            this.myDataGridViewHead.CurrentRow.Cells["产销国"].Value == DBNull.Value ? "" :this.myDataGridViewHead.CurrentRow.Cells["产销国"].Value,
+                            this.myDataGridViewHead.CurrentRow.Cells["币制"].Value == DBNull.Value ? "" :this.myDataGridViewHead.CurrentRow.Cells["币制"].Value,
+                                row["归并前成品序号"] == DBNull.Value ? "" : row["归并前成品序号"].ToString());
+                        }
+                        else
+                        {
+                            strGWT_EMS_CL = string.Format(@"INSERT INTO GWT_EMS_CL(Ems_No,owner_code, Cop_List_No, I_E_Mark, G_Mark,List_Declare_Date,List_G_No,
+                                                            Cop_G_No,Qty,Factor_1,Unit,Unit_1,Dec_Price,Dec_Total,Use_Type,Duty_Mode,Country_Code,Curr,enc_version) 
+                                                            VALUES('{0}','3502948415','{1}','E','4','{2}',{3},'{4}',{5},{6},'{7}','{8}',{9},{10},'{11}','{12}','{13}','{14}','{15}')",
+                            row["手册编号"],row["装箱单号"],DateTime.Now.ToString("yyyy-MM-dd"),n,产品编号char, 
+                                row["数量"]==DBNull.Value ? "0.00" : StringTools.decimalParse(row["数量"].ToString()).ToString("N2"), 
+                                row["数量"]==DBNull.Value ? "0.00" : StringTools.decimalParse(row["数量"].ToString()).ToString("N2"), 
+                                row["数量"]==DBNull.Value ? "0.00" : ((StringTools.decimalParse(row["数量"].ToString()) * 数量var)/1000).ToString("N2"),
+                            申报单位Char,法定单位Char,单价val,
+                            row["数量"]==DBNull.Value ? "0.00" : ((StringTools.decimalParse(row["数量"].ToString()) * 单价val)).ToString("N2"),
+                            this.myDataGridViewHead.CurrentRow.Cells["用途"].Value == DBNull.Value ? "" :this.myDataGridViewHead.CurrentRow.Cells["用途"].Value,
+                            this.myDataGridViewHead.CurrentRow.Cells["征免方式"].Value == DBNull.Value ? "" :this.myDataGridViewHead.CurrentRow.Cells["征免方式"].Value,
+                            this.myDataGridViewHead.CurrentRow.Cells["产销国"].Value == DBNull.Value ? "" :this.myDataGridViewHead.CurrentRow.Cells["产销国"].Value,
+                            this.myDataGridViewHead.CurrentRow.Cells["币制"].Value == DBNull.Value ? "" :this.myDataGridViewHead.CurrentRow.Cells["币制"].Value,
+                                row["归并前成品序号"] == DBNull.Value ? "" : row["归并前成品序号"].ToString());
+                        }
+                        dataErpGwt.Open();
+                        dataErpGwt.ExecuteNonQuery(strGWT_EMS_CL, null);
+                        dataErpGwt.Close();
+                    }
+                    n++;
+                }
+                dataErpGwt.Open();
+                dataErpGwt.ExecuteNonQuery("sp_get_gwt_ems_cl");
+            }
+        }
     }
 }

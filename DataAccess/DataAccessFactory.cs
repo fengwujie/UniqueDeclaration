@@ -19,6 +19,9 @@ namespace DataAccess
               case DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade:
                   conStr = ConfigurationManager.ConnectionStrings["Uniquegrade"].ToString();//读连接字符串 
                   break;
+              case DataAccessEnum.DataAccessName.DataAccessName_ErpGwt:
+                  conStr = ConfigurationManager.ConnectionStrings["ErpGwt"].ToString();//读连接字符串 
+                  break;
           }
           return new MSSQLDAL(conStr);
       }
