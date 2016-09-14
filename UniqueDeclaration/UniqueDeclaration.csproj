@@ -185,6 +185,12 @@
     <Compile Include="FormOuterMaterialTotalQueryCondition.Designer.cs">
       <DependentUpon>FormOuterMaterialTotalQueryCondition.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPackingListInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPackingListInput.Designer.cs">
+      <DependentUpon>FormPackingListInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPackingListQueryCondition.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +283,9 @@
     <EmbeddedResource Include="FormOuterMaterialTotalQueryCondition.resx">
       <DependentUpon>FormOuterMaterialTotalQueryCondition.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormPackingListInput.resx">
+      <DependentUpon>FormPackingListInput.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPackingListQueryCondition.resx">
       <DependentUpon>FormPackingListQueryCondition.cs</DependentUpon>
     </EmbeddedResource>
@@ -294,14 +303,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -309,6 +313,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -361,6 +370,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
+    <None Include="bin\Debug\Image\check_24px.png" />
+    <None Include="bin\Debug\Image\check_34px.png" />
     <None Include="bin\Debug\Image\structure_24px.png" />
     <None Include="bin\Debug\Image\shopping_webshop_24px.png" />
     <None Include="bin\Debug\Image\Save_24pxt.png" />

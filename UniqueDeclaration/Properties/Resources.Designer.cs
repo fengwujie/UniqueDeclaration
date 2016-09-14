@@ -83,6 +83,16 @@ namespace UniqueDeclaration.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap check_24px {
+            get {
+                object obj = ResourceManager.GetObject("check_24px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap close_24px {
             get {
                 object obj = ResourceManager.GetObject("close_24px", resourceCulture);

@@ -59,7 +59,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 143);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(919, 297);
+            this.groupBox2.Size = new System.Drawing.Size(1047, 361);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
@@ -73,7 +73,7 @@
             this.dataGridViewDetail.Location = new System.Drawing.Point(3, 42);
             this.dataGridViewDetail.Name = "dataGridViewDetail";
             this.dataGridViewDetail.RowTemplate.Height = 23;
-            this.dataGridViewDetail.Size = new System.Drawing.Size(913, 252);
+            this.dataGridViewDetail.Size = new System.Drawing.Size(1041, 316);
             this.dataGridViewDetail.TabIndex = 2;
             this.dataGridViewDetail.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDetail_CellEndEdit);
             this.dataGridViewDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewDetail_DataError);
@@ -94,7 +94,7 @@
             this.tool2_Number});
             this.toolStrip2.Location = new System.Drawing.Point(3, 17);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(913, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(1041, 25);
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -189,7 +189,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 25);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(919, 118);
+            this.groupBox1.Size = new System.Drawing.Size(1047, 118);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -201,7 +201,7 @@
             this.tool1_Close});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(919, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1047, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -238,7 +238,7 @@
             // FormBaseInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(919, 440);
+            this.ClientSize = new System.Drawing.Size(1047, 504);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
