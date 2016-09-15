@@ -30,7 +30,7 @@
         {
             this.myLable1 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_订单号码 = new UniqueDeclarationBaseForm.Controls.myTextBox();
-            this.myButton1 = new UniqueDeclarationBaseForm.Controls.myButton();
+            this.btnCheckOrderNo = new UniqueDeclarationBaseForm.Controls.myButton();
             this.txt_装箱单号 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable2 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_客户代码 = new UniqueDeclarationBaseForm.Controls.myTextBox();
@@ -39,52 +39,54 @@
             this.myLable4 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myLable5 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.date_出货日期 = new UniqueDeclarationBaseForm.Controls.myDateTimePicker();
-            this.myTextBox5 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.txt_报关单号 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable6 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myLable7 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.myComboBox1 = new UniqueDeclarationBaseForm.Controls.myComboBox();
-            this.myDateTimePicker2 = new UniqueDeclarationBaseForm.Controls.myDateTimePicker();
+            this.cbox_手册编号 = new UniqueDeclarationBaseForm.Controls.myComboBox();
+            this.date_录入日期 = new UniqueDeclarationBaseForm.Controls.myDateTimePicker();
             this.myLable8 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.myTextBox6 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.txt_征免方式 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable9 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.myTextBox7 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.txt_产销国 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable10 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.myTextBox8 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.txt_币制 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable11 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.myTextBox9 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.txt_申报地海关代码 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable12 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.myTextBox10 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.txt_进口岸代码 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable13 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.myTextBox11 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.txt_代理单位代码 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable14 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.myTextBox12 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.txt_用途 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable15 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myCheckBox1 = new UniqueDeclarationBaseForm.Controls.myCheckBox();
+            this.myContextDetails = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
+            this.btnOuterMaterialTotal = new UniqueDeclarationBaseForm.Controls.myButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.myCheckBox1);
-            this.groupBox1.Controls.Add(this.myTextBox12);
+            this.groupBox1.Controls.Add(this.txt_用途);
             this.groupBox1.Controls.Add(this.myLable15);
-            this.groupBox1.Controls.Add(this.myTextBox11);
+            this.groupBox1.Controls.Add(this.txt_代理单位代码);
             this.groupBox1.Controls.Add(this.myLable14);
-            this.groupBox1.Controls.Add(this.myTextBox10);
+            this.groupBox1.Controls.Add(this.txt_进口岸代码);
             this.groupBox1.Controls.Add(this.myLable13);
-            this.groupBox1.Controls.Add(this.myTextBox9);
+            this.groupBox1.Controls.Add(this.txt_申报地海关代码);
             this.groupBox1.Controls.Add(this.myLable12);
-            this.groupBox1.Controls.Add(this.myTextBox8);
+            this.groupBox1.Controls.Add(this.txt_币制);
             this.groupBox1.Controls.Add(this.myLable11);
-            this.groupBox1.Controls.Add(this.myTextBox7);
+            this.groupBox1.Controls.Add(this.txt_产销国);
             this.groupBox1.Controls.Add(this.myLable10);
-            this.groupBox1.Controls.Add(this.myTextBox6);
+            this.groupBox1.Controls.Add(this.txt_征免方式);
             this.groupBox1.Controls.Add(this.myLable9);
-            this.groupBox1.Controls.Add(this.myDateTimePicker2);
+            this.groupBox1.Controls.Add(this.date_录入日期);
             this.groupBox1.Controls.Add(this.myLable8);
-            this.groupBox1.Controls.Add(this.myComboBox1);
+            this.groupBox1.Controls.Add(this.cbox_手册编号);
             this.groupBox1.Controls.Add(this.myLable7);
-            this.groupBox1.Controls.Add(this.myTextBox5);
+            this.groupBox1.Controls.Add(this.txt_报关单号);
             this.groupBox1.Controls.Add(this.myLable6);
             this.groupBox1.Controls.Add(this.date_出货日期);
             this.groupBox1.Controls.Add(this.myLable5);
@@ -94,15 +96,15 @@
             this.groupBox1.Controls.Add(this.myLable3);
             this.groupBox1.Controls.Add(this.txt_装箱单号);
             this.groupBox1.Controls.Add(this.myLable2);
-            this.groupBox1.Controls.Add(this.myButton1);
+            this.groupBox1.Controls.Add(this.btnCheckOrderNo);
             this.groupBox1.Controls.Add(this.txt_订单号码);
             this.groupBox1.Controls.Add(this.myLable1);
-            this.groupBox1.Size = new System.Drawing.Size(1070, 101);
+            this.groupBox1.Size = new System.Drawing.Size(1070, 104);
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(0, 126);
-            this.groupBox2.Size = new System.Drawing.Size(1070, 390);
+            this.groupBox2.Location = new System.Drawing.Point(0, 129);
+            this.groupBox2.Size = new System.Drawing.Size(1070, 387);
             // 
             // myLable1
             // 
@@ -120,16 +122,18 @@
             this.txt_订单号码.Name = "txt_订单号码";
             this.txt_订单号码.Size = new System.Drawing.Size(95, 21);
             this.txt_订单号码.TabIndex = 1;
+            this.txt_订单号码.Validating += new System.ComponentModel.CancelEventHandler(this.txt_订单号码_Validating);
+            this.txt_订单号码.Validated += new System.EventHandler(this.txt_订单号码_Validated);
             // 
-            // myButton1
+            // btnCheckOrderNo
             // 
-            this.myButton1.BackgroundImage = global::UniqueDeclaration.Properties.Resources.check_24px;
-            this.myButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.myButton1.Location = new System.Drawing.Point(182, 16);
-            this.myButton1.Name = "myButton1";
-            this.myButton1.Size = new System.Drawing.Size(25, 23);
-            this.myButton1.TabIndex = 2;
-            this.myButton1.UseVisualStyleBackColor = true;
+            this.btnCheckOrderNo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCheckOrderNo.Location = new System.Drawing.Point(182, 16);
+            this.btnCheckOrderNo.Name = "btnCheckOrderNo";
+            this.btnCheckOrderNo.Size = new System.Drawing.Size(25, 23);
+            this.btnCheckOrderNo.TabIndex = 2;
+            this.btnCheckOrderNo.UseVisualStyleBackColor = true;
+            this.btnCheckOrderNo.Click += new System.EventHandler(this.btnCheckOrderNo_Click);
             // 
             // txt_装箱单号
             // 
@@ -138,6 +142,8 @@
             this.txt_装箱单号.Name = "txt_装箱单号";
             this.txt_装箱单号.Size = new System.Drawing.Size(113, 21);
             this.txt_装箱单号.TabIndex = 4;
+            this.txt_装箱单号.Validating += new System.ComponentModel.CancelEventHandler(this.txt_装箱单号_Validating);
+            this.txt_装箱单号.Validated += new System.EventHandler(this.txt_装箱单号_Validated);
             // 
             // myLable2
             // 
@@ -155,6 +161,7 @@
             this.txt_客户代码.Name = "txt_客户代码";
             this.txt_客户代码.Size = new System.Drawing.Size(113, 21);
             this.txt_客户代码.TabIndex = 6;
+            this.txt_客户代码.Validated += new System.EventHandler(this.txt_客户代码_Validated);
             // 
             // myLable3
             // 
@@ -172,6 +179,7 @@
             this.txt_客户名称.Name = "txt_客户名称";
             this.txt_客户名称.Size = new System.Drawing.Size(113, 21);
             this.txt_客户名称.TabIndex = 8;
+            this.txt_客户名称.Validated += new System.EventHandler(this.txt_客户名称_Validated);
             // 
             // myLable4
             // 
@@ -197,14 +205,16 @@
             this.date_出货日期.Name = "date_出货日期";
             this.date_出货日期.Size = new System.Drawing.Size(113, 21);
             this.date_出货日期.TabIndex = 10;
+            this.date_出货日期.Validated += new System.EventHandler(this.date_出货日期_Validated);
             // 
-            // myTextBox5
+            // txt_报关单号
             // 
-            this.myTextBox5.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.myTextBox5.Location = new System.Drawing.Point(81, 45);
-            this.myTextBox5.Name = "myTextBox5";
-            this.myTextBox5.Size = new System.Drawing.Size(113, 21);
-            this.myTextBox5.TabIndex = 12;
+            this.txt_报关单号.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_报关单号.Location = new System.Drawing.Point(81, 45);
+            this.txt_报关单号.Name = "txt_报关单号";
+            this.txt_报关单号.Size = new System.Drawing.Size(113, 21);
+            this.txt_报关单号.TabIndex = 12;
+            this.txt_报关单号.Validated += new System.EventHandler(this.txt_报关单号_Validated);
             // 
             // myLable6
             // 
@@ -224,20 +234,22 @@
             this.myLable7.Text = "电子帐册号：";
             this.myLable7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // myComboBox1
+            // cbox_手册编号
             // 
-            this.myComboBox1.FormattingEnabled = true;
-            this.myComboBox1.Location = new System.Drawing.Point(312, 45);
-            this.myComboBox1.Name = "myComboBox1";
-            this.myComboBox1.Size = new System.Drawing.Size(113, 20);
-            this.myComboBox1.TabIndex = 14;
+            this.cbox_手册编号.FormattingEnabled = true;
+            this.cbox_手册编号.Location = new System.Drawing.Point(312, 45);
+            this.cbox_手册编号.Name = "cbox_手册编号";
+            this.cbox_手册编号.Size = new System.Drawing.Size(113, 20);
+            this.cbox_手册编号.TabIndex = 14;
+            this.cbox_手册编号.TabIndexChanged += new System.EventHandler(this.cbox_手册编号_TabIndexChanged);
             // 
-            // myDateTimePicker2
+            // date_录入日期
             // 
-            this.myDateTimePicker2.Location = new System.Drawing.Point(511, 45);
-            this.myDateTimePicker2.Name = "myDateTimePicker2";
-            this.myDateTimePicker2.Size = new System.Drawing.Size(113, 21);
-            this.myDateTimePicker2.TabIndex = 16;
+            this.date_录入日期.Location = new System.Drawing.Point(511, 45);
+            this.date_录入日期.Name = "date_录入日期";
+            this.date_录入日期.Size = new System.Drawing.Size(113, 21);
+            this.date_录入日期.TabIndex = 16;
+            this.date_录入日期.ValueChanged += new System.EventHandler(this.txt_录入日期_ValueChanged);
             // 
             // myLable8
             // 
@@ -245,16 +257,17 @@
             this.myLable8.Name = "myLable8";
             this.myLable8.Size = new System.Drawing.Size(73, 18);
             this.myLable8.TabIndex = 15;
-            this.myLable8.Text = "出货日期：";
+            this.myLable8.Text = "录入日期：";
             this.myLable8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // myTextBox6
+            // txt_征免方式
             // 
-            this.myTextBox6.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.myTextBox6.Location = new System.Drawing.Point(714, 45);
-            this.myTextBox6.Name = "myTextBox6";
-            this.myTextBox6.Size = new System.Drawing.Size(113, 21);
-            this.myTextBox6.TabIndex = 18;
+            this.txt_征免方式.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_征免方式.Location = new System.Drawing.Point(714, 45);
+            this.txt_征免方式.Name = "txt_征免方式";
+            this.txt_征免方式.Size = new System.Drawing.Size(113, 21);
+            this.txt_征免方式.TabIndex = 18;
+            this.txt_征免方式.Validated += new System.EventHandler(this.txt_征免方式_Validated);
             // 
             // myLable9
             // 
@@ -265,13 +278,14 @@
             this.myLable9.Text = "征免方式：";
             this.myLable9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // myTextBox7
+            // txt_产销国
             // 
-            this.myTextBox7.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.myTextBox7.Location = new System.Drawing.Point(919, 45);
-            this.myTextBox7.Name = "myTextBox7";
-            this.myTextBox7.Size = new System.Drawing.Size(64, 21);
-            this.myTextBox7.TabIndex = 20;
+            this.txt_产销国.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_产销国.Location = new System.Drawing.Point(919, 45);
+            this.txt_产销国.Name = "txt_产销国";
+            this.txt_产销国.Size = new System.Drawing.Size(64, 21);
+            this.txt_产销国.TabIndex = 20;
+            this.txt_产销国.Validated += new System.EventHandler(this.txt_产销国_Validated);
             // 
             // myLable10
             // 
@@ -282,13 +296,14 @@
             this.myLable10.Text = "产销国：";
             this.myLable10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // myTextBox8
+            // txt_币制
             // 
-            this.myTextBox8.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.myTextBox8.Location = new System.Drawing.Point(81, 72);
-            this.myTextBox8.Name = "myTextBox8";
-            this.myTextBox8.Size = new System.Drawing.Size(113, 21);
-            this.myTextBox8.TabIndex = 22;
+            this.txt_币制.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_币制.Location = new System.Drawing.Point(81, 72);
+            this.txt_币制.Name = "txt_币制";
+            this.txt_币制.Size = new System.Drawing.Size(113, 21);
+            this.txt_币制.TabIndex = 22;
+            this.txt_币制.Validated += new System.EventHandler(this.txt_币制_Validated);
             // 
             // myLable11
             // 
@@ -299,13 +314,14 @@
             this.myLable11.Text = "币制：";
             this.myLable11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // myTextBox9
+            // txt_申报地海关代码
             // 
-            this.myTextBox9.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.myTextBox9.Location = new System.Drawing.Point(312, 72);
-            this.myTextBox9.Name = "myTextBox9";
-            this.myTextBox9.Size = new System.Drawing.Size(113, 21);
-            this.myTextBox9.TabIndex = 24;
+            this.txt_申报地海关代码.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_申报地海关代码.Location = new System.Drawing.Point(312, 72);
+            this.txt_申报地海关代码.Name = "txt_申报地海关代码";
+            this.txt_申报地海关代码.Size = new System.Drawing.Size(113, 21);
+            this.txt_申报地海关代码.TabIndex = 24;
+            this.txt_申报地海关代码.Validated += new System.EventHandler(this.txt_申报地海关代码_Validated);
             // 
             // myLable12
             // 
@@ -316,13 +332,14 @@
             this.myLable12.Text = "申报地海关代码：";
             this.myLable12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // myTextBox10
+            // txt_进口岸代码
             // 
-            this.myTextBox10.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.myTextBox10.Location = new System.Drawing.Point(511, 72);
-            this.myTextBox10.Name = "myTextBox10";
-            this.myTextBox10.Size = new System.Drawing.Size(113, 21);
-            this.myTextBox10.TabIndex = 26;
+            this.txt_进口岸代码.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_进口岸代码.Location = new System.Drawing.Point(511, 72);
+            this.txt_进口岸代码.Name = "txt_进口岸代码";
+            this.txt_进口岸代码.Size = new System.Drawing.Size(113, 21);
+            this.txt_进口岸代码.TabIndex = 26;
+            this.txt_进口岸代码.Validated += new System.EventHandler(this.txt_进口岸代码_Validated);
             // 
             // myLable13
             // 
@@ -333,13 +350,14 @@
             this.myLable13.Text = "进口岸代码：";
             this.myLable13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // myTextBox11
+            // txt_代理单位代码
             // 
-            this.myTextBox11.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.myTextBox11.Location = new System.Drawing.Point(714, 72);
-            this.myTextBox11.Name = "myTextBox11";
-            this.myTextBox11.Size = new System.Drawing.Size(113, 21);
-            this.myTextBox11.TabIndex = 28;
+            this.txt_代理单位代码.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_代理单位代码.Location = new System.Drawing.Point(714, 72);
+            this.txt_代理单位代码.Name = "txt_代理单位代码";
+            this.txt_代理单位代码.Size = new System.Drawing.Size(113, 21);
+            this.txt_代理单位代码.TabIndex = 28;
+            this.txt_代理单位代码.Validated += new System.EventHandler(this.txt_代理单位代码_Validated);
             // 
             // myLable14
             // 
@@ -350,13 +368,14 @@
             this.myLable14.Text = "代理单位代码：";
             this.myLable14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // myTextBox12
+            // txt_用途
             // 
-            this.myTextBox12.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.myTextBox12.Location = new System.Drawing.Point(919, 72);
-            this.myTextBox12.Name = "myTextBox12";
-            this.myTextBox12.Size = new System.Drawing.Size(113, 21);
-            this.myTextBox12.TabIndex = 30;
+            this.txt_用途.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_用途.Location = new System.Drawing.Point(919, 72);
+            this.txt_用途.Name = "txt_用途";
+            this.txt_用途.Size = new System.Drawing.Size(113, 21);
+            this.txt_用途.TabIndex = 30;
+            this.txt_用途.Validated += new System.EventHandler(this.txt_用途_Validated);
             // 
             // myLable15
             // 
@@ -376,13 +395,34 @@
             this.myCheckBox1.TabIndex = 31;
             this.myCheckBox1.Text = "已出货";
             this.myCheckBox1.UseVisualStyleBackColor = true;
+            this.myCheckBox1.CheckedChanged += new System.EventHandler(this.myCheckBox1_CheckedChanged);
+            // 
+            // myContextDetails
+            // 
+            this.myContextDetails.MyDataGridView = this.dataGridViewDetail;
+            this.myContextDetails.Name = "myContextDetails";
+            this.myContextDetails.Size = new System.Drawing.Size(101, 26);
+            // 
+            // btnOuterMaterialTotal
+            // 
+            this.btnOuterMaterialTotal.Location = new System.Drawing.Point(119, 2);
+            this.btnOuterMaterialTotal.Name = "btnOuterMaterialTotal";
+            this.btnOuterMaterialTotal.Size = new System.Drawing.Size(99, 23);
+            this.btnOuterMaterialTotal.TabIndex = 4;
+            this.btnOuterMaterialTotal.Text = "出口料件统计";
+            this.btnOuterMaterialTotal.UseVisualStyleBackColor = true;
+            this.btnOuterMaterialTotal.Click += new System.EventHandler(this.btnOuterMaterialTotal_Click);
             // 
             // FormPackingListInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(1070, 516);
+            this.Controls.Add(this.btnOuterMaterialTotal);
             this.Name = "FormPackingListInput";
             this.Text = "装箱单录入";
+            this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
+            this.Controls.SetChildIndex(this.btnOuterMaterialTotal, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -394,7 +434,7 @@
 
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_装箱单号;
         private UniqueDeclarationBaseForm.Controls.myLable myLable2;
-        private UniqueDeclarationBaseForm.Controls.myButton myButton1;
+        private UniqueDeclarationBaseForm.Controls.myButton btnCheckOrderNo;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_订单号码;
         private UniqueDeclarationBaseForm.Controls.myLable myLable1;
         private UniqueDeclarationBaseForm.Controls.myLable myLable5;
@@ -403,26 +443,28 @@
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_客户代码;
         private UniqueDeclarationBaseForm.Controls.myLable myLable3;
         private UniqueDeclarationBaseForm.Controls.myCheckBox myCheckBox1;
-        private UniqueDeclarationBaseForm.Controls.myTextBox myTextBox12;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_用途;
         private UniqueDeclarationBaseForm.Controls.myLable myLable15;
-        private UniqueDeclarationBaseForm.Controls.myTextBox myTextBox11;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_代理单位代码;
         private UniqueDeclarationBaseForm.Controls.myLable myLable14;
-        private UniqueDeclarationBaseForm.Controls.myTextBox myTextBox10;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_进口岸代码;
         private UniqueDeclarationBaseForm.Controls.myLable myLable13;
-        private UniqueDeclarationBaseForm.Controls.myTextBox myTextBox9;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_申报地海关代码;
         private UniqueDeclarationBaseForm.Controls.myLable myLable12;
-        private UniqueDeclarationBaseForm.Controls.myTextBox myTextBox8;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_币制;
         private UniqueDeclarationBaseForm.Controls.myLable myLable11;
-        private UniqueDeclarationBaseForm.Controls.myTextBox myTextBox7;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_产销国;
         private UniqueDeclarationBaseForm.Controls.myLable myLable10;
-        private UniqueDeclarationBaseForm.Controls.myTextBox myTextBox6;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_征免方式;
         private UniqueDeclarationBaseForm.Controls.myLable myLable9;
-        private UniqueDeclarationBaseForm.Controls.myDateTimePicker myDateTimePicker2;
+        private UniqueDeclarationBaseForm.Controls.myDateTimePicker date_录入日期;
         private UniqueDeclarationBaseForm.Controls.myLable myLable8;
-        private UniqueDeclarationBaseForm.Controls.myComboBox myComboBox1;
+        private UniqueDeclarationBaseForm.Controls.myComboBox cbox_手册编号;
         private UniqueDeclarationBaseForm.Controls.myLable myLable7;
-        private UniqueDeclarationBaseForm.Controls.myTextBox myTextBox5;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_报关单号;
         private UniqueDeclarationBaseForm.Controls.myLable myLable6;
         private UniqueDeclarationBaseForm.Controls.myDateTimePicker date_出货日期;
+        private UniqueDeclarationBaseForm.Controls.myContextMenuStripCell myContextDetails;
+        private UniqueDeclarationBaseForm.Controls.myButton btnOuterMaterialTotal;
     }
 }

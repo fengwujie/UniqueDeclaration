@@ -160,7 +160,6 @@ namespace UniqueDeclaration
             try
             {
                 int iOrderID = 0;
-                string strBooksNo = string.Empty;
                 if (this.myDataGridViewHead.CurrentRow != null)
                 {
                     if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["订单id"].Value != DBNull.Value)
@@ -226,38 +225,36 @@ namespace UniqueDeclaration
         public override void tool1_Add_Click(object sender, EventArgs e)
         {
             base.tool1_Add_Click(sender, e);
-            //FormMaterialsOutInput objForm = new FormMaterialsOutInput();
-            //objForm.MdiParent = this.MdiParent;
-            //objForm.Show();
+            FormPackingListInput objForm = new FormPackingListInput();
+            objForm.MdiParent = this.MdiParent;
+            objForm.Show();
         }
 
         public override void tool1_Modify_Click(object sender, EventArgs e)
         {
             base.tool1_Modify_Click(sender, e);
-            //bool bHave = false;
-            //int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["料件出库表id"].Value);
-            //string strBooksNo = this.myDataGridViewHead.CurrentRow.Cells["电子帐册号"].Value.ToString();
-            //foreach (Form childFrm in this.MdiParent.MdiChildren)
-            //{
-            //    if (childFrm.Name == "FormMaterialsOutInput")
-            //    {
-            //        FormMaterialsOutInput inputForm = (FormMaterialsOutInput)childFrm;
-            //        if (inputForm.giOrderID != 0 && inputForm.giOrderID == iOrderID)
-            //        {
-            //            bHave = true;
-            //            childFrm.Activate();
-            //            break;
-            //        }
-            //    }
-            //}
-            //if (!bHave)
-            //{
-            //    FormMaterialsOutInput objForm = new FormMaterialsOutInput();
-            //    objForm.MdiParent = this.MdiParent;
-            //    objForm.giOrderID = iOrderID;
-            //    objForm.strBooksNo = strBooksNo;
-            //    objForm.Show();
-            //}
+            bool bHave = false;
+            int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["订单id"].Value);
+            foreach (Form childFrm in this.MdiParent.MdiChildren)
+            {
+                if (childFrm.Name == "FormPackingListInput")
+                {
+                    FormPackingListInput inputForm = (FormPackingListInput)childFrm;
+                    if (inputForm.giOrderID != 0 && inputForm.giOrderID == iOrderID)
+                    {
+                        bHave = true;
+                        childFrm.Activate();
+                        break;
+                    }
+                }
+            }
+            if (!bHave)
+            {
+                FormPackingListInput objForm = new FormPackingListInput();
+                objForm.MdiParent = this.MdiParent;
+                objForm.giOrderID = iOrderID;
+                objForm.Show();
+            }
         }
 
         public override void tool1_Delete_Click(object sender, EventArgs e)

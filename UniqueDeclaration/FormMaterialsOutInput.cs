@@ -181,7 +181,7 @@ namespace UniqueDeclaration
             }
             else if (rowHead.RowState == DataRowState.Added)
             {
-                if (rowHead["制造通知单号"].ToString().Length > 0 || rowHead["制造通知单号"].ToString().Length > 0)
+                if (rowHead["出库单号"].ToString().Length > 0 || rowHead["制造通知单号"].ToString().Length > 0)
                 {
                     bModify = true;
                 }
