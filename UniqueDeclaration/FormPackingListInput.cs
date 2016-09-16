@@ -126,7 +126,7 @@ namespace UniqueDeclaration
                 rowHead = dtHead.NewRow();
                 dtHead.Rows.Add(rowHead);
                 rowHead["出货日期"] = DateTime.Now.Date;
-                rowHead["灵入日期"] = DateTime.Now.Date;
+                rowHead["录入日期"] = DateTime.Now.Date;
                 rowHead["出口状态"] = 0;
                 fillControl(rowHead);
             }
@@ -222,6 +222,232 @@ namespace UniqueDeclaration
                 return SysMessage.YesNoCancelMsg(strBuilder.ToString());
             }
             return DialogResult.No;
+        }
+        /// <summary>
+        /// 保存数据，并返回是否保存成功
+        /// <param name="bShowSuccessMsg">保存成功时是否弹出提示信息</param>
+        /// </summary>
+        public override bool Save(bool bShowSuccessMsg)
+        {
+            bool bSuccess = true;
+            try
+            {
+                #region 前期验证
+                if (txt_订单号码.Text.Trim().Length == 0)
+                {
+                    SysMessage.InformationMsg("订单号码不能为空！");
+                    txt_订单号码.Focus();
+                    return false;
+                }
+                if (txt_装箱单号.Text.Trim().Length == 0)
+                {
+                    SysMessage.InformationMsg("装箱单号不能为空！");
+                    txt_装箱单号.Focus();
+                    return false;
+                }
+                #endregion
+
+                StringBuilder strBuilder = new StringBuilder();
+                if (rowHead.RowState == DataRowState.Added)
+                {
+                    #region 新增数据
+                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    dataAccess.Open();
+                    dataAccess.BeginTran();
+                    try
+                    {
+                        #region 新增表头数据
+                        strBuilder.AppendLine(@"INSERT INTO [装箱单表]([装箱单号],[订单号码],[客户代码],[客户名称],[出货日期],[录入日期],[报关单号],[备案号]
+                                                                    ,[用途] ,[征免方式],[产销国] ,[币制],[申报地海关代码],[进口岸代码],[代理单位代码],[出口状态])");
+                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},'{4}','{5}',{6},{7},{8},{9},{10},{11},{12},{13},{14},{15})",
+                            rowHead["装箱单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["装箱单号"].ToString()),
+                            rowHead["订单号码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["订单号码"].ToString()),
+                            rowHead["客户代码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["客户代码"].ToString()),
+                            rowHead["客户名称"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["客户名称"].ToString()),
+                            rowHead["出货日期"], rowHead["录入日期"], rowHead["报关单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["报关单号"].ToString()),
+                            rowHead["备案号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["备案号"].ToString()),
+                            rowHead["用途"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["用途"].ToString()),
+                            rowHead["征免方式"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["征免方式"].ToString()),
+                            rowHead["产销国"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产销国"].ToString()),
+                            rowHead["币制"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["币制"].ToString()),
+                            rowHead["申报地海关代码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["申报地海关代码"].ToString()),
+                            rowHead["进口岸代码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["进口岸代码"].ToString()),
+                            rowHead["代理单位代码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["代理单位代码"].ToString()),
+                            (rowHead["出口状态"] == DBNull.Value || Convert.ToBoolean(rowHead["出口状态"]) == false) ? 0 : 1);
+                        strBuilder.AppendLine("select @@IDENTITY--自动生成的订单ID");
+                        DataTable dtInsert = dataAccess.GetTable(strBuilder.ToString(), null);
+                        object 订单id = dtInsert.Rows[0][0]; // dataAccess.ExecScalar(strBuilder.ToString(), null);
+                        rowHead["订单id"] = 订单id;
+                        strBuilder.Clear();
+                        #endregion
+
+                        #region 新增明细数据
+                        foreach (DataRow row in dtDetails.Rows)
+                        {
+                            if (row["客人型号"] == DBNull.Value || row["客人型号"].ToString().Trim().Length == 0) continue;
+                            if (row["优丽型号"] == DBNull.Value || row["优丽型号"].ToString().Trim().Length == 0) continue;
+                            strBuilder.AppendLine(@"INSERT INTO [装箱单明细表]([订单id],[箱号] ,[客人型号],[优丽型号],[成品项号],[成品名称及商编],[成品规格型号]
+                                                         ,[手册编号] ,[数量] ,[单位] ,[归并前成品序号] ,[订单号码] ,[内部版本号],[单价])");
+                            strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13})",
+                                订单id, row["箱号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["箱号"].ToString()),
+                            row["客人型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["客人型号"].ToString()),
+                            row["优丽型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["优丽型号"].ToString()),
+                            row["成品项号"] == DBNull.Value ? "NULL" : row["成品项号"],
+                            row["成品名称及商编"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["成品名称及商编"].ToString()),
+                            row["成品规格型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["成品规格型号"].ToString()),
+                            row["手册编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["手册编号"].ToString()),
+                            row["数量"] == DBNull.Value ? "NULL" : row["数量"],
+                            row["单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["单位"].ToString()),
+                            row["归并前成品序号"] == DBNull.Value ? "NULL" : row["归并前成品序号"],
+                            row["订单号码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["订单号码"].ToString()),
+                            row["内部版本号"] == DBNull.Value ? "NULL" : row["内部版本号"],
+                            row["单价"] == DBNull.Value ? "NULL" : row["单价"]);
+                            strBuilder.AppendLine("select @@IDENTITY");
+                            object 订单明细表id = dataAccess.ExecScalar(strBuilder.ToString(), null);
+                            strBuilder.Clear();
+                            row["订单明细表id"] = 订单明细表id;
+                        }
+                        #endregion
+                        giOrderID = Convert.ToInt32(订单id);
+                        dataAccess.CommitTran();
+                        dataAccess.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        dataAccess.RollbackTran();
+                        dataAccess.Close();
+                        throw new Exception(ex.Message);
+                    }
+                    #endregion
+                }
+                else //if (rowHead.RowState == DataRowState.Modified || (dtDetails.GetChanges() !=null && dtDetails.GetChanges().Rows.Count>0))
+                {
+                    #region 修改数据
+                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    dataAccess.Open();
+                    dataAccess.BeginTran();
+                    try
+                    {
+                        #region 修改表头数据
+                        if (rowHead.RowState == DataRowState.Modified)
+                        {
+                            strBuilder.AppendFormat(@"UPDATE [装箱单表] SET [装箱单号] = {0},[订单号码] ={1},[客户代码] = {2},[客户名称] = {3},[出货日期] = '{4}'
+                                          ,[录入日期] = '{5}' ,[报关单号] ={6} ,[备案号] = {7} ,[用途] = {8} ,[征免方式] = {9} ,[产销国] = {10} ,[币制] = {11} 
+                                            ,[申报地海关代码] = {12} ,[进口岸代码] = {13} ,[代理单位代码] = {14} ,[出口状态] ={15} where 订单id={16}",
+                            rowHead["装箱单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["装箱单号"].ToString()),
+                            rowHead["订单号码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["订单号码"].ToString()),
+                            rowHead["客户代码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["客户代码"].ToString()),
+                            rowHead["客户名称"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["客户名称"].ToString()),
+                            rowHead["出货日期"], rowHead["录入日期"], rowHead["报关单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["报关单号"].ToString()),
+                            rowHead["备案号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["备案号"].ToString()),
+                            rowHead["用途"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["用途"].ToString()),
+                            rowHead["征免方式"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["征免方式"].ToString()),
+                            rowHead["产销国"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产销国"].ToString()),
+                            rowHead["币制"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["币制"].ToString()),
+                            rowHead["申报地海关代码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["申报地海关代码"].ToString()),
+                            rowHead["进口岸代码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["进口岸代码"].ToString()),
+                            rowHead["代理单位代码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["代理单位代码"].ToString()),
+                            (rowHead["出口状态"] == DBNull.Value || Convert.ToBoolean(rowHead["出口状态"]) == false) ? 0 : 1, rowHead["订单id"]);
+                            dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
+                            strBuilder.Clear();
+                        }
+                        #endregion
+                        //处理明细数据
+                        foreach (DataRow row in dtDetails.Rows)
+                        {
+                            #region 新增表身数据
+                            if (row.RowState == DataRowState.Added)
+                            {
+                                if (row["客人型号"] == DBNull.Value || row["客人型号"].ToString().Trim().Length == 0) continue;
+                                if (row["优丽型号"] == DBNull.Value || row["优丽型号"].ToString().Trim().Length == 0) continue;
+                                strBuilder.AppendLine(@"INSERT INTO [装箱单明细表]([订单id],[箱号] ,[客人型号],[优丽型号],[成品项号],[成品名称及商编],[成品规格型号]
+                                                         ,[手册编号] ,[数量] ,[单位] ,[归并前成品序号] ,[订单号码] ,[内部版本号],[单价])");
+                                strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13})",
+                                   rowHead["订单id"], row["箱号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["箱号"].ToString()),
+                                row["客人型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["客人型号"].ToString()),
+                                row["优丽型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["优丽型号"].ToString()),
+                                row["成品项号"] == DBNull.Value ? "NULL" : row["成品项号"],
+                                row["成品名称及商编"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["成品名称及商编"].ToString()),
+                                row["成品规格型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["成品规格型号"].ToString()),
+                                row["手册编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["手册编号"].ToString()),
+                                row["数量"] == DBNull.Value ? "NULL" : row["数量"],
+                                row["单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["单位"].ToString()),
+                                row["归并前成品序号"] == DBNull.Value ? "NULL" : row["归并前成品序号"],
+                                row["订单号码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["订单号码"].ToString()),
+                                row["内部版本号"] == DBNull.Value ? "NULL" : row["内部版本号"],
+                                row["单价"] == DBNull.Value ? "NULL" : row["单价"]);
+                                strBuilder.AppendLine("select @@IDENTITY");
+                                object 订单明细表id = dataAccess.ExecScalar(strBuilder.ToString(), null);
+                                strBuilder.Clear();
+                                row["订单明细表id"] = 订单明细表id;
+                            }
+                            #endregion
+
+                            #region 删除表身数据
+                            else if (row.RowState == DataRowState.Deleted)
+                            {
+                                if (row["订单明细表id", DataRowVersion.Original] == DBNull.Value) continue;
+                                strBuilder.AppendFormat(@"DELETE FROM [装箱单明细表] WHERE 订单明细表id={0}", row["订单明细表id", DataRowVersion.Original]);
+                                dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
+                                strBuilder.Clear();
+                            }
+                            #endregion
+
+                            #region 修改表身数据
+                            else //if (row.RowState == DataRowState.Modified)
+                            {
+                                if (row["订单明细表id"] == DBNull.Value) continue;
+                                strBuilder.AppendFormat(@"UPDATE [装箱单明细表] SET [订单id] = {0},[箱号] = {1},[客人型号] ={2} ,[优丽型号] = {3},[成品项号] = {4}
+                                                ,[成品名称及商编] = {5} ,[成品规格型号] = {6} ,[手册编号] = {7} ,[数量] = {8} ,[单位] = {9} ,[归并前成品序号] = {10}
+                                                ,[订单号码] = {11},[内部版本号] = {12} ,[单价] = {13} WHERE 订单明细表id={14}",
+                                         rowHead["订单id"], row["箱号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["箱号"].ToString()),
+                                row["客人型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["客人型号"].ToString()),
+                                row["优丽型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["优丽型号"].ToString()),
+                                row["成品项号"] == DBNull.Value ? "NULL" : row["成品项号"],
+                                row["成品名称及商编"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["成品名称及商编"].ToString()),
+                                row["成品规格型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["成品规格型号"].ToString()),
+                                row["手册编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["手册编号"].ToString()),
+                                row["数量"] == DBNull.Value ? "NULL" : row["数量"],
+                                row["单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["单位"].ToString()),
+                                row["归并前成品序号"] == DBNull.Value ? "NULL" : row["归并前成品序号"],
+                                row["订单号码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["订单号码"].ToString()),
+                                row["内部版本号"] == DBNull.Value ? "NULL" : row["内部版本号"],
+                                row["单价"] == DBNull.Value ? "NULL" : row["单价"], row["订单明细表id"]);
+                                dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
+                                strBuilder.Clear();
+                            }
+                            #endregion
+                        }
+                        dataAccess.CommitTran();
+                        dataAccess.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        dataAccess.RollbackTran();
+                        dataAccess.Close();
+                        throw new Exception(ex.Message);
+                    }
+                    #endregion
+                }
+                dtHead.AcceptChanges();
+                bCellKeyPress = false;
+                dtDetails.AcceptChanges();
+                bCellKeyPress = true;
+                if (bSuccess && bShowSuccessMsg)
+                {
+                    SysMessage.InformationMsg("保存成功！");
+                }
+                //LoadDataSourceDetails();
+            }
+            catch (Exception ex)
+            {
+                bSuccess = false;
+                StringBuilder strBuilder = new StringBuilder();
+                strBuilder.AppendLine("保存数据出错：");
+                strBuilder.AppendLine(ex.Message);
+                SysMessage.ErrorMsg(strBuilder.ToString());
+            }
+            return bSuccess;
         }
         #endregion
 
@@ -483,29 +709,30 @@ namespace UniqueDeclaration
             //int i, mypos;
             //string startpos, OrderCode;
             if (txt_订单号码.Text.Trim().Length == 0) return;
-            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            IDataAccess dataManufacture = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            IDataAccess dataUniquegrade = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
             foreach (string OrderCode in txt_订单号码.Text.Trim().Split(','))
             {
-                dataAccess.Open();
-                DataTable dt报关订单表 = dataAccess.GetTable(string.Format("select 订单id,手册编号,订单号码 from 报关订单表 where 订单号码={0}",StringTools.SqlQ(OrderCode)), null);
-                dataAccess.Close();
+                dataManufacture.Open();
+                DataTable dt报关订单表 = dataManufacture.GetTable(string.Format("select 订单id,手册编号,订单号码 from 报关订单表 where 订单号码={0}",StringTools.SqlQ(OrderCode)), null);
+                dataManufacture.Close();
                 if (dt报关订单表.Rows.Count == 0) continue;
-                dataAccess.Open();
-                DataTable dt报关订单录入查询 = dataAccess.GetTable(string.Format("报关订单录入查询 {0}",dt报关订单表.Rows[0]["订单id"]), null);
-                dataAccess.Close();
+                dataManufacture.Open();
+                DataTable dt报关订单录入查询 = dataManufacture.GetTable(string.Format("报关订单录入查询 {0}",dt报关订单表.Rows[0]["订单id"]), null);
+                dataManufacture.Close();
                 foreach (DataRow row in dt报关订单录入查询.Rows)
                 {
-                    dataAccess.Open();
-                    DataTable dt装箱单 = dataAccess.GetTable(string.Format(@"select 客人型号,优丽型号,sum(数量) as 数量  from 装箱单表 
+                    dataUniquegrade.Open();
+                    DataTable dt装箱单 = dataUniquegrade.GetTable(string.Format(@"select 客人型号,优丽型号,sum(数量) as 数量  from 装箱单表 
                                                                                     inner join 装箱单明细表 on 装箱单表.订单id=装箱单明细表.订单id 
                                                                             where 装箱单明细表.订单号码= {0} and 客人型号 ={1} and 优丽型号 ={1}  group by 客人型号,优丽型号",
                                                     StringTools.SqlQ(OrderCode), StringTools.SqlQ(row["客人型号"].ToString()), StringTools.SqlQ(row["优丽型号"].ToString())), null);
-                    dataAccess.Close();
+                    dataUniquegrade.Close();
                     if (dt装箱单.Rows.Count > 0)
                     {
                         DataRow row装箱单 = dt装箱单.Rows[0];
-                        if (row["数量"] != DBNull.Value && row装箱单["数量"] != DBNull.Value
-                            && StringTools.decimalParse(row["数量"].ToString()) - StringTools.decimalParse(row装箱单["数量"].ToString()) > 0)
+                        if (row["订单数量"] != DBNull.Value && row装箱单["数量"] != DBNull.Value
+                            && StringTools.decimalParse(row["订单数量"].ToString()) - StringTools.decimalParse(row装箱单["数量"].ToString()) > 0)
                         {
                             DataRow newRow = dtDetails.NewRow();
                             newRow["箱号"] = 1;
@@ -584,358 +811,348 @@ namespace UniqueDeclaration
             string colName = dgv.Columns[cell.ColumnIndex].Name;
             switch (colName)
             {
-                case "料件编号": //跳转到料号"
+                case "箱号":   //跳转到"型号"
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        if (dgv.CurrentRow.Cells["料件编号"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        dgv.CurrentCell = dgv["客人型号", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "客人型号":
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        if (dgv.CurrentRow.Cells["客人型号"].Value.ToString() == cell.EditedFormattedValue.ToString())
                         {
                             bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["料号", cell.RowIndex];
+                            dgv.CurrentCell = dgv["数量", cell.RowIndex];
                             bCellEndEdit = true;
                         }
-                        else if (validate料件编号(dgv, cell))
+                        else if (validate客人型号(dgv, cell))
                         {
                             //dtDetails.Rows[cell.RowIndex].EndEdit();
                             (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
                             bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["料号", cell.RowIndex];
+                            dgv.CurrentCell = dgv["数量", cell.RowIndex];
                             bCellEndEdit = true;
                         }
                     }
                     else
                     {
-                        if (dgv.CurrentRow.Cells["料件编号"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        if (dgv.CurrentRow.Cells["客人型号"].Value.ToString() != cell.EditedFormattedValue.ToString())
                         {
-                            validate料件编号(dgv, cell);
+                            validate客人型号(dgv, cell);
                         }
                     }
                     #endregion
                     break;
-                case "料号": //跳转到出库数量"
+                case "优丽型号":
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        if (dgv.CurrentRow.Cells["料号"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        if (dgv.CurrentRow.Cells["优丽型号"].Value.ToString() == cell.EditedFormattedValue.ToString())
                         {
                             bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["出库数量", cell.RowIndex];
+                            dgv.CurrentCell = dgv["数量", cell.RowIndex];
                             bCellEndEdit = true;
                         }
-                        else if (validate料号(dgv, cell))
+                        else if (validate优丽型号(dgv, cell))
                         {
                             //dtDetails.Rows[cell.RowIndex].EndEdit();
                             (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
                             bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["出库数量", cell.RowIndex];
+                            dgv.CurrentCell = dgv["数量", cell.RowIndex];
                             bCellEndEdit = true;
                         }
                     }
                     else
                     {
-                        if (dgv.CurrentRow.Cells["料号"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        if (dgv.CurrentRow.Cells["优丽型号"].Value.ToString() != cell.EditedFormattedValue.ToString())
                         {
-                            validate料号(dgv, cell);
+                            validate优丽型号(dgv, cell);
                         }
                     }
                     #endregion
                     break;
-                case "料件名":   //跳转到"商品编码"
+                case "数量":
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["商品编码", cell.RowIndex];
-                    }
-                    #endregion
-                    break;
-                case "商品编码":   //跳转到"商品名称"  
-                    #region CELL回车跳转
-                    if (bKeyEnter)
-                    {
-                        dgv.CurrentCell = dgv["商品名称", cell.RowIndex];
-                    }
-                    #endregion
-                    break;
-                case "商品名称":   //跳转到"商品规格"  
-                    #region CELL回车跳转
-                    if (bKeyEnter)
-                    {
-                        dgv.CurrentCell = dgv["商品规格", cell.RowIndex];
-                    }
-                    #endregion
-                    break;
-                case "商品规格":   //跳转到"出库数量"  
-                    #region CELL回车跳转
-                    if (bKeyEnter)
-                    {
-                        dgv.CurrentCell = dgv["出库数量", cell.RowIndex];
-                    }
-                    #endregion
-                    break;
-                case "出库数量":   //跳转到"备注"  
-                    #region CELL回车跳转
-                    if (bKeyEnter)
-                    {
-                        if (dgv.CurrentRow.Cells["出库数量"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        if (dgv.CurrentRow.Cells["数量"].Value.ToString() == cell.EditedFormattedValue.ToString())
                         {
                             bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["备注", cell.RowIndex];
+                            dgv.CurrentCell = dgv["单位", cell.RowIndex];
                             bCellEndEdit = true;
                         }
                         else
                         {
-                            validate出库数量(dgv, cell);
+                            validate数量(dgv, cell);
                             (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
                             bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["备注", cell.RowIndex];
+                            dgv.CurrentCell = dgv["单位", cell.RowIndex];
                             bCellEndEdit = true;
                         }
                     }
                     else
                     {
-                        if (dgv.CurrentRow.Cells["出库数量"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        if (dgv.CurrentRow.Cells["数量"].Value.ToString() != cell.EditedFormattedValue.ToString())
                         {
-                            validate出库数量(dgv, cell);
+                            validate数量(dgv, cell);
                         }
                     }
                     #endregion
                     break;
-                case "库存数":   //跳转到"出库后库存数"  
+                case "订单号码":   
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["出库后库存数", cell.RowIndex];
+                        dgv.CurrentCell = dgv["手册编号", cell.RowIndex];
                     }
                     #endregion
                     break;
-                case "出库后库存数":   //跳转到"单位"  
+                case "手册编号":   
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["单位", cell.RowIndex];
+                        dgv.CurrentCell = dgv["成品项号", cell.RowIndex];
                     }
                     #endregion
                     break;
-                case "单位":   //跳转到"备注"  
+                case "成品项号":    
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["备注", cell.RowIndex];
+                        dgv.CurrentCell = dgv["成品名称及商编", cell.RowIndex];
                     }
                     #endregion
                     break;
-                case "备注":   //跳转到"料件编号"  
+                case "成品名称及商编":   
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        validate备注(dgv, cell);
+                        dgv.CurrentCell = dgv["成品规格型号", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "成品规格型号":   
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["数量", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "归并前成品序号":
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["内部版本号", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "内部版本号":  
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["成品项号", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "单位":   //跳转到"客人型号"  
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        validate单位(dgv, cell);
+                        (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
                     }
                     #endregion
                     break;
             }
         }
-
-        private bool validate料件编号(myDataGridView dgv, DataGridViewCell cell)
+        private bool validate客人型号(myDataGridView dgv, DataGridViewCell cell)
         {
-            string strSQL = string.Format(@"帮助录入查询 {0}, 3, 0, 0, 0, '', ''", StringTools.SqlQ(cell.EditedFormattedValue.ToString()));
-            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-            dataAccess.Open();
-            DataTable dttabArticle = dataAccess.GetTable(strSQL, null);
-            dataAccess.Close();
-            if (dttabArticle.Rows.Count == 0)
+            if (cell.EditedFormattedValue != DBNull.Value && cell.EditedFormattedValue.ToString() != "")
             {
-                SysMessage.InformationMsg("此料件不存在！");
-                dgv.CurrentCell = cell;
-                return false;
-            }
-            else if (dttabArticle.Rows.Count == 1)
-            {
-                if (cbox_手册编号.SelectedValue.ToString() == "B37167420012")
+                if (!string.IsNullOrEmpty(cell.EditedFormattedValue.ToString()))
                 {
-                    dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["显示型号"];
-                }
-                else if (cbox_手册编号.SelectedValue.ToString() == "B37168420019")
-                {
-                    dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["新显示型号"];
-                }
-                else
-                {
-                    dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["电子帐册型号"];
-                }
-                dgv.Rows[cell.RowIndex].Cells["料件id"].Value = dttabArticle.Rows[0]["料件id"];
-                dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
-                dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
-            }
-            else if (dttabArticle.Rows.Count > 1)
-            {
-                FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
-                formSelect.strFormText = "选择客户型号";
-                formSelect.dtData = dttabArticle;
-                if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    if (cbox_手册编号.SelectedValue.ToString() == "B37167420012")
+                    if (txt_客户代码.Text.Trim().Length == 0)
                     {
-                        dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["显示型号"];
+                        SysMessage.InformationMsg("请先输入客户代码");
+                        txt_客户代码.Focus();
+                        dgv.CurrentCell = cell;
+                        return false;
                     }
-                    else if (cbox_手册编号.SelectedValue.ToString() == "B37168420019")
+                    string strSQL = string.Format(@"select 客人型号,优丽型号,内部版本号,版本号 as 归并前成品序号,成品项号,成品名称及商编,成品规格型号,手册编号,
+                                                    申报单位 as 单位,订单数量 from 报关订单表 inner join 报关订单明细表 on 报关订单表.订单id=报关订单明细表.订单id 
+                                                    where 订单号码= {0} and 客人型号 like '%{1}%'",
+                                    StringTools.SqlQ(dgv.CurrentRow.Cells["订单号码"].Value.ToString()), StringTools.SqlLikeQ(cell.EditedFormattedValue.ToString()));
+                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                    dataAccess.Open();
+                    DataTable dttabArticle = dataAccess.GetTable(strSQL, null);
+                    dataAccess.Close();
+                    DataRow selectRow = null;
+                    if (dttabArticle.Rows.Count == 0)
                     {
-                        dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["新显示型号"];
+                        return true;
                     }
-                    else
+                    else if (dttabArticle.Rows.Count == 1)
                     {
-                        dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["电子帐册型号"];
+                        selectRow = dttabArticle.Rows[0];
                     }
-                    dgv.Rows[cell.RowIndex].Cells["料件id"].Value = dttabArticle.Rows[0]["料件id"];
-                    dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
-                    dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
-                }
-                else
-                {
-                    dgv.CurrentCell = cell;
-                    return false;
-                }
-            }
-            if (dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString() != "")
-            {
-                //strSQL = string.Format("进口料件出库库存查询 @料号={0},@电子帐册号={1},@期末时间='{2}'",
-                //    StringTools.SqlQ(dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString()),
-                //    StringTools.SqlQ(cbox_手册编号.SelectedValue.ToString()),
-                //    date_出库时间.Value.ToString("yyyyMMdd HH:mm:ss"));
-                dataAccess.Open();
-                dttabArticle = dataAccess.GetTable(strSQL, null);
-                if (dttabArticle.Rows.Count > 0)
-                {
-                    dgv.Rows[cell.RowIndex].Cells["库存数"].Value = dttabArticle.Rows[0]["库存数"];
-                    dgv.Rows[cell.RowIndex].Cells["出库后库存数"].Value = StringTools.decimalParse(dgv.Rows[cell.RowIndex].Cells["库存数"].Value.ToString())
-                        - StringTools.decimalParse(dgv.Rows[cell.RowIndex].Cells["出库数量"].Value.ToString());
-                }
-                strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率,H.单价 
-                                                        FROM dbo.归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
-                                                        where Q.产品编号='{0}' AND H.电子帐册号='{1}'",
-                                    dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString().Substring(0, 5), cbox_手册编号.SelectedValue);
-                dataAccess.Open();
-                dttabArticle = dataAccess.GetTable(strSQL, null);
-                dataAccess.Close();
-                if (dttabArticle.Rows.Count > 0)
-                {
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dttabArticle.Rows[0]["商品编码"];
-                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = dttabArticle.Rows[0]["商品名称"];
-                    dgv.Rows[cell.RowIndex].Cells["商品规格"].Value = dttabArticle.Rows[0]["商品规格"];
-                    dgv.Rows[cell.RowIndex].Cells["单位"].Value = "KGS";
+                    else if (dttabArticle.Rows.Count > 1)
+                    {
+                        FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
+                        formSelect.strFormText = "选择客户型号";
+                        formSelect.dtData = dttabArticle;
+                        if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            selectRow = formSelect.returnRow;
+                        }
+                        else
+                        {
+                            //dgv.CurrentCell = cell;
+                            return true;
+                        }
+                    }
+                    dataAccess.Open();
+                    DataTable dt装箱单表 = dataAccess.GetTable(string.Format(@"select 客人型号,优丽型号,sum(数量) as 数量  from 装箱单表 
+                                                                                    inner join 装箱单明细表 on 装箱单表.订单id=装箱单明细表.订单id 
+                                                                    where 装箱单明细表.订单号码={0} and 客人型号 ={1} and 优丽型号 = {2} group by 客人型号,优丽型号",
+                                                StringTools.SqlQ(dgv.CurrentRow.Cells["订单号码"].Value.ToString()),StringTools.SqlQ( selectRow["客人型号"].ToString()),
+                                                StringTools.SqlQ(selectRow["优丽型号"].ToString())), null);
+                    dataAccess.Close();
+                    if(dt装箱单表.Rows.Count>0)
+                    {
+                        if (StringTools.decimalParse(selectRow["订单数量"].ToString()) - StringTools.decimalParse(dt装箱单表.Rows[0]["数量"].ToString()) 
+                            + StringTools.decimalParse(dgv.CurrentRow.Cells["数量"].Value.ToString()) <= 0)
+                        {
+                            if (SysMessage.YesNoMsg("此型号已全部出口，无须再出,是否继续") == System.Windows.Forms.DialogResult.No)
+                            {
+                                dgv.CurrentRow.Cells["客人型号"].Value = DBNull.Value;
+                                return true;
+                            }
+                        }
+                    }
+                    dgv.CurrentRow.Cells["客人型号"].Value = selectRow["客人型号"];
+                    dgv.CurrentRow.Cells["优丽型号"].Value = selectRow["优丽型号"];
+                    dgv.CurrentRow.Cells["成品项号"].Value = selectRow["成品项号"];
+                    dgv.CurrentRow.Cells["归并前成品序号"].Value = selectRow["归并前成品序号"];
+                    dgv.CurrentRow.Cells["内部版本号"].Value = selectRow["内部版本号"];
+                    dgv.CurrentRow.Cells["成品名称及商编"].Value = selectRow["成品名称及商编"];
+                    dgv.CurrentRow.Cells["成品规格型号"].Value = selectRow["成品规格型号"];
+                    dgv.CurrentRow.Cells["手册编号"].Value = selectRow["手册编号"];
+                    dgv.CurrentRow.Cells["单位"].Value = selectRow["单位"];
+                    dgv.CurrentRow.Cells["数量"].Value =StringTools.decimalParse( selectRow["订单数量"].ToString()) - (dt装箱单表.Rows.Count>0 ? StringTools.decimalParse( dt装箱单表.Rows[0]["数量"].ToString()):0);
                 }
             }
             return true;
         }
-        private bool validate料号(myDataGridView dgv, DataGridViewCell cell)
+        private bool validate优丽型号(myDataGridView dgv, DataGridViewCell cell)
         {
-            string strSQL = string.Empty;
-            if (cbox_手册编号.SelectedValue.ToString() == "B37167420012")
+            if (cell.EditedFormattedValue != DBNull.Value && cell.EditedFormattedValue.ToString() != "")
             {
-                strSQL = string.Format(@"帮助录入查询 {0}, 12, 0, 0, 0, '',''", StringTools.SqlQ(cell.EditedFormattedValue.ToString()));
-            }
-            else if (cbox_手册编号.SelectedValue.ToString() == "B37168420019")
-            {
-                strSQL = string.Format(@"帮助录入查询 {0}, 14, 0, 0, 0,'', ''", StringTools.SqlQ(cell.EditedFormattedValue.ToString()));
-            }
-            else
-            {
-                strSQL = string.Format(@"帮助录入查询 {0}, 13, 0, 0, 0, '', ''", StringTools.SqlQ(cell.EditedFormattedValue.ToString()));
-            }
-
-            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-            dataAccess.Open();
-            DataTable dttabArticle = dataAccess.GetTable(strSQL, null);
-            dataAccess.Close();
-            if (dttabArticle.Rows.Count == 0)
-            {
-                SysMessage.InformationMsg("此料件不存在！");
-                dgv.CurrentCell = cell;
-                return false;
-            }
-            else if (dttabArticle.Rows.Count == 1)
-            {
-                dgv.Rows[cell.RowIndex].Cells["料件id"].Value = dttabArticle.Rows[0]["料件id"];
-                dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["显示型号"];
-                dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
-                dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
-            }
-            else if (dttabArticle.Rows.Count > 1)
-            {
-                FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
-                formSelect.strFormText = "选择客户型号";
-                formSelect.dtData = dttabArticle;
-                if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (!string.IsNullOrEmpty(cell.EditedFormattedValue.ToString()))
                 {
-
-                    dgv.Rows[cell.RowIndex].Cells["料件id"].Value = dttabArticle.Rows[0]["料件id"];
-                    dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["显示型号"];
-                    dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
-                    dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
-                }
-                else
-                {
-                    dgv.CurrentCell = cell;
-                    return false;
-                }
-            }
-            if (dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString() != "")
-            {
-                //strSQL = string.Format("进口料件出库库存查询 @料号={0},@电子帐册号={1},@期末时间='{2}'",
-                //    StringTools.SqlQ(dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString()),
-                //    StringTools.SqlQ(cbox_手册编号.SelectedValue.ToString()),
-                //    date_出库时间.Value.ToString("yyyyMMdd HH:mm:ss"));
-                dataAccess.Open();
-                dttabArticle = dataAccess.GetTable(strSQL, null);
-                if (dttabArticle.Rows.Count > 0)
-                {
-                    dgv.Rows[cell.RowIndex].Cells["库存数"].Value = dttabArticle.Rows[0]["库存数"];
-                    dgv.Rows[cell.RowIndex].Cells["出库后库存数"].Value = StringTools.decimalParse(dgv.Rows[cell.RowIndex].Cells["库存数"].Value.ToString())
-                        - StringTools.decimalParse(dgv.Rows[cell.RowIndex].Cells["出库数量"].Value.ToString());
-                }
-                strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率,H.单价 
-                                                        FROM dbo.归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
-                                                        where Q.产品编号='{0}' AND H.电子帐册号='{1}'",
-                                    dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString().Substring(0, 5), cbox_手册编号.SelectedValue);
-                dataAccess.Open();
-                dttabArticle = dataAccess.GetTable(strSQL, null);
-                dataAccess.Close();
-                if (dttabArticle.Rows.Count > 0)
-                {
-                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dttabArticle.Rows[0]["商品编码"];
-                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = dttabArticle.Rows[0]["商品名称"];
-                    dgv.Rows[cell.RowIndex].Cells["商品规格"].Value = dttabArticle.Rows[0]["商品规格"];
-                    dgv.Rows[cell.RowIndex].Cells["单位"].Value = "KGS";
+                    if (txt_客户代码.Text.Trim().Length == 0)
+                    {
+                        SysMessage.InformationMsg("请先输入客户代码");
+                        txt_客户代码.Focus();
+                        dgv.CurrentCell = cell;
+                        return false;
+                    }
+                    string strSQL = string.Format(@"select 客人型号,优丽型号,内部版本号,版本号 as 归并前成品序号,成品项号,成品名称及商编,成品规格型号,手册编号,
+                                                            申报单位 as 单位,订单数量 from 报关订单表 inner join 报关订单明细表 on 报关订单表.订单id=报关订单明细表.订单id 
+                                                    where 订单号码={0} and 优丽型号 like '%{1}%'",
+                                    StringTools.SqlQ(dgv.CurrentRow.Cells["订单号码"].Value.ToString()), StringTools.SqlLikeQ(cell.EditedFormattedValue.ToString()));
+                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                    dataAccess.Open();
+                    DataTable dttabArticle = dataAccess.GetTable(strSQL, null);
+                    dataAccess.Close();
+                    DataRow selectRow = null;
+                    if (dttabArticle.Rows.Count == 0)
+                    {
+                        return true;
+                    }
+                    else if (dttabArticle.Rows.Count == 1)
+                    {
+                        selectRow = dttabArticle.Rows[0];
+                    }
+                    else if (dttabArticle.Rows.Count > 1)
+                    {
+                        FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
+                        formSelect.strFormText = "选择客户型号";
+                        formSelect.dtData = dttabArticle;
+                        if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            selectRow = formSelect.returnRow;
+                        }
+                        else
+                        {
+                            //dgv.CurrentCell = cell;
+                            return true;
+                        }
+                    }
+                    dataAccess.Open();
+                    DataTable dt装箱单表 = dataAccess.GetTable(string.Format(@"select 客人型号,优丽型号,sum(数量) as 数量  from 装箱单表 
+                                                                                    inner join 装箱单明细表 on 装箱单表.订单id=装箱单明细表.订单id 
+                                                                    where 装箱单明细表.订单号码={0} and 客人型号 ={1} and 优丽型号 ={2} group by 客人型号,优丽型号",
+                                                StringTools.SqlQ(dgv.CurrentRow.Cells["订单号码"].Value.ToString()), StringTools.SqlQ(selectRow["客人型号"].ToString()),
+                                                StringTools.SqlQ(selectRow["优丽型号"].ToString())), null);
+                    dataAccess.Close();
+                    if (dt装箱单表.Rows.Count > 0)
+                    {
+                        if (StringTools.decimalParse(selectRow["订单数量"].ToString()) - StringTools.decimalParse(dt装箱单表.Rows[0]["数量"].ToString())
+                            + StringTools.decimalParse(dgv.CurrentRow.Cells["数量"].Value.ToString()) <= 0)
+                        {
+                            if (SysMessage.YesNoMsg("此型号已全部出口，无须再出,是否继续") == System.Windows.Forms.DialogResult.No)
+                            {
+                                dgv.CurrentRow.Cells["客人型号"].Value = DBNull.Value;
+                                return true;
+                            }
+                        }
+                    }
+                    dgv.CurrentRow.Cells["客人型号"].Value = selectRow["客人型号"];
+                    dgv.CurrentRow.Cells["优丽型号"].Value = selectRow["优丽型号"];
+                    dgv.CurrentRow.Cells["成品项号"].Value = selectRow["成品项号"];
+                    dgv.CurrentRow.Cells["归并前成品序号"].Value = selectRow["归并前成品序号"];
+                    dgv.CurrentRow.Cells["内部版本号"].Value = selectRow["内部版本号"];
+                    dgv.CurrentRow.Cells["成品名称及商编"].Value = selectRow["成品名称及商编"];
+                    dgv.CurrentRow.Cells["成品规格型号"].Value = selectRow["成品规格型号"];
+                    dgv.CurrentRow.Cells["手册编号"].Value = selectRow["手册编号"];
+                    dgv.CurrentRow.Cells["单位"].Value = selectRow["单位"];
+                    dgv.CurrentRow.Cells["数量"].Value = StringTools.decimalParse(selectRow["订单数量"].ToString()) - (dt装箱单表.Rows.Count > 0 ? StringTools.decimalParse(dt装箱单表.Rows[0]["数量"].ToString()) : 0);
                 }
             }
             return true;
         }
-        private void validate出库数量(myDataGridView dgv, DataGridViewCell cell)
+        private void validate数量(myDataGridView dgv, DataGridViewCell cell)
         {
             if (cell.EditedFormattedValue.ToString() == "")
             {
-                dgv.Rows[cell.RowIndex].Cells["出库数量"].Value = 0;
+                dgv.Rows[cell.RowIndex].Cells["订单数量"].Value = DBNull.Value;
             }
             else
             {
                 try
                 {
                     decimal.Parse(cell.EditedFormattedValue.ToString());
-                    dgv.Rows[cell.RowIndex].Cells["出库数量"].Value = cell.EditedFormattedValue;
+                    dgv.Rows[cell.RowIndex].Cells["订单数量"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
                 }
                 catch
                 {
-                    dgv.Rows[cell.RowIndex].Cells["出库数量"].Value = 0;
+                    dgv.Rows[cell.RowIndex].Cells["订单数量"].Value = 0;
                 }
             }
         }
-        private void validate备注(myDataGridView dgv, DataGridViewCell cell)
+        private void validate单位(myDataGridView dgv, DataGridViewCell cell)
         {
-            //如果当前行的料件编号为空，则跳转到当前行的料件编号
-            dgv["备注", cell.RowIndex].Value = cell.EditedFormattedValue;
-            if (dgv.Rows[cell.RowIndex].Cells["料件编号"].Value == DBNull.Value
-                || dgv.Rows[cell.RowIndex].Cells["料件编号"].Value.ToString().Trim() == "")
+            dgv["订单备注", cell.RowIndex].Value = cell.EditedFormattedValue;
+            //如果当前行的客人型号为空，则跳转到当前行的客人型号
+            if (dgv.Rows[cell.RowIndex].Cells["客人型号"].Value == DBNull.Value
+                || dgv.Rows[cell.RowIndex].Cells["客人型号"].Value.ToString().Trim() == "")
             {
-                dgv.CurrentCell = dgv["料件编号", cell.RowIndex];
+                dgv.CurrentCell = dgv["客人型号", cell.RowIndex];
             }
             else
             {
@@ -943,11 +1160,11 @@ namespace UniqueDeclaration
                 if (cell.RowIndex == dgv.Rows.Count - 1)
                 {
                     dtDetailsAddRow();
-                    dgv.CurrentCell = dgv["料件编号", cell.RowIndex + 1];
+                    dgv.CurrentCell = dgv["箱数", cell.RowIndex + 1];
                 }
                 else
                 {
-                    dgv.CurrentCell = dgv["料件编号", cell.RowIndex + 1];
+                    dgv.CurrentCell = dgv["箱数", cell.RowIndex + 1];
                 }
             }
         }
@@ -955,9 +1172,8 @@ namespace UniqueDeclaration
         {
             base.dataGridViewDetail_DataError(sender, e);
             DataGridView dgv = (DataGridView)sender;
-            if (e.ColumnIndex < 0) return;
             string colName = dgv.Columns[e.ColumnIndex].Name;
-            if (colName == "出库数量")
+            if (colName == "数量" || colName == "箱数")
                 e.Cancel = false;
         }
 

@@ -287,7 +287,7 @@ namespace UniqueDeclaration
                     try
                     {
                         #region 新增表头数据
-                        strBuilder.AppendLine("INSERT INTO .[进口料件出库表]([出库单号],[制造通知单号],[出库时间],[摘要],[电子帐册号],[录入员],[过帐标志])");
+                        strBuilder.AppendLine("INSERT INTO [进口料件出库表]([出库单号],[制造通知单号],[出库时间],[摘要],[电子帐册号],[录入员],[过帐标志])");
                         strBuilder.AppendFormat("VALUES({0},{1},'{2}',{3},'{4}',{5},{6})",
                             rowHead["出库单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["出库单号"].ToString()),
                             rowHead["制造通知单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["制造通知单号"].ToString()),

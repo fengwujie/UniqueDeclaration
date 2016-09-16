@@ -183,7 +183,9 @@ namespace UniqueDeclaration
         //装箱单录入
         private void FormPackingListInput_Click(object sender, EventArgs e)
         {
-
+            FormPackingListInput objForm = new FormPackingListInput(); 
+            objForm.MdiParent = this;
+            objForm.Show();
         }
         //装箱明细单查询
         private void FormPackingListQueryCondition_Click(object sender, EventArgs e)

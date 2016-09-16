@@ -343,7 +343,7 @@ namespace UniqueDeclaration
             }
             else if (rowHead.RowState == DataRowState.Added)
             {
-                if (rowHead["订单号码"].ToString().Length > 0 || rowHead["流水号"].ToString().Length > 0
+                if (rowHead["订单号码"].ToString().Length > 0
                     || rowHead["客户代码"].ToString().Length > 0 || rowHead["客户名称"].ToString().Length > 0)
                 {
                     bModify = true;
