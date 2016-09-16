@@ -484,6 +484,8 @@ namespace UniqueDeclaration
                         cbox_手册编号.SelectedValue = selectForm.returnRow["手册编号"];
                         if (txt_装箱单号.Text.Trim().Length == 0)
                             txt_装箱单号.Text = selectForm.returnRow["订单号码"].ToString();
+
+                        set订单号码();
                     }
                 }
             }
@@ -496,7 +498,15 @@ namespace UniqueDeclaration
                 rowHead["订单号码"] = txt_订单号码.Text;
             }
         }
-
+        private void set订单号码()
+        {
+            foreach (DataRow row in dtDetails.Rows)
+            {
+                if (row.RowState == DataRowState.Deleted) continue;
+                if (txt_订单号码.Text.Trim().Length>0 && (row["订单号码"] == DBNull.Value || row["订单号码"].ToString() == ""))
+                    row["订单号码"] = txt_订单号码.Text.Trim();
+            }
+        }
         private void txt_装箱单号_Validating(object sender, CancelEventArgs e)
         {
             if (rowHead.RowState == DataRowState.Added && txt_装箱单号.Text.Trim() != "")
@@ -987,10 +997,10 @@ namespace UniqueDeclaration
                                                     申报单位 as 单位,订单数量 from 报关订单表 inner join 报关订单明细表 on 报关订单表.订单id=报关订单明细表.订单id 
                                                     where 订单号码= {0} and 客人型号 like '%{1}%'",
                                     StringTools.SqlQ(dgv.CurrentRow.Cells["订单号码"].Value.ToString()), StringTools.SqlLikeQ(cell.EditedFormattedValue.ToString()));
-                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-                    dataAccess.Open();
-                    DataTable dttabArticle = dataAccess.GetTable(strSQL, null);
-                    dataAccess.Close();
+                    IDataAccess dataManufacture = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                    dataManufacture.Open();
+                    DataTable dttabArticle = dataManufacture.GetTable(strSQL, null);
+                    dataManufacture.Close();
                     DataRow selectRow = null;
                     if (dttabArticle.Rows.Count == 0)
                     {
@@ -1015,13 +1025,15 @@ namespace UniqueDeclaration
                             return true;
                         }
                     }
-                    dataAccess.Open();
-                    DataTable dt装箱单表 = dataAccess.GetTable(string.Format(@"select 客人型号,优丽型号,sum(数量) as 数量  from 装箱单表 
+
+                    IDataAccess dataUniquegrade = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    dataUniquegrade.Open();
+                    DataTable dt装箱单表 = dataUniquegrade.GetTable(string.Format(@"select 客人型号,优丽型号,sum(数量) as 数量  from 装箱单表 
                                                                                     inner join 装箱单明细表 on 装箱单表.订单id=装箱单明细表.订单id 
                                                                     where 装箱单明细表.订单号码={0} and 客人型号 ={1} and 优丽型号 = {2} group by 客人型号,优丽型号",
                                                 StringTools.SqlQ(dgv.CurrentRow.Cells["订单号码"].Value.ToString()),StringTools.SqlQ( selectRow["客人型号"].ToString()),
                                                 StringTools.SqlQ(selectRow["优丽型号"].ToString())), null);
-                    dataAccess.Close();
+                    dataUniquegrade.Close();
                     if(dt装箱单表.Rows.Count>0)
                     {
                         if (StringTools.decimalParse(selectRow["订单数量"].ToString()) - StringTools.decimalParse(dt装箱单表.Rows[0]["数量"].ToString()) 
@@ -1065,10 +1077,10 @@ namespace UniqueDeclaration
                                                             申报单位 as 单位,订单数量 from 报关订单表 inner join 报关订单明细表 on 报关订单表.订单id=报关订单明细表.订单id 
                                                     where 订单号码={0} and 优丽型号 like '%{1}%'",
                                     StringTools.SqlQ(dgv.CurrentRow.Cells["订单号码"].Value.ToString()), StringTools.SqlLikeQ(cell.EditedFormattedValue.ToString()));
-                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-                    dataAccess.Open();
-                    DataTable dttabArticle = dataAccess.GetTable(strSQL, null);
-                    dataAccess.Close();
+                    IDataAccess dataManufacture = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                    dataManufacture.Open();
+                    DataTable dttabArticle = dataManufacture.GetTable(strSQL, null);
+                    dataManufacture.Close();
                     DataRow selectRow = null;
                     if (dttabArticle.Rows.Count == 0)
                     {
@@ -1093,13 +1105,14 @@ namespace UniqueDeclaration
                             return true;
                         }
                     }
-                    dataAccess.Open();
-                    DataTable dt装箱单表 = dataAccess.GetTable(string.Format(@"select 客人型号,优丽型号,sum(数量) as 数量  from 装箱单表 
+                    IDataAccess dataUniquegrade = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    dataUniquegrade.Open();
+                    DataTable dt装箱单表 = dataUniquegrade.GetTable(string.Format(@"select 客人型号,优丽型号,sum(数量) as 数量  from 装箱单表 
                                                                                     inner join 装箱单明细表 on 装箱单表.订单id=装箱单明细表.订单id 
                                                                     where 装箱单明细表.订单号码={0} and 客人型号 ={1} and 优丽型号 ={2} group by 客人型号,优丽型号",
                                                 StringTools.SqlQ(dgv.CurrentRow.Cells["订单号码"].Value.ToString()), StringTools.SqlQ(selectRow["客人型号"].ToString()),
                                                 StringTools.SqlQ(selectRow["优丽型号"].ToString())), null);
-                    dataAccess.Close();
+                    dataUniquegrade.Close();
                     if (dt装箱单表.Rows.Count > 0)
                     {
                         if (StringTools.decimalParse(selectRow["订单数量"].ToString()) - StringTools.decimalParse(dt装箱单表.Rows[0]["数量"].ToString())
@@ -1147,7 +1160,7 @@ namespace UniqueDeclaration
         }
         private void validate单位(myDataGridView dgv, DataGridViewCell cell)
         {
-            dgv["订单备注", cell.RowIndex].Value = cell.EditedFormattedValue;
+            dgv["单位", cell.RowIndex].Value = cell.EditedFormattedValue;
             //如果当前行的客人型号为空，则跳转到当前行的客人型号
             if (dgv.Rows[cell.RowIndex].Cells["客人型号"].Value == DBNull.Value
                 || dgv.Rows[cell.RowIndex].Cells["客人型号"].Value.ToString().Trim() == "")
@@ -1160,11 +1173,11 @@ namespace UniqueDeclaration
                 if (cell.RowIndex == dgv.Rows.Count - 1)
                 {
                     dtDetailsAddRow();
-                    dgv.CurrentCell = dgv["箱数", cell.RowIndex + 1];
+                    dgv.CurrentCell = dgv["箱号", cell.RowIndex + 1];
                 }
                 else
                 {
-                    dgv.CurrentCell = dgv["箱数", cell.RowIndex + 1];
+                    dgv.CurrentCell = dgv["箱号", cell.RowIndex + 1];
                 }
             }
         }

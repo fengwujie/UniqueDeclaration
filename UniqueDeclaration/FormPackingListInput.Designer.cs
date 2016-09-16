@@ -99,12 +99,12 @@
             this.groupBox1.Controls.Add(this.btnCheckOrderNo);
             this.groupBox1.Controls.Add(this.txt_订单号码);
             this.groupBox1.Controls.Add(this.myLable1);
-            this.groupBox1.Size = new System.Drawing.Size(1070, 104);
+            this.groupBox1.Size = new System.Drawing.Size(1070, 120);
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(0, 129);
-            this.groupBox2.Size = new System.Drawing.Size(1070, 387);
+            this.groupBox2.Location = new System.Drawing.Point(0, 145);
+            this.groupBox2.Size = new System.Drawing.Size(1070, 371);
             // 
             // myLable1
             // 
@@ -121,7 +121,7 @@
             this.txt_订单号码.Location = new System.Drawing.Point(81, 17);
             this.txt_订单号码.Name = "txt_订单号码";
             this.txt_订单号码.Size = new System.Drawing.Size(95, 21);
-            this.txt_订单号码.TabIndex = 1;
+            this.txt_订单号码.TabIndex = 0;
             this.txt_订单号码.Validating += new System.ComponentModel.CancelEventHandler(this.txt_订单号码_Validating);
             this.txt_订单号码.Validated += new System.EventHandler(this.txt_订单号码_Validated);
             // 
@@ -141,7 +141,7 @@
             this.txt_装箱单号.Location = new System.Drawing.Point(312, 17);
             this.txt_装箱单号.Name = "txt_装箱单号";
             this.txt_装箱单号.Size = new System.Drawing.Size(113, 21);
-            this.txt_装箱单号.TabIndex = 4;
+            this.txt_装箱单号.TabIndex = 1;
             this.txt_装箱单号.Validating += new System.ComponentModel.CancelEventHandler(this.txt_装箱单号_Validating);
             this.txt_装箱单号.Validated += new System.EventHandler(this.txt_装箱单号_Validated);
             // 
@@ -160,7 +160,7 @@
             this.txt_客户代码.Location = new System.Drawing.Point(511, 17);
             this.txt_客户代码.Name = "txt_客户代码";
             this.txt_客户代码.Size = new System.Drawing.Size(113, 21);
-            this.txt_客户代码.TabIndex = 6;
+            this.txt_客户代码.TabIndex = 2;
             this.txt_客户代码.Validated += new System.EventHandler(this.txt_客户代码_Validated);
             // 
             // myLable3
@@ -178,7 +178,7 @@
             this.txt_客户名称.Location = new System.Drawing.Point(714, 17);
             this.txt_客户名称.Name = "txt_客户名称";
             this.txt_客户名称.Size = new System.Drawing.Size(113, 21);
-            this.txt_客户名称.TabIndex = 8;
+            this.txt_客户名称.TabIndex = 3;
             this.txt_客户名称.Validated += new System.EventHandler(this.txt_客户名称_Validated);
             // 
             // myLable4
@@ -204,7 +204,7 @@
             this.date_出货日期.Location = new System.Drawing.Point(921, 17);
             this.date_出货日期.Name = "date_出货日期";
             this.date_出货日期.Size = new System.Drawing.Size(113, 21);
-            this.date_出货日期.TabIndex = 10;
+            this.date_出货日期.TabIndex = 4;
             this.date_出货日期.Validated += new System.EventHandler(this.date_出货日期_Validated);
             // 
             // txt_报关单号
@@ -213,7 +213,7 @@
             this.txt_报关单号.Location = new System.Drawing.Point(81, 45);
             this.txt_报关单号.Name = "txt_报关单号";
             this.txt_报关单号.Size = new System.Drawing.Size(113, 21);
-            this.txt_报关单号.TabIndex = 12;
+            this.txt_报关单号.TabIndex = 5;
             this.txt_报关单号.Validated += new System.EventHandler(this.txt_报关单号_Validated);
             // 
             // myLable6
@@ -240,7 +240,7 @@
             this.cbox_手册编号.Location = new System.Drawing.Point(312, 45);
             this.cbox_手册编号.Name = "cbox_手册编号";
             this.cbox_手册编号.Size = new System.Drawing.Size(113, 20);
-            this.cbox_手册编号.TabIndex = 14;
+            this.cbox_手册编号.TabIndex = 6;
             this.cbox_手册编号.TabIndexChanged += new System.EventHandler(this.cbox_手册编号_TabIndexChanged);
             // 
             // date_录入日期
@@ -248,7 +248,7 @@
             this.date_录入日期.Location = new System.Drawing.Point(511, 45);
             this.date_录入日期.Name = "date_录入日期";
             this.date_录入日期.Size = new System.Drawing.Size(113, 21);
-            this.date_录入日期.TabIndex = 16;
+            this.date_录入日期.TabIndex = 7;
             this.date_录入日期.ValueChanged += new System.EventHandler(this.txt_录入日期_ValueChanged);
             // 
             // myLable8
@@ -266,7 +266,7 @@
             this.txt_征免方式.Location = new System.Drawing.Point(714, 45);
             this.txt_征免方式.Name = "txt_征免方式";
             this.txt_征免方式.Size = new System.Drawing.Size(113, 21);
-            this.txt_征免方式.TabIndex = 18;
+            this.txt_征免方式.TabIndex = 8;
             this.txt_征免方式.Validated += new System.EventHandler(this.txt_征免方式_Validated);
             // 
             // myLable9
@@ -284,7 +284,7 @@
             this.txt_产销国.Location = new System.Drawing.Point(919, 45);
             this.txt_产销国.Name = "txt_产销国";
             this.txt_产销国.Size = new System.Drawing.Size(64, 21);
-            this.txt_产销国.TabIndex = 20;
+            this.txt_产销国.TabIndex = 9;
             this.txt_产销国.Validated += new System.EventHandler(this.txt_产销国_Validated);
             // 
             // myLable10
@@ -302,7 +302,7 @@
             this.txt_币制.Location = new System.Drawing.Point(81, 72);
             this.txt_币制.Name = "txt_币制";
             this.txt_币制.Size = new System.Drawing.Size(113, 21);
-            this.txt_币制.TabIndex = 22;
+            this.txt_币制.TabIndex = 11;
             this.txt_币制.Validated += new System.EventHandler(this.txt_币制_Validated);
             // 
             // myLable11
@@ -320,7 +320,7 @@
             this.txt_申报地海关代码.Location = new System.Drawing.Point(312, 72);
             this.txt_申报地海关代码.Name = "txt_申报地海关代码";
             this.txt_申报地海关代码.Size = new System.Drawing.Size(113, 21);
-            this.txt_申报地海关代码.TabIndex = 24;
+            this.txt_申报地海关代码.TabIndex = 12;
             this.txt_申报地海关代码.Validated += new System.EventHandler(this.txt_申报地海关代码_Validated);
             // 
             // myLable12
@@ -338,7 +338,7 @@
             this.txt_进口岸代码.Location = new System.Drawing.Point(511, 72);
             this.txt_进口岸代码.Name = "txt_进口岸代码";
             this.txt_进口岸代码.Size = new System.Drawing.Size(113, 21);
-            this.txt_进口岸代码.TabIndex = 26;
+            this.txt_进口岸代码.TabIndex = 13;
             this.txt_进口岸代码.Validated += new System.EventHandler(this.txt_进口岸代码_Validated);
             // 
             // myLable13
@@ -356,7 +356,7 @@
             this.txt_代理单位代码.Location = new System.Drawing.Point(714, 72);
             this.txt_代理单位代码.Name = "txt_代理单位代码";
             this.txt_代理单位代码.Size = new System.Drawing.Size(113, 21);
-            this.txt_代理单位代码.TabIndex = 28;
+            this.txt_代理单位代码.TabIndex = 14;
             this.txt_代理单位代码.Validated += new System.EventHandler(this.txt_代理单位代码_Validated);
             // 
             // myLable14
@@ -374,7 +374,7 @@
             this.txt_用途.Location = new System.Drawing.Point(919, 72);
             this.txt_用途.Name = "txt_用途";
             this.txt_用途.Size = new System.Drawing.Size(113, 21);
-            this.txt_用途.TabIndex = 30;
+            this.txt_用途.TabIndex = 15;
             this.txt_用途.Validated += new System.EventHandler(this.txt_用途_Validated);
             // 
             // myLable15
@@ -392,7 +392,7 @@
             this.myCheckBox1.Location = new System.Drawing.Point(990, 47);
             this.myCheckBox1.Name = "myCheckBox1";
             this.myCheckBox1.Size = new System.Drawing.Size(60, 16);
-            this.myCheckBox1.TabIndex = 31;
+            this.myCheckBox1.TabIndex = 10;
             this.myCheckBox1.Text = "已出货";
             this.myCheckBox1.UseVisualStyleBackColor = true;
             this.myCheckBox1.CheckedChanged += new System.EventHandler(this.myCheckBox1_CheckedChanged);

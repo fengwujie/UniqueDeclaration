@@ -27,6 +27,7 @@ namespace UniqueDeclaration
             string strMessage = string.Empty ;
             if (bll.checkUserInfo(model, ref strMessage))
             {
+                this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 this.Close();
             }
             else
@@ -37,6 +38,7 @@ namespace UniqueDeclaration
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             Application.Exit();
         }
 

@@ -14,7 +14,7 @@ namespace DataAccess
         {
             DataAccessName_Uniquegrade,
             DataAccessName_Manufacture,
-            DataAccessName_ErpGwt
+            DataAccessName_GWT
         }
     }
 }

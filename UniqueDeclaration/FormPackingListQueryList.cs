@@ -508,7 +508,7 @@ namespace UniqueDeclaration
             if (this.myDataGridViewHead.CurrentRow == null) return;
             if (SysMessage.YesNoMsg("数据是否导出？") == System.Windows.Forms.DialogResult.No) return;
             long n;
-            string 申报单位Char, 法定单位Char, 产品编号char;
+            string 申报单位Char=string.Empty, 法定单位Char=string.Empty, 产品编号char=string.Empty;
             decimal 数量var, 单价val;//PriceValue, 
             IDataAccess dataUniquegrade = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
             dataUniquegrade.Open();
@@ -522,7 +522,7 @@ namespace UniqueDeclaration
             if (dtData.Rows.Count > 0)
             {
                 IDataAccess dataManufacture = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-                IDataAccess dataErpGwt = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_ErpGwt);
+                IDataAccess dataErpGwt = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_GWT);
                 n = 1;
                 foreach (DataRow row in dtData.Rows)
                 {
@@ -549,8 +549,8 @@ namespace UniqueDeclaration
                     if (dt归并后成品清单.Rows.Count > 0)
                     {
                         产品编号char = dt归并后成品清单.Rows[0]["产品编号"].ToString();
-                        单价val = dt归并后成品清单.Rows[0]["产品编号"] == DBNull.Value ? Convert.ToDecimal(Convert.ToDecimal("0").ToString("N2")) :
-                            Convert.ToDecimal((StringTools.decimalParse(dt归并后成品清单.Rows[0]["产品编号"].ToString())).ToString("N2"));
+                        单价val = dt归并后成品清单.Rows[0]["单价"] == DBNull.Value ? Convert.ToDecimal(Convert.ToDecimal("0").ToString("N2")) :
+                            Convert.ToDecimal((StringTools.decimalParse(dt归并后成品清单.Rows[0]["单价"].ToString())).ToString("N2"));
                         if (dt归并后成品清单.Rows[0]["法定单位"] != DBNull.Value || dt归并后成品清单.Rows[0]["法定单位"].ToString() != "")
                         {
                             dataErpGwt.Open();
@@ -569,7 +569,7 @@ namespace UniqueDeclaration
                         {
                             if (row["成品规格型号"].ToString().Contains("G"))
                             {
-                                数量var =StringTools.decimalParse( row["成品规格型号"].ToString().Substring(0, row["成品规格型号"].ToString().IndexOf("G")-1));
+                                数量var =StringTools.decimalParse( row["成品规格型号"].ToString().Substring(0, row["成品规格型号"].ToString().IndexOf("G")));
                             }
                             else
                             {
@@ -582,7 +582,6 @@ namespace UniqueDeclaration
                     {
                         单价val =StringTools.decimalParse( StringTools.decimalParse(row["单价"].ToString()).ToString("N2"));
                     }
-                    产品编号char = row["产品编号"] != DBNull.Value ? "" : row["产品编号"].ToString();
                     if (row["成品项号"] != DBNull.Value)
                     {
                         string strGWT_EMS_CL = string.Empty;
@@ -605,11 +604,13 @@ namespace UniqueDeclaration
                         }
                         else
                         {
+                            //'" & Trim(rs!手册编号 & "") & "','3502948415','" & Trim(rs!装箱单号 & "") & "','E','4','" & Format(Date, "yyyy-MM-dd") & "'," & n & ",
+                            //'" & 产品编号char & "'," & Val(Format(Val(rs!数量 & ""), "0.00")) & "," & Val(Format(Val((rs!数量 * 数量var) / 1000 & ""), 
+                            //"0.00")) & ",'" & 申报单位Char & "','" & 法定单位Char & "'," & 单价val & "," & Val(Format(Val(rs!数量 * 单价val & ""), "0.00")) & ",'" & Trim(mRs!用途 & "") & "','" & Trim(mRs!征免方式 & "") & "','" & Trim(mRs!产销国 & "") & "','" & Trim(mRs!币制 & "") & "','" & Trim(rs!归并前成品序号 & "") & "')"
                             strGWT_EMS_CL = string.Format(@"INSERT INTO GWT_EMS_CL(Ems_No,owner_code, Cop_List_No, I_E_Mark, G_Mark,List_Declare_Date,List_G_No,
                                                             Cop_G_No,Qty,Factor_1,Unit,Unit_1,Dec_Price,Dec_Total,Use_Type,Duty_Mode,Country_Code,Curr,enc_version) 
                                                             VALUES('{0}','3502948415','{1}','E','4','{2}',{3},'{4}',{5},{6},'{7}','{8}',{9},{10},'{11}','{12}','{13}','{14}','{15}')",
                             row["手册编号"],row["装箱单号"],DateTime.Now.ToString("yyyy-MM-dd"),n,产品编号char, 
-                                row["数量"]==DBNull.Value ? "0.00" : StringTools.decimalParse(row["数量"].ToString()).ToString("N2"), 
                                 row["数量"]==DBNull.Value ? "0.00" : StringTools.decimalParse(row["数量"].ToString()).ToString("N2"), 
                                 row["数量"]==DBNull.Value ? "0.00" : ((StringTools.decimalParse(row["数量"].ToString()) * 数量var)/1000).ToString("N2"),
                             申报单位Char,法定单位Char,单价val,

@@ -48,16 +48,17 @@ namespace UniqueDeclaration
             }
         }
         #endregion
-
-
+        
         private void Form_Main_Load(object sender, EventArgs e)
         {
             this.toolStatus_Version.Text = string.Format("当前系统版本：{0}",Application.ProductVersion);
             SetBackgroupImage();
             Form_Login loginForm = new Form_Login();
-            loginForm.ShowDialog();
-            this.toolStatus_User.Text = string.Format("当前用户：{0}", SystemGlobal.SystemGlobal_UserInfo.UserName);
-            DeleteExcelTempAllFile();
+            if (loginForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                this.toolStatus_User.Text = string.Format("当前用户：{0}", SystemGlobal.SystemGlobal_UserInfo.UserName);
+                DeleteExcelTempAllFile();
+            }
         }
 
         /// <summary>
