@@ -37,27 +37,28 @@ namespace UniqueDeclarationPubilc
             File.SetAttributes(strDestFile, File.GetAttributes(strDestFile) | FileAttributes.ReadOnly);
             string fn = strDestFile;
 
-            #region 计算最大列的字母
             //string fn = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\空白模版.xls");
             ExcelTools ea = new ExcelTools();
             ea.SafeOpen(fn);
             ea.ActiveSheet(1); // 激活
             int iColCount = dtExcel.Columns.Count;
-            string strMaxLetter = getColLetter(iColCount);
-            #endregion
 
-            #region 设置EXCEL标题行
             int iIndex = 1;
-            string range = string.Format("A{0}:{1}{0}",iIndex, strMaxLetter);
-            ea.SetValue(range, strTitle);
-            //水平居中
-            ea.SetHorisontalAlignment(range, 3);
-            ea.SetVerticalAlignment(range, 3);
-            Font font = new Font("楷体", 20, FontStyle.Bold);
-            ea.SetFont(range, font);
-            //合并首行
-            ea.SetMerge(range);
-            iIndex++;
+            #region 设置EXCEL标题行
+            if (strTitle.Length > 0)
+            {
+                string strMaxLetter = getColLetter(iColCount);   //计算最大列的字母
+                string range = string.Format("A{0}:{1}{0}", iIndex, strMaxLetter);
+                ea.SetValue(range, strTitle);
+                //水平居中
+                ea.SetHorisontalAlignment(range, 3);
+                ea.SetVerticalAlignment(range, 3);
+                Font font = new Font("楷体", 20, FontStyle.Bold);
+                ea.SetFont(range, font);
+                //合并首行
+                ea.SetMerge(range);
+                iIndex++;
+            }
             #endregion
 
             #region 循环处理数据集
@@ -88,6 +89,7 @@ namespace UniqueDeclarationPubilc
 
             foreach (DataRow row in dtExcel.Rows)
             {
+                if (row.RowState == DataRowState.Deleted) continue;
                 for (int iCol = 0; iCol < iColCount; iCol++)
                 {
                     strColLetter = getColLetter(iCol + 1);

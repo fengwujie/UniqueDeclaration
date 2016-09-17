@@ -1,6 +1,6 @@
 ﻿namespace UniqueDeclaration
 {
-    partial class FormMaterialsOutQueryList
+    partial class FormPackingQueryList
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -30,20 +30,13 @@
         {
             this.myContextHead = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
             this.myContextDetails = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
-            this.btnCheckIn = new UniqueDeclarationBaseForm.Controls.myButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Size = new System.Drawing.Size(997, 533);
-            this.splitContainer1.SplitterDistance = 245;
-            // 
             // myLable1
             // 
-            this.myLable1.Size = new System.Drawing.Size(995, 20);
-            this.myLable1.Text = "出库单明细";
+            this.myLable1.Visible = false;
             // 
             // myContextHead
             // 
@@ -57,27 +50,14 @@
             this.myContextDetails.Name = "myContextDetails";
             this.myContextDetails.Size = new System.Drawing.Size(101, 26);
             // 
-            // btnCheckIn
-            // 
-            this.btnCheckIn.Location = new System.Drawing.Point(681, 2);
-            this.btnCheckIn.Name = "btnCheckIn";
-            this.btnCheckIn.Size = new System.Drawing.Size(75, 23);
-            this.btnCheckIn.TabIndex = 7;
-            this.btnCheckIn.Text = "进口料件核查";
-            this.btnCheckIn.UseVisualStyleBackColor = true;
-            this.btnCheckIn.Click += new System.EventHandler(this.btnCheckIn_Click);
-            // 
-            // FormMaterialsOutQueryList
+            // FormPackingQueryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(997, 558);
-            this.Controls.Add(this.btnCheckIn);
-            this.Name = "FormMaterialsOutQueryList";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "料件出库查询";
-            this.Load += new System.EventHandler(this.FormMaterialsOutQueryList_Load);
+            this.ClientSize = new System.Drawing.Size(1125, 514);
+            this.Name = "FormPackingQueryList";
+            this.Text = "进口装箱单查询";
+            this.Load += new System.EventHandler(this.FormPackingQueryList_Load);
             this.Controls.SetChildIndex(this.splitContainer1, 0);
-            this.Controls.SetChildIndex(this.btnCheckIn, 0);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -89,6 +69,5 @@
 
         private UniqueDeclarationBaseForm.Controls.myContextMenuStripCell myContextHead;
         private UniqueDeclarationBaseForm.Controls.myContextMenuStripCell myContextDetails;
-        private UniqueDeclarationBaseForm.Controls.myButton btnCheckIn;
     }
 }
