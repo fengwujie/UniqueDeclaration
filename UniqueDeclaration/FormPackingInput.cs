@@ -21,6 +21,9 @@ namespace UniqueDeclaration
 
         private long Pid;
 
+        /// 是否触发值变化事件
+        /// </summary>
+        private bool bcbox_custid_SelectedIndexChanged = true;
         public override void FormBaseInput_Load(object sender, System.EventArgs e)
         {
             //base.FormBaseInput_Load(sender, e);
@@ -39,59 +42,85 @@ namespace UniqueDeclaration
             this.dataGridViewDetail.CausesValidation = false;
             this.dataGridViewDetail.Columns["BM"].Visible = false;
             this.dataGridViewDetail.Columns["BM"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["订单明细表id"].Visible = false;
-            this.dataGridViewDetail.Columns["订单明细表id"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["箱号"].DisplayIndex = 0;
-            this.dataGridViewDetail.Columns["箱号"].Width = 55;
-            this.dataGridViewDetail.Columns["箱号"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["客人型号"].DisplayIndex = 1;
-            this.dataGridViewDetail.Columns["客人型号"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["优丽型号"].DisplayIndex = 2;
-            this.dataGridViewDetail.Columns["优丽型号"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["订单号码"].DisplayIndex = 3;
-            this.dataGridViewDetail.Columns["订单号码"].Width = 78;
-            this.dataGridViewDetail.Columns["订单号码"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["手册编号"].DisplayIndex = 4;
-            this.dataGridViewDetail.Columns["手册编号"].Width = 78;
-            this.dataGridViewDetail.Columns["手册编号"].ReadOnly = true;
-            this.dataGridViewDetail.Columns["手册编号"].ContextMenuStrip = myContextDetails;
-            this.dataGridViewDetail.Columns["归并前成品序号"].DisplayIndex = 5;
-            this.dataGridViewDetail.Columns["归并前成品序号"].ReadOnly = true;
-            this.dataGridViewDetail.Columns["归并前成品序号"].Width = 120;
-            this.dataGridViewDetail.Columns["归并前成品序号"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["内部版本号"].DisplayIndex = 6;
-            this.dataGridViewDetail.Columns["内部版本号"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["成品项号"].DisplayIndex = 7;
-            this.dataGridViewDetail.Columns["成品项号"].ReadOnly = true;
-            this.dataGridViewDetail.Columns["成品项号"].Width = 78;
-            this.dataGridViewDetail.Columns["成品项号"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["成品名称及商编"].DisplayIndex = 8;
-            this.dataGridViewDetail.Columns["成品名称及商编"].ReadOnly = true;
-            this.dataGridViewDetail.Columns["成品名称及商编"].Width = 120;
-            this.dataGridViewDetail.Columns["成品名称及商编"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["成品规格型号"].DisplayIndex = 9;
-            this.dataGridViewDetail.Columns["成品规格型号"].Width = 110;
-            this.dataGridViewDetail.Columns["成品规格型号"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["数量"].DisplayIndex = 10;
-            this.dataGridViewDetail.Columns["数量"].Width = 55;
-            this.dataGridViewDetail.Columns["数量"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["id"].Visible = false;
+            this.dataGridViewDetail.Columns["id"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["进口料件id"].Visible = false;
+            this.dataGridViewDetail.Columns["进口料件id"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["unit1"].Visible = false;
+            this.dataGridViewDetail.Columns["unit1"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["unit2"].Visible = false;
+            this.dataGridViewDetail.Columns["unit2"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["Packageno"].DisplayIndex = 0;
+            this.dataGridViewDetail.Columns["Packageno"].HeaderText = "Packing No(箱号)";
+            this.dataGridViewDetail.Columns["Packageno"].Width = 130;
+            this.dataGridViewDetail.Columns["Packageno"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["手册编号"].DisplayIndex = 1;
+            this.dataGridViewDetail.Columns["手册编号"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["序号"].DisplayIndex = 2;
+            this.dataGridViewDetail.Columns["序号"].Width = 55;
+            this.dataGridViewDetail.Columns["序号"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["品名规格型号"].DisplayIndex = 3;
+            this.dataGridViewDetail.Columns["品名规格型号"].Width = 150;
+            this.dataGridViewDetail.Columns["品名规格型号"].ReadOnly = true;
+            this.dataGridViewDetail.Columns["品名规格型号"].HeaderText = "Deacription of Goods";
+            this.dataGridViewDetail.Columns["品名规格型号"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["剩余量"].DisplayIndex = 4;
+            this.dataGridViewDetail.Columns["剩余量"].Width = 70;
+            this.dataGridViewDetail.Columns["剩余量"].ReadOnly = true;
+            this.dataGridViewDetail.Columns["剩余量"].ContextMenuStrip = myContextDetails;
+            this.dataGridViewDetail.Columns["BoxNum"].DisplayIndex = 5;
+            this.dataGridViewDetail.Columns["BoxNum"].Width = 55;
+            this.dataGridViewDetail.Columns["BoxNum"].HeaderText = "箱数";
+            this.dataGridViewDetail.Columns["BoxNum"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["Quantity"].DisplayIndex = 6;
+            this.dataGridViewDetail.Columns["Quantity"].HeaderText = "Quantity/箱";
+            this.dataGridViewDetail.Columns["Quantity"].ContextMenuStrip = this.myContextDetails;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.dataGridViewDetail.Columns["Quantity"].DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewDetail.Columns["Unit"].DisplayIndex = 7;
+            this.dataGridViewDetail.Columns["Unit"].Width = 60;
+            this.dataGridViewDetail.Columns["Unit"].HeaderText = "单位";
+            this.dataGridViewDetail.Columns["Unit"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["UnitPrice"].DisplayIndex = 8;
+            this.dataGridViewDetail.Columns["UnitPrice"].Width = 60;
+            this.dataGridViewDetail.Columns["UnitPrice"].HeaderText = "单价";
+            this.dataGridViewDetail.Columns["UnitPrice"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["TotalNum"].DisplayIndex = 9;
+            this.dataGridViewDetail.Columns["TotalNum"].Width = 70;
+            this.dataGridViewDetail.Columns["TotalNum"].ReadOnly = true;
+            this.dataGridViewDetail.Columns["TotalNum"].HeaderText = "总数量";
+            this.dataGridViewDetail.Columns["TotalNum"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["TotalPrice"].DisplayIndex = 10;
+            this.dataGridViewDetail.Columns["TotalPrice"].Width = 80;
+            this.dataGridViewDetail.Columns["TotalPrice"].ReadOnly = true;
+            this.dataGridViewDetail.Columns["TotalPrice"].HeaderText = "总金额";
+            this.dataGridViewDetail.Columns["TotalPrice"].ContextMenuStrip = this.myContextDetails;
             //System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             //dataGridViewCellStyle1.Format = "N5";
             //dataGridViewCellStyle1.NullValue = null;
             //this.dataGridViewDetail.Columns["数量"].DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewDetail.Columns["单位"].DisplayIndex = 11;
-            this.dataGridViewDetail.Columns["单位"].Width = 55;
-            this.dataGridViewDetail.Columns["单位"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["nw"].DisplayIndex = 11;
+            this.dataGridViewDetail.Columns["nw"].Width = 100;
+            this.dataGridViewDetail.Columns["nw"].HeaderText = "Net Weight";
+            this.dataGridViewDetail.Columns["nw"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["nw"].DefaultCellStyle = dataGridViewCellStyle1;
 
-            this.dataGridViewDetail.Columns["单价"].Visible = false;
-            this.dataGridViewDetail.Columns["单价"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["gw"].DisplayIndex = 12;
+            this.dataGridViewDetail.Columns["gw"].Width = 110;
+            this.dataGridViewDetail.Columns["gw"].HeaderText = "Gross Weight";
+            this.dataGridViewDetail.Columns["gw"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["gw"].DefaultCellStyle = dataGridViewCellStyle1;
         }
         public override void InitControlData()
         {
             base.InitControlData();
             this.gstrDetailFirstField = "PackageNo";
-            this.cbox_custid.InitialData(DataAccess.DataAccessEnum.DataAccessName.DataAccessName_Manufacture,
-                "SELECT custid, com_Abbr FROM dbo.Customer", "custid", "com_Abbr");
+            bcbox_custid_SelectedIndexChanged = false;
+            this.cbox_custid.InitialData(DataAccess.DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade,
+                "SELECT custid, com_Abbr FROM dbo.Customer", "custid", "com_Abbr",-1);
+            bcbox_custid_SelectedIndexChanged = true;
         }
         /// <summary>
         /// 加载表头数据
@@ -106,14 +135,6 @@ namespace UniqueDeclaration
             if (dtHead.Rows.Count > 0)
             {
                 rowHead = dtHead.Rows[0];
-                //IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
-                dataAccess.Open();
-                DataTable dtCompany = dataAccess.GetTable("select e_name from company where comid=" + rowHead["comid"],null);
-                dataAccess.Close();
-                if (dtCompany.Rows.Count > 0)
-                {
-                    myTextBox3.Text = dtCompany.Rows[0]["e_name"].ToString();
-                }
                 fillControl(rowHead);
             }
             else
@@ -282,7 +303,7 @@ namespace UniqueDeclaration
                         #region 新增明细数据
                         foreach (DataRow row in dtDetails.Rows)
                         {
-                            if (row["料件id"] == DBNull.Value || Convert.ToInt32( row["料件id"]) == 0) continue;
+                            if (row["进口料件id"] == DBNull.Value || Convert.ToInt32(row["进口料件id"]) == 0) continue;
                             strBuilder.AppendLine(@"INSERT INTO [PackingDetail] ([Pid] ,[进口料件id],[PackageNo],[BoxNum],[Quantity],[Unit],[UnitPrice],[NW],[Unit1],[GW],[Unit2])");
                             strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})",
                                 Pid, row["进口料件id"] == DBNull.Value ? "NULL" : row["进口料件id"],
@@ -359,7 +380,7 @@ namespace UniqueDeclaration
                             #region 新增表身数据
                             if (row.RowState == DataRowState.Added)
                             {
-                                if (row["料件id"] == DBNull.Value || Convert.ToInt32(row["料件id"]) == 0) continue;
+                                if (row["进口料件id"] == DBNull.Value || Convert.ToInt32(row["进口料件id"]) == 0) continue;
                                 strBuilder.AppendLine(@"INSERT INTO [PackingDetail] ([Pid] ,[进口料件id],[PackageNo],[BoxNum],[Quantity],[Unit],[UnitPrice],[NW],[Unit1],[GW],[Unit2])");
                                 strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})",
                                    rowHead["Pid"], row["进口料件id"] == DBNull.Value ? "NULL" : row["进口料件id"],
@@ -513,6 +534,10 @@ namespace UniqueDeclaration
                     date_InputDate.Checked = true;
                     date_InputDate.Value = Convert.ToDateTime(row["InputDate"]);
                 }
+            } 
+            if (row.Table.Columns.Contains("custid"))
+            {
+                cbox_custid.SelectedValue = row["custid"];
             }
             if (row.Table.Columns.Contains("PackingTo"))
             {
@@ -566,12 +591,24 @@ namespace UniqueDeclaration
             {
                 txt_报关单号.Text = row["报关单号"].ToString();
             }
+            if (rowHead["comid"] != DBNull.Value)
+            {
+                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                dataAccess.Open();
+                DataTable dtCompany = dataAccess.GetTable("select e_name from company where comid=" + rowHead["comid"], null);
+                dataAccess.Close();
+                if (dtCompany.Rows.Count > 0)
+                {
+                    myTextBox3.Text = dtCompany.Rows[0]["e_name"].ToString();
+                }
+            }
         }
         #endregion
 
         #region 表头控件事件
         private void cbox_custid_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!bcbox_custid_SelectedIndexChanged) return;
             if (rowHead["custid"].ToString() != cbox_custid.SelectedValue.ToString())
             {
                 rowHead["custid"] = cbox_custid.SelectedValue;
@@ -774,6 +811,14 @@ namespace UniqueDeclaration
                 rowHead["inputuser"] = txt_inputuser.Text;
             }
         }
+
+        private void txt_Remark_Validated(object sender, EventArgs e)
+        {
+            if (rowHead["Remark"].ToString() != txt_Remark.Text)
+            {
+                rowHead["Remark"] = txt_Remark.Text;
+            }
+        }
         #endregion
         
         #region GRID事件
@@ -793,7 +838,7 @@ namespace UniqueDeclaration
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["手册账号", cell.RowIndex];
+                        dgv.CurrentCell = dgv["手册编号", cell.RowIndex];
                     }
                     #endregion
                     break;
@@ -801,7 +846,7 @@ namespace UniqueDeclaration
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        if (dgv.CurrentRow.Cells["手册编号"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        if (dgv.CurrentRow.Cells["手册编号"].Value!=DBNull.Value && dgv.CurrentRow.Cells["手册编号"].Value.ToString()!="" && dgv.CurrentRow.Cells["手册编号"].Value.ToString() == cell.EditedFormattedValue.ToString())
                         {
                             bCellEndEdit = false;
                             dgv.CurrentCell = dgv["序号", cell.RowIndex];
@@ -817,10 +862,10 @@ namespace UniqueDeclaration
                     }
                     else
                     {
-                        if (dgv.CurrentRow.Cells["手册编号"].Value.ToString() != cell.EditedFormattedValue.ToString())
-                        {
+                        //if (dgv.CurrentRow.Cells["手册编号"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        //{
                             validate手册编号(dgv, cell);
-                        }
+                        //}
                     }
                     #endregion
                     break;
@@ -828,79 +873,120 @@ namespace UniqueDeclaration
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        if (dgv.CurrentRow.Cells["序号"].Value.ToString() == cell.EditedFormattedValue.ToString())
-                        {
-                            bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["数量", cell.RowIndex];
-                            bCellEndEdit = true;
-                        }
-                        else if (validate序号(dgv, cell))
+                        //if (dgv.CurrentRow.Cells["序号"].Value != DBNull.Value && dgv.CurrentRow.Cells["序号"].Value.ToString() != "" && dgv.CurrentRow.Cells["序号"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        //{
+                        //    bCellEndEdit = false;
+                        //    dgv.CurrentCell = dgv["BoxNum", cell.RowIndex];
+                        //    bCellEndEdit = true;
+                        //}
+                        //else 
+                        if (validate序号(dgv, cell))
                         {
                             //dtDetails.Rows[cell.RowIndex].EndEdit();
                             (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
                             bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["数量", cell.RowIndex];
+                            dgv.CurrentCell = dgv["BoxNum", cell.RowIndex];
                             bCellEndEdit = true;
                         }
                     }
                     else
                     {
-                        if (dgv.CurrentRow.Cells["序号"].Value.ToString() != cell.EditedFormattedValue.ToString())
-                        {
+                        //if (dgv.CurrentRow.Cells["序号"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        //{
                             validate序号(dgv, cell);
-                        }
+                        //}
                     }
                     #endregion
                     break;
-                case "数量":
+                case "BoxNum":
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        if (dgv.CurrentRow.Cells["数量"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        if (dgv.CurrentRow.Cells["BoxNum"].Value.ToString() == cell.EditedFormattedValue.ToString())
                         {
                             bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["单位", cell.RowIndex];
+                            dgv.CurrentCell = dgv["Quantity", cell.RowIndex];
                             bCellEndEdit = true;
                         }
                         else
                         {
-                            validate数量(dgv, cell);
+                            validateBoxNum(dgv, cell);
                             (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
                             bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["单位", cell.RowIndex];
+                            dgv.CurrentCell = dgv["Quantity", cell.RowIndex];
                             bCellEndEdit = true;
                         }
                     }
                     else
                     {
-                        if (dgv.CurrentRow.Cells["数量"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        //if (dgv.CurrentRow.Cells["BoxNum"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        //{
+                            validateBoxNum(dgv, cell);
+                        //}
+                    }
+                    #endregion
+                    break;
+                case "Quantity":
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        if (dgv.CurrentRow.Cells["Quantity"].Value.ToString() == cell.EditedFormattedValue.ToString())
                         {
-                            validate数量(dgv, cell);
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["Unit", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                        else
+                        {
+                            validateQuantity(dgv, cell);
+                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["Unit", cell.RowIndex];
+                            bCellEndEdit = true;
                         }
                     }
-                    #endregion
-                    break;
-                case "订单号码":
-                    #region CELL回车跳转
-                    if (bKeyEnter)
+                    else
                     {
-                        dgv.CurrentCell = dgv["手册编号", cell.RowIndex];
+                        //if (dgv.CurrentRow.Cells["Quantity"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        //{
+                            validateQuantity(dgv, cell);
+                        //}
                     }
                     #endregion
                     break;
-                case "成品项号":
+                case "Unit":
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["成品名称及商编", cell.RowIndex];
+                        dgv.CurrentCell = dgv["UnitPrice", cell.RowIndex];
                     }
                     #endregion
                     break;
-                case "成品名称及商编":
+                case "UnitPrice":
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["成品规格型号", cell.RowIndex];
+                        if (dgv.CurrentRow.Cells["UnitPrice"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        {
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["NW", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                        else
+                        {
+                            validateUnitPrice(dgv, cell);
+                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["NW", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                    }
+                    else
+                    {
+                        //if (dgv.CurrentRow.Cells["UnitPrice"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        //{
+                            validateUnitPrice(dgv, cell);
+                        //}
                     }
                     #endregion
                     break;
@@ -908,31 +994,67 @@ namespace UniqueDeclaration
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["数量", cell.RowIndex];
+                        dgv.CurrentCell = dgv["剩余量", cell.RowIndex];
                     }
                     #endregion
                     break;
-                case "归并前成品序号":
+                case "剩余量":
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["内部版本号", cell.RowIndex];
+                        dgv.CurrentCell = dgv["BoxNum", cell.RowIndex];
                     }
                     #endregion
                     break;
-                case "内部版本号":
+                case "TotalNum":
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["成品项号", cell.RowIndex];
+                        dgv.CurrentCell = dgv["Totalprice", cell.RowIndex];
                     }
                     #endregion
                     break;
-                case "单位":   //跳转到"客人型号"  
+                case "Totalprice":
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        validate单位(dgv, cell);
+                        dgv.CurrentCell = dgv["NG", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "NW":
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        if (dgv.CurrentRow.Cells["NW"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        {
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["GW", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                        else
+                        {
+                            validateNW(dgv, cell);
+                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["GW", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                    }
+                    else
+                    {
+                        //if (dgv.CurrentRow.Cells["NW"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        //{
+                            validateQuantity(dgv, cell);
+                        //}
+                    }
+                    #endregion
+                    break;
+                case "GW":     
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        validateGW(dgv, cell);
                         (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
                     }
                     #endregion
@@ -1064,45 +1186,174 @@ namespace UniqueDeclaration
                 return 0;
             }
         }
-        private void validate数量(myDataGridView dgv, DataGridViewCell cell)
+        private void validateBoxNum(myDataGridView dgv, DataGridViewCell cell)
         {
             if (cell.EditedFormattedValue.ToString() == "")
             {
-                dgv.Rows[cell.RowIndex].Cells["订单数量"].Value = DBNull.Value;
+                dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value = DBNull.Value;
+                dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
+                dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
             }
             else
             {
                 try
                 {
                     decimal.Parse(cell.EditedFormattedValue.ToString());
-                    dgv.Rows[cell.RowIndex].Cells["订单数量"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
+                    dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
+                    if (dgv.CurrentRow.Cells["Quantity"].Value == DBNull.Value || dgv.CurrentRow.Cells["Quantity"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["Quantity"].Value) == 0)
+                    {
+                        dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
+                        dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
+                    }
+                    else
+                    {
+                        dgv.CurrentRow.Cells["TotalNum"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value);
+                        if (dgv.CurrentRow.Cells["UnitPrice"].Value == DBNull.Value || dgv.CurrentRow.Cells["UnitPrice"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["UnitPrice"].Value) == 0)
+                        {
+                            dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
+                        }
+                        else
+                        {
+                            dgv.CurrentRow.Cells["Totalprice"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value)
+                                 * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["UnitPrice"].Value);
+                        }
+                    }
                 }
                 catch
                 {
-                    dgv.Rows[cell.RowIndex].Cells["订单数量"].Value = 0;
+                    dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value = 0;
+                    dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
+                    dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
                 }
             }
         }
-        private void validate单位(myDataGridView dgv, DataGridViewCell cell)
+        private void validateQuantity(myDataGridView dgv, DataGridViewCell cell)
         {
-            dgv["单位", cell.RowIndex].Value = cell.EditedFormattedValue;
-            //如果当前行的客人型号为空，则跳转到当前行的客人型号
-            if (dgv.Rows[cell.RowIndex].Cells["客人型号"].Value == DBNull.Value
-                || dgv.Rows[cell.RowIndex].Cells["客人型号"].Value.ToString().Trim() == "")
+            if (cell.EditedFormattedValue.ToString() == "")
             {
-                dgv.CurrentCell = dgv["客人型号", cell.RowIndex];
+                dgv.Rows[cell.RowIndex].Cells["Quantity"].Value = DBNull.Value;
+                dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
+                dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
             }
             else
             {
-                //否则跳转到下一行的客人型号，如果是最后一行，则新增一行
+                try
+                {
+                    decimal.Parse(cell.EditedFormattedValue.ToString());
+                    dgv.Rows[cell.RowIndex].Cells["Quantity"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
+                    if (dgv.CurrentRow.Cells["BoxNum"].Value == DBNull.Value || dgv.CurrentRow.Cells["BoxNum"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["BoxNum"].Value) == 0)
+                    {
+                        dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
+                        dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
+                    }
+                    else
+                    {
+                        dgv.CurrentRow.Cells["TotalNum"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value);
+                        if (dgv.CurrentRow.Cells["UnitPrice"].Value == DBNull.Value || dgv.CurrentRow.Cells["UnitPrice"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["UnitPrice"].Value) == 0)
+                        {
+                            dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
+                        }
+                        else
+                        {
+                            dgv.CurrentRow.Cells["Totalprice"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value)
+                                 * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["UnitPrice"].Value);
+                        }
+                    }
+                }
+                catch
+                {
+                    dgv.Rows[cell.RowIndex].Cells["Quantity"].Value = 0;
+                    dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
+                    dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
+                }
+            }
+        }
+        private void validateUnitPrice(myDataGridView dgv, DataGridViewCell cell)
+        {
+            if (cell.EditedFormattedValue.ToString() == "")
+            {
+                dgv.Rows[cell.RowIndex].Cells["UnitPrice"].Value = DBNull.Value;
+                dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
+            }
+            else
+            {
+                try
+                {
+                    decimal.Parse(cell.EditedFormattedValue.ToString());
+                    dgv.Rows[cell.RowIndex].Cells["UnitPrice"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
+                    if (dgv.CurrentRow.Cells["BoxNum"].Value == DBNull.Value || dgv.CurrentRow.Cells["BoxNum"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["BoxNum"].Value) == 0 ||
+                        dgv.CurrentRow.Cells["Quantity"].Value == DBNull.Value || dgv.CurrentRow.Cells["Quantity"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["Quantity"].Value) == 0)
+                    {
+                        dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
+                    }
+                    else
+                    {
+                        dgv.CurrentRow.Cells["Totalprice"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value)
+                             * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["UnitPrice"].Value);
+                    }
+                }
+                catch
+                {
+                    dgv.Rows[cell.RowIndex].Cells["UnitPrice"].Value = 0;
+                    dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
+                }
+            }
+        }
+        private void validateNW(myDataGridView dgv, DataGridViewCell cell)
+        {
+            if (cell.EditedFormattedValue.ToString() == "")
+            {
+                dgv.Rows[cell.RowIndex].Cells["NW"].Value = DBNull.Value;
+            }
+            else
+            {
+                try
+                {
+                    decimal.Parse(cell.EditedFormattedValue.ToString());
+                    dgv.Rows[cell.RowIndex].Cells["NW"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
+                }
+                catch
+                {
+                    dgv.Rows[cell.RowIndex].Cells["NW"].Value = 0;
+                }
+            }
+        }
+        private void validateGW(myDataGridView dgv, DataGridViewCell cell)
+        {
+            if (cell.EditedFormattedValue.ToString() == "")
+            {
+                dgv.Rows[cell.RowIndex].Cells["GW"].Value = DBNull.Value;
+            }
+            else
+            {
+                try
+                {
+                    decimal.Parse(cell.EditedFormattedValue.ToString());
+                    dgv.Rows[cell.RowIndex].Cells["GW"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
+                }
+                catch
+                {
+                    dgv.Rows[cell.RowIndex].Cells["GW"].Value = 0;
+                }
+            }
+
+            //如果当前行的客人型号为空，则跳转到当前行的客人型号
+            if (dgv.Rows[cell.RowIndex].Cells["手册编号"].Value == DBNull.Value || dgv.Rows[cell.RowIndex].Cells["手册编号"].Value.ToString().Trim() == "" ||
+                dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value == DBNull.Value || dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value.ToString().Trim() == "")
+            {
+                dgv.CurrentCell = cell;
+            }
+            else
+            {
+                //否则跳转到下一行的箱号
                 if (cell.RowIndex == dgv.Rows.Count - 1)
                 {
                     dtDetailsAddRow();
-                    dgv.CurrentCell = dgv["箱号", cell.RowIndex + 1];
+                    dgv.CurrentCell = dgv["PackageNo", cell.RowIndex + 1];
                 }
                 else
                 {
-                    dgv.CurrentCell = dgv["箱号", cell.RowIndex + 1];
+                    dgv.CurrentCell = dgv["PackageNo", cell.RowIndex + 1];
                 }
             }
         }
@@ -1111,7 +1362,7 @@ namespace UniqueDeclaration
             base.dataGridViewDetail_DataError(sender, e);
             DataGridView dgv = (DataGridView)sender;
             string colName = dgv.Columns[e.ColumnIndex].Name;
-            if (colName == "数量" || colName == "箱数")
+            if (colName == "BoxNum" || colName == "Quantity" || colName == "UnitPrice" || colName == "NW" || colName == "GW")
                 e.Cancel = false;
         }
 
@@ -1133,5 +1384,6 @@ namespace UniqueDeclaration
             setTool1Enabled();
         }
         #endregion
+
     }
 }

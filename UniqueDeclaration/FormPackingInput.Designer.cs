@@ -170,6 +170,7 @@
             this.txt_Remark.Name = "txt_Remark";
             this.txt_Remark.Size = new System.Drawing.Size(528, 21);
             this.txt_Remark.TabIndex = 23;
+            this.txt_Remark.Validated += new System.EventHandler(this.txt_Remark_Validated);
             // 
             // myLable12
             // 

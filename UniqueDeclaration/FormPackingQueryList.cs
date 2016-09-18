@@ -121,7 +121,7 @@ namespace UniqueDeclaration
             this.myDataGridViewDetails.Columns["序号"].ContextMenuStrip = this.myContextDetails;
             this.myDataGridViewDetails.Columns["品名规格型号"].DisplayIndex = 3;
             this.myDataGridViewDetails.Columns["品名规格型号"].HeaderText = "Deacription of Goods";
-            this.myDataGridViewDetails.Columns["品名规格型号"].Width = 140;
+            this.myDataGridViewDetails.Columns["品名规格型号"].Width = 150;
             this.myDataGridViewDetails.Columns["品名规格型号"].ContextMenuStrip = this.myContextDetails;
             this.myDataGridViewDetails.Columns["BoxNum"].DisplayIndex = 4;
             this.myDataGridViewDetails.Columns["BoxNum"].HeaderText = "箱数";
@@ -158,6 +158,7 @@ namespace UniqueDeclaration
             this.myDataGridViewDetails.Columns["nw"].DefaultCellStyle = dataGridViewCellStyle1;
             this.myDataGridViewDetails.Columns["TotalNum"].DisplayIndex = 11;
             this.myDataGridViewDetails.Columns["gw"].HeaderText = "Gross Weight";
+            this.myDataGridViewDetails.Columns["gw"].Width = 100;
             this.myDataGridViewDetails.Columns["gw"].ContextMenuStrip = this.myContextDetails;
             this.myDataGridViewDetails.Columns["gw"].DefaultCellStyle = dataGridViewCellStyle1;
 
