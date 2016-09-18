@@ -352,7 +352,7 @@ namespace UniqueDeclaration
                     bModify = true;
                 }
             }
-            //如果表头没层云，再判断表身是否有异动
+            //如果表头没异动，再判断表身是否有异动
             if (!bModify)
             {
                 for (int iRow = 0; iRow < dtDetails.Rows.Count; iRow++)

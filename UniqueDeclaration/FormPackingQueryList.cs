@@ -28,6 +28,7 @@ namespace UniqueDeclaration
         public string gstrWhere = string.Empty;
         private void FormPackingQueryList_Load(object sender, EventArgs e)
         {
+            this.tool1_Import.Visible = false;
             LoadDataSourceHead();
             InitGridDetails();
             InitGridHead();
