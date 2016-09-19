@@ -127,6 +127,7 @@
             // 
             // btnCheckOrderNo
             // 
+            this.btnCheckOrderNo.BackgroundImage = global::UniqueDeclaration.Properties.Resources.check_24px;
             this.btnCheckOrderNo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnCheckOrderNo.Location = new System.Drawing.Point(182, 16);
             this.btnCheckOrderNo.Name = "btnCheckOrderNo";
@@ -418,6 +419,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(1070, 516);
             this.Controls.Add(this.btnOuterMaterialTotal);
+            this.IsScaling = false;
             this.Name = "FormPackingListInput";
             this.Text = "装箱单录入";
             this.Controls.SetChildIndex(this.groupBox1, 0);

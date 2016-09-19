@@ -1,0 +1,15 @@
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\bin\Debug\UniqueDeclarationBLL.dll
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\bin\Debug\UniqueDeclarationBLL.pdb
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\bin\Debug\UniqueDeclarationDAL.dll
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\bin\Debug\UniqueDeclarationModel.dll
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\bin\Debug\DataAccess.dll
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\bin\Debug\UniqueDeclarationPubilc.dll
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\bin\Debug\UniqueDeclarationDAL.pdb
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\bin\Debug\UniqueDeclarationModel.pdb
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\bin\Debug\DataAccess.pdb
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\bin\Debug\UniqueDeclarationPubilc.pdb
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\obj\x86\Debug\UniqueDeclarationBLL.csprojResolveAssemblyReference.cache
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\obj\x86\Debug\UniqueDeclarationBLL.Properties.Resources.resources
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\obj\x86\Debug\UniqueDeclarationBLL.csproj.GenerateResource.Cache
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\obj\x86\Debug\UniqueDeclarationBLL.dll
+F:\Unique\UniqueDeclaration\UniqueDeclarationBLL\obj\x86\Debug\UniqueDeclarationBLL.pdb

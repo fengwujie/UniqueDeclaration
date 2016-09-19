@@ -1,0 +1,6 @@
+F:\Unique\UniqueDeclaration\UniqueDeclarationModel\bin\Debug\UniqueDeclarationModel.dll
+F:\Unique\UniqueDeclaration\UniqueDeclarationModel\bin\Debug\UniqueDeclarationModel.pdb
+F:\Unique\UniqueDeclaration\UniqueDeclarationModel\obj\x86\Debug\UniqueDeclarationModel.Properties.Resources.resources
+F:\Unique\UniqueDeclaration\UniqueDeclarationModel\obj\x86\Debug\UniqueDeclarationModel.csproj.GenerateResource.Cache
+F:\Unique\UniqueDeclaration\UniqueDeclarationModel\obj\x86\Debug\UniqueDeclarationModel.dll
+F:\Unique\UniqueDeclaration\UniqueDeclarationModel\obj\x86\Debug\UniqueDeclarationModel.pdb

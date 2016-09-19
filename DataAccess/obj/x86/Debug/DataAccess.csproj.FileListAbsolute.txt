@@ -1,0 +1,6 @@
+F:\Unique\UniqueDeclaration\DataAccess\bin\Debug\DataAccess.dll
+F:\Unique\UniqueDeclaration\DataAccess\bin\Debug\DataAccess.pdb
+F:\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.Properties.Resources.resources
+F:\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.csproj.GenerateResource.Cache
+F:\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.dll
+F:\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.pdb

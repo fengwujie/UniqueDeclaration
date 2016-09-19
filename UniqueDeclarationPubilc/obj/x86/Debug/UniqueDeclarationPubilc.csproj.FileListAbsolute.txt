@@ -1,0 +1,9 @@
+F:\Unique\UniqueDeclaration\UniqueDeclarationPubilc\bin\Debug\UniqueDeclarationPubilc.dll
+F:\Unique\UniqueDeclaration\UniqueDeclarationPubilc\bin\Debug\UniqueDeclarationPubilc.pdb
+F:\Unique\UniqueDeclaration\UniqueDeclarationPubilc\bin\Debug\UniqueDeclarationModel.dll
+F:\Unique\UniqueDeclaration\UniqueDeclarationPubilc\bin\Debug\UniqueDeclarationModel.pdb
+F:\Unique\UniqueDeclaration\UniqueDeclarationPubilc\obj\x86\Debug\UniqueDeclarationPubilc.csprojResolveAssemblyReference.cache
+F:\Unique\UniqueDeclaration\UniqueDeclarationPubilc\obj\x86\Debug\UniqueDeclarationPubilc.Properties.Resources.resources
+F:\Unique\UniqueDeclaration\UniqueDeclarationPubilc\obj\x86\Debug\UniqueDeclarationPubilc.csproj.GenerateResource.Cache
+F:\Unique\UniqueDeclaration\UniqueDeclarationPubilc\obj\x86\Debug\UniqueDeclarationPubilc.dll
+F:\Unique\UniqueDeclaration\UniqueDeclarationPubilc\obj\x86\Debug\UniqueDeclarationPubilc.pdb
