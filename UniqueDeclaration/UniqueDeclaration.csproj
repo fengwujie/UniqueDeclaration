@@ -185,11 +185,17 @@
     <Compile Include="FormOuterMaterialTotalQueryCondition.Designer.cs">
       <DependentUpon>FormOuterMaterialTotalQueryCondition.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormPackingInput.cs">
+    <Compile Include="FormPackingInInput.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPackingInput.Designer.cs">
-      <DependentUpon>FormPackingInput.cs</DependentUpon>
+    <Compile Include="FormPackingInInput.Designer.cs">
+      <DependentUpon>FormPackingInInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPackingOutInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPackingOutInput.Designer.cs">
+      <DependentUpon>FormPackingOutInput.cs</DependentUpon>
     </Compile>
     <Compile Include="FormPackingListInput.cs">
       <SubType>Form</SubType>
@@ -209,17 +215,29 @@
     <Compile Include="FormPackingListQueryList.Designer.cs">
       <DependentUpon>FormPackingListQueryList.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormPackingQueryCondition.cs">
+    <Compile Include="FormPackingOutQueryCondition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPackingQueryCondition.Designer.cs">
-      <DependentUpon>FormPackingQueryCondition.cs</DependentUpon>
+    <Compile Include="FormPackingOutQueryCondition.Designer.cs">
+      <DependentUpon>FormPackingOutQueryCondition.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormPackingQueryList.cs">
+    <Compile Include="FormPackingOutQueryList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPackingQueryList.Designer.cs">
-      <DependentUpon>FormPackingQueryList.cs</DependentUpon>
+    <Compile Include="FormPackingOutQueryList.Designer.cs">
+      <DependentUpon>FormPackingOutQueryList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPackingInQueryCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPackingInQueryCondition.Designer.cs">
+      <DependentUpon>FormPackingInQueryCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPackingInQueryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPackingInQueryList.Designer.cs">
+      <DependentUpon>FormPackingInQueryList.cs</DependentUpon>
     </Compile>
     <Compile Include="FormTest.cs">
       <SubType>Form</SubType>
@@ -301,8 +319,11 @@
     <EmbeddedResource Include="FormOuterMaterialTotalQueryCondition.resx">
       <DependentUpon>FormOuterMaterialTotalQueryCondition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormPackingInput.resx">
-      <DependentUpon>FormPackingInput.cs</DependentUpon>
+    <EmbeddedResource Include="FormPackingInInput.resx">
+      <DependentUpon>FormPackingInInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPackingOutInput.resx">
+      <DependentUpon>FormPackingOutInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPackingListInput.resx">
       <DependentUpon>FormPackingListInput.cs</DependentUpon>
@@ -313,11 +334,17 @@
     <EmbeddedResource Include="FormPackingListQueryList.resx">
       <DependentUpon>FormPackingListQueryList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormPackingQueryCondition.resx">
-      <DependentUpon>FormPackingQueryCondition.cs</DependentUpon>
+    <EmbeddedResource Include="FormPackingOutQueryCondition.resx">
+      <DependentUpon>FormPackingOutQueryCondition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormPackingQueryList.resx">
-      <DependentUpon>FormPackingQueryList.cs</DependentUpon>
+    <EmbeddedResource Include="FormPackingOutQueryList.resx">
+      <DependentUpon>FormPackingOutQueryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPackingInQueryCondition.resx">
+      <DependentUpon>FormPackingInQueryCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPackingInQueryList.resx">
+      <DependentUpon>FormPackingInQueryList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTest.resx">
       <DependentUpon>FormTest.cs</DependentUpon>

@@ -1,6 +1,6 @@
 ﻿namespace UniqueDeclaration
 {
-    partial class FormPackingInput
+    partial class FormPackingOutInput
     {
         /// <summary>
         /// 必需的设计器变量。

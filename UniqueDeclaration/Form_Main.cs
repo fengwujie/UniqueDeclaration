@@ -201,21 +201,41 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
-        //PACKING LIST（录入）
+        //进口管理——PACKING LIST（录入）
         private void FormPackingInput_Click(object sender, EventArgs e)
         {
-            FormPackingInput objForm = new FormPackingInput();
+            FormPackingInInput objForm = new FormPackingInInput();
             objForm.MdiParent = this;
             objForm.Show();
         }
-        //PACKING LIST（查询）
+        //进口管理——PACKING LIST（查询）
         private void FormPackingQueryCondition_Click(object sender, EventArgs e)
         {
-            FormPackingQueryCondition queryConditionForm = new FormPackingQueryCondition();
+            FormPackingInQueryCondition queryConditionForm = new FormPackingInQueryCondition();
             if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string strWhere = queryConditionForm.strReturnWhere;
-                FormPackingQueryList queryListForm = new FormPackingQueryList();
+                FormPackingInQueryList queryListForm = new FormPackingInQueryList();
+                queryListForm.gstrWhere = strWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
+        //出口管理——PACKING LIST（录入）
+        private void FormPackingOutInput_Click(object sender, EventArgs e)
+        {
+            FormPackingOutInput objForm = new FormPackingOutInput();
+            objForm.MdiParent = this;
+            objForm.Show();
+        }
+        //出口管理——PACKING LIST（查询）
+        private void FormPackingOutQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormPackingOutQueryCondition queryConditionForm = new FormPackingOutQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string strWhere = queryConditionForm.strReturnWhere;
+                FormPackingOutQueryList queryListForm = new FormPackingOutQueryList();
                 queryListForm.gstrWhere = strWhere;
                 queryListForm.MdiParent = this;
                 queryListForm.Show();

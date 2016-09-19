@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace UniqueDeclaration
 {
-    public partial class FormPackingQueryCondition : UniqueDeclarationBaseForm.FormBaseQueryCondition
+    public partial class FormPackingInQueryCondition : UniqueDeclarationBaseForm.FormBaseQueryCondition
     {
-        public FormPackingQueryCondition()
+        public FormPackingInQueryCondition()
         {
             InitializeComponent();
         }

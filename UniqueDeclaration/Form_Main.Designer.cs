@@ -45,6 +45,9 @@
             this.FormFinishedProductOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.FormPackingListInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormPackingListQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.InManage = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormPackingInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormPackingQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.newWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,9 +66,9 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStatus_Version = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.InManage = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormPackingInput = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormPackingQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.OutManage = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormPackingOutInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormPackingOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +80,7 @@
             this.Materials,
             this.Business,
             this.InManage,
+            this.OutManage,
             this.windowsMenu,
             this.helpMenu});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
@@ -146,14 +150,14 @@
             // FormMaterialsOut
             // 
             this.FormMaterialsOut.Name = "FormMaterialsOut";
-            this.FormMaterialsOut.Size = new System.Drawing.Size(152, 22);
+            this.FormMaterialsOut.Size = new System.Drawing.Size(148, 22);
             this.FormMaterialsOut.Text = "料件出库";
             this.FormMaterialsOut.Click += new System.EventHandler(this.FormMaterialsOut_Click);
             // 
             // FormMaterialsOutQueryCondition
             // 
             this.FormMaterialsOutQueryCondition.Name = "FormMaterialsOutQueryCondition";
-            this.FormMaterialsOutQueryCondition.Size = new System.Drawing.Size(152, 22);
+            this.FormMaterialsOutQueryCondition.Size = new System.Drawing.Size(148, 22);
             this.FormMaterialsOutQueryCondition.Text = "料件出库查询";
             this.FormMaterialsOutQueryCondition.Click += new System.EventHandler(this.FormMaterialsOutQueryCondition_Click);
             // 
@@ -195,6 +199,30 @@
             this.FormPackingListQueryCondition.Size = new System.Drawing.Size(160, 22);
             this.FormPackingListQueryCondition.Text = "装箱明细单查询";
             this.FormPackingListQueryCondition.Click += new System.EventHandler(this.FormPackingListQueryCondition_Click);
+            // 
+            // InManage
+            // 
+            this.InManage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FormPackingInput,
+            this.FormPackingQueryCondition});
+            this.InManage.Name = "InManage";
+            this.InManage.Size = new System.Drawing.Size(68, 21);
+            this.InManage.Text = "进口管理";
+            this.InManage.Visible = false;
+            // 
+            // FormPackingInput
+            // 
+            this.FormPackingInput.Name = "FormPackingInput";
+            this.FormPackingInput.Size = new System.Drawing.Size(206, 22);
+            this.FormPackingInput.Text = "PACKING LIST（录入）";
+            this.FormPackingInput.Click += new System.EventHandler(this.FormPackingInput_Click);
+            // 
+            // FormPackingQueryCondition
+            // 
+            this.FormPackingQueryCondition.Name = "FormPackingQueryCondition";
+            this.FormPackingQueryCondition.Size = new System.Drawing.Size(206, 22);
+            this.FormPackingQueryCondition.Text = "PACKING LIST（查询）";
+            this.FormPackingQueryCondition.Click += new System.EventHandler(this.FormPackingQueryCondition_Click);
             // 
             // windowsMenu
             // 
@@ -313,14 +341,14 @@
             this.toolStatus_User.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStatus_User.ForeColor = System.Drawing.Color.Blue;
             this.toolStatus_User.Name = "toolStatus_User";
-            this.toolStatus_User.Size = new System.Drawing.Size(67, 17);
+            this.toolStatus_User.Size = new System.Drawing.Size(68, 17);
             this.toolStatus_User.Text = "您还未登录";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(11, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(12, 17);
             this.toolStripStatusLabel1.Text = "|";
             // 
             // toolStatus_Version
@@ -328,31 +356,31 @@
             this.toolStatus_Version.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStatus_Version.ForeColor = System.Drawing.Color.Blue;
             this.toolStatus_Version.Name = "toolStatus_Version";
-            this.toolStatus_Version.Size = new System.Drawing.Size(79, 17);
+            this.toolStatus_Version.Size = new System.Drawing.Size(80, 17);
             this.toolStatus_Version.Text = "当前系统版本";
             // 
-            // InManage
+            // OutManage
             // 
-            this.InManage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.FormPackingInput,
-            this.FormPackingQueryCondition});
-            this.InManage.Name = "InManage";
-            this.InManage.Size = new System.Drawing.Size(68, 21);
-            this.InManage.Text = "进口管理";
+            this.OutManage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FormPackingOutInput,
+            this.FormPackingOutQueryCondition});
+            this.OutManage.Name = "OutManage";
+            this.OutManage.Size = new System.Drawing.Size(68, 21);
+            this.OutManage.Text = "出口管理";
             // 
-            // FormPackingInput
+            // FormPackingOutInput
             // 
-            this.FormPackingInput.Name = "FormPackingInput";
-            this.FormPackingInput.Size = new System.Drawing.Size(206, 22);
-            this.FormPackingInput.Text = "PACKING LIST（录入）";
-            this.FormPackingInput.Click += new System.EventHandler(this.FormPackingInput_Click);
+            this.FormPackingOutInput.Name = "FormPackingOutInput";
+            this.FormPackingOutInput.Size = new System.Drawing.Size(206, 22);
+            this.FormPackingOutInput.Text = "PACKING LIST（录入）";
+            this.FormPackingOutInput.Click += new System.EventHandler(this.FormPackingOutInput_Click);
             // 
-            // FormPackingQueryCondition
+            // FormPackingOutQueryCondition
             // 
-            this.FormPackingQueryCondition.Name = "FormPackingQueryCondition";
-            this.FormPackingQueryCondition.Size = new System.Drawing.Size(206, 22);
-            this.FormPackingQueryCondition.Text = "PACKING LIST（查询）";
-            this.FormPackingQueryCondition.Click += new System.EventHandler(this.FormPackingQueryCondition_Click);
+            this.FormPackingOutQueryCondition.Name = "FormPackingOutQueryCondition";
+            this.FormPackingOutQueryCondition.Size = new System.Drawing.Size(206, 22);
+            this.FormPackingOutQueryCondition.Text = "PACKING LIST（查询）";
+            this.FormPackingOutQueryCondition.Click += new System.EventHandler(this.FormPackingOutQueryCondition_Click);
             // 
             // Form_Main
             // 
@@ -416,6 +444,9 @@
         private System.Windows.Forms.ToolStripMenuItem InManage;
         private System.Windows.Forms.ToolStripMenuItem FormPackingInput;
         private System.Windows.Forms.ToolStripMenuItem FormPackingQueryCondition;
+        private System.Windows.Forms.ToolStripMenuItem OutManage;
+        private System.Windows.Forms.ToolStripMenuItem FormPackingOutInput;
+        private System.Windows.Forms.ToolStripMenuItem FormPackingOutQueryCondition;
     }
 }
 

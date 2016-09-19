@@ -1,6 +1,6 @@
 ﻿namespace UniqueDeclaration
 {
-    partial class FormPackingQueryCondition
+    partial class FormPackingOutQueryCondition
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -54,21 +54,21 @@
             this.groupBox1.Controls.Add(this.txt_InvoiceNO);
             this.groupBox1.Controls.Add(this.myLable7);
             this.groupBox1.Location = new System.Drawing.Point(13, 9);
-            this.groupBox1.Size = new System.Drawing.Size(226, 183);
+            this.groupBox1.Size = new System.Drawing.Size(226, 191);
             // 
             // myCheckBox1
             // 
-            this.myCheckBox1.Location = new System.Drawing.Point(253, 84);
+            this.myCheckBox1.Location = new System.Drawing.Point(253, 80);
             // 
             // btnOK
             // 
             this.btnOK.Location = new System.Drawing.Point(250, 16);
-            this.btnOK.Size = new System.Drawing.Size(75, 29);
+            this.btnOK.Size = new System.Drawing.Size(75, 27);
             // 
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(250, 49);
-            this.btnCancel.Size = new System.Drawing.Size(75, 29);
+            this.btnCancel.Size = new System.Drawing.Size(75, 25);
             // 
             // date_录入日期2
             // 
@@ -152,7 +152,7 @@
             this.myLable1.Name = "myLable1";
             this.myLable1.Size = new System.Drawing.Size(65, 12);
             this.myLable1.TabIndex = 28;
-            this.myLable1.Text = "进口日期：";
+            this.myLable1.Text = "出口日期：";
             // 
             // txt_InvoiceNO
             // 
@@ -172,12 +172,12 @@
             this.myLable7.TabIndex = 26;
             this.myLable7.Text = "InvoiceNO：";
             // 
-            // FormPackingQueryCondition
+            // FormPackingOutQueryCondition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(337, 201);
-            this.Name = "FormPackingQueryCondition";
-            this.Text = "【PACKING LIST】查询条件";
+            this.Name = "FormPackingOutQueryCondition";
+            this.Text = "【出口装箱单】查询条件";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

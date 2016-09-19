@@ -11,9 +11,9 @@ using System.IO;
 
 namespace UniqueDeclaration
 {
-    public partial class FormPackingQueryList : UniqueDeclarationBaseForm.FormBaseQueryList2
+    public partial class FormPackingInQueryList : UniqueDeclarationBaseForm.FormBaseQueryList2
     {
-        public FormPackingQueryList()
+        public FormPackingInQueryList()
         {
             InitializeComponent();
         }
@@ -149,14 +149,14 @@ namespace UniqueDeclaration
             dataGridViewCellStyle2.NullValue = null;
             this.myDataGridViewDetails.Columns["TotalNum"].DefaultCellStyle = dataGridViewCellStyle2;
 
-            this.myDataGridViewDetails.Columns["TotalNum"].DisplayIndex = 9;
+            this.myDataGridViewDetails.Columns["TotalPrice"].DisplayIndex = 9;
             this.myDataGridViewDetails.Columns["TotalPrice"].HeaderText = "总金额";
             this.myDataGridViewDetails.Columns["TotalPrice"].ContextMenuStrip = this.myContextDetails;
-            this.myDataGridViewDetails.Columns["TotalNum"].DisplayIndex = 10;
+            this.myDataGridViewDetails.Columns["nw"].DisplayIndex = 10;
             this.myDataGridViewDetails.Columns["nw"].HeaderText = "Net Weight";
             this.myDataGridViewDetails.Columns["nw"].ContextMenuStrip = this.myContextDetails;
             this.myDataGridViewDetails.Columns["nw"].DefaultCellStyle = dataGridViewCellStyle1;
-            this.myDataGridViewDetails.Columns["TotalNum"].DisplayIndex = 11;
+            this.myDataGridViewDetails.Columns["gw"].DisplayIndex = 11;
             this.myDataGridViewDetails.Columns["gw"].HeaderText = "Gross Weight";
             this.myDataGridViewDetails.Columns["gw"].Width = 100;
             this.myDataGridViewDetails.Columns["gw"].ContextMenuStrip = this.myContextDetails;
@@ -264,7 +264,7 @@ namespace UniqueDeclaration
         public override void tool1_Add_Click(object sender, EventArgs e)
         {
             base.tool1_Add_Click(sender, e);
-            FormPackingInput objForm = new FormPackingInput();
+            FormPackingInInput objForm = new FormPackingInInput();
             objForm.MdiParent = this.MdiParent;
             objForm.Show();
         }
@@ -278,7 +278,7 @@ namespace UniqueDeclaration
             {
                 if (childFrm.Name == "FormPackingInput")
                 {
-                    FormPackingInput inputForm = (FormPackingInput)childFrm;
+                    FormPackingInInput inputForm = (FormPackingInInput)childFrm;
                     if (inputForm.giOrderID != 0 && inputForm.giOrderID == iOrderID)
                     {
                         bHave = true;
@@ -289,7 +289,7 @@ namespace UniqueDeclaration
             }
             if (!bHave)
             {
-                FormPackingInput objForm = new FormPackingInput();
+                FormPackingInInput objForm = new FormPackingInInput();
                 objForm.MdiParent = this.MdiParent;
                 objForm.giOrderID = iOrderID;
                 objForm.Show();
@@ -341,7 +341,7 @@ HasError:
         public override void tool1_Query_Click(object sender, EventArgs e)
         {
             base.tool1_Query_Click(sender, e);
-            FormPackingQueryCondition queryConditionForm = new FormPackingQueryCondition();
+            FormPackingInQueryCondition queryConditionForm = new FormPackingInQueryCondition();
             if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 gstrWhere = queryConditionForm.strReturnWhere;

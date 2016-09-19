@@ -1,6 +1,6 @@
 ﻿namespace UniqueDeclaration
 {
-    partial class FormPackingQueryList
+    partial class FormPackingOutQueryList
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -50,12 +50,12 @@
             this.myContextDetails.Name = "myContextDetails";
             this.myContextDetails.Size = new System.Drawing.Size(101, 26);
             // 
-            // FormPackingQueryList
+            // FormPackingOutQueryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(1125, 514);
-            this.Name = "FormPackingQueryList";
-            this.Text = "进口装箱单查询";
+            this.Name = "FormPackingOutQueryList";
+            this.Text = "出口装箱单查询";
             this.Load += new System.EventHandler(this.FormPackingQueryList_Load);
             this.Controls.SetChildIndex(this.splitContainer1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

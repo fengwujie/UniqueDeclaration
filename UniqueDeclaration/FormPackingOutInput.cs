@@ -12,9 +12,9 @@ using UniqueDeclarationBaseForm;
 
 namespace UniqueDeclaration
 {
-    public partial class FormPackingInput : UniqueDeclarationBaseForm.FormBaseInput
+    public partial class FormPackingOutInput : UniqueDeclarationBaseForm.FormBaseInput
     {
-        public FormPackingInput()
+        public FormPackingOutInput()
         {
             InitializeComponent();
         }
@@ -38,78 +38,63 @@ namespace UniqueDeclaration
         /// </summary>
         public override void InitGrid()
         {
-            this.dataGridViewDetail.AutoGenerateColumns = false;
             this.dataGridViewDetail.CausesValidation = false;
+            this.dataGridViewDetail.AutoGenerateColumns = false;
             this.dataGridViewDetail.Columns["BM"].Visible = false;
             this.dataGridViewDetail.Columns["BM"].ContextMenuStrip = this.myContextDetails;
             this.dataGridViewDetail.Columns["id"].Visible = false;
             this.dataGridViewDetail.Columns["id"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["进口料件id"].Visible = false;
-            this.dataGridViewDetail.Columns["进口料件id"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["unit1"].Visible = false;
-            this.dataGridViewDetail.Columns["unit1"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["unit2"].Visible = false;
-            this.dataGridViewDetail.Columns["unit2"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["Packageno"].DisplayIndex = 0;
-            this.dataGridViewDetail.Columns["Packageno"].HeaderText = "Packing No(箱号)";
-            this.dataGridViewDetail.Columns["Packageno"].Width = 130;
-            this.dataGridViewDetail.Columns["Packageno"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["出口成品id"].Visible = false;
+            this.dataGridViewDetail.Columns["出口成品id"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["Unit1"].Visible = false;
+            this.dataGridViewDetail.Columns["Unit1"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["Unit2"].Visible = false;
+            this.dataGridViewDetail.Columns["Unit2"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["剩余量"].Visible = false;
+            this.dataGridViewDetail.Columns["剩余量"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["PackageNo"].DisplayIndex = 0;
+            this.dataGridViewDetail.Columns["PackageNo"].HeaderText = "Packing No(箱号)";
+            this.dataGridViewDetail.Columns["PackageNo"].Width = 130;
+            this.dataGridViewDetail.Columns["PackageNo"].ContextMenuStrip = this.myContextDetails;
             this.dataGridViewDetail.Columns["手册编号"].DisplayIndex = 1;
             this.dataGridViewDetail.Columns["手册编号"].ContextMenuStrip = this.myContextDetails;
             this.dataGridViewDetail.Columns["序号"].DisplayIndex = 2;
-            this.dataGridViewDetail.Columns["序号"].Width = 55;
             this.dataGridViewDetail.Columns["序号"].ContextMenuStrip = this.myContextDetails;
             this.dataGridViewDetail.Columns["品名规格型号"].DisplayIndex = 3;
-            this.dataGridViewDetail.Columns["品名规格型号"].Width = 150;
-            this.dataGridViewDetail.Columns["品名规格型号"].ReadOnly = true;
             this.dataGridViewDetail.Columns["品名规格型号"].HeaderText = "Deacription of Goods";
+            this.dataGridViewDetail.Columns["品名规格型号"].Width = 150;
             this.dataGridViewDetail.Columns["品名规格型号"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["剩余量"].DisplayIndex = 4;
-            this.dataGridViewDetail.Columns["剩余量"].Width = 70;
-            this.dataGridViewDetail.Columns["剩余量"].ReadOnly = true;
-            this.dataGridViewDetail.Columns["剩余量"].ContextMenuStrip = myContextDetails;
-            this.dataGridViewDetail.Columns["BoxNum"].DisplayIndex = 5;
-            this.dataGridViewDetail.Columns["BoxNum"].Width = 55;
-            this.dataGridViewDetail.Columns["BoxNum"].HeaderText = "箱数";
-            this.dataGridViewDetail.Columns["BoxNum"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["Quantity"].DisplayIndex = 6;
-            this.dataGridViewDetail.Columns["Quantity"].HeaderText = "Quantity/箱";
+            //this.dataGridViewDetail.Columns["BoxNum"].DisplayIndex = 4;
+            //this.dataGridViewDetail.Columns["BoxNum"].HeaderText = "箱数";
+            //this.dataGridViewDetail.Columns["BoxNum"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["Quantity"].DisplayIndex = 5;
+            this.dataGridViewDetail.Columns["Quantity"].HeaderText = "Quantity箱";
             this.dataGridViewDetail.Columns["Quantity"].ContextMenuStrip = this.myContextDetails;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             dataGridViewCellStyle1.Format = "N2";
             dataGridViewCellStyle1.NullValue = null;
             this.dataGridViewDetail.Columns["Quantity"].DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewDetail.Columns["Unit"].DisplayIndex = 7;
-            this.dataGridViewDetail.Columns["Unit"].Width = 60;
+
+            this.dataGridViewDetail.Columns["Unit"].DisplayIndex = 6;
             this.dataGridViewDetail.Columns["Unit"].HeaderText = "单位";
             this.dataGridViewDetail.Columns["Unit"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["UnitPrice"].DisplayIndex = 8;
-            this.dataGridViewDetail.Columns["UnitPrice"].Width = 60;
+
+            this.dataGridViewDetail.Columns["UnitPrice"].DisplayIndex = 7;
             this.dataGridViewDetail.Columns["UnitPrice"].HeaderText = "单价";
             this.dataGridViewDetail.Columns["UnitPrice"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["TotalNum"].DisplayIndex = 9;
-            this.dataGridViewDetail.Columns["TotalNum"].Width = 70;
-            this.dataGridViewDetail.Columns["TotalNum"].ReadOnly = true;
-            this.dataGridViewDetail.Columns["TotalNum"].HeaderText = "总数量";
-            this.dataGridViewDetail.Columns["TotalNum"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["TotalPrice"].DisplayIndex = 10;
-            this.dataGridViewDetail.Columns["TotalPrice"].Width = 80;
-            this.dataGridViewDetail.Columns["TotalPrice"].ReadOnly = true;
+            this.dataGridViewDetail.Columns["UnitPrice"].DefaultCellStyle = dataGridViewCellStyle1;
+
+            this.dataGridViewDetail.Columns["TotalPrice"].DisplayIndex = 9;
             this.dataGridViewDetail.Columns["TotalPrice"].HeaderText = "总金额";
             this.dataGridViewDetail.Columns["TotalPrice"].ContextMenuStrip = this.myContextDetails;
-            //System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            //dataGridViewCellStyle1.Format = "N5";
-            //dataGridViewCellStyle1.NullValue = null;
-            //this.dataGridViewDetail.Columns["数量"].DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewDetail.Columns["nw"].DisplayIndex = 11;
-            this.dataGridViewDetail.Columns["nw"].Width = 100;
+            this.dataGridViewDetail.Columns["TotalPrice"].DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewDetail.Columns["nw"].DisplayIndex = 10;
             this.dataGridViewDetail.Columns["nw"].HeaderText = "Net Weight";
             this.dataGridViewDetail.Columns["nw"].ContextMenuStrip = this.myContextDetails;
             this.dataGridViewDetail.Columns["nw"].DefaultCellStyle = dataGridViewCellStyle1;
-
-            this.dataGridViewDetail.Columns["gw"].DisplayIndex = 12;
-            this.dataGridViewDetail.Columns["gw"].Width = 110;
+            this.dataGridViewDetail.Columns["gw"].DisplayIndex = 11;
             this.dataGridViewDetail.Columns["gw"].HeaderText = "Gross Weight";
+            this.dataGridViewDetail.Columns["gw"].Width = 100;
             this.dataGridViewDetail.Columns["gw"].ContextMenuStrip = this.myContextDetails;
             this.dataGridViewDetail.Columns["gw"].DefaultCellStyle = dataGridViewCellStyle1;
         }
