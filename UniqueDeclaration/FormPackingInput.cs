@@ -204,7 +204,7 @@ namespace UniqueDeclaration
                         }
                         else if (row.RowState == DataRowState.Added)  //如果是新增状态，则判断客人型号、优丽型号是否为空
                         {
-                            if (row["料件id"] != DBNull.Value && Convert.ToInt32( row["料件id"] )> 0)
+                            if (row["进口料件id"] != DBNull.Value && Convert.ToInt32(row["进口料件id"]) > 0)
                             {
                                 bModify = true;
                                 break;
