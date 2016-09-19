@@ -50,8 +50,6 @@ namespace UniqueDeclaration
             this.dataGridViewDetail.Columns["Unit1"].ContextMenuStrip = this.myContextDetails;
             this.dataGridViewDetail.Columns["Unit2"].Visible = false;
             this.dataGridViewDetail.Columns["Unit2"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["剩余量"].Visible = false;
-            this.dataGridViewDetail.Columns["剩余量"].ContextMenuStrip = this.myContextDetails;
             this.dataGridViewDetail.Columns["PackageNo"].DisplayIndex = 0;
             this.dataGridViewDetail.Columns["PackageNo"].HeaderText = "Packing No(箱号)";
             this.dataGridViewDetail.Columns["PackageNo"].Width = 130;
@@ -64,6 +62,11 @@ namespace UniqueDeclaration
             this.dataGridViewDetail.Columns["品名规格型号"].HeaderText = "Deacription of Goods";
             this.dataGridViewDetail.Columns["品名规格型号"].Width = 150;
             this.dataGridViewDetail.Columns["品名规格型号"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["剩余量"].Visible = true;
+            this.dataGridViewDetail.Columns["剩余量"].ReadOnly = true;
+            this.dataGridViewDetail.Columns["剩余量"].DisplayIndex = 4;
+            this.dataGridViewDetail.Columns["剩余量"].Width = 70;
+            this.dataGridViewDetail.Columns["剩余量"].ContextMenuStrip = this.myContextDetails;
             //this.dataGridViewDetail.Columns["BoxNum"].DisplayIndex = 4;
             //this.dataGridViewDetail.Columns["BoxNum"].HeaderText = "箱数";
             //this.dataGridViewDetail.Columns["BoxNum"].ContextMenuStrip = this.myContextDetails;
@@ -103,8 +106,8 @@ namespace UniqueDeclaration
             base.InitControlData();
             this.gstrDetailFirstField = "PackageNo";
             bcbox_custid_SelectedIndexChanged = false;
-            this.cbox_custid.InitialData(DataAccess.DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade,
-                "SELECT custid, com_Abbr FROM dbo.Customer", "custid", "com_Abbr",-1);
+            this.cbox_comid.InitialData(DataAccess.DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade,
+                "SELECT comid, com_Abbr FROM company", "comid", "com_Abbr", -1);
             bcbox_custid_SelectedIndexChanged = true;
         }
         /// <summary>
@@ -112,7 +115,7 @@ namespace UniqueDeclaration
         /// </summary>
         public override void LoadDataSourceHead()
         {
-            string strSQL = string.Format("SELECT * FROM Packing WHERE pid ={0}", giOrderID);
+            string strSQL = string.Format("SELECT * FROM Packing1 WHERE pid = {0}", giOrderID);
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
             dataAccess.Open();
             dtHead = dataAccess.GetTable(strSQL, null);
@@ -126,10 +129,10 @@ namespace UniqueDeclaration
             {
                 rowHead = dtHead.NewRow();
                 dtHead.Rows.Add(rowHead);
-                rowHead["importdate"] = DateTime.Now.Date;
+                rowHead["exportdate"] = DateTime.Now.Date;
                 rowHead["inputdate"] = DateTime.Now.Date;
+                rowHead["shipdate"] = DateTime.Now.Date;
                 rowHead["inputuser"] = SystemGlobal.SystemGlobal_UserInfo.UserName;
-                rowHead["PriceTerm"] = "FOB XIAMEN CHINA";
                 fillControl(rowHead);
             }
         }
@@ -138,7 +141,7 @@ namespace UniqueDeclaration
         /// </summary>
         public override void LoadDataSourceDetails()
         {
-            string strSQL = string.Format("exec 进口装箱单录入查询 {0}", giOrderID);
+            string strSQL = string.Format("exec 出口装箱单录入查询 {0}", giOrderID);
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
             dataAccess.Open();
             dtDetails = dataAccess.GetTable(strSQL.ToString(), null);
@@ -148,10 +151,6 @@ namespace UniqueDeclaration
             bCellKeyPress = true;
             if (dtDetails.Rows.Count == 0)
                 dtDetailsAddRow();
-            //if (dtDetails.Rows.Count > 0)
-            //{
-            //this.dataGridViewDetail.CurrentCell = this.dataGridViewDetail["客人型号", 0];
-            //}
             setTool1Enabled();
         }
         /// <summary>
@@ -189,7 +188,7 @@ namespace UniqueDeclaration
                         }
                         else if (row.RowState == DataRowState.Added)  //如果是新增状态，则判断客人型号、优丽型号是否为空
                         {
-                            if (row["进口料件id"] != DBNull.Value && Convert.ToInt32(row["进口料件id"]) > 0)
+                            if (row["出口成品id"] != DBNull.Value && Convert.ToInt32(row["出口成品id"]) > 0)
                             {
                                 bModify = true;
                                 break;
@@ -254,20 +253,23 @@ namespace UniqueDeclaration
                     try
                     {
                         #region 新增表头数据
-                        strBuilder.AppendLine(@"INSERT INTO [Packing]([custid] ,[InvoiceNo] ,[ImportDate] ,[comid] ,[per] ,[sailingabout] ,[PackingFrom],[PackingTo]
-                                     ,[TranshipmentAt] ,[InputDate] ,[InputUser] ,[Remark] ,[Priceterm] ,[Mark1] ,[Mark2],[Mark3] ,[Mark4] ,[Mark5] ,[Mark6],[Mark7] ,[报关单号])");
-                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20})",
+                        strBuilder.AppendLine(@"INSERT INTO [Packing1]([custid],[InvoiceNo] ,[ExportDate],[shipdate] ,[comid] ,[per] ,[sailingabout],[PackingFrom] ,
+                                                    [PackingTo] ,[InputDate] ,[InputUser],[ContractNo] ,[YourOrderNo],[Remark],[PriceTerm],[Mark1],[Mark2],[Mark3] ,
+                                                    [Mark4] ,[Mark5] ,[Mark6],[Mark7],[工缴费率] ,[报关单号] ,[remark1],[remark2] ,[remark3] ,[Remark4] ,[装箱单号])");
+                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28})",
                             rowHead["custid"] == DBNull.Value ? "NULL" : rowHead["custid"],
                             rowHead["InvoiceNo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["InvoiceNo"].ToString()),
-                            rowHead["ImportDate"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["ImportDate"].ToString()),
+                            rowHead["ExportDate"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["ExportDate"].ToString()),
+                            rowHead["shipdate"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["shipdate"].ToString()),
                             rowHead["comid"] == DBNull.Value ? "NULL" : rowHead["comid"],
                             rowHead["per"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["per"].ToString()),
                             rowHead["sailingabout"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["sailingabout"].ToString()),
                             rowHead["PackingFrom"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["PackingFrom"].ToString()),
                             rowHead["PackingTo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["PackingTo"].ToString()),
-                            rowHead["TranshipmentAt"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["TranshipmentAt"].ToString()),
                             rowHead["InputDate"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["InputDate"].ToString()),
                             rowHead["InputUser"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["InputUser"].ToString()),
+                            rowHead["ContractNo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["ContractNo"].ToString()),
+                            rowHead["YourOrderNo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["YourOrderNo"].ToString()),
                             rowHead["Remark"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Remark"].ToString()),
                             rowHead["Priceterm"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Priceterm"].ToString()),
                             rowHead["Mark1"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Mark1"].ToString()),
@@ -277,7 +279,13 @@ namespace UniqueDeclaration
                             rowHead["Mark5"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Mark5"].ToString()),
                             rowHead["Mark6"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Mark6"].ToString()),
                             rowHead["Mark7"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Mark7"].ToString()),
-                            rowHead["报关单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["报关单号"].ToString()));
+                            rowHead["工缴费率"] == DBNull.Value ? "NULL" : rowHead["工缴费率"],
+                            rowHead["报关单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["报关单号"].ToString()),
+                            rowHead["remark1"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["remark1"].ToString()),
+                            rowHead["remark2"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["remark2"].ToString()),
+                            rowHead["remark3"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["remark3"].ToString()),
+                            rowHead["Remark4"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Remark4"].ToString()),
+                            rowHead["装箱单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["装箱单号"].ToString()));
                         strBuilder.AppendLine("select @@IDENTITY--自动生成的订单ID");
                         DataTable dtInsert = dataAccess.GetTable(strBuilder.ToString(), null);
                         object Pid = dtInsert.Rows[0][0];
@@ -288,12 +296,11 @@ namespace UniqueDeclaration
                         #region 新增明细数据
                         foreach (DataRow row in dtDetails.Rows)
                         {
-                            if (row["进口料件id"] == DBNull.Value || Convert.ToInt32(row["进口料件id"]) == 0) continue;
-                            strBuilder.AppendLine(@"INSERT INTO [PackingDetail] ([Pid] ,[进口料件id],[PackageNo],[BoxNum],[Quantity],[Unit],[UnitPrice],[NW],[Unit1],[GW],[Unit2])");
-                            strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})",
-                                Pid, row["进口料件id"] == DBNull.Value ? "NULL" : row["进口料件id"],
+                            if (row["出口成品id"] == DBNull.Value || Convert.ToInt32(row["出口成品id"]) == 0) continue;
+                            strBuilder.AppendLine(@"INSERT INTO [PackingDetail1] ([Pid] ,[出口成品id],[PackageNo],[Quantity],[Unit],[UnitPrice],[NW],[Unit1],[GW],[Unit2])");
+                            strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9})",
+                                Pid, row["出口成品id"] == DBNull.Value ? "NULL" : row["出口成品id"],
                             row["PackageNo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["PackageNo"].ToString()),
-                            row["BoxNum"] == DBNull.Value ? "NULL" : row["BoxNum"],
                             row["Quantity"] == DBNull.Value ? "NULL" : row["Quantity"],
                             row["Unit"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["Unit"].ToString()),
                             row["UnitPrice"] == DBNull.Value ? "NULL" : row["UnitPrice"],
@@ -330,20 +337,24 @@ namespace UniqueDeclaration
                         #region 修改表头数据
                         if (rowHead.RowState == DataRowState.Modified)
                         {
-                            strBuilder.AppendFormat(@"UPDATE [Packing] SET [custid] = {0},[InvoiceNo] = {1},[ImportDate] ={2},[comid] = {3},[per] = {4},[sailingabout] ={5},[PackingFrom] = {6}
-                                                        ,[PackingTo] = {7},[TranshipmentAt] ={8},[InputDate] = {9},[InputUser] = {10},[Remark] ={11},[Priceterm] = {12},[Mark1] = {13},[Mark2] = {14},
-                                                        [Mark3] = {15},[Mark4] ={16},[Mark5] = {17},[Mark6] = {18},[Mark7] = {19},[报关单号] = {20} where Pid={21}",
+                            strBuilder.AppendFormat(@"UPDATE [Packing1] SET [custid] = {0},[InvoiceNo] = {1},[ExportDate] = {2},[shipdate] = {3},[comid] = {4}
+                                    ,[per] = {5},[sailingabout] ={6} ,[PackingFrom] = {7} ,[PackingTo] = {8} ,[InputDate] = {9},[InputUser] ={10},[ContractNo] = {11}
+                                    ,[YourOrderNo] = {12} ,[Remark] = {13} ,[PriceTerm] = {14},[Mark1] = {15} ,[Mark2] = {16} ,[Mark3] = {17} ,[Mark4] = {18}
+                                    ,[Mark5] = {19},[Mark6] = {20} ,[Mark7] = {21} ,[工缴费率] = {22} ,[报关单号] = {23} ,[remark1] ={24} ,[remark2] = {25},
+                                    [remark3] = {26} ,[Remark4] = {27},[装箱单号] = {28} WHERE Pid={29}",
                             rowHead["custid"] == DBNull.Value ? "NULL" : rowHead["custid"],
                             rowHead["InvoiceNo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["InvoiceNo"].ToString()),
-                            rowHead["ImportDate"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["ImportDate"].ToString()),
+                            rowHead["ExportDate"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["ExportDate"].ToString()),
+                            rowHead["shipdate"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["shipdate"].ToString()),
                             rowHead["comid"] == DBNull.Value ? "NULL" : rowHead["comid"],
                             rowHead["per"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["per"].ToString()),
                             rowHead["sailingabout"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["sailingabout"].ToString()),
                             rowHead["PackingFrom"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["PackingFrom"].ToString()),
                             rowHead["PackingTo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["PackingTo"].ToString()),
-                            rowHead["TranshipmentAt"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["TranshipmentAt"].ToString()),
                             rowHead["InputDate"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["InputDate"].ToString()),
                             rowHead["InputUser"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["InputUser"].ToString()),
+                            rowHead["ContractNo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["ContractNo"].ToString()),
+                            rowHead["YourOrderNo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["YourOrderNo"].ToString()),
                             rowHead["Remark"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Remark"].ToString()),
                             rowHead["Priceterm"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Priceterm"].ToString()),
                             rowHead["Mark1"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Mark1"].ToString()),
@@ -353,7 +364,13 @@ namespace UniqueDeclaration
                             rowHead["Mark5"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Mark5"].ToString()),
                             rowHead["Mark6"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Mark6"].ToString()),
                             rowHead["Mark7"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Mark7"].ToString()),
+                            rowHead["工缴费率"] == DBNull.Value ? "NULL" : rowHead["工缴费率"],
                             rowHead["报关单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["报关单号"].ToString()),
+                            rowHead["remark1"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["remark1"].ToString()),
+                            rowHead["remark2"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["remark2"].ToString()),
+                            rowHead["remark3"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["remark3"].ToString()),
+                            rowHead["Remark4"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Remark4"].ToString()),
+                            rowHead["装箱单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["装箱单号"].ToString()),
                             rowHead["Pid"] == DBNull.Value ? "NULL" : rowHead["Pid"]);
                             dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                             strBuilder.Clear();
@@ -365,12 +382,11 @@ namespace UniqueDeclaration
                             #region 新增表身数据
                             if (row.RowState == DataRowState.Added)
                             {
-                                if (row["进口料件id"] == DBNull.Value || Convert.ToInt32(row["进口料件id"]) == 0) continue;
-                                strBuilder.AppendLine(@"INSERT INTO [PackingDetail] ([Pid] ,[进口料件id],[PackageNo],[BoxNum],[Quantity],[Unit],[UnitPrice],[NW],[Unit1],[GW],[Unit2])");
-                                strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})",
-                                   rowHead["Pid"], row["进口料件id"] == DBNull.Value ? "NULL" : row["进口料件id"],
+                                if (row["出口成品id"] == DBNull.Value || Convert.ToInt32(row["出口成品id"]) == 0) continue;
+                                strBuilder.AppendLine(@"INSERT INTO [PackingDetail1] ([Pid] ,[出口成品id],[PackageNo],[Quantity],[Unit],[UnitPrice],[NW],[Unit1],[GW],[Unit2])");
+                                strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9})",
+                                   rowHead["Pid"], row["出口成品id"] == DBNull.Value ? "NULL" : row["出口成品id"],
                                 row["PackageNo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["PackageNo"].ToString()),
-                                row["BoxNum"] == DBNull.Value ? "NULL" : row["BoxNum"],
                                 row["Quantity"] == DBNull.Value ? "NULL" : row["Quantity"],
                                 row["Unit"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["Unit"].ToString()),
                                 row["UnitPrice"] == DBNull.Value ? "NULL" : row["UnitPrice"],
@@ -389,7 +405,7 @@ namespace UniqueDeclaration
                             else if (row.RowState == DataRowState.Deleted)
                             {
                                 if (row["id", DataRowVersion.Original] == DBNull.Value) continue;
-                                strBuilder.AppendFormat(@"DELETE FROM [PackingDetail] WHERE id={0}", row["id", DataRowVersion.Original]);
+                                strBuilder.AppendFormat(@"DELETE FROM [PackingDetail1] WHERE id={0}", row["id", DataRowVersion.Original]);
                                 dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                                 strBuilder.Clear();
                             }
@@ -399,11 +415,10 @@ namespace UniqueDeclaration
                             else //if (row.RowState == DataRowState.Modified)
                             {
                                 if (row["id"] == DBNull.Value) continue;
-                                strBuilder.AppendFormat(@"UPDATE [PackingDetail]SET [Pid] ={0},[进口料件id] ={1},[PackageNo] = {2},[BoxNum] = {3},[Quantity] ={4},[Unit] ={5}
-                                                                ,[UnitPrice] ={6},[NW] = {7},[Unit1] ={8},[GW] = {9},[Unit2] ={10} WHERE id={11}",
-                                        rowHead["Pid"], row["进口料件id"] == DBNull.Value ? "NULL" : row["进口料件id"],
+                                strBuilder.AppendFormat(@"UPDATE [PackingDetail1]SET [Pid] ={0},[出口成品id] ={1},[PackageNo] = {2},[Quantity] ={3},[Unit] ={4}
+                                                                ,[UnitPrice] ={5},[NW] = {6},[Unit1] ={7},[GW] = {8},[Unit2] ={9} WHERE id={10}",
+                                        rowHead["Pid"], row["出口成品id"] == DBNull.Value ? "NULL" : row["出口成品id"],
                                 row["PackageNo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["PackageNo"].ToString()),
-                                row["BoxNum"] == DBNull.Value ? "NULL" : row["BoxNum"],
                                 row["Quantity"] == DBNull.Value ? "NULL" : row["Quantity"],
                                 row["Unit"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["Unit"].ToString()),
                                 row["UnitPrice"] == DBNull.Value ? "NULL" : row["UnitPrice"],
@@ -452,20 +467,20 @@ namespace UniqueDeclaration
         /// </summary>
         private void setDate()
         {
-            if (date_ImportDate.Checked)
+            if (date_ExportDate.Checked)
             {
-                if (rowHead["ImportDate"] == DBNull.Value || Convert.ToDateTime(rowHead["ImportDate"]) != date_ImportDate.Value)
-                    rowHead["ImportDate"] = date_ImportDate.Value;
+                if (rowHead["ExportDate"] == DBNull.Value || Convert.ToDateTime(rowHead["ExportDate"]) != date_ExportDate.Value)
+                    rowHead["ExportDate"] = date_ExportDate.Value;
             }
             else
             {
-                if (rowHead["ImportDate"] != DBNull.Value)
-                    rowHead["ImportDate"] = DBNull.Value;
+                if (rowHead["ExportDate"] != DBNull.Value)
+                    rowHead["ExportDate"] = DBNull.Value;
             }
-            if (date_InputDate.Checked)
+            if (date_ShipDate.Checked)
             {
-                if (rowHead["InputDate"] == DBNull.Value || Convert.ToDateTime(rowHead["InputDate"]) != date_InputDate.Value)
-                    rowHead["InputDate"] = date_InputDate.Value;
+                if (rowHead["InputDate"] == DBNull.Value || Convert.ToDateTime(rowHead["InputDate"]) != date_ShipDate.Value)
+                    rowHead["InputDate"] = date_ShipDate.Value;
             }
             else
             {
@@ -496,41 +511,41 @@ namespace UniqueDeclaration
             {
                 txt_PackingFrom.Text = row["PackingFrom"].ToString();
             }
-            if (row.Table.Columns.Contains("ImportDate"))
+            if (row.Table.Columns.Contains("ExportDate"))
             {
-                if (row["ImportDate"] == DBNull.Value)
+                if (row["ExportDate"] == DBNull.Value)
                 {
-                    date_ImportDate.Checked = false;
+                    date_ExportDate.Checked = false;
                 }
                 else
                 {
-                    date_ImportDate.Checked = true;
-                    date_ImportDate.Value = Convert.ToDateTime(row["ImportDate"]);
+                    date_ExportDate.Checked = true;
+                    date_ExportDate.Value = Convert.ToDateTime(row["ExportDate"]);
                 }
             }
             if (row.Table.Columns.Contains("InputDate"))
             {
                 if (row["InputDate"] == DBNull.Value)
                 {
-                    date_InputDate.Checked = false;
+                    date_ShipDate.Checked = false;
                 }
                 else
                 {
-                    date_InputDate.Checked = true;
-                    date_InputDate.Value = Convert.ToDateTime(row["InputDate"]);
+                    date_ShipDate.Checked = true;
+                    date_ShipDate.Value = Convert.ToDateTime(row["InputDate"]);
                 }
             } 
-            if (row.Table.Columns.Contains("custid"))
+            if (row.Table.Columns.Contains("comid"))
             {
-                cbox_custid.SelectedValue = row["custid"];
+                cbox_comid.SelectedValue = row["comid"];
             }
             if (row.Table.Columns.Contains("PackingTo"))
             {
                 txt_PackingTo.Text = row["PackingTo"].ToString();
             }
-            if (row.Table.Columns.Contains("TranshipmentAt"))
+            if (row.Table.Columns.Contains("YourOrderNo"))
             {
-                txt_TranshipmentAt.Text = row["TranshipmentAt"].ToString();
+                txt_YourOrderNo.Text = row["YourOrderNo"].ToString();
             }
             if (row.Table.Columns.Contains("InputUser"))
             {
@@ -576,49 +591,73 @@ namespace UniqueDeclaration
             {
                 txt_报关单号.Text = row["报关单号"].ToString();
             }
+            if (row.Table.Columns.Contains("装箱单号"))
+            {
+                txt_装箱单号.Text = row["装箱单号"].ToString();
+            }
+            if (row.Table.Columns.Contains("ContractNo"))
+            {
+                txt_ContractNo.Text = row["ContractNo"].ToString();
+            }
+            if (row.Table.Columns.Contains("Remark1"))
+            {
+                txt_Remark1.Text = row["Remark1"].ToString();
+            }
+            if (row.Table.Columns.Contains("Remark2"))
+            {
+                txt_Remark2.Text = row["Remark2"].ToString();
+            }
+            if (row.Table.Columns.Contains("Remark3"))
+            {
+                txt_Remark3.Text = row["Remark3"].ToString();
+            }
+            if (row.Table.Columns.Contains("Remark4"))
+            {
+                txt_Remark4.Text = row["Remark4"].ToString();
+            }
             if (rowHead["comid"] != DBNull.Value)
             {
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
                 dataAccess.Open();
-                DataTable dtCompany = dataAccess.GetTable("select e_name from company where comid=" + rowHead["comid"], null);
+                DataTable dtCompany = dataAccess.GetTable("select e_name from customer where custid=" + rowHead["custid"], null);
                 dataAccess.Close();
                 if (dtCompany.Rows.Count > 0)
                 {
-                    myTextBox3.Text = dtCompany.Rows[0]["e_name"].ToString();
+                    txt_Messrs.Text = dtCompany.Rows[0]["e_name"].ToString();
+                }
+            }
+            if (row.Table.Columns.Contains("工缴费率"))
+            {
+                if (row["工缴费率"] == DBNull.Value)
+                {
+                    txt_工缴费率.Text = string.Empty;
+                }
+                else
+                {
+                    txt_工缴费率.Text = row["工缴费率"].ToString();
                 }
             }
         }
         #endregion
 
         #region 表头控件事件
-        private void cbox_custid_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        private void cbox_comid_SelectedIndexChanged(object sender, EventArgs e)
+        {            
             if (!bcbox_custid_SelectedIndexChanged) return;
-            if (rowHead["custid"].ToString() != cbox_custid.SelectedValue.ToString())
+            if (rowHead["comid"].ToString() != cbox_comid.SelectedValue.ToString())
             {
-                rowHead["custid"] = cbox_custid.SelectedValue;
-                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
-                dataAccess.Open();
-                DataTable dtCustomer = dataAccess.GetTable("SELECT * FROM Customer WHERE custid = " + cbox_custid.SelectedValue, null);
-                dataAccess.Close();
-                if (dtCustomer.Rows.Count > 0 && txt_Mark1.Text.Trim().Length == 0)
+                rowHead["comid"] = cbox_comid.SelectedValue;
+                if (rowHead.RowState == DataRowState.Added)
                 {
-                    txt_Mark1.Text = dtCustomer.Rows[0]["mark1"].ToString();
-                    txt_Mark2.Text = dtCustomer.Rows[0]["mark2"].ToString();
-                    txt_Mark3.Text = dtCustomer.Rows[0]["mark3"].ToString();
-                    txt_Mark4.Text = dtCustomer.Rows[0]["mark4"].ToString();
-                    txt_Mark5.Text = dtCustomer.Rows[0]["mark5"].ToString();
-                    txt_Mark6.Text = dtCustomer.Rows[0]["mark6"].ToString();
-                    txt_Mark7.Text = dtCustomer.Rows[0]["mark7"].ToString();
-                    txt_PackingFrom.Text = dtCustomer.Rows[0]["country"].ToString();
-                    rowHead["mark1"] = dtCustomer.Rows[0]["mark1"];
-                    rowHead["mark2"] = dtCustomer.Rows[0]["mark2"];
-                    rowHead["mark3"] = dtCustomer.Rows[0]["mark3"];
-                    rowHead["mark4"] = dtCustomer.Rows[0]["mark4"];
-                    rowHead["mark5"] = dtCustomer.Rows[0]["mark5"];
-                    rowHead["mark6"] = dtCustomer.Rows[0]["mark6"];
-                    rowHead["mark7"] = dtCustomer.Rows[0]["mark7"];
-                    rowHead["PackingFrom"] = dtCustomer.Rows[0]["country"];
+                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    dataAccess.Open();
+                    DataTable dtCustomer = dataAccess.GetTable("SELECT * FROM company WHERE comid =" + cbox_comid.SelectedValue, null);
+                    dataAccess.Close();
+                    if (dtCustomer.Rows.Count > 0 && txt_Mark1.Text.Trim().Length == 0)
+                    {
+                        txt_PackingFrom.Text = dtCustomer.Rows[0]["city"].ToString();
+                        rowHead["PackingFrom"] = dtCustomer.Rows[0]["city"];
+                    }
                 }
             }
         }
@@ -629,7 +668,7 @@ namespace UniqueDeclaration
             {
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
                 dataAccess.Open();
-                DataTable dtPacking = dataAccess.GetTable(string.Format("SELECT pid FROM Packing WHERE InvoiceNo ={0}",StringTools.SqlQ(txt_InvoiceNO.Text.Trim())), null);
+                DataTable dtPacking = dataAccess.GetTable(string.Format("SELECT pid FROM Packing1 WHERE InvoiceNo ={0}", StringTools.SqlQ(txt_InvoiceNO.Text.Trim())), null);
                 dataAccess.Close();
                 if (dtPacking.Rows.Count == 0)
                 {
@@ -662,29 +701,29 @@ namespace UniqueDeclaration
 
         private void date_ImportDate_ValueChanged(object sender, EventArgs e)
         {
-            if (date_ImportDate.Checked)
+            if (date_ExportDate.Checked)
             {
-                if (rowHead["ImportDate"] == DBNull.Value || Convert.ToDateTime(rowHead["ImportDate"]) != date_ImportDate.Value)
-                    rowHead["ImportDate"] = date_ImportDate.Value;
+                if (rowHead["ExportDate"] == DBNull.Value || Convert.ToDateTime(rowHead["ExportDate"]) != date_ExportDate.Value)
+                    rowHead["ExportDate"] = date_ExportDate.Value;
             }
             else
             {
-                if (rowHead["ImportDate"] != DBNull.Value)
-                    rowHead["ImportDate"] = DBNull.Value;
+                if (rowHead["ExportDate"] != DBNull.Value)
+                    rowHead["ExportDate"] = DBNull.Value;
             }
         }
 
         private void date_InputDate_ValueChanged(object sender, EventArgs e)
         {
-            if (date_InputDate.Checked)
+            if (date_ShipDate.Checked)
             {
-                if (rowHead["InputDate"] == DBNull.Value || Convert.ToDateTime(rowHead["InputDate"]) != date_InputDate.Value)
-                    rowHead["InputDate"] = date_InputDate.Value;
+                if (rowHead["ShipDate"] == DBNull.Value || Convert.ToDateTime(rowHead["ShipDate"]) != date_ShipDate.Value)
+                    rowHead["ShipDate"] = date_ShipDate.Value;
             }
             else
             {
-                if (rowHead["InputDate"] != DBNull.Value)
-                    rowHead["InputDate"] = DBNull.Value;
+                if (rowHead["ShipDate"] != DBNull.Value)
+                    rowHead["ShipDate"] = DBNull.Value;
             }
         }
 
@@ -725,11 +764,11 @@ namespace UniqueDeclaration
             }
         }
 
-        private void txt_TranshipmentAt_Validated(object sender, EventArgs e)
+        private void txt_YourOrderNo_Validated(object sender, EventArgs e)
         {
-            if (rowHead["TranshipmentAt"].ToString() != txt_TranshipmentAt.Text)
+            if (rowHead["YourOrderNo"].ToString() != txt_YourOrderNo.Text)
             {
-                rowHead["TranshipmentAt"] = txt_TranshipmentAt.Text;
+                rowHead["YourOrderNo"] = txt_YourOrderNo.Text;
             }
         }
 
@@ -804,6 +843,162 @@ namespace UniqueDeclaration
                 rowHead["Remark"] = txt_Remark.Text;
             }
         }
+        private void txt_装箱单号_Validating(object sender, CancelEventArgs e)
+        {
+            if (txt_装箱单号.Text.Trim() != "")
+            {
+                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                dataAccess.Open();
+                DataTable dtPacking = dataAccess.GetTable(string.Format("select * from 装箱单表 where 装箱单号={0}", StringTools.SqlQ(txt_装箱单号.Text.Trim())), null);
+                dataAccess.Close();
+                if (dtPacking.Rows.Count == 0)
+                {
+                    SysMessage.InformationMsg("此装箱单号不存在！");
+                    txt_装箱单号.Text = "";
+                }
+            }
+        }
+        private void txt_装箱单号_Validated(object sender, EventArgs e)
+        {
+            if (rowHead["装箱单号"].ToString() != txt_装箱单号.Text)
+            {
+                rowHead["装箱单号"] = txt_装箱单号.Text;
+            }
+        }
+
+        private void myTextBox3_Validating(object sender, CancelEventArgs e)
+        {
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+            dataAccess.Open();
+            DataTable dtPacking = dataAccess.GetTable(string.Format("帮助录入查询  {0},2", StringTools.SqlQ(txt_Messrs.Text.Trim())), null);
+            dataAccess.Close();
+            DataRow selectRow = null;
+            if (dtPacking.Rows.Count == 0)
+            {
+                SysMessage.InformationMsg("此客户不存在！");
+                e.Cancel = true;
+                txt_Messrs.Focus();
+                return;
+            }
+            else if (dtPacking.Rows.Count == 1)
+            {
+                selectRow = dtPacking.Rows[0];
+            }
+            else
+            {
+                FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
+                formSelect.strFormText = "选择客户";
+                formSelect.dtData = dtPacking;
+                if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    selectRow = formSelect.returnRow;
+                }
+                else
+                {
+                    e.Cancel = true;
+                    txt_Messrs.Focus();
+                    return;
+                }
+            }
+            rowHead["custid"] = selectRow["custid"];
+            txt_Messrs.Text = selectRow["E_name"].ToString();
+            if (rowHead.RowState == DataRowState.Added && txt_Mark1.Text.Trim() == "")
+            {
+                rowHead["mark1"] = selectRow["mark1"];
+                rowHead["mark2"] = selectRow["mark2"];
+                rowHead["mark3"] = selectRow["mark3"];
+                rowHead["mark4"] = selectRow["mark4"];
+                rowHead["mark5"] = selectRow["mark5"];
+                rowHead["mark6"] = selectRow["mark6"];
+                rowHead["mark7"] = selectRow["mark7"];
+                rowHead["packingto"] = selectRow["country"];
+                //rowHead["Messrs"] = selectRow["E_name"];
+
+                txt_Mark1.Text = selectRow["mark1"].ToString();
+                txt_Mark2.Text = selectRow["mark2"].ToString();
+                txt_Mark3.Text = selectRow["mark3"].ToString();
+                txt_Mark4.Text = selectRow["mark4"].ToString();
+                txt_Mark5.Text = selectRow["mark5"].ToString();
+                txt_Mark6.Text = selectRow["mark6"].ToString();
+                txt_Mark7.Text = selectRow["mark7"].ToString();
+                txt_PackingTo.Text = selectRow["country"].ToString();
+                txt_Messrs.Text = selectRow["E_name"].ToString();
+            }
+        }
+        private void txt_ContractNo_Validated(object sender, EventArgs e)
+        {
+            if (rowHead["ContractNo"].ToString() != txt_ContractNo.Text)
+            {
+                rowHead["ContractNo"] = txt_ContractNo.Text;
+            }
+        }
+
+        private void txt_工缴费率_Validating(object sender, CancelEventArgs e)
+        {
+            if (txt_工缴费率.Text.Trim().Length == 0) return;
+            try
+            {
+                float.Parse(txt_工缴费率.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                SysMessage.ErrorMsg(ex.Message);
+                e.Cancel = true;
+                txt_工缴费率.Focus();
+            }
+        }
+        private void txt_工缴费率_Validated(object sender, EventArgs e)
+        {
+            if (rowHead["工缴费率"].ToString() != txt_工缴费率.Text)
+            {
+                if (txt_工缴费率.Text.Trim().Length == 0)
+                {
+                    rowHead["工缴费率"] = DBNull.Value;
+                }
+                else
+                {
+                    rowHead["工缴费率"] = txt_工缴费率.Text.Trim();
+                }
+            }
+        }
+
+        private void txt_Remark1_Validated(object sender, EventArgs e)
+        {
+            if (rowHead["Remark1"].ToString() != txt_Remark1.Text)
+            {
+                rowHead["Remark1"] = txt_Remark1.Text;
+            }
+        }
+        private void txt_Remark2_Validated(object sender, EventArgs e)
+        {
+            if (rowHead["Remark2"].ToString() != txt_Remark2.Text)
+            {
+                rowHead["Remark2"] = txt_Remark2.Text;
+            }
+        }
+
+        private void txt_Remark3_Validated(object sender, EventArgs e)
+        {
+            if (rowHead["Remark3"].ToString() != txt_Remark3.Text)
+            {
+                rowHead["Remark3"] = txt_Remark3.Text;
+            }
+        }
+
+        private void txt_Remark4_Validated(object sender, EventArgs e)
+        {
+            if (rowHead["Remark4"].ToString() != txt_Remark4.Text)
+            {
+                rowHead["Remark4"] = txt_Remark4.Text;
+            }
+        }
+        private void txt_PriceTerm_Validated(object sender, EventArgs e)
+        {
+            if (rowHead["PriceTerm"].ToString() != txt_PriceTerm.Text)
+            {
+                rowHead["PriceTerm"] = txt_PriceTerm.Text;
+            }
+        }
         #endregion
         
         #region GRID事件
@@ -870,7 +1065,7 @@ namespace UniqueDeclaration
                             //dtDetails.Rows[cell.RowIndex].EndEdit();
                             (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
                             bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["BoxNum", cell.RowIndex];
+                            dgv.CurrentCell = dgv["Quantity", cell.RowIndex];
                             bCellEndEdit = true;
                         }
                     }
@@ -879,34 +1074,6 @@ namespace UniqueDeclaration
                         //if (dgv.CurrentRow.Cells["序号"].Value.ToString() != cell.EditedFormattedValue.ToString())
                         //{
                             validate序号(dgv, cell);
-                        //}
-                    }
-                    #endregion
-                    break;
-                case "BoxNum":
-                    #region CELL回车跳转
-                    if (bKeyEnter)
-                    {
-                        if (dgv.CurrentRow.Cells["BoxNum"].Value.ToString() == cell.EditedFormattedValue.ToString())
-                        {
-                            bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["Quantity", cell.RowIndex];
-                            bCellEndEdit = true;
-                        }
-                        else
-                        {
-                            validateBoxNum(dgv, cell);
-                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
-                            bCellEndEdit = false;
-                            dgv.CurrentCell = dgv["Quantity", cell.RowIndex];
-                            bCellEndEdit = true;
-                        }
-                    }
-                    else
-                    {
-                        //if (dgv.CurrentRow.Cells["BoxNum"].Value.ToString() != cell.EditedFormattedValue.ToString())
-                        //{
-                            validateBoxNum(dgv, cell);
                         //}
                     }
                     #endregion
@@ -987,15 +1154,7 @@ namespace UniqueDeclaration
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["BoxNum", cell.RowIndex];
-                    }
-                    #endregion
-                    break;
-                case "TotalNum":
-                    #region CELL回车跳转
-                    if (bKeyEnter)
-                    {
-                        dgv.CurrentCell = dgv["Totalprice", cell.RowIndex];
+                        dgv.CurrentCell = dgv["Quantity", cell.RowIndex];
                     }
                     #endregion
                     break;
@@ -1089,6 +1248,10 @@ namespace UniqueDeclaration
             }
             Pid =Convert.ToInt32( selectRow["手册id"]);
             dgv.CurrentRow.Cells["手册编号"].Value = selectRow["手册编号"];
+            if (txt_工缴费率.Text.Trim() == "" && selectRow["工缴费率"]!=DBNull.Value)
+            {
+                txt_工缴费率.Text = selectRow["工缴费率"].ToString();
+            }
             return true;
                
         }
@@ -1105,11 +1268,11 @@ namespace UniqueDeclaration
                 string strSQL = string.Empty;
                 if (cell.EditedFormattedValue != null && cell.EditedFormattedValue != DBNull.Value && cell.EditedFormattedValue.ToString() != "")
                 {
-                    strSQL = string.Format("SELECT 进口料件id, 序号, 商品编号, 品名规格型号, 数量, 单位, 单价, 征免 FROM 进口料件表 where 手册id={0} and 序号='{1}'", Pid, cell.EditedFormattedValue);
+                    strSQL = string.Format("SELECT 出口成品id, 序号, 商品编号, 品名规格型号, 数量, 单位, 单价, 征免 FROM 出口成品表 where 手册id={0} and 序号='{1}'", Pid, cell.EditedFormattedValue);
                 }
                 else
                 {
-                    strSQL = string.Format("SELECT 进口料件id, 序号, 商品编号, 品名规格型号, 数量, 单位, 单价, 征免 FROM 进口料件表 where 手册id={0}",Pid);
+                    strSQL = string.Format("SELECT 出口成品id, 序号, 商品编号, 品名规格型号, 数量, 单位, 单价, 征免 FROM 出口成品表 where 手册id={0}", Pid);
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
                 dataAccess.Open();
@@ -1141,12 +1304,12 @@ namespace UniqueDeclaration
                         return false;
                     }
                 }
-                dgv.CurrentRow.Cells["进口料件id"].Value = selectRow["进口料件id"];
+                dgv.CurrentRow.Cells["出口成品id"].Value = selectRow["出口成品id"];
                 dgv.CurrentRow.Cells["品名规格型号"].Value = selectRow["品名规格型号"];
                 dgv.CurrentRow.Cells["序号"].Value = selectRow["序号"];
                 dgv.CurrentRow.Cells["Unit"].Value = selectRow["单位"];
                 dgv.CurrentRow.Cells["UnitPrice"].Value = selectRow["单价"];
-                dgv.CurrentRow.Cells["剩余量"].Value = GetLeavings(Convert.ToInt32(selectRow["进口料件id"]));
+                dgv.CurrentRow.Cells["剩余量"].Value = GetLeavings(Convert.ToInt32(selectRow["出口成品id"]));
             }
             return true;
         }
@@ -1157,7 +1320,7 @@ namespace UniqueDeclaration
         /// <returns></returns>
         private decimal GetLeavings(int id)
         {
-            string strSQL = string.Format("查询统计剩余量 {0},1",id);
+            string strSQL = string.Format("查询统计剩余量 {0},0",id);
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
             dataAccess.Open();
             DataTable dtTemp = dataAccess.GetTable(strSQL, null);
@@ -1171,53 +1334,11 @@ namespace UniqueDeclaration
                 return 0;
             }
         }
-        private void validateBoxNum(myDataGridView dgv, DataGridViewCell cell)
-        {
-            if (cell.EditedFormattedValue.ToString() == "")
-            {
-                dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value = DBNull.Value;
-                dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
-                dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
-            }
-            else
-            {
-                try
-                {
-                    decimal.Parse(cell.EditedFormattedValue.ToString());
-                    dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
-                    if (dgv.CurrentRow.Cells["Quantity"].Value == DBNull.Value || dgv.CurrentRow.Cells["Quantity"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["Quantity"].Value) == 0)
-                    {
-                        dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
-                        dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
-                    }
-                    else
-                    {
-                        dgv.CurrentRow.Cells["TotalNum"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value);
-                        if (dgv.CurrentRow.Cells["UnitPrice"].Value == DBNull.Value || dgv.CurrentRow.Cells["UnitPrice"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["UnitPrice"].Value) == 0)
-                        {
-                            dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
-                        }
-                        else
-                        {
-                            dgv.CurrentRow.Cells["Totalprice"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value)
-                                 * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["UnitPrice"].Value);
-                        }
-                    }
-                }
-                catch
-                {
-                    dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value = 0;
-                    dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
-                    dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
-                }
-            }
-        }
         private void validateQuantity(myDataGridView dgv, DataGridViewCell cell)
         {
             if (cell.EditedFormattedValue.ToString() == "")
             {
                 dgv.Rows[cell.RowIndex].Cells["Quantity"].Value = DBNull.Value;
-                dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
                 dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
             }
             else
@@ -1226,29 +1347,19 @@ namespace UniqueDeclaration
                 {
                     decimal.Parse(cell.EditedFormattedValue.ToString());
                     dgv.Rows[cell.RowIndex].Cells["Quantity"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
-                    if (dgv.CurrentRow.Cells["BoxNum"].Value == DBNull.Value || dgv.CurrentRow.Cells["BoxNum"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["BoxNum"].Value) == 0)
-                    {
-                        dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
-                        dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
-                    }
-                    else
-                    {
-                        dgv.CurrentRow.Cells["TotalNum"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value);
                         if (dgv.CurrentRow.Cells["UnitPrice"].Value == DBNull.Value || dgv.CurrentRow.Cells["UnitPrice"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["UnitPrice"].Value) == 0)
                         {
                             dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
                         }
                         else
                         {
-                            dgv.CurrentRow.Cells["Totalprice"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value)
+                            dgv.CurrentRow.Cells["Totalprice"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value)
                                  * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["UnitPrice"].Value);
                         }
-                    }
                 }
                 catch
                 {
                     dgv.Rows[cell.RowIndex].Cells["Quantity"].Value = 0;
-                    dgv.CurrentRow.Cells["TotalNum"].Value = DBNull.Value;
                     dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
                 }
             }
@@ -1266,14 +1377,13 @@ namespace UniqueDeclaration
                 {
                     decimal.Parse(cell.EditedFormattedValue.ToString());
                     dgv.Rows[cell.RowIndex].Cells["UnitPrice"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
-                    if (dgv.CurrentRow.Cells["BoxNum"].Value == DBNull.Value || dgv.CurrentRow.Cells["BoxNum"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["BoxNum"].Value) == 0 ||
-                        dgv.CurrentRow.Cells["Quantity"].Value == DBNull.Value || dgv.CurrentRow.Cells["Quantity"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["Quantity"].Value) == 0)
+                    if (dgv.CurrentRow.Cells["Quantity"].Value == DBNull.Value || dgv.CurrentRow.Cells["Quantity"].Value == "" || Convert.ToDecimal(dgv.CurrentRow.Cells["Quantity"].Value) == 0)
                     {
                         dgv.CurrentRow.Cells["Totalprice"].Value = DBNull.Value;
                     }
                     else
                     {
-                        dgv.CurrentRow.Cells["Totalprice"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value)
+                        dgv.CurrentRow.Cells["Totalprice"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["Quantity"].Value)
                              * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["UnitPrice"].Value);
                     }
                 }
@@ -1289,6 +1399,7 @@ namespace UniqueDeclaration
             if (cell.EditedFormattedValue.ToString() == "")
             {
                 dgv.Rows[cell.RowIndex].Cells["NW"].Value = DBNull.Value;
+                dgv.Rows[cell.RowIndex].Cells["unit1"].Value = DBNull.Value;
             }
             else
             {
@@ -1300,6 +1411,7 @@ namespace UniqueDeclaration
                 catch
                 {
                     dgv.Rows[cell.RowIndex].Cells["NW"].Value = 0;
+                    dgv.Rows[cell.RowIndex].Cells["unit1"].Value = DBNull.Value;
                 }
             }
         }
@@ -1308,6 +1420,7 @@ namespace UniqueDeclaration
             if (cell.EditedFormattedValue.ToString() == "")
             {
                 dgv.Rows[cell.RowIndex].Cells["GW"].Value = DBNull.Value;
+                dgv.Rows[cell.RowIndex].Cells["unit2"].Value = DBNull.Value;
             }
             else
             {
@@ -1319,12 +1432,13 @@ namespace UniqueDeclaration
                 catch
                 {
                     dgv.Rows[cell.RowIndex].Cells["GW"].Value = 0;
+                    dgv.Rows[cell.RowIndex].Cells["unit2"].Value = DBNull.Value;
                 }
             }
 
             //如果当前行的客人型号为空，则跳转到当前行的客人型号
             if (dgv.Rows[cell.RowIndex].Cells["手册编号"].Value == DBNull.Value || dgv.Rows[cell.RowIndex].Cells["手册编号"].Value.ToString().Trim() == "" ||
-                dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value == DBNull.Value || dgv.Rows[cell.RowIndex].Cells["BoxNum"].Value.ToString().Trim() == "")
+                dgv.Rows[cell.RowIndex].Cells["Quantity"].Value == DBNull.Value || dgv.Rows[cell.RowIndex].Cells["Quantity"].Value.ToString().Trim() == "")
             {
                 dgv.CurrentCell = cell;
             }
@@ -1369,6 +1483,8 @@ namespace UniqueDeclaration
             setTool1Enabled();
         }
         #endregion
+
+
 
     }
 }
