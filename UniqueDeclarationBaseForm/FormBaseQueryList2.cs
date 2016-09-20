@@ -74,6 +74,11 @@ namespace UniqueDeclarationBaseForm
         {
 
         }
+        //编号
+        public virtual void tool1_Number_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
     }

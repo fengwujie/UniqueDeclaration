@@ -48,6 +48,9 @@
             this.InManage = new System.Windows.Forms.ToolStripMenuItem();
             this.FormPackingInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormPackingQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.OutManage = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormPackingOutInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormPackingOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.newWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,9 +69,8 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStatus_Version = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.OutManage = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormPackingOutInput = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormPackingOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.FormInvoiceOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -224,6 +226,31 @@
             this.FormPackingQueryCondition.Text = "PACKING LIST（查询）";
             this.FormPackingQueryCondition.Click += new System.EventHandler(this.FormPackingQueryCondition_Click);
             // 
+            // OutManage
+            // 
+            this.OutManage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FormPackingOutInput,
+            this.FormPackingOutQueryCondition,
+            this.toolStripMenuItem1,
+            this.FormInvoiceOutQueryCondition});
+            this.OutManage.Name = "OutManage";
+            this.OutManage.Size = new System.Drawing.Size(68, 21);
+            this.OutManage.Text = "出口管理";
+            // 
+            // FormPackingOutInput
+            // 
+            this.FormPackingOutInput.Name = "FormPackingOutInput";
+            this.FormPackingOutInput.Size = new System.Drawing.Size(206, 22);
+            this.FormPackingOutInput.Text = "PACKING LIST（录入）";
+            this.FormPackingOutInput.Click += new System.EventHandler(this.FormPackingOutInput_Click);
+            // 
+            // FormPackingOutQueryCondition
+            // 
+            this.FormPackingOutQueryCondition.Name = "FormPackingOutQueryCondition";
+            this.FormPackingOutQueryCondition.Size = new System.Drawing.Size(206, 22);
+            this.FormPackingOutQueryCondition.Text = "PACKING LIST（查询）";
+            this.FormPackingOutQueryCondition.Click += new System.EventHandler(this.FormPackingOutQueryCondition_Click);
+            // 
             // windowsMenu
             // 
             this.windowsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -240,41 +267,41 @@
             // newWindowToolStripMenuItem
             // 
             this.newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
-            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.newWindowToolStripMenuItem.Text = "新建窗口(&N)";
             // 
             // cascadeToolStripMenuItem
             // 
             this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.cascadeToolStripMenuItem.Text = "层叠(&C)";
             this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.CascadeToolStripMenuItem_Click);
             // 
             // tileVerticalToolStripMenuItem
             // 
             this.tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.tileVerticalToolStripMenuItem.Text = "垂直平铺(&V)";
             this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.TileVerticalToolStripMenuItem_Click);
             // 
             // tileHorizontalToolStripMenuItem
             // 
             this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.tileHorizontalToolStripMenuItem.Text = "水平平铺(&H)";
             this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.TileHorizontalToolStripMenuItem_Click);
             // 
             // closeAllToolStripMenuItem
             // 
             this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.closeAllToolStripMenuItem.Text = "全部关闭(&L)";
             this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.CloseAllToolStripMenuItem_Click);
             // 
             // arrangeIconsToolStripMenuItem
             // 
             this.arrangeIconsToolStripMenuItem.Name = "arrangeIconsToolStripMenuItem";
-            this.arrangeIconsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.arrangeIconsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.arrangeIconsToolStripMenuItem.Text = "排列图标(&A)";
             this.arrangeIconsToolStripMenuItem.Click += new System.EventHandler(this.ArrangeIconsToolStripMenuItem_Click);
             // 
@@ -341,14 +368,14 @@
             this.toolStatus_User.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStatus_User.ForeColor = System.Drawing.Color.Blue;
             this.toolStatus_User.Name = "toolStatus_User";
-            this.toolStatus_User.Size = new System.Drawing.Size(68, 17);
+            this.toolStatus_User.Size = new System.Drawing.Size(67, 17);
             this.toolStatus_User.Text = "您还未登录";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(12, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(11, 17);
             this.toolStripStatusLabel1.Text = "|";
             // 
             // toolStatus_Version
@@ -356,31 +383,20 @@
             this.toolStatus_Version.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStatus_Version.ForeColor = System.Drawing.Color.Blue;
             this.toolStatus_Version.Name = "toolStatus_Version";
-            this.toolStatus_Version.Size = new System.Drawing.Size(80, 17);
+            this.toolStatus_Version.Size = new System.Drawing.Size(79, 17);
             this.toolStatus_Version.Text = "当前系统版本";
             // 
-            // OutManage
+            // toolStripMenuItem1
             // 
-            this.OutManage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.FormPackingOutInput,
-            this.FormPackingOutQueryCondition});
-            this.OutManage.Name = "OutManage";
-            this.OutManage.Size = new System.Drawing.Size(68, 21);
-            this.OutManage.Text = "出口管理";
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(203, 6);
             // 
-            // FormPackingOutInput
+            // FormInvoiceOutQueryCondition
             // 
-            this.FormPackingOutInput.Name = "FormPackingOutInput";
-            this.FormPackingOutInput.Size = new System.Drawing.Size(206, 22);
-            this.FormPackingOutInput.Text = "PACKING LIST（录入）";
-            this.FormPackingOutInput.Click += new System.EventHandler(this.FormPackingOutInput_Click);
-            // 
-            // FormPackingOutQueryCondition
-            // 
-            this.FormPackingOutQueryCondition.Name = "FormPackingOutQueryCondition";
-            this.FormPackingOutQueryCondition.Size = new System.Drawing.Size(206, 22);
-            this.FormPackingOutQueryCondition.Text = "PACKING LIST（查询）";
-            this.FormPackingOutQueryCondition.Click += new System.EventHandler(this.FormPackingOutQueryCondition_Click);
+            this.FormInvoiceOutQueryCondition.Name = "FormInvoiceOutQueryCondition";
+            this.FormInvoiceOutQueryCondition.Size = new System.Drawing.Size(206, 22);
+            this.FormInvoiceOutQueryCondition.Text = "INVOICE（查询）";
+            this.FormInvoiceOutQueryCondition.Click += new System.EventHandler(this.FormInvoiceOutQueryCondition_Click);
             // 
             // Form_Main
             // 
@@ -447,6 +463,8 @@
         private System.Windows.Forms.ToolStripMenuItem OutManage;
         private System.Windows.Forms.ToolStripMenuItem FormPackingOutInput;
         private System.Windows.Forms.ToolStripMenuItem FormPackingOutQueryCondition;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem FormInvoiceOutQueryCondition;
     }
 }
 

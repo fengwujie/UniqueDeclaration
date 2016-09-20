@@ -299,8 +299,8 @@ namespace UniqueDeclaration
         {
             base.tool1_ExportExcel_Click(sender, e);
 
-            if (SysMessage.YesNoMsg("数据是否导入EXCEL文件？") == System.Windows.Forms.DialogResult.No) return;
             if (this.myDataGridViewHead.CurrentRow == null) return;
+            if (SysMessage.YesNoMsg("数据是否导入EXCEL文件？") == System.Windows.Forms.DialogResult.No) return;
 
             string strSourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\清单明细表.xls");
             string strDestFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"ExcelTemp\清单明细表{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss")));

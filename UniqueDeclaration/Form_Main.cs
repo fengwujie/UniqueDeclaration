@@ -241,6 +241,19 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
+        //INVOICE查询
+        private void FormInvoiceOutQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormInvoiceOutQueryCondition queryConditionForm = new FormInvoiceOutQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string strWhere = queryConditionForm.strReturnWhere;
+                FormInvoiceOutQueryList queryListForm = new FormInvoiceOutQueryList();
+                queryListForm.gstrWhere = strWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
 
     }
 }

@@ -38,6 +38,7 @@
             this.tool1_Add = new System.Windows.Forms.ToolStripButton();
             this.tool1_Modify = new System.Windows.Forms.ToolStripButton();
             this.tool1_Delete = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Number = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tool1_Query = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -70,6 +71,7 @@
             this.tool1_Add,
             this.tool1_Modify,
             this.tool1_Delete,
+            this.tool1_Number,
             this.toolStripSeparator2,
             this.tool1_Query,
             this.toolStripSeparator4,
@@ -165,6 +167,17 @@
             this.tool1_Delete.Size = new System.Drawing.Size(23, 22);
             this.tool1_Delete.Text = "删除";
             this.tool1_Delete.Click += new System.EventHandler(this.tool1_Delete_Click);
+            // 
+            // tool1_Number
+            // 
+            this.tool1_Number.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Number.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Numbers_24px;
+            this.tool1_Number.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Number.Name = "tool1_Number";
+            this.tool1_Number.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Number.Text = "编号";
+            this.tool1_Number.Visible = false;
+            this.tool1_Number.Click += new System.EventHandler(this.tool1_Number_Click);
             // 
             // toolStripSeparator2
             // 
@@ -320,5 +333,6 @@
         public Controls.myLable myLable1;
         public System.Windows.Forms.ToolStripButton tool1_Add;
         public System.Windows.Forms.ToolStripButton tool1_Import;
+        public System.Windows.Forms.ToolStripButton tool1_Number;
     }
 }
