@@ -60,13 +60,13 @@
             this.groupBox1.Controls.Add(this.txt_出库单号2);
             this.groupBox1.Controls.Add(this.txt_出库单号1);
             this.groupBox1.Controls.Add(this.myLable1);
-            this.groupBox1.Size = new System.Drawing.Size(919, 98);
+            this.groupBox1.Size = new System.Drawing.Size(919, 104);
             this.groupBox1.Text = "出库单内容";
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(0, 123);
-            this.groupBox2.Size = new System.Drawing.Size(919, 317);
+            this.groupBox2.Location = new System.Drawing.Point(0, 129);
+            this.groupBox2.Size = new System.Drawing.Size(919, 311);
             // 
             // myLable1
             // 
@@ -164,6 +164,7 @@
             // 
             // cbox_电子帐册号
             // 
+            this.cbox_电子帐册号.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbox_电子帐册号.FormattingEnabled = true;
             this.cbox_电子帐册号.Location = new System.Drawing.Point(384, 63);
             this.cbox_电子帐册号.Name = "cbox_电子帐册号";

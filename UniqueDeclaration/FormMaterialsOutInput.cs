@@ -130,8 +130,8 @@ namespace UniqueDeclaration
                 dataAccess.Open();
                 //获取自动生成的单号
                 strSQL = string.Format(@"declare @CODE varchar(20)
-                                                exec 进口单号生成 'C','C','160830', @CODE output
-                                                select @CODE");
+                                                exec 进口单号生成 'C','C','{0}', @CODE output
+                                                select @CODE", DateTime.Now.ToString("yyMMdd"));
                 object CODE = dataAccess.ExecScalar(strSQL,null);
                 dataAccess.Close();
                 rowHead["出库单号"] = CODE;
@@ -360,7 +360,7 @@ namespace UniqueDeclaration
                                 if (row["料件id"] == DBNull.Value) continue;
                                 strBuilder.AppendLine("INSERT INTO [进口料件出库明细表]([料件出库表id],[料件id],[出库数量],[备注])");
                                 strBuilder.AppendFormat("VALUES({0},{1},{2},{3})",
-                                    row["料件出库表id"], row["料件id"],
+                                    rowHead["料件出库表id"], row["料件id"],
                                     row["出库数量"] == DBNull.Value ? "NULL" : row["出库数量"],
                                     row["备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["备注"].ToString()));
                                 strBuilder.AppendLine("select @@IDENTITY");
@@ -386,12 +386,12 @@ namespace UniqueDeclaration
                                 if (row["料件出库明细表id"] == DBNull.Value) continue;
                                 if (row["料件id"] == DBNull.Value)
                                 {
-                                    strBuilder.AppendFormat(@"DELETE FROM [进口料件出库明细表] WHERE 料件出库明细表id={0}", row["订单明细表id"]);
+                                    strBuilder.AppendFormat(@"DELETE FROM [进口料件出库明细表] WHERE 料件出库明细表id={0}", row["料件出库明细表id"]);
                                 }
                                 else
                                 {
                                     strBuilder.AppendFormat(@"UPDATE [进口料件出库明细表] SET [料件出库表id] ={0},[料件id] = {1},[出库数量] ={2},[备注] = {3} where 料件出库明细表id={4}",
-                                            rowHead["料件出库表id"], row["料件id"],row["出库数量"] == DBNull.Value ? "NULL" : row["出库数量"],
+                                            rowHead["料件出库表id"], row["料件id"], row["出库数量"] == DBNull.Value ? "NULL" : row["出库数量"],
                                             row["备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["备注"].ToString()), row["料件出库明细表id"]);
                                 }
                                 dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
@@ -727,8 +727,8 @@ namespace UniqueDeclaration
 
         private void cbox_电子帐册号_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (bcbox_电子帐册号_SelectedIndexChanged && rowHead["手册编号"].ToString() != cbox_电子帐册号.SelectedValue.ToString())
-                rowHead["手册编号"] = cbox_电子帐册号.SelectedValue;
+            if (bcbox_电子帐册号_SelectedIndexChanged && rowHead["电子帐册号"].ToString() != cbox_电子帐册号.SelectedValue.ToString())
+                rowHead["电子帐册号"] = cbox_电子帐册号.SelectedValue;
         }
 
         private void date_出库时间_ValueChanged(object sender, EventArgs e)

@@ -149,6 +149,18 @@
     <Compile Include="FormMaterialsInQueryList.Designer.cs">
       <DependentUpon>FormMaterialsInQueryList.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMaterialsJXCQueryCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMaterialsJXCQueryCondition.Designer.cs">
+      <DependentUpon>FormMaterialsJXCQueryCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMaterialsJXCQueryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMaterialsJXCQueryList.Designer.cs">
+      <DependentUpon>FormMaterialsJXCQueryList.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMaterialsOutInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,6 +342,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMaterialsInQueryList.resx">
       <DependentUpon>FormMaterialsInQueryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMaterialsJXCQueryCondition.resx">
+      <DependentUpon>FormMaterialsJXCQueryCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMaterialsJXCQueryList.resx">
+      <DependentUpon>FormMaterialsJXCQueryList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMaterialsOutInput.resx">
       <DependentUpon>FormMaterialsOutInput.cs</DependentUpon>

@@ -62,7 +62,7 @@
             // 
             // myCheckBox1
             // 
-            this.myCheckBox1.Location = new System.Drawing.Point(332, 108);
+            this.myCheckBox1.Location = new System.Drawing.Point(354, 108);
             // 
             // btnOK
             // 
@@ -122,6 +122,7 @@
             // 
             // cbox_电子帐册号
             // 
+            this.cbox_电子帐册号.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbox_电子帐册号.FormattingEnabled = true;
             this.cbox_电子帐册号.Location = new System.Drawing.Point(104, 104);
             this.cbox_电子帐册号.Name = "cbox_电子帐册号";

@@ -261,7 +261,7 @@ namespace UniqueDeclaration
                 FormMaterialsInInput objForm = new FormMaterialsInInput();
                 objForm.MdiParent = this.MdiParent;
                 objForm.giOrderID = iOrderID;
-                //objForm.strBooksNo = strBooksNo;
+                objForm.strBooksNo = strBooksNo;
                 objForm.Show();
             }
         }

@@ -67,13 +67,19 @@ namespace UniqueDeclaration
         public static void DeleteExcelTempAllFile()
         {
             string strDestRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"ExcelTemp\");
-            DirectoryInfo aDirectoryInfo = new DirectoryInfo(Path.GetDirectoryName(strDestRoot));
-            FileInfo[] files = aDirectoryInfo.GetFiles("*.*", SearchOption.AllDirectories);
-            foreach (FileInfo f in files)
+            if (Directory.Exists(strDestRoot))
             {
-                //File.SetAttributes(f.FullName, File.GetAttributes(f.FullName) | FileAttributes.Archive);
-                f.Attributes = FileAttributes.Archive;
-                File.Delete(f.FullName);
+                DirectoryInfo aDirectoryInfo = new DirectoryInfo(Path.GetDirectoryName(strDestRoot));
+                FileInfo[] files = aDirectoryInfo.GetFiles("*.*", SearchOption.AllDirectories);
+                foreach (FileInfo f in files)
+                {
+                    f.Attributes = FileAttributes.Archive;
+                    File.Delete(f.FullName);
+                }
+            }
+            else
+            {
+                Directory.CreateDirectory(strDestRoot);
             }
         }  
 
@@ -270,6 +276,25 @@ namespace UniqueDeclaration
                 string strWhere = queryConditionForm.strReturnWhere;
                 FormMaterialsInQueryList queryListForm = new FormMaterialsInQueryList();
                 queryListForm.gstrWhere = strWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
+        //料件进销存查询
+        private void FormMaterialsJXCQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormMaterialsJXCQueryCondition queryConditionForm = new FormMaterialsJXCQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                FormMaterialsJXCQueryList queryListForm = new FormMaterialsJXCQueryList();
+                queryListForm.gstrWhere = queryConditionForm.strReturnWhere;
+                queryListForm.mdFromDate = queryConditionForm.mdFromDate;
+                queryListForm.mdFromDateString = queryConditionForm.mdFromDateString;
+                queryListForm.mdToDate = queryConditionForm.mdToDate;
+                queryListForm.mdToDateString = queryConditionForm.mdToDateString;
+                queryListForm.ManualCode = queryConditionForm.ManualCode;
+                queryListForm.passvalue = queryConditionForm.passvalue;
+                //queryListForm.mQueryWay = "rpt料件进销存";
                 queryListForm.MdiParent = this;
                 queryListForm.Show();
             }

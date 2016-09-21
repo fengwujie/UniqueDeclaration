@@ -10,6 +10,7 @@ F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclar
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.Controls.myContextMenuStripCell.resources
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.Controls.myDataGridView.resources
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.Controls.myDateTimePicker.resources
+F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.Controls.myProgressBar.resources
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.Controls.myTabControl.resources
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.Controls.myTextBox.resources
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.FormBase.resources
@@ -25,4 +26,3 @@ F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclar
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.csproj.GenerateResource.Cache
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.dll
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.pdb
-F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.Controls.myProgressBar.resources

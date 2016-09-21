@@ -62,7 +62,7 @@
             this.groupBox1.Controls.Add(this.txt_入库单号);
             this.groupBox1.Controls.Add(this.myLable1);
             this.groupBox1.Location = new System.Drawing.Point(17, 14);
-            this.groupBox1.Size = new System.Drawing.Size(297, 279);
+            this.groupBox1.Size = new System.Drawing.Size(297, 280);
             // 
             // myCheckBox1
             // 
@@ -83,7 +83,6 @@
             // 
             // datetime_入库时间1
             // 
-            this.datetime_入库时间1.Checked = false;
             this.datetime_入库时间1.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.datetime_入库时间1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datetime_入库时间1.Location = new System.Drawing.Point(102, 167);
@@ -122,7 +121,6 @@
             // 
             // datetime_入库时间2
             // 
-            this.datetime_入库时间2.Checked = false;
             this.datetime_入库时间2.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.datetime_入库时间2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datetime_入库时间2.Location = new System.Drawing.Point(102, 204);
@@ -143,6 +141,7 @@
             // 
             // cbox_电子帐册号
             // 
+            this.cbox_电子帐册号.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbox_电子帐册号.FormattingEnabled = true;
             this.cbox_电子帐册号.Location = new System.Drawing.Point(102, 131);
             this.cbox_电子帐册号.Name = "cbox_电子帐册号";
