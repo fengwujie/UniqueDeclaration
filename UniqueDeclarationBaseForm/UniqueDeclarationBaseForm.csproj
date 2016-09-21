@@ -91,6 +91,12 @@
     <Compile Include="Controls\myLable.Designer.cs">
       <DependentUpon>myLable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\myProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\myProgressBar.Designer.cs">
+      <DependentUpon>myProgressBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\myTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\myDateTimePicker.resx">
       <DependentUpon>myDateTimePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\myProgressBar.resx">
+      <DependentUpon>myProgressBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\myTabControl.resx">
       <DependentUpon>myTabControl.cs</DependentUpon>

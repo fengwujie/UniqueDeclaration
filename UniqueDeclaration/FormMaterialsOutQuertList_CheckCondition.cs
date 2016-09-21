@@ -25,7 +25,7 @@ namespace UniqueDeclaration
             {
                 passvalue = 1;
             }
-            else if(this.radioButton1.Checked)
+            else if(this.radioButton2.Checked)
             {
                 passvalue = 2;
             }

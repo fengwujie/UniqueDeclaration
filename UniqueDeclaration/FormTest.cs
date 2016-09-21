@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DataAccess;
+using UniqueDeclarationPubilc;
 
 namespace UniqueDeclaration
 {
@@ -61,6 +62,27 @@ namespace UniqueDeclaration
             }
 
             //DataGridViewTextBoxColumn textBoxColumn = this.contextMenuStrip1.SourceControl;
+        }
+
+        private void myButton3_Click(object sender, EventArgs e)
+        {
+            ExcelCommonMethod.proba(this);
+        }
+
+        private void myButton4_Click(object sender, EventArgs e)
+        {
+            this.myProgressBar1.Minimum = 1;
+            myProgressBar1.Maximum =Convert.ToInt32( this.myTextBox1.Text);
+            myProgressBar1.Step = 1;
+            myProgressBar1.Style = ProgressBarStyle.Blocks;
+            myProgressBar1.TextType = UniqueDeclarationBaseForm.Controls.myProgressBar.LableTextType.LableTextType_Number;
+            myProgressBar1.Refresh();
+            for (int i = 1; i <= myProgressBar1.Maximum; i++)
+            {
+                myProgressBar1.Value = i;
+                //Application.DoEvents();
+                myProgressBar1.Refresh();
+            }
         }
 
         

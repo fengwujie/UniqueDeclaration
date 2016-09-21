@@ -97,12 +97,12 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.myTabControl1);
-            this.groupBox1.Size = new System.Drawing.Size(1036, 196);
+            this.groupBox1.Size = new System.Drawing.Size(1036, 191);
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(0, 221);
-            this.groupBox2.Size = new System.Drawing.Size(1036, 333);
+            this.groupBox2.Location = new System.Drawing.Point(0, 216);
+            this.groupBox2.Size = new System.Drawing.Size(1036, 338);
             // 
             // myTabControl1
             // 
@@ -112,7 +112,7 @@
             this.myTabControl1.Location = new System.Drawing.Point(3, 17);
             this.myTabControl1.Name = "myTabControl1";
             this.myTabControl1.SelectedIndex = 0;
-            this.myTabControl1.Size = new System.Drawing.Size(1030, 176);
+            this.myTabControl1.Size = new System.Drawing.Size(1030, 171);
             this.myTabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -152,7 +152,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1022, 150);
+            this.tabPage1.Size = new System.Drawing.Size(1022, 145);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "PACKING LIST";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -483,7 +483,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1033, 147);
+            this.tabPage2.Size = new System.Drawing.Size(1033, 150);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "MARK";
             this.tabPage2.UseVisualStyleBackColor = true;

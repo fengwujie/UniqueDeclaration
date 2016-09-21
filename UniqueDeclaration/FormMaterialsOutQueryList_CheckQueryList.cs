@@ -36,6 +36,7 @@ namespace UniqueDeclaration
             dataAccess.Open();
             DataTable dtData = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
+            DataTableTools.AddEmptyRow(dtData);
             this.myDataGridView1.DataSource = dtData;
 
             foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridView1.Columns)

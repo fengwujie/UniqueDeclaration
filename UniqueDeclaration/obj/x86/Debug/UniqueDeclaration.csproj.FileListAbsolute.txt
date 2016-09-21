@@ -52,3 +52,6 @@ F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Fo
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.FormPackingInQueryList.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.FormInvoiceOutQueryCondition.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.FormInvoiceOutQueryList.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.FormMaterialsInInput.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.FormMaterialsInQueryCondition.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.FormMaterialsInQueryList.resources

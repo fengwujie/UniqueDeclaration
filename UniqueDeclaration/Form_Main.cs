@@ -254,6 +254,26 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
+        //料件入库
+        private void FormMaterialsInInput_Click(object sender, EventArgs e)
+        {
+            FormMaterialsInInput objForm = new FormMaterialsInInput();
+            objForm.MdiParent = this;
+            objForm.Show();
+        }
+        //料件入库查询
+        private void FormMaterialsInQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormMaterialsInQueryCondition queryConditionForm = new FormMaterialsInQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string strWhere = queryConditionForm.strReturnWhere;
+                FormMaterialsInQueryList queryListForm = new FormMaterialsInQueryList();
+                queryListForm.gstrWhere = strWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
 
     }
 }

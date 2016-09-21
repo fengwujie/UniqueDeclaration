@@ -87,13 +87,16 @@ namespace UniqueDeclarationPubilc
             iIndex++;
             #endregion
 
-            foreach (DataRow row in dtExcel.Rows)
+            //foreach (DataRow row in dtExcel.Rows)
+            DataRow row = null;
+            for (int iRow = 0; iRow < dtExcel.Rows.Count;iRow++ )
             {
+                row = dtExcel.Rows[iRow];
                 if (row.RowState == DataRowState.Deleted) continue;
                 for (int iCol = 0; iCol < iColCount; iCol++)
                 {
                     strColLetter = getColLetter(iCol + 1);
-                    strCellText =  row[iCol].ToString();
+                    strCellText = row[iCol].ToString();
                     lCellLenght = StringTools.TextLenght(strCellText);
                     //ea.SetValue(iIndex, iCol + 1,strCellText); //这里的列是从1开始的，所以iCol + 1
                     ea.SetValue(string.Format("{0}{1}", strColLetter, iIndex), row[iCol].ToString());
@@ -141,6 +144,30 @@ namespace UniqueDeclarationPubilc
                 strReturnLetter = string.Format("{0}{1}", strLetter.Substring(iMultiple - 1, 1), strLetter.Substring(iMore - 1, 1));
             }
             return strReturnLetter;
+        }
+
+        public static void proba(Form form)
+        {
+            ProgressBar proBar = new ProgressBar();
+            //proBar.Location = new System.Drawing.Point(547, 407);
+            proBar.Name = "progressBar1";
+            proBar.Size = new System.Drawing.Size(315, 19);
+            proBar.Location = new Point((form.Width - proBar.Width)/2,form.Height / 2);            
+            //proBar.TabIndex = 9;
+            form.Controls.Add(proBar);
+            proBar.BringToFront();
+
+            proBar.Minimum = 1;
+            proBar.Maximum = 1000000;
+            proBar.Step = 1;
+            proBar.Style = ProgressBarStyle.Blocks;
+            proBar.Visible = true;
+            for (int i = 1; i < 1000000; i++)
+            {
+                proBar.Value = i;
+            }
+            proBar.Visible = false;
+            form.Controls.Remove(proBar);
         }
     }
 }

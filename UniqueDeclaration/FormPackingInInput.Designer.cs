@@ -397,7 +397,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1072, 118);
+            this.tabPage2.Size = new System.Drawing.Size(1033, 118);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "MARK";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -552,11 +552,11 @@
             this.myContextDetails.Name = "myContextDetails";
             this.myContextDetails.Size = new System.Drawing.Size(101, 26);
             // 
-            // FormPackingInput
+            // FormPackingInInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(1086, 554);
-            this.Name = "FormPackingInput";
+            this.Name = "FormPackingInInput";
             this.Text = "进口装箱单录入";
             this.Controls.SetChildIndex(this.groupBox1, 0);
             this.Controls.SetChildIndex(this.groupBox2, 0);

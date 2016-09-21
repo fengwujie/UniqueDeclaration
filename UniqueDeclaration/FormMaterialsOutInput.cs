@@ -735,7 +735,7 @@ namespace UniqueDeclaration
         {
             if (Convert.ToDateTime(rowHead["出库时间"]) != date_出库时间.Value)
             {
-                rowHead["出货日期"] = date_出库时间.Value;
+                rowHead["出库时间"] = date_出库时间.Value;
             }
         }
         /// <summary>

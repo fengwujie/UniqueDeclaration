@@ -59,9 +59,9 @@
             // 
             // btnCheckIn
             // 
-            this.btnCheckIn.Location = new System.Drawing.Point(681, 2);
+            this.btnCheckIn.Location = new System.Drawing.Point(364, 2);
             this.btnCheckIn.Name = "btnCheckIn";
-            this.btnCheckIn.Size = new System.Drawing.Size(75, 23);
+            this.btnCheckIn.Size = new System.Drawing.Size(96, 23);
             this.btnCheckIn.TabIndex = 7;
             this.btnCheckIn.Text = "进口料件核查";
             this.btnCheckIn.UseVisualStyleBackColor = true;
