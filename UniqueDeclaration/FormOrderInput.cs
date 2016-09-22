@@ -761,16 +761,19 @@ namespace UniqueDeclaration
             if (dtList.Rows.Count > 0)
             {
                 //如果最后一行的客人型号和优丽型号都为空，则删除掉
-                if (dtDetails.Rows.Count > 0)
+                if (this.dataGridViewDetail.Rows.Count > 0)
                 {
-                    int iCount = dtDetails.Rows.Count - 1;
-                    DataRow rowLast = dtDetails.Rows[iCount];
+                    //int iCount = dtDetails.Rows.Count - 1;
+                    //DataRow rowLast = dtDetails.Rows[iCount];
+                    int iCount = this.dataGridViewDetail.Rows.Count - 1;
+                    DataRow rowLast = (this.dataGridViewDetail.Rows[this.dataGridViewDetail.Rows.Count - 1].DataBoundItem as DataRowView).Row;
                     if (rowLast.RowState == DataRowState.Added)
                     {
                         if ((rowLast["客人型号"] == DBNull.Value || rowLast["客人型号"].ToString().Trim().Length == 0) &&
                          (rowLast["优丽型号"] == DBNull.Value || rowLast["优丽型号"].ToString().Trim().Length > 0))
                         {
-                            dtDetails.Rows.RemoveAt(iCount);
+                            //dtDetails.Rows.RemoveAt(iCount);
+                            this.dataGridViewDetail.Rows.RemoveAt(iCount);
                         }
                     }
                 }

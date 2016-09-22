@@ -261,7 +261,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(658, 387);
+            this.tabPage2.Size = new System.Drawing.Size(800, 496);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "归并后材料总用量表";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -270,7 +270,7 @@
             // 
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(658, 387);
+            this.tabPage3.Size = new System.Drawing.Size(800, 496);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "归并前材料总用量表";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -279,7 +279,7 @@
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(658, 387);
+            this.tabPage4.Size = new System.Drawing.Size(800, 496);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "归并前材料明细总用量表";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -377,7 +377,7 @@
         public Controls.myButton btnExportDetails;
         public Controls.myButton btnExportExcel;
         public Controls.myButton btnDelete;
-        private Controls.myCheckBox myCheckBox1;
         public System.Windows.Forms.ToolStripButton tool1_Import;
+        public Controls.myCheckBox myCheckBox1;
     }
 }

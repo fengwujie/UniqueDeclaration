@@ -27,6 +27,7 @@ namespace UniqueDeclaration
         public override void FormBaseInput_Load(object sender, System.EventArgs e)
         {
             //base.FormBaseInput_Load(sender, e);
+            tool2_Import.Visible = false;
             InitControlData();
             LoadDataSource();
             InitGrid();
@@ -1327,7 +1328,7 @@ namespace UniqueDeclaration
             dataAccess.Close();
             if (dtTemp.Rows.Count > 0)
             {
-                return Convert.ToDecimal(dtTemp.Rows[0][0]);
+                return dtTemp.Rows[0][0]==DBNull.Value ? 0 : Convert.ToDecimal(dtTemp.Rows[0][0]);
             }
             else
             {
@@ -1483,8 +1484,6 @@ namespace UniqueDeclaration
             setTool1Enabled();
         }
         #endregion
-
-
-
+        
     }
 }

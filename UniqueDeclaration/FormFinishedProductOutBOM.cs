@@ -922,6 +922,21 @@ namespace UniqueDeclaration
             {
                 textBoxColumn.ContextMenuStrip = this.myContextModifyAfterDetail;
             }
+
+            //料件型号.DisplayIndex = 0;
+            //编号.DisplayIndex = 1;
+            //料件名.DisplayIndex = 2;
+            //序号.DisplayIndex = 3;
+            //区域.DisplayIndex = 4;
+            //商品编码.DisplayIndex = 5;
+            //商品名称.DisplayIndex = 6;
+            //规格型号.DisplayIndex = 7;
+            //计量单位.DisplayIndex = 8;
+            //数量.DisplayIndex = 9;
+            //单位.DisplayIndex = 10;
+            //损耗率.DisplayIndex = 11;
+            //备注.DisplayIndex = 12;
+            //剩余库存量.DisplayIndex = 13;
         }
 
         private void InitMergeAfterHead()
@@ -2236,6 +2251,7 @@ namespace UniqueDeclaration
                     dgv.Rows[cell.RowIndex].Cells["单耗"].Value = 0;
                 }
             }
+            Sum总重();
         }
         /// <summary>
         /// 验证换算率合法性
@@ -2276,6 +2292,7 @@ namespace UniqueDeclaration
                     dgv.Rows[cell.RowIndex].Cells["单耗"].Value = 0;
                 }
             }
+            Sum总重();
         }
         /// <summary>
         /// 检查库存量

@@ -300,5 +300,27 @@ namespace UniqueDeclaration
             }
         }
 
+        private void 成品入库ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            UniquePMS.frmInStock objForm = new UniquePMS.frmInStock();
+            objForm.MdiParent = this;
+            objForm.Show();
+        }
+
+        private void 成品出库ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UniquePMS.frmOutStock objForm = new UniquePMS.frmOutStock();
+            objForm.MdiParent = this;
+            objForm.Show();
+        }
+
+        private void 成品库存ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UniquePMS.frmStock objForm = new UniquePMS.frmStock();
+            objForm.MdiParent = this;
+            objForm.Show();
+        }
+
     }
 }

@@ -2004,6 +2004,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     dgv.Rows[cell.RowIndex].Cells["单耗"].Value = 0;
                 }
             }
+            Sum总重();
         }
         /// <summary>
         /// 验证换算率
@@ -2038,6 +2039,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                     dgv.Rows[cell.RowIndex].Cells["单耗"].Value = 0;
                 }
             }
+            Sum总重();
         }
 
         public override void dgv_ModifyAfterHead_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -2521,7 +2523,8 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 {
                     dgv.Rows[cell.RowIndex].Cells["数量"].Value = 0;
                 }
-            }
+            } 
+            Sum总重();
         }
         /// <summary>
         /// 验证改样后明细损耗率

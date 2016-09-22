@@ -825,35 +825,56 @@ namespace UniqueDeclaration
             dtList = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
             DataRow lastRow = (this.dataGridViewDetail.Rows[this.dataGridViewDetail.Rows.Count-1].DataBoundItem as DataRowView).Row;
-            if (lastRow["客人型号"] == DBNull.Value || lastRow["客人型号"].ToString()=="")
-                this.dataGridViewDetail.Rows.RemoveAt(this.dataGridViewDetail.Rows.Count - 1);
-            foreach (DataRow row in dtList.Rows)
+            //if (lastRow["客人型号"] == DBNull.Value || lastRow["客人型号"].ToString()=="")
+            //    this.dataGridViewDetail.Rows.RemoveAt(this.dataGridViewDetail.Rows.Count - 1);
+
+            if (dtList.Rows.Count > 0)
             {
-                DataRow newRow = dtDetails.NewRow();
-                newRow["制造通知单号"] = 制造通知单号;
-                newRow["制造通知单id"] = 制造通知单id;
-                newRow["客人型号"] = row["客人型号"];
-                newRow["优丽型号"] = row["优丽型号"];
-                newRow["颜色"] = row["颜色"];
-                newRow["单位"] = row["单位"];
-                newRow["型号"] = row["型号"];
-                newRow["产品id"] = row["产品id"];
-                newRow["配件id"] = row["配件id"];
-                newRow["订单备注"] = row["订单备注"];
-                newRow["订单数量"] = row["订单数量"] == DBNull.Value ? 0 : row["订单数量"];
-                newRow["生产数量"] = row["生产数量"];
-                newRow["实际总重"] = row["实际总重"];
-                newRow["成品规格型号"] = row["成品规格型号"];
-                newRow["成品名称及商编"] = row["成品名称及商编"];
-                newRow["申报单位"] = row["申报单位"] == DBNull.Value ? "个" : row["申报单位"];
-                newRow["法定单位"] = row["法定单位"] == DBNull.Value ? "千克" : row["法定单位"];
-                newRow["成品项号"] = row["成品项号"];
-                newRow["成品规格型号"] = row["成品规格型号"];
-                newRow["变更规格型号"] = row["变更规格型号"];
-                newRow["箱数"] = row["箱数"] == DBNull.Value ? 0 : row["箱数"];
-                dtDetails.Rows.Add(newRow);
+                //如果最后一行的客人型号和优丽型号都为空，则删除掉
+                if (this.dataGridViewDetail.Rows.Count > 0)
+                {
+                    //int iCount = dtDetails.Rows.Count - 1;
+                    //DataRow rowLast = dtDetails.Rows[iCount];
+                    int iCount = this.dataGridViewDetail.Rows.Count - 1;
+                    DataRow rowLast = (this.dataGridViewDetail.Rows[this.dataGridViewDetail.Rows.Count - 1].DataBoundItem as DataRowView).Row;
+                    if (rowLast.RowState == DataRowState.Added)
+                    {
+                        if ((rowLast["客人型号"] == DBNull.Value || rowLast["客人型号"].ToString().Trim().Length == 0) &&
+                         (rowLast["优丽型号"] == DBNull.Value || rowLast["优丽型号"].ToString().Trim().Length > 0))
+                        {
+                            //dtDetails.Rows.RemoveAt(iCount);
+                            this.dataGridViewDetail.Rows.RemoveAt(iCount);
+                        }
+                    }
+                }
+                foreach (DataRow row in dtList.Rows)
+                {
+                    DataRow newRow = dtDetails.NewRow();
+                    newRow["制造通知单号"] = 制造通知单号;
+                    newRow["制造通知单id"] = 制造通知单id;
+                    newRow["客人型号"] = row["客人型号"];
+                    newRow["优丽型号"] = row["优丽型号"];
+                    newRow["颜色"] = row["颜色"];
+                    newRow["单位"] = row["单位"];
+                    newRow["型号"] = row["型号"];
+                    newRow["产品id"] = row["产品id"];
+                    newRow["配件id"] = row["配件id"];
+                    newRow["订单备注"] = row["订单备注"];
+                    newRow["订单数量"] = row["订单数量"] == DBNull.Value ? 0 : row["订单数量"];
+                    newRow["生产数量"] = row["生产数量"];
+                    newRow["实际总重"] = row["实际总重"];
+                    newRow["成品规格型号"] = row["成品规格型号"];
+                    newRow["成品名称及商编"] = row["成品名称及商编"];
+                    newRow["申报单位"] = row["申报单位"] == DBNull.Value ? "个" : row["申报单位"];
+                    newRow["法定单位"] = row["法定单位"] == DBNull.Value ? "千克" : row["法定单位"];
+                    newRow["成品项号"] = row["成品项号"];
+                    newRow["成品规格型号"] = row["成品规格型号"];
+                    newRow["变更规格型号"] = row["变更规格型号"];
+                    newRow["箱数"] = row["箱数"] == DBNull.Value ? 0 : row["箱数"];
+                    dtDetails.Rows.Add(newRow);
+                }
+                setTool1Enabled();
             }
-            setTool1Enabled();
         }
 
         public override void tool2_Number_Click(object sender, EventArgs e)
@@ -1035,7 +1056,7 @@ namespace UniqueDeclaration
                     }
                     else
                     {
-                        if (dgv.CurrentRow.Cells["客人型号"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        if (dgv.CurrentRow.Cells["客人型号"].Value ==null || dgv.CurrentRow.Cells["客人型号"].Value.ToString() != cell.EditedFormattedValue.ToString())
                         {
                             validate客人型号(dgv, cell);
                         }

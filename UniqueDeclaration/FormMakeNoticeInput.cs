@@ -679,32 +679,52 @@ namespace UniqueDeclaration
             dataAccess.Open();
             dtList = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
-            foreach (DataRow row in dtList.Rows)
+            if (dtList.Rows.Count > 0)
             {
-                DataRow newRow = dtDetails.NewRow();
-                newRow["订单号码"] = 流水号;
-                newRow["订单id"] = 订单id;
-                newRow["客人型号"] = row["客人型号"];
-                newRow["优丽型号"] = row["优丽型号"];
-                newRow["颜色"] = row["颜色"];
-                newRow["单位"] = row["单位"];
-                newRow["型号"] = row["型号"];
-                newRow["产品id"] = row["产品id"];
-                newRow["配件id"] = row["配件id"];
-                newRow["订单备注"] = row["订单备注"];
-                newRow["订单数量"] = row["订单数量"] == DBNull.Value ? 0 : row["订单数量"];
-                newRow["生产数量"] = row["生产数量"];
-                newRow["实际总重"] = row["实际总重"];
-                newRow["成品规格型号"] = row["成品规格型号"];
-                newRow["成品名称及商编"] = row["成品名称及商编"];
-                newRow["申报单位"] = row["申报单位"] == DBNull.Value ? "个" : row["申报单位"];
-                newRow["法定单位"] = row["法定单位"] == DBNull.Value ? "千克" : row["法定单位"];
-                newRow["成品项号"] = row["成品项号"];
-                newRow["成品规格型号"] = row["成品规格型号"];
-                newRow["变更规格型号"] = row["变更规格型号"];
-                dtDetails.Rows.Add(newRow);
+                //如果最后一行的客人型号和优丽型号都为空，则删除掉
+                if (this.dataGridViewDetail.Rows.Count > 0)
+                {
+                    //int iCount = dtDetails.Rows.Count - 1;
+                    //DataRow rowLast = dtDetails.Rows[iCount];
+                    int iCount = this.dataGridViewDetail.Rows.Count - 1;
+                    DataRow rowLast = (this.dataGridViewDetail.Rows[this.dataGridViewDetail.Rows.Count - 1].DataBoundItem as DataRowView).Row;
+                    if (rowLast.RowState == DataRowState.Added)
+                    {
+                        if ((rowLast["客人型号"] == DBNull.Value || rowLast["客人型号"].ToString().Trim().Length == 0) &&
+                         (rowLast["优丽型号"] == DBNull.Value || rowLast["优丽型号"].ToString().Trim().Length > 0))
+                        {
+                            //dtDetails.Rows.RemoveAt(iCount);
+                            this.dataGridViewDetail.Rows.RemoveAt(iCount);
+                        }
+                    }
+                }
+                foreach (DataRow row in dtList.Rows)
+                {
+                    DataRow newRow = dtDetails.NewRow();
+                    newRow["订单号码"] = 流水号;
+                    newRow["订单id"] = 订单id;
+                    newRow["客人型号"] = row["客人型号"];
+                    newRow["优丽型号"] = row["优丽型号"];
+                    newRow["颜色"] = row["颜色"];
+                    newRow["单位"] = row["单位"];
+                    newRow["型号"] = row["型号"];
+                    newRow["产品id"] = row["产品id"];
+                    newRow["配件id"] = row["配件id"];
+                    newRow["订单备注"] = row["订单备注"];
+                    newRow["订单数量"] = row["订单数量"] == DBNull.Value ? 0 : row["订单数量"];
+                    newRow["生产数量"] = row["生产数量"];
+                    newRow["实际总重"] = row["实际总重"];
+                    newRow["成品规格型号"] = row["成品规格型号"];
+                    newRow["成品名称及商编"] = row["成品名称及商编"];
+                    newRow["申报单位"] = row["申报单位"] == DBNull.Value ? "个" : row["申报单位"];
+                    newRow["法定单位"] = row["法定单位"] == DBNull.Value ? "千克" : row["法定单位"];
+                    newRow["成品项号"] = row["成品项号"];
+                    newRow["成品规格型号"] = row["成品规格型号"];
+                    newRow["变更规格型号"] = row["变更规格型号"];
+                    dtDetails.Rows.Add(newRow);
+                }
+                setTool1Enabled();
             }
-            setTool1Enabled();
         }
         #endregion
 
@@ -1134,7 +1154,7 @@ namespace UniqueDeclaration
                     }
                     else
                     {
-                        if (dgv.CurrentRow.Cells["实际总重"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        if (dgv.CurrentRow.Cells["实际总重"].Value==null || dgv.CurrentRow.Cells["实际总重"].Value.ToString() != cell.EditedFormattedValue.ToString())
                         {
                             validate实际总重(dgv, cell);
                         }
@@ -1840,7 +1860,7 @@ namespace UniqueDeclaration
                     dataAccess.Close();
                 }
             }
-            string 申报单位 = dgv["申报单位", cell.RowIndex].Value.ToString();
+            string 申报单位 =dgv["申报单位", cell.RowIndex].Value==null ? "" : dgv["申报单位", cell.RowIndex].Value.ToString();
             if (dgv["实际总重", cell.RowIndex].Value != DBNull.Value)
             {
                 //dgv["成品规格型号", cell.RowIndex].Value = dgv["实际总重", cell.RowIndex].Value + "G/个";

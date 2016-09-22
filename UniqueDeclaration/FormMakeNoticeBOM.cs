@@ -2089,6 +2089,7 @@ namespace UniqueDeclaration
                     dgv.Rows[cell.RowIndex].Cells["单耗"].Value = 0;
                 }
             }
+            Sum总重();
         }
         /// <summary>
         /// 验证换算率合法性
@@ -2128,6 +2129,7 @@ namespace UniqueDeclaration
                     dgv.Rows[cell.RowIndex].Cells["单耗"].Value = 0;
                 }
             }
+            Sum总重();
         }
         /// <summary>
         /// 检查库存量
@@ -2528,6 +2530,7 @@ namespace UniqueDeclaration
                     dgv.Rows[cell.RowIndex].Cells["数量"].Value = 0;
                 }
             }
+            Sum总重();
         }
         /// <summary>
         /// 验证改样后明细损耗率

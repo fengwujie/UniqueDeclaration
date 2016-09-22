@@ -37,17 +37,19 @@
             this.FormMakeNoticeInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormMakeNoticeQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.测试窗体ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Business = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormFinishedProductOutInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormFinishedProductOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormPackingListInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormPackingListQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.Materials = new System.Windows.Forms.ToolStripMenuItem();
             this.FormMaterialsInInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormMaterialsInQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.FormMaterialsOut = new System.Windows.Forms.ToolStripMenuItem();
             this.FormMaterialsOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
-            this.Business = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormFinishedProductOutInput = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormFinishedProductOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormPackingListInput = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormPackingListQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.FormMaterialsJXCQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.InManage = new System.Windows.Forms.ToolStripMenuItem();
             this.FormPackingInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormPackingQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,10 +74,12 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStatus_Version = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.FormMaterialsJXCQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.成品仓库管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.成品入库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.成品出库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.成品库存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -84,10 +88,11 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Order,
-            this.Materials,
             this.Business,
+            this.Materials,
             this.InManage,
             this.OutManage,
+            this.成品仓库管理ToolStripMenuItem,
             this.windowsMenu,
             this.helpMenu});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
@@ -145,6 +150,45 @@
             this.测试窗体ToolStripMenuItem.Visible = false;
             this.测试窗体ToolStripMenuItem.Click += new System.EventHandler(this.测试窗体ToolStripMenuItem_Click);
             // 
+            // Business
+            // 
+            this.Business.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FormFinishedProductOutInput,
+            this.FormFinishedProductOutQueryCondition,
+            this.FormPackingListInput,
+            this.FormPackingListQueryCondition});
+            this.Business.Name = "Business";
+            this.Business.Size = new System.Drawing.Size(68, 21);
+            this.Business.Text = "业务管理";
+            // 
+            // FormFinishedProductOutInput
+            // 
+            this.FormFinishedProductOutInput.Name = "FormFinishedProductOutInput";
+            this.FormFinishedProductOutInput.Size = new System.Drawing.Size(160, 22);
+            this.FormFinishedProductOutInput.Text = "成品出货录入";
+            this.FormFinishedProductOutInput.Click += new System.EventHandler(this.FormFinishedProductOutInput_Click);
+            // 
+            // FormFinishedProductOutQueryCondition
+            // 
+            this.FormFinishedProductOutQueryCondition.Name = "FormFinishedProductOutQueryCondition";
+            this.FormFinishedProductOutQueryCondition.Size = new System.Drawing.Size(160, 22);
+            this.FormFinishedProductOutQueryCondition.Text = "成品出货查询";
+            this.FormFinishedProductOutQueryCondition.Click += new System.EventHandler(this.FormFinishedProductOutQueryCondition_Click);
+            // 
+            // FormPackingListInput
+            // 
+            this.FormPackingListInput.Name = "FormPackingListInput";
+            this.FormPackingListInput.Size = new System.Drawing.Size(160, 22);
+            this.FormPackingListInput.Text = "装箱单录入";
+            this.FormPackingListInput.Click += new System.EventHandler(this.FormPackingListInput_Click);
+            // 
+            // FormPackingListQueryCondition
+            // 
+            this.FormPackingListQueryCondition.Name = "FormPackingListQueryCondition";
+            this.FormPackingListQueryCondition.Size = new System.Drawing.Size(160, 22);
+            this.FormPackingListQueryCondition.Text = "装箱明细单查询";
+            this.FormPackingListQueryCondition.Click += new System.EventHandler(this.FormPackingListQueryCondition_Click);
+            // 
             // Materials
             // 
             this.Materials.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -192,44 +236,17 @@
             this.FormMaterialsOutQueryCondition.Text = "料件出库查询";
             this.FormMaterialsOutQueryCondition.Click += new System.EventHandler(this.FormMaterialsOutQueryCondition_Click);
             // 
-            // Business
+            // toolStripMenuItem2
             // 
-            this.Business.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.FormFinishedProductOutInput,
-            this.FormFinishedProductOutQueryCondition,
-            this.FormPackingListInput,
-            this.FormPackingListQueryCondition});
-            this.Business.Name = "Business";
-            this.Business.Size = new System.Drawing.Size(68, 21);
-            this.Business.Text = "业务管理";
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(157, 6);
             // 
-            // FormFinishedProductOutInput
+            // FormMaterialsJXCQueryCondition
             // 
-            this.FormFinishedProductOutInput.Name = "FormFinishedProductOutInput";
-            this.FormFinishedProductOutInput.Size = new System.Drawing.Size(160, 22);
-            this.FormFinishedProductOutInput.Text = "成品出货录入";
-            this.FormFinishedProductOutInput.Click += new System.EventHandler(this.FormFinishedProductOutInput_Click);
-            // 
-            // FormFinishedProductOutQueryCondition
-            // 
-            this.FormFinishedProductOutQueryCondition.Name = "FormFinishedProductOutQueryCondition";
-            this.FormFinishedProductOutQueryCondition.Size = new System.Drawing.Size(160, 22);
-            this.FormFinishedProductOutQueryCondition.Text = "成品出货查询";
-            this.FormFinishedProductOutQueryCondition.Click += new System.EventHandler(this.FormFinishedProductOutQueryCondition_Click);
-            // 
-            // FormPackingListInput
-            // 
-            this.FormPackingListInput.Name = "FormPackingListInput";
-            this.FormPackingListInput.Size = new System.Drawing.Size(160, 22);
-            this.FormPackingListInput.Text = "装箱单录入";
-            this.FormPackingListInput.Click += new System.EventHandler(this.FormPackingListInput_Click);
-            // 
-            // FormPackingListQueryCondition
-            // 
-            this.FormPackingListQueryCondition.Name = "FormPackingListQueryCondition";
-            this.FormPackingListQueryCondition.Size = new System.Drawing.Size(160, 22);
-            this.FormPackingListQueryCondition.Text = "装箱明细单查询";
-            this.FormPackingListQueryCondition.Click += new System.EventHandler(this.FormPackingListQueryCondition_Click);
+            this.FormMaterialsJXCQueryCondition.Name = "FormMaterialsJXCQueryCondition";
+            this.FormMaterialsJXCQueryCondition.Size = new System.Drawing.Size(160, 22);
+            this.FormMaterialsJXCQueryCondition.Text = "料件进销存查询";
+            this.FormMaterialsJXCQueryCondition.Click += new System.EventHandler(this.FormMaterialsJXCQueryCondition_Click);
             // 
             // InManage
             // 
@@ -411,18 +428,6 @@
             this.toolStatus_Version.Size = new System.Drawing.Size(79, 17);
             this.toolStatus_Version.Text = "当前系统版本";
             // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(157, 6);
-            // 
-            // FormMaterialsJXCQueryCondition
-            // 
-            this.FormMaterialsJXCQueryCondition.Name = "FormMaterialsJXCQueryCondition";
-            this.FormMaterialsJXCQueryCondition.Size = new System.Drawing.Size(160, 22);
-            this.FormMaterialsJXCQueryCondition.Text = "料件进销存查询";
-            this.FormMaterialsJXCQueryCondition.Click += new System.EventHandler(this.FormMaterialsJXCQueryCondition_Click);
-            // 
             // indexToolStripMenuItem
             // 
             this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
@@ -438,6 +443,37 @@
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             this.searchToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.searchToolStripMenuItem.Text = "搜索(&S)";
+            // 
+            // 成品仓库管理ToolStripMenuItem
+            // 
+            this.成品仓库管理ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.成品入库ToolStripMenuItem,
+            this.成品出库ToolStripMenuItem,
+            this.成品库存ToolStripMenuItem});
+            this.成品仓库管理ToolStripMenuItem.Name = "成品仓库管理ToolStripMenuItem";
+            this.成品仓库管理ToolStripMenuItem.Size = new System.Drawing.Size(92, 21);
+            this.成品仓库管理ToolStripMenuItem.Text = "成品仓库管理";
+            // 
+            // 成品入库ToolStripMenuItem
+            // 
+            this.成品入库ToolStripMenuItem.Name = "成品入库ToolStripMenuItem";
+            this.成品入库ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.成品入库ToolStripMenuItem.Text = "成品入库单";
+            this.成品入库ToolStripMenuItem.Click += new System.EventHandler(this.成品入库ToolStripMenuItem_Click);
+            // 
+            // 成品出库ToolStripMenuItem
+            // 
+            this.成品出库ToolStripMenuItem.Name = "成品出库ToolStripMenuItem";
+            this.成品出库ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.成品出库ToolStripMenuItem.Text = "成品出库单";
+            this.成品出库ToolStripMenuItem.Click += new System.EventHandler(this.成品出库ToolStripMenuItem_Click);
+            // 
+            // 成品库存ToolStripMenuItem
+            // 
+            this.成品库存ToolStripMenuItem.Name = "成品库存ToolStripMenuItem";
+            this.成品库存ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.成品库存ToolStripMenuItem.Text = "成品库存";
+            this.成品库存ToolStripMenuItem.Click += new System.EventHandler(this.成品库存ToolStripMenuItem_Click);
             // 
             // Form_Main
             // 
@@ -511,6 +547,10 @@
         private System.Windows.Forms.ToolStripMenuItem FormMaterialsInQueryCondition;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem FormMaterialsJXCQueryCondition;
+        private System.Windows.Forms.ToolStripMenuItem 成品仓库管理ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 成品入库ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 成品出库ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 成品库存ToolStripMenuItem;
     }
 }
 

@@ -1,0 +1,17 @@
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\bin\Debug\AndyImportOrderData.exe.config
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\bin\Debug\AndyImportOrderData.exe
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\bin\Debug\AndyImportOrderData.pdb
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\bin\Debug\AndyImportOrderData.xml
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\obj\Debug\ResolveAssemblyReference.cache
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\obj\Debug\AndyImportOrderData.Login.resources
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\obj\Debug\AndyImportOrderData.Resources.resources
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\obj\Debug\AndyImportOrderData.Form2.resources
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\obj\Debug\AndyImportOrderData.DetailList.resources
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\obj\Debug\AndyImportOrderData.vbproj.GenerateResource.Cache
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\obj\Debug\AndyImportOrderData.exe
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\obj\Debug\AndyImportOrderData.xml
+D:\5S\优丽\优丽\AndyImportOrderData\AndyImportData\obj\Debug\AndyImportOrderData.pdb
+D:\5S\优丽\优丽\AndyViewProductPrice\AndyImportData\bin\Debug\AndyImportOrderData.exe.config
+D:\5S\优丽\优丽\AndyViewProductPrice\AndyImportData\obj\Debug\AndyImportOrderData.exe
+D:\5S\优丽\优丽\AndyViewProductPrice\AndyImportData\obj\Debug\AndyImportOrderData.xml
+D:\5S\优丽\优丽\AndyViewProductPrice\AndyImportData\obj\Debug\AndyImportOrderData.pdb

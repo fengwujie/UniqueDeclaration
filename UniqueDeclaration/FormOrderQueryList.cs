@@ -88,7 +88,7 @@ namespace UniqueDeclaration
             try
             {
                 int iOrderID = 0;
-                if (this.dataGridViewHead.CurrentRow.Index >= 0)
+                if (this.dataGridViewHead.CurrentRow!=null && this.dataGridViewHead.CurrentRow.Index >= 0)
                 {
                     if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value !=DBNull.Value)
                         iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
@@ -463,7 +463,7 @@ namespace UniqueDeclaration
             strSQL = string.Format("delete from 产品配件改样报关订单材料表 where 订单id ={0} and 订单明细表id not in (select 订单明细表id from 报关预先订单明细表 where 订单id ={0})", iOrderID);
             dataAccess.ExecuteNonQuery(strSQL, null);
             dataAccess.Close();
-            int iOrderDetailID = Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["订单明细表id"].Value);
+            int iOrderDetailID =this.dataGridViewDetails.CurrentRow.Cells["订单明细表id"].Value ==DBNull.Value ? 0 : Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["订单明细表id"].Value);
             if (this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value == DBNull.Value || Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value) == 0)
             {
                 dataAccess.Open();
@@ -679,6 +679,7 @@ namespace UniqueDeclaration
                 strBuilder.AppendLine(string.Format("delete from 产品配件改样报关订单材料表 where 订单id ={0}", iOrderID));
                 strBuilder.AppendLine(string.Format("delete from 报关预先订单明细表 where 订单id={0}", iOrderID));
                 strBuilder.AppendLine(string.Format("delete from 报关预先订单表 where 订单id={0}", iOrderID));
+                dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                 dataAccess.CommitTran();
                 dataAccess.Close();
                 string strSuccess = string.Format("{0}[{1}]成功！", btnDelete.Text, this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value);

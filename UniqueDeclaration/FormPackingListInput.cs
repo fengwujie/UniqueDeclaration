@@ -467,23 +467,35 @@ namespace UniqueDeclaration
                 dataAccess.Close();
                 if (dtTemp.Rows.Count > 0)
                 {
-                    FormBaseSingleSelect selectForm = new FormBaseSingleSelect();
-                    selectForm.strFormText = "选择订单号码";
-                    selectForm.dtData = dtTemp;
-                    if (selectForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    DataRow selectRow = null;
+                    if (dtTemp.Rows.Count == 1)
                     {
-                        rowHead["订单号码"] = selectForm.returnRow["订单号码"];
-                        rowHead["客户代码"] = selectForm.returnRow["客户代码"];
-                        rowHead["客户名称"] = selectForm.returnRow["客户名称"];
-                        if(txt_装箱单号.Text.Trim().Length ==0)
-                            rowHead["装箱单号"] = selectForm.returnRow["订单号码"];
-
-                        txt_订单号码.Text = selectForm.returnRow["订单号码"].ToString();
-                        txt_客户代码.Text = selectForm.returnRow["客户代码"].ToString();
-                        txt_客户名称.Text = selectForm.returnRow["客户名称"].ToString();
-                        cbox_手册编号.SelectedValue = selectForm.returnRow["手册编号"];
+                        selectRow = dtTemp.Rows[0];
+                    }
+                    else
+                    {
+                        FormBaseSingleSelect selectForm = new FormBaseSingleSelect();
+                        selectForm.strFormText = "选择订单号码";
+                        selectForm.dtData = dtTemp;
+                        if (selectForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            selectRow = selectForm.returnRow;
+                        }
+                    }
+                    if (selectRow != null)
+                    {
+                        rowHead["订单号码"] = selectRow["订单号码"];
+                        rowHead["客户代码"] = selectRow["客户代码"];
+                        rowHead["客户名称"] = selectRow["客户名称"];
                         if (txt_装箱单号.Text.Trim().Length == 0)
-                            txt_装箱单号.Text = selectForm.returnRow["订单号码"].ToString();
+                            rowHead["装箱单号"] = selectRow["订单号码"];
+
+                        txt_订单号码.Text = selectRow["订单号码"].ToString();
+                        txt_客户代码.Text = selectRow["客户代码"].ToString();
+                        txt_客户名称.Text = selectRow["客户名称"].ToString();
+                        cbox_手册编号.SelectedValue = selectRow["手册编号"];
+                        if (txt_装箱单号.Text.Trim().Length == 0)
+                            txt_装箱单号.Text = selectRow["订单号码"].ToString();
 
                         set订单号码();
                     }
@@ -721,6 +733,22 @@ namespace UniqueDeclaration
             if (txt_订单号码.Text.Trim().Length == 0) return;
             IDataAccess dataManufacture = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             IDataAccess dataUniquegrade = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+
+                //如果最后一行的客人型号和优丽型号都为空，则删除掉
+                    //int iCount = dtDetails.Rows.Count - 1;
+                    //DataRow rowLast = dtDetails.Rows[iCount];
+                    int iCount = this.dataGridViewDetail.Rows.Count - 1;
+                    DataRow rowLast = (this.dataGridViewDetail.Rows[this.dataGridViewDetail.Rows.Count - 1].DataBoundItem as DataRowView).Row;
+                    if (rowLast.RowState == DataRowState.Added)
+                    {
+                        if ((rowLast["客人型号"] == DBNull.Value || rowLast["客人型号"].ToString().Trim().Length == 0) &&
+                         (rowLast["优丽型号"] == DBNull.Value || rowLast["优丽型号"].ToString().Trim().Length > 0))
+                        {
+                            //dtDetails.Rows.RemoveAt(iCount);
+                            this.dataGridViewDetail.Rows.RemoveAt(iCount);
+                        }
+                    }
+
             foreach (string OrderCode in txt_订单号码.Text.Trim().Split(','))
             {
                 dataManufacture.Open();
@@ -785,6 +813,10 @@ namespace UniqueDeclaration
                         dtDetails.Rows.Add(newRow);
                     }
                 }
+            }
+            if (this.dataGridViewDetail.Rows.Count == 0)
+            {
+                dtDetailsAddRow();
             }
             setTool1Enabled();
         }

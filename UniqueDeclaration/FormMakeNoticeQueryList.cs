@@ -272,6 +272,8 @@ namespace UniqueDeclaration
         private void FormOrderQueryList_Load(object sender, EventArgs e)
         {
             this.tool1_Import.Visible = true;
+            this.dataGridViewHead.AutoGenerateColumns = false;
+            this.dataGridViewDetails.AutoGenerateColumns = false;
             LoadDataSourceHead();
         }
         //明细页签变化事件
@@ -425,6 +427,7 @@ namespace UniqueDeclaration
                     }
                 }
                 dataAccess.Close();
+                dataGridViewHead_SelectionChanged(null, null);
             }
             catch (Exception ex)
             {
@@ -496,12 +499,12 @@ namespace UniqueDeclaration
                 strBuilder.AppendLine(string.Format("delete from 报关制造通知单明细表 where 制造通知单id={0}", iOrderID));
                 strBuilder.AppendLine(string.Format("delete from 报关制造通知单表 where 制造通知单id={0}", iOrderID));
                 strBuilder.AppendLine(string.Format("delete from 报关订单明细表 where 制造通知单id={0}", iOrderID));
-                strBuilder.AppendLine(string.Format("delete from 进口料件出库明细表 where 料件出库表id in (select distinct 料件出库表id from 进口料件出库表 where 制造通知单号={0}", StringTools.SqlQ(strMakeNoticeNo)));
+                strBuilder.AppendLine(string.Format("delete from 进口料件出库明细表 where 料件出库表id in (select distinct 料件出库表id from 进口料件出库表 where 制造通知单号={0})", StringTools.SqlQ(strMakeNoticeNo)));
                 strBuilder.AppendLine(string.Format("delete from 进口料件出库表 where 制造通知单号={0}", StringTools.SqlQ(strMakeNoticeNo)));
                 dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                 dataAccess.CommitTran();
                 dataAccess.Close();
-                string strSuccess = string.Format("{0}[{1}]成功！", tool1_Delete.Text, this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value);
+                string strSuccess = string.Format("{0}[{1}]成功！", tool1_Delete.Text, this.dataGridViewHead.CurrentRow.Cells["制造通知单号"].Value);
                 this.dataGridViewHead.Rows.Remove(this.dataGridViewHead.CurrentRow);
                 setTool1Enabled();
                 SysMessage.InformationMsg(strSuccess);
@@ -767,8 +770,9 @@ namespace UniqueDeclaration
                 strBuilder.AppendLine(string.Format("delete from 报关制造通知单明细表 where 制造通知单id={0}", iOrderID));
                 strBuilder.AppendLine(string.Format("delete from 报关制造通知单表 where 制造通知单id={0}", iOrderID));
                 strBuilder.AppendLine(string.Format("delete from 报关订单明细表 where 制造通知单id={0}", iOrderID));
-                strBuilder.AppendLine(string.Format("delete from 进口料件出库明细表 where 料件出库表id in (select distinct 料件出库表id from 进口料件出库表 where 制造通知单号={0}", StringTools.SqlQ(strMakeNoticeNo)));
+                strBuilder.AppendLine(string.Format("delete from 进口料件出库明细表 where 料件出库表id in (select distinct 料件出库表id from 进口料件出库表 where 制造通知单号={0})", StringTools.SqlQ(strMakeNoticeNo)));
                 strBuilder.AppendLine(string.Format("delete from 进口料件出库表 where 制造通知单号={0}", StringTools.SqlQ(strMakeNoticeNo)));
+                dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                 dataAccess.CommitTran();
                 dataAccess.Close();
                 string strSuccess = string.Format("{0}[{1}]成功！", btnExportDetails.Text, this.dataGridViewHead.CurrentRow.Cells["制造通知单号"].Value);

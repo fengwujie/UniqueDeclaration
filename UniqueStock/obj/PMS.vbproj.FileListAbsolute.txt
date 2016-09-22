@@ -1,0 +1,2 @@
+E:\Project\优丽\优丽\ManufactureBaoGuan\AndyImportData\bin\Debug\PMS.exe.config
+E:\Project\优丽\优丽\ManufactureBaoGuan\AndyImportData\bin\Debug\UniquePMS.exe.config

@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewHead = new UniqueDeclarationBaseForm.Controls.myDataGridView();
             this.制造通知单id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.myContextHead = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
@@ -119,32 +121,41 @@
             // 
             this.splitContainer1.Panel1.Controls.Add(this.dataGridViewHead);
             this.splitContainer1.Size = new System.Drawing.Size(1108, 521);
-            this.splitContainer1.SplitterDistance = 297;
+            this.splitContainer1.SplitterDistance = 287;
             // 
             // tabControl1
             // 
-            this.tabControl1.Size = new System.Drawing.Size(805, 519);
+            this.tabControl1.Size = new System.Drawing.Size(815, 519);
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.dataGridViewDetails);
-            this.tabPage1.Size = new System.Drawing.Size(797, 493);
+            this.tabPage1.Size = new System.Drawing.Size(807, 493);
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.dataGridViewMergeAfterSumCount);
-            this.tabPage2.Size = new System.Drawing.Size(800, 496);
+            this.tabPage2.Size = new System.Drawing.Size(811, 496);
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.dataGridViewMergeBeforeSumCount);
-            this.tabPage3.Size = new System.Drawing.Size(800, 496);
+            this.tabPage3.Size = new System.Drawing.Size(811, 496);
             // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.dataGridViewMergeBeforeDetailsSumCount);
-            this.tabPage4.Size = new System.Drawing.Size(800, 496);
+            this.tabPage4.Size = new System.Drawing.Size(811, 496);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Size = new System.Drawing.Size(99, 23);
+            this.btnDelete.Text = "删除制造通知单";
+            // 
+            // myCheckBox1
+            // 
+            this.myCheckBox1.Location = new System.Drawing.Point(781, 4);
             // 
             // dataGridViewHead
             // 
@@ -166,8 +177,7 @@
             this.dataGridViewHead.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewHead.Name = "dataGridViewHead";
             this.dataGridViewHead.RowTemplate.Height = 23;
-            this.dataGridViewHead.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewHead.Size = new System.Drawing.Size(295, 519);
+            this.dataGridViewHead.Size = new System.Drawing.Size(285, 519);
             this.dataGridViewHead.TabIndex = 0;
             this.dataGridViewHead.SelectionChanged += new System.EventHandler(this.dataGridViewHead_SelectionChanged);
             // 
@@ -291,7 +301,7 @@
             this.dataGridViewDetails.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewDetails.Name = "dataGridViewDetails";
             this.dataGridViewDetails.RowTemplate.Height = 23;
-            this.dataGridViewDetails.Size = new System.Drawing.Size(791, 487);
+            this.dataGridViewDetails.Size = new System.Drawing.Size(801, 487);
             this.dataGridViewDetails.TabIndex = 0;
             // 
             // 流水号
@@ -382,6 +392,9 @@
             // 
             this.实际总重.ContextMenuStrip = this.myContextDetails;
             this.实际总重.DataPropertyName = "实际总重";
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.实际总重.DefaultCellStyle = dataGridViewCellStyle1;
             this.实际总重.HeaderText = "实际总重";
             this.实际总重.Name = "实际总重";
             this.实际总重.ReadOnly = true;
@@ -391,6 +404,9 @@
             // 
             this.总重.ContextMenuStrip = this.myContextDetails;
             this.总重.DataPropertyName = "总重";
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.总重.DefaultCellStyle = dataGridViewCellStyle2;
             this.总重.HeaderText = "总重";
             this.总重.Name = "总重";
             this.总重.ReadOnly = true;
@@ -540,7 +556,7 @@
             this.dataGridViewMergeAfterSumCount.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewMergeAfterSumCount.Name = "dataGridViewMergeAfterSumCount";
             this.dataGridViewMergeAfterSumCount.RowTemplate.Height = 23;
-            this.dataGridViewMergeAfterSumCount.Size = new System.Drawing.Size(794, 490);
+            this.dataGridViewMergeAfterSumCount.Size = new System.Drawing.Size(805, 490);
             this.dataGridViewMergeAfterSumCount.TabIndex = 0;
             // 
             // 序号
@@ -637,7 +653,7 @@
             this.dataGridViewMergeBeforeSumCount.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewMergeBeforeSumCount.Name = "dataGridViewMergeBeforeSumCount";
             this.dataGridViewMergeBeforeSumCount.RowTemplate.Height = 23;
-            this.dataGridViewMergeBeforeSumCount.Size = new System.Drawing.Size(800, 496);
+            this.dataGridViewMergeBeforeSumCount.Size = new System.Drawing.Size(811, 496);
             this.dataGridViewMergeBeforeSumCount.TabIndex = 0;
             // 
             // 编号
@@ -734,7 +750,7 @@
             this.dataGridViewMergeBeforeDetailsSumCount.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewMergeBeforeDetailsSumCount.Name = "dataGridViewMergeBeforeDetailsSumCount";
             this.dataGridViewMergeBeforeDetailsSumCount.RowTemplate.Height = 23;
-            this.dataGridViewMergeBeforeDetailsSumCount.Size = new System.Drawing.Size(800, 496);
+            this.dataGridViewMergeBeforeDetailsSumCount.Size = new System.Drawing.Size(811, 496);
             this.dataGridViewMergeBeforeDetailsSumCount.TabIndex = 1;
             // 
             // 编号3
@@ -819,6 +835,7 @@
             this.Name = "FormMakeNoticeQueryList";
             this.Text = "制造通知单查询";
             this.Load += new System.EventHandler(this.FormOrderQueryList_Load);
+            this.Controls.SetChildIndex(this.myCheckBox1, 0);
             this.Controls.SetChildIndex(this.splitContainer1, 0);
             this.Controls.SetChildIndex(this.btnExportDetails, 0);
             this.Controls.SetChildIndex(this.btnExportExcel, 0);
@@ -863,6 +880,30 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn 客户名称;
         private System.Windows.Forms.DataGridViewTextBoxColumn 出货日期;
         private System.Windows.Forms.DataGridViewTextBoxColumn 录入日期;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 序号;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 商品编码;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 商品名称;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 规格型号;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 计量单位;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 损耗率;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 总用量;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 单耗;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 编号;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 商品编码2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 商品名称2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 规格型号2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 计量单位2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 损耗率2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 总用量2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 单耗2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 编号3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 商品编码3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 商品名称3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 规格型号3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 计量单位3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 损耗率3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 总用量3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 单耗3;
         private System.Windows.Forms.DataGridViewTextBoxColumn 流水号;
         private System.Windows.Forms.DataGridViewTextBoxColumn 客人型号;
         private System.Windows.Forms.DataGridViewTextBoxColumn 优丽型号;
@@ -888,29 +929,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn 产品id;
         private System.Windows.Forms.DataGridViewTextBoxColumn 配件id;
         private System.Windows.Forms.DataGridViewTextBoxColumn 订单id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 序号;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 商品编码;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 商品名称;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 规格型号;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 计量单位;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 损耗率;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 总用量;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 单耗;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 编号;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 商品编码2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 商品名称2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 规格型号2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 计量单位2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 损耗率2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 总用量2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 单耗2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 编号3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 商品编码3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 商品名称3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 规格型号3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 计量单位3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 损耗率3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 总用量3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 单耗3;
     }
 }

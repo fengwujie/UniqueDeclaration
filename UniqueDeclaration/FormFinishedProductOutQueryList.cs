@@ -395,12 +395,12 @@ namespace UniqueDeclaration
                                                                             规格型号,计量单位,数量,单位,单耗,单耗单位,损耗率,换算率) 
                                                                     SELECT {0},{1},产品id,配件id,料件id,型号,显示型号,品名,项号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,单耗,单耗单位,
                                                                             损耗率,换算率 From 产品配件改样报关前材料明细表 WHERE 制造通知单id={2} and 制造通知单明细表id={3} and 产品id={4}",
-                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["产品id"]));
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单明细表id"], dtTemp.Rows[0]["产品id"]));
                                 strBuilder.AppendLine(string.Format(@"INSERT INTO 产品配件改样报关材料表(订单id,订单明细表id,产品id,配件id,料件id,序号,编号,商品编码,商品名称,规格型号,计量单位,数量,
                                                                                 单位,备注,损耗率,区域) 
                                                                     SELECT {0},{1},产品id,配件id,料件id,序号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,备注,损耗率,区域 
                                                                             From 产品配件改样报关前材料表 WHERE 制造通知单id={2} and 制造通知单明细表id={3} and 产品id={4}",
-                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["产品id"]));
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单明细表id"], dtTemp.Rows[0]["产品id"]));
                                 dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                             }
                         }
@@ -415,18 +415,19 @@ namespace UniqueDeclaration
                                                                             规格型号,计量单位,数量,单位,单耗,单耗单位,损耗率,换算率) 
                                                                     SELECT {0},{1},产品id,配件id,料件id,型号,显示型号,品名,项号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,单耗,单耗单位,
                                                                             损耗率,换算率 From 产品配件改样报关前材料明细表 WHERE 制造通知单id={2} and 制造通知单明细表id={3} and 配件id={4}",
-                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["配件id"]));
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单明细表id"], dtTemp.Rows[0]["配件id"]));
                                 strBuilder.AppendLine(string.Format(@"INSERT INTO 产品配件改样报关材料表(订单id,订单明细表id,产品id,配件id,料件id,序号,编号,商品编码,商品名称,规格型号,计量单位,数量,
                                                                             单位,备注,损耗率,区域) 
                                                                     SELECT {0},{1},产品id,配件id,料件id,序号,编号,商品编码,商品名称,规格型号,计量单位,数量,单位,备注,损耗率,区域 
                                                                             From 产品配件改样报关前材料表 WHERE 制造通知单id={2} and 制造通知单明细表id={3} and 配件id={4}",
-                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["配件id"]));
+                                                                    OrderID, OrderListID, dtTemp.Rows[0]["制造通知单id"], dtTemp.Rows[0]["制造通知单明细表id"], dtTemp.Rows[0]["配件id"]));
                                 dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                             }
                         }
                     }
                 }
                 dataAccess.Close();
+                this.dataGridViewHead_SelectionChanged(null, null);
             }
             catch (Exception ex)
             {
@@ -932,6 +933,7 @@ namespace UniqueDeclaration
                 strBuilder.AppendLine(string.Format("delete from 产品配件改样报关材料表 where 订单id ={0}", id));
                 strBuilder.AppendLine(string.Format("delete from 报关订单明细表 where 订单id={0}", id));
                 strBuilder.AppendLine(string.Format("delete from 报关订单表 where 订单id={0}", id));
+                dataAccess.ExecuteNonQuery(strBuilder.ToString(),null);
                 dataAccess.CommitTran();
                 dataAccess.Close();
                 string strSuccess = string.Format("{0}[{1}]成功！", btnDelete.Text, this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value);

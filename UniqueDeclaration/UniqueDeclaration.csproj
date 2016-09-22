@@ -462,6 +462,10 @@
       <Project>{287C532F-02AD-444C-AC6B-D1B5E96114EF}</Project>
       <Name>UniqueDeclarationPubilc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniqueStock\UniquePMS.vbproj">
+      <Project>{BF9DED45-5921-493D-9446-14B652C4B3CE}</Project>
+      <Name>UniquePMS</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -506,6 +510,7 @@
     <None Include="bin\Debug\Image\back_24px.png" />
     <None Include="bin\Debug\Image\Add_24px.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

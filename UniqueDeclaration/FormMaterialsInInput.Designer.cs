@@ -96,12 +96,12 @@
             this.groupBox1.Controls.Add(this.txt_入库单号2);
             this.groupBox1.Controls.Add(this.txt_入库单号1);
             this.groupBox1.Controls.Add(this.myLable1);
-            this.groupBox1.Size = new System.Drawing.Size(1094, 119);
+            this.groupBox1.Size = new System.Drawing.Size(1094, 133);
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(0, 144);
-            this.groupBox2.Size = new System.Drawing.Size(1094, 368);
+            this.groupBox2.Location = new System.Drawing.Point(0, 158);
+            this.groupBox2.Size = new System.Drawing.Size(1094, 354);
             // 
             // txt_录入员
             // 
