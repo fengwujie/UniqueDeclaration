@@ -2582,7 +2582,8 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
             DataTable dtData = null;
 
             #region 如果明细已经导入，先询问是否删除
-            if (dtModifyAfterHead.Rows.Count > 0)
+            //if (dtModifyAfterHead.Rows.Count > 0)
+            if (dgv_ModifyAfterHead.RowCount > 0 && (dgv_ModifyAfterHead.Rows[dgv_ModifyAfterHead.RowCount - 1].DataBoundItem as DataRowView).Row["料件id"] != DBNull.Value)
             {
                 strSQL = string.Format(@"SELECT 报关订单明细表.订单id FROM 报关订单表 LEFT OUTER JOIN 报关订单明细表 ON 报关订单表.订单id =报关订单明细表.订单id  
                                         where 成品项号 = {0} and 版本号={1} and 手册编号='{2}' and 订单号码='{3}'",
@@ -2632,8 +2633,27 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
             dataAccess.Open();
             dtData = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
-            if (dtData.Rows.Count > 0 && dtData.Rows[0]["id"]!=DBNull.Value)
+            if (dtData.Rows.Count > 0 && dtData.Rows[0]["id"] != DBNull.Value)
             {
+                DataSet dsHistory = dsMoidfyDataHistory(Convert.ToInt32(dtData.Rows[0]["id"]));
+                DataSet ds = dsModifyData();
+                FormBaseBOMCompare compareForm = new FormBaseBOMCompare();
+                compareForm.dtModifyHeadTemp = ds.Tables[0];
+                compareForm.dtModifyDetailTemp = ds.Tables[1];
+                compareForm.dtModifyHeadHistoryTemp = dsHistory.Tables[0];
+                compareForm.dtModifyDetailHistoryTemp = dsHistory.Tables[1];
+                if (compareForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    DataTableTools.DataTableAddToDataTable(compareForm.dtReturnHead, dtModifyAfterHead);
+                    DataTableTools.DataTableAddToDataTable(compareForm.dtReturnDetail, dtModifyAfterDetail);
+                    SaveModifyAfterHead();
+                    SaveModifyAfterDetail();
+                    LoadDataSource();
+                    Sum总重();
+                }
+
+                #region 注释以前的方法
+                /*
                 if (SysMessage.YesNoMsg("历史数据已存在此产品的改样明细，是否应用？") == System.Windows.Forms.DialogResult.Yes)
                 {
                     strSQL = string.Format("select 产品id,配件id,订单id,订单明细表id from 产品配件改样报关订单材料明细表  where 产品配件改样报关订单材料明细表id = {0}", dtData.Rows[0]["id"]);
@@ -2714,8 +2734,8 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                             newRow["序号"] = row["序号"];
                             newRow["编号"] = row["编号"];
                             newRow["料件型号"] = row["料件型号"];
-                            if(dtModifyAfterHead.Rows.Count > 0)
-                                dtModifyAfterHead.Rows[dtModifyAfterHead.Rows.Count-1]["品名"] = row["品名"];
+                            if (dtModifyAfterHead.Rows.Count > 0)
+                                dtModifyAfterHead.Rows[dtModifyAfterHead.Rows.Count - 1]["品名"] = row["品名"];
                             newRow["商品编码"] = row["商品编码"];
                             newRow["商品名称"] = row["商品名称"];
                             newRow["规格型号"] = row["规格型号"];
@@ -2740,10 +2760,25 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
 
                     return;
                 }
+                */
+                #endregion
+            }
+            else
+            {
+                DataSet ds = dsModifyData();
+                DataTable dtModifyHeadTemp = ds.Tables[0];
+                DataTable dtModifyDetailTemp = ds.Tables[1];
+                DataTableTools.DataTableAddToDataTable(dtModifyHeadTemp, dtModifyAfterHead);
+                DataTableTools.DataTableAddToDataTable(dtModifyDetailTemp, dtModifyAfterDetail);
+                SaveModifyAfterHead();
+                SaveModifyAfterDetail();
+                LoadDataSource();
+                Sum总重();
             }
             #endregion
 
             #region 根据改样明细，处理改样后数据
+            /*
             if (dtModifyBefore.Rows.Count > 0)
             {
                 string three显示型号 = string.Empty;
@@ -2864,7 +2899,258 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 LoadDataSource();
                 Sum总重();
             }
+            */
             #endregion
+        }
+        /// <summary>
+        /// 根据改样前明细表，处理改样后数据
+        /// </summary>
+        /// <returns>返回构建后的改样后数据</returns>
+        private DataSet dsModifyData()
+        {
+            DataTable dtModifyHeadTemp = dtModifyAfterHead.Clone();
+            DataTable dtModifyDetailTemp = dtModifyAfterDetail.Clone();
+
+            #region 根据改样明细，处理改样后数据
+            if (dtModifyBefore.Rows.Count > 0)
+            {
+                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                string strSQL = string.Empty;
+                string three显示型号 = string.Empty;
+                DataTable dtTemp = null;
+                dataAccess.Open();
+                foreach (DataRow row in dtModifyBefore.Rows)
+                {
+                    if (row["数量"] == DBNull.Value || Convert.ToInt32(row["数量"]) == 0) continue;
+                    bool b显示型号 = true;
+                    if (row["显示型号"] != DBNull.Value && row["显示型号"].ToString() != "")
+                    {
+                        three显示型号 = row["显示型号"].ToString().Substring(0, 3);
+                        if (!(three显示型号 == "A16" || three显示型号 == "A18" || three显示型号 == "A18" || three显示型号 == "A20" || three显示型号 == "A21"
+                        || three显示型号 == "A22" || three显示型号 == "A23" || three显示型号 == "A24"))
+                        {
+                            b显示型号 = false;
+                        }
+                    }
+                    if (!b显示型号)  //如果有型号的话，添加到第一个GRID
+                    {
+                        #region //如果有型号的话，添加到第一个GRID
+                        DataRow newRow = dtModifyHeadTemp.NewRow();
+                        newRow["订单id"] = OrderId;
+                        newRow["订单明细表id"] = OrderListId;
+                        newRow["产品id"] = Pid;
+                        newRow["配件id"] = Fid;
+                        newRow["料件id"] = row["料件id"];
+                        newRow["型号"] = row["型号"] == DBNull.Value ? "" : row["型号"];
+                        newRow["显示型号"] = row["显示型号"];
+                        if (row["显示型号"].ToString().StartsWith("A") || row["显示型号"].ToString().StartsWith("B"))
+                        {
+                            newRow["编号"] = row["显示型号"].ToString().Substring(0, 8);
+                        }
+                        newRow["品名"] = row["品名"];
+                        newRow["项号"] = row["项号"];
+                        newRow["商品编码"] = row["商品编码"];
+                        newRow["商品名称"] = row["商品名称"];
+                        newRow["规格型号"] = row["规格型号"];
+                        newRow["计量单位"] = row["计量单位"];
+                        newRow["数量"] = row["数量"];
+                        newRow["单位"] = row["单位"];
+                        if (row["数量"] != DBNull.Value && Convert.ToInt32(row["数量"]) != 0)
+                        {
+                            newRow["换算率"] = (Convert.ToDecimal(row["单耗"]) / Convert.ToInt32(row["数量"])).ToString("N5");
+                        }
+                        newRow["单耗"] = Convert.ToDecimal(row["单耗"]).ToString("N5");
+                        newRow["单耗单位"] = row["单耗单位"];
+                        #region 根据项号获得序号，获取损耗率
+                        if (row["项号"] != DBNull.Value && row["项号"].ToString() != "")
+                        {
+                            string str项号 = row["项号"].ToString();
+                            int i序号;
+                            if (!str项号.Contains("-"))  //如果不包含“-”的话，则直接将项号转成数字值
+                            {
+                                try
+                                {
+                                    i序号 = int.Parse(str项号);
+                                }
+                                catch
+                                {
+                                    i序号 = 0;
+                                }
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    i序号 = int.Parse(str项号.Substring(0, str项号.IndexOf('-')));
+                                }
+                                catch
+                                {
+                                    i序号 = 0;
+                                }
+                            }
+                            strSQL = string.Format("SELECT 损耗率 From 归并后料件清单 where 序号={0}", i序号);
+                            dtTemp = dataAccess.GetTable(strSQL, null);
+                            if (dtTemp.Rows.Count > 0) newRow["损耗率"] = dtTemp.Rows[0]["损耗率"];
+                        }
+                        #endregion
+                        dtModifyHeadTemp.Rows.Add(newRow);
+                        #endregion
+                    }
+                    else
+                    {
+                        # region 如果没有型号的话，添加到第二个GRID
+                        DataRow newRow = dtModifyDetailTemp.NewRow();
+                        newRow["数量"] = 0;
+                        newRow["单位"] = "KGS";
+                        newRow["区域"] = "A";
+                        newRow["订单id"] = OrderId;
+                        newRow["订单明细表id"] = OrderListId;
+                        newRow["产品id"] = Pid;
+                        newRow["配件id"] = Fid;
+                        newRow["料件id"] = row["料件id"];
+                        newRow["序号"] = row["显示型号"] == DBNull.Value ? 0 : int.Parse(row["显示型号"].ToString().Substring(1, 2));
+                        newRow["编号"] = row["显示型号"] == DBNull.Value ? "" : row["显示型号"];
+                        newRow["料件型号"] = row["型号"] == DBNull.Value ? "" : row["型号"];
+                        newRow["品名"] = row["品名"];
+                        strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.损耗率, H.商品编码, H.商品名称, Q.商品规格, H.计量单位 FROM dbo.归并后料件清单 H 
+                                    LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id where H.序号={0} AND H.电子帐册号='{1}'", newRow["序号"], ManualCode);
+                        dtTemp = dataAccess.GetTable(strSQL, null);
+                        if (dtTemp.Rows.Count > 0)
+                        {
+                            DataRow rowTemp = dtTemp.Rows[0];
+                            newRow["序号"] = rowTemp["序号"];
+                            newRow["商品编码"] = rowTemp["商品编码"];
+                            newRow["商品名称"] = rowTemp["商品名称"];
+                            newRow["计量单位"] = rowTemp["计量单位"];
+                            newRow["损耗率"] = rowTemp["损耗率"];
+                            newRow["规格型号"] = rowTemp["规格型号"];
+                            newRow["数量"] = rowTemp["单耗"] == DBNull.Value ? rowTemp["单耗"] : Convert.ToInt32(rowTemp["单耗"]).ToString("N5");
+                            newRow["单位"] = rowTemp["单耗单位"];
+                            newRow["区域"] = "A";
+                        }
+                        dtModifyDetailTemp.Rows.Add(newRow);
+                        #endregion
+                    }
+                    dataAccess.Close();
+                }
+                //SaveModifyAfterHead();
+                //SaveModifyAfterDetail();
+                //LoadDataSource();
+                //Sum总重();
+            }
+            #endregion
+            DataSet ds = new DataSet();
+            ds.Tables.AddRange(new DataTable[]{dtModifyHeadTemp,dtModifyDetailTemp});
+            return ds;
+        }
+        /// <summary>
+        /// 根据产品配件改样报关订单材料明细表id，获取“产品配件改样报关订单材料表”“产品配件改样报关订单材料明细表”，并构建成改样后的数据
+        /// </summary>
+        /// <param name="id">产品配件改样报关订单材料明细表id</param>
+        /// <returns>返回构建后的改样后数据</returns>
+        private DataSet dsMoidfyDataHistory(int id)
+        {
+            DataTable dtModifyHeadTemp = dtModifyAfterHead.Clone();
+            DataTable dtModifyDetailTemp = dtModifyAfterDetail.Clone();
+
+            string strSQL = string.Format("select 产品id,配件id,订单id,订单明细表id from 产品配件改样报关订单材料明细表  where 产品配件改样报关订单材料明细表id = {0}", id);
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            DataTable dtData = dataAccess.GetTable(strSQL, null);
+            dataAccess.Close();
+            #region 获取“产品配件改样报关订单材料表”“产品配件改样报关订单材料明细表”
+            DataTable dt产品配件改样报关订单材料明细表 = null;
+            DataTable dt产品配件改样报关订单材料表 = null;
+            if (dtData.Rows.Count > 0)
+            {
+                DataRow row = dtData.Rows[0];
+                dataAccess.Open();
+                if (row["配件id"] == DBNull.Value || Convert.ToInt32(row["配件id"]) == 0)
+                {
+                    strSQL = string.Format("select * from 产品配件改样报关订单材料明细表  where 订单id ={0} and 订单明细表id ={1} and 产品id = {2}",
+                        row["订单id"], row["订单明细表id"], row["产品id"]);
+                    dt产品配件改样报关订单材料明细表 = dataAccess.GetTable(strSQL, null);
+                    strSQL = string.Format("select * from 产品配件改样报关订单材料表  where 订单id ={0} and 订单明细表id ={1} and 产品id = {2}",
+                        row["订单id"], row["订单明细表id"], row["产品id"]);
+                    dt产品配件改样报关订单材料表 = dataAccess.GetTable(strSQL, null);
+                }
+                else
+                {
+                    strSQL = string.Format("select * from 产品配件改样报关订单材料明细表  where 订单id ={0} and 订单明细表id ={1} and 配件id = {2}",
+                        row["订单id"], row["订单明细表id"], row["配件id"]);
+                    dt产品配件改样报关订单材料明细表 = dataAccess.GetTable(strSQL, null);
+                    strSQL = string.Format("select * from 产品配件改样报关订单材料表  where 订单id ={0} and 订单明细表id ={1} and 配件id = {2}",
+                        row["订单id"], row["订单明细表id"], row["配件id"]);
+                    dt产品配件改样报关订单材料表 = dataAccess.GetTable(strSQL, null);
+                }
+                dataAccess.Close();
+            }
+            #endregion
+
+            #region 添加改样后页签上面GRID值
+            if (dt产品配件改样报关订单材料明细表 != null && dt产品配件改样报关订单材料明细表.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt产品配件改样报关订单材料明细表.Rows)
+                {
+                    DataRow newRow = dtModifyHeadTemp.NewRow();
+                    newRow["订单id"] = OrderId;
+                    newRow["订单明细表id"] = OrderListId;
+                    newRow["产品id"] = Pid;
+                    newRow["配件id"] = Fid;
+                    newRow["料件id"] = row["料件id"];
+                    newRow["型号"] = row["型号"];
+                    newRow["显示型号"] = row["显示型号"];
+                    newRow["品名"] = row["品名"];
+                    newRow["项号"] = row["项号"];
+                    newRow["编号"] = row["编号"];
+                    newRow["商品编码"] = row["商品编码"];
+                    newRow["商品名称"] = row["商品名称"];
+                    newRow["规格型号"] = row["规格型号"];
+                    newRow["计量单位"] = row["计量单位"];
+                    newRow["数量"] = row["数量"];
+                    newRow["单位"] = row["单位"];
+                    newRow["换算率"] = row["换算率"];
+                    newRow["单耗"] = row["单耗"];
+                    newRow["单耗单位"] = row["单耗单位"];
+                    newRow["损耗率"] = row["损耗率"];
+                    dtModifyHeadTemp.Rows.Add(newRow);
+                }
+            }
+            #endregion
+
+            #region 添加改样后页签下面GRID值
+            if (dt产品配件改样报关订单材料表 != null && dt产品配件改样报关订单材料表.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt产品配件改样报关订单材料表.Rows)
+                {
+                    DataRow newRow = dtModifyDetailTemp.NewRow();
+                    newRow["订单id"] = OrderId;
+                    newRow["订单明细表id"] = OrderListId;
+                    newRow["产品id"] = Pid;
+                    newRow["配件id"] = Fid;
+                    newRow["料件id"] = row["料件id"];
+                    newRow["序号"] = row["序号"];
+                    newRow["编号"] = row["编号"];
+                    newRow["料件型号"] = row["料件型号"];
+                    if (dtModifyAfterHead.Rows.Count > 0)
+                        dtModifyAfterHead.Rows[dtModifyAfterHead.Rows.Count - 1]["品名"] = row["品名"];
+                    newRow["商品编码"] = row["商品编码"];
+                    newRow["商品名称"] = row["商品名称"];
+                    newRow["规格型号"] = row["规格型号"];
+                    newRow["计量单位"] = row["计量单位"];
+                    newRow["损耗率"] = row["损耗率"];
+                    newRow["数量"] = row["数量"];
+                    newRow["单位"] = row["单位"];
+                    newRow["备注"] = row["备注"];
+                    newRow["区域"] = row["区域"];
+                    dtModifyDetailTemp.Rows.Add(newRow);
+                }
+            }
+            #endregion
+
+            DataSet ds = new DataSet();
+            ds.Tables.AddRange(new DataTable[] { dtModifyHeadTemp, dtModifyDetailTemp });
+            return ds;
         }
         
         public override void tool_Close_Click(object sender, EventArgs e)

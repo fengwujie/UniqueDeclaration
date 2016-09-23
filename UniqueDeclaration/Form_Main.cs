@@ -286,7 +286,7 @@ namespace UniqueDeclaration
             FormMaterialsJXCQueryCondition queryConditionForm = new FormMaterialsJXCQueryCondition();
             if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                FormMaterialsJXCQueryList queryListForm = new FormMaterialsJXCQueryList();
+                UniqueDeclarationBaseForm.FormBaseQueryListSingle queryListForm = new UniqueDeclarationBaseForm.FormBaseQueryListSingle ();
                 queryListForm.gstrWhere = queryConditionForm.strReturnWhere;
                 queryListForm.mdFromDate = queryConditionForm.mdFromDate;
                 queryListForm.mdFromDateString = queryConditionForm.mdFromDateString;
@@ -294,7 +294,7 @@ namespace UniqueDeclaration
                 queryListForm.mdToDateString = queryConditionForm.mdToDateString;
                 queryListForm.ManualCode = queryConditionForm.ManualCode;
                 queryListForm.passvalue = queryConditionForm.passvalue;
-                //queryListForm.mQueryWay = "rpt料件进销存";
+                queryListForm.mQueryWay = UniqueDeclarationBaseForm.ReportsEnum.ReportsEnum_rpt料件进销存;
                 queryListForm.MdiParent = this;
                 queryListForm.Show();
             }

@@ -30,15 +30,15 @@ namespace UniqueDeclaration
             }
             if (datetime_入库时间1.Checked)
             {
-                strReturnWhere += (strReturnWhere.Length > 0 ? "," : "") + string.Format("@期初时间='{0}'",datetime_入库时间1.Value.ToString("yyyymmdd hh:mm:ss"));
-                mdFromDate = datetime_入库时间1.Value.ToString("yyyymmdd hh:mm:ss");
-                mdFromDateString = datetime_入库时间1.Value.ToString("yyyymmdd hh:mm:ss");
+                strReturnWhere += (strReturnWhere.Length > 0 ? "," : "") + string.Format("@期初时间='{0}'",datetime_入库时间1.Value.ToString("yyyyMMdd HH:mm:ss"));
+                mdFromDate = datetime_入库时间1.Value.ToString("yyyyMMdd HH:mm:ss");
+                mdFromDateString = datetime_入库时间1.Value.ToString("yyyy-MM-dd HH:mm:ss");
             }
             if (datetime_入库时间2.Checked)
             {
-                strReturnWhere += (strReturnWhere.Length > 0 ? "," : "") + string.Format("@期末时间='{0}'", datetime_入库时间2.Value.ToString("yyyymmdd hh:mm:ss"));
-                mdToDate = datetime_入库时间2.Value.ToString("yyyymmdd hh:mm:ss");
-                mdToDateString = datetime_入库时间2.Value.ToString("yyyymmdd hh:mm:ss");
+                strReturnWhere += (strReturnWhere.Length > 0 ? "," : "") + string.Format("@期末时间='{0}'", datetime_入库时间2.Value.ToString("yyyyMMdd HH:mm:ss"));
+                mdToDate = datetime_入库时间2.Value.ToString("yyyyMMdd HH:mm:ss");
+                mdToDateString = datetime_入库时间2.Value.ToString("yyyy-MM-dd HH:mm:ss");
             }
             if (cbox_电子帐册号.SelectedValue != DBNull.Value && cbox_电子帐册号.SelectedValue != DBNull.Value)
             {

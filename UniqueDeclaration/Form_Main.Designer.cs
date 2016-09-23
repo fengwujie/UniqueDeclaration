@@ -58,6 +58,10 @@
             this.FormPackingOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.FormInvoiceOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.成品仓库管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.成品入库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.成品出库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.成品库存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.newWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,6 +71,8 @@
             this.arrangeIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -74,12 +80,6 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStatus_Version = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.成品仓库管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.成品入库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.成品出库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.成品库存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -98,7 +98,7 @@
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.MdiWindowListItem = this.windowsMenu;
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1147, 25);
+            this.menuStrip.Size = new System.Drawing.Size(1226, 25);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
@@ -309,6 +309,37 @@
             this.FormInvoiceOutQueryCondition.Text = "INVOICE（查询）";
             this.FormInvoiceOutQueryCondition.Click += new System.EventHandler(this.FormInvoiceOutQueryCondition_Click);
             // 
+            // 成品仓库管理ToolStripMenuItem
+            // 
+            this.成品仓库管理ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.成品入库ToolStripMenuItem,
+            this.成品出库ToolStripMenuItem,
+            this.成品库存ToolStripMenuItem});
+            this.成品仓库管理ToolStripMenuItem.Name = "成品仓库管理ToolStripMenuItem";
+            this.成品仓库管理ToolStripMenuItem.Size = new System.Drawing.Size(92, 21);
+            this.成品仓库管理ToolStripMenuItem.Text = "成品仓库管理";
+            // 
+            // 成品入库ToolStripMenuItem
+            // 
+            this.成品入库ToolStripMenuItem.Name = "成品入库ToolStripMenuItem";
+            this.成品入库ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.成品入库ToolStripMenuItem.Text = "成品入库单";
+            this.成品入库ToolStripMenuItem.Click += new System.EventHandler(this.成品入库ToolStripMenuItem_Click);
+            // 
+            // 成品出库ToolStripMenuItem
+            // 
+            this.成品出库ToolStripMenuItem.Name = "成品出库ToolStripMenuItem";
+            this.成品出库ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.成品出库ToolStripMenuItem.Text = "成品出库单";
+            this.成品出库ToolStripMenuItem.Click += new System.EventHandler(this.成品出库ToolStripMenuItem_Click);
+            // 
+            // 成品库存ToolStripMenuItem
+            // 
+            this.成品库存ToolStripMenuItem.Name = "成品库存ToolStripMenuItem";
+            this.成品库存ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.成品库存ToolStripMenuItem.Text = "成品库存";
+            this.成品库存ToolStripMenuItem.Click += new System.EventHandler(this.成品库存ToolStripMenuItem_Click);
+            // 
             // windowsMenu
             // 
             this.windowsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -382,6 +413,22 @@
             this.contentsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.contentsToolStripMenuItem.Text = "目录(&C)";
             // 
+            // indexToolStripMenuItem
+            // 
+            this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
+            this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
+            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.indexToolStripMenuItem.Text = "索引(&I)";
+            // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("searchToolStripMenuItem.Image")));
+            this.searchToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.searchToolStripMenuItem.Text = "搜索(&S)";
+            // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
@@ -399,9 +446,9 @@
             this.toolStatus_User,
             this.toolStripStatusLabel1,
             this.toolStatus_Version});
-            this.statusStrip.Location = new System.Drawing.Point(0, 527);
+            this.statusStrip.Location = new System.Drawing.Point(0, 557);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1147, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1226, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "StatusStrip";
             // 
@@ -410,14 +457,14 @@
             this.toolStatus_User.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStatus_User.ForeColor = System.Drawing.Color.Blue;
             this.toolStatus_User.Name = "toolStatus_User";
-            this.toolStatus_User.Size = new System.Drawing.Size(67, 17);
+            this.toolStatus_User.Size = new System.Drawing.Size(68, 17);
             this.toolStatus_User.Text = "您还未登录";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(11, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(12, 17);
             this.toolStripStatusLabel1.Text = "|";
             // 
             // toolStatus_Version
@@ -425,62 +472,15 @@
             this.toolStatus_Version.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStatus_Version.ForeColor = System.Drawing.Color.Blue;
             this.toolStatus_Version.Name = "toolStatus_Version";
-            this.toolStatus_Version.Size = new System.Drawing.Size(79, 17);
+            this.toolStatus_Version.Size = new System.Drawing.Size(80, 17);
             this.toolStatus_Version.Text = "当前系统版本";
-            // 
-            // indexToolStripMenuItem
-            // 
-            this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
-            this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
-            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.indexToolStripMenuItem.Text = "索引(&I)";
-            // 
-            // searchToolStripMenuItem
-            // 
-            this.searchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("searchToolStripMenuItem.Image")));
-            this.searchToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.searchToolStripMenuItem.Text = "搜索(&S)";
-            // 
-            // 成品仓库管理ToolStripMenuItem
-            // 
-            this.成品仓库管理ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.成品入库ToolStripMenuItem,
-            this.成品出库ToolStripMenuItem,
-            this.成品库存ToolStripMenuItem});
-            this.成品仓库管理ToolStripMenuItem.Name = "成品仓库管理ToolStripMenuItem";
-            this.成品仓库管理ToolStripMenuItem.Size = new System.Drawing.Size(92, 21);
-            this.成品仓库管理ToolStripMenuItem.Text = "成品仓库管理";
-            // 
-            // 成品入库ToolStripMenuItem
-            // 
-            this.成品入库ToolStripMenuItem.Name = "成品入库ToolStripMenuItem";
-            this.成品入库ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.成品入库ToolStripMenuItem.Text = "成品入库单";
-            this.成品入库ToolStripMenuItem.Click += new System.EventHandler(this.成品入库ToolStripMenuItem_Click);
-            // 
-            // 成品出库ToolStripMenuItem
-            // 
-            this.成品出库ToolStripMenuItem.Name = "成品出库ToolStripMenuItem";
-            this.成品出库ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.成品出库ToolStripMenuItem.Text = "成品出库单";
-            this.成品出库ToolStripMenuItem.Click += new System.EventHandler(this.成品出库ToolStripMenuItem_Click);
-            // 
-            // 成品库存ToolStripMenuItem
-            // 
-            this.成品库存ToolStripMenuItem.Name = "成品库存ToolStripMenuItem";
-            this.成品库存ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.成品库存ToolStripMenuItem.Text = "成品库存";
-            this.成品库存ToolStripMenuItem.Click += new System.EventHandler(this.成品库存ToolStripMenuItem_Click);
             // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1147, 549);
+            this.ClientSize = new System.Drawing.Size(1226, 579);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;

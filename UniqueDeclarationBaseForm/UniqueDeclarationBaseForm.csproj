@@ -121,6 +121,12 @@
     <Compile Include="FormBaseBOM.Designer.cs">
       <DependentUpon>FormBaseBOM.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormBaseBOMCompare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaseBOMCompare.Designer.cs">
+      <DependentUpon>FormBaseBOMCompare.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormBaseDialogInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,12 @@
     </Compile>
     <Compile Include="FormBaseInput.Designer.cs">
       <DependentUpon>FormBaseInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaseQueryListSingle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaseQueryListSingle.Designer.cs">
+      <DependentUpon>FormBaseQueryListSingle.cs</DependentUpon>
     </Compile>
     <Compile Include="FormBaseLoading.cs">
       <SubType>Form</SubType>
@@ -188,11 +200,17 @@
     <EmbeddedResource Include="FormBaseBOM.resx">
       <DependentUpon>FormBaseBOM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseBOMCompare.resx">
+      <DependentUpon>FormBaseBOMCompare.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormBaseDialogInput.resx">
       <DependentUpon>FormBaseDialogInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBaseInput.resx">
       <DependentUpon>FormBaseInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaseQueryListSingle.resx">
+      <DependentUpon>FormBaseQueryListSingle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBaseLoading.resx">
       <DependentUpon>FormBaseLoading.cs</DependentUpon>

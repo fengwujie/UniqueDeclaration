@@ -479,14 +479,15 @@ namespace UniqueDeclaration
                 //如果最后一行的料件编号和料号都为空，则删除掉
                 if (dtDetails.Rows.Count > 0)
                 {
-                    int iCount = dtDetails.Rows.Count - 1;
-                    DataRow rowLast = dtDetails.Rows[iCount];
+                    int iCount = this.dataGridViewDetail.Rows.Count - 1;
+                    DataRow rowLast = (this.dataGridViewDetail.Rows[this.dataGridViewDetail.Rows.Count - 1].DataBoundItem as DataRowView).Row;
                     if (rowLast.RowState == DataRowState.Added)
                     {
                         if ((rowLast["料件编号"] == DBNull.Value || rowLast["料件编号"].ToString().Trim().Length == 0) &&
                             (rowLast["料号"] == DBNull.Value || rowLast["料号"].ToString().Trim().Length > 0))
                         {
-                            dtDetails.Rows.RemoveAt(iCount);
+                            //dtDetails.Rows.RemoveAt(iCount);
+                            this.dataGridViewDetail.Rows.RemoveAt(iCount);
                         }
                     }
                 }
