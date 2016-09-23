@@ -714,7 +714,7 @@ namespace UniqueDeclaration
 
         private void InitModifyAfterDetail()
         {
-            this.dgv_MergerAfterDetail.AutoGenerateColumns = false;
+            this.dgv_ModifyAfterDetail.AutoGenerateColumns = false;
             // 
             // 产品配件改样报关材料表id
             // 

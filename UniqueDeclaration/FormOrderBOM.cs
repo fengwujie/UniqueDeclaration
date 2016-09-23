@@ -107,6 +107,15 @@ namespace UniqueDeclaration
         /// 是否触发单元格结束编辑事件
         /// </summary>
         private bool bCellEndEdit = true;
+
+        /// <summary>
+        /// 改样后组成表头显示列名
+        /// </summary>
+        public List<string> listVisibleFieldModifyHead = new List<string>();
+        /// <summary>
+        /// 改样后组成明细显示列名
+        /// </summary>
+        public List<string> listVisibleFieldModifyDetail = new List<string>();
         #endregion
 
         #region 初始化GRID
@@ -506,7 +515,7 @@ namespace UniqueDeclaration
 
         private void InitModifyAfterDetail()
         {
-            this.dgv_MergerAfterDetail.AutoGenerateColumns = false;
+            this.dgv_ModifyAfterDetail.AutoGenerateColumns = false;
             // 
             // 产品配件改样报关订单材料表id
             // 
@@ -2642,6 +2651,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 compareForm.dtModifyDetailTemp = ds.Tables[1];
                 compareForm.dtModifyHeadHistoryTemp = dsHistory.Tables[0];
                 compareForm.dtModifyDetailHistoryTemp = dsHistory.Tables[1];
+                compareForm.mstrName = mstrName;
                 if (compareForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     DataTableTools.DataTableAddToDataTable(compareForm.dtReturnHead, dtModifyAfterHead);
