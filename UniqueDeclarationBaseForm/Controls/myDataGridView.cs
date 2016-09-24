@@ -59,5 +59,78 @@ namespace UniqueDeclarationBaseForm.Controls
                 Clipboard.Clear();
             }
         }
+
+        //private bool isRowSelected = false;
+        ///// <summary>
+        ///// 是否按回车执行TAB事件，即回车跳转到下一个控件
+        ///// </summary>
+        //[Category("自定义属性")]
+        //[Description("获取dataGridView的行索引时，是否获取Selected的行索引，默认为False时，是获取Current.Index做索引，如果有用到上一笔或下一笔功能的话，就必须设置为True")]
+        //[DefaultValue(false)]
+        //public bool IsRowSelected
+        //{
+        //    get { return isRowSelected; }
+        //    set { isRowSelected = value; }
+        //}
+
+        //public virtual void myDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        //{
+        //    if(this.IsRowSelected)
+        //        this.Rows[this.CurrentCell.RowIndex].Selected = true;
+        //}
+
+        //public virtual void myDataGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        //{
+        //    if (this.IsRowSelected)
+        //        this.Rows[this.CurrentCell.RowIndex].Selected = true;
+        //}
+        /// <summary>
+        /// 获取dataGridView的选中行索引，必须是单选时才有用
+        /// </summary>
+        /// <returns></returns>
+        public int GetSelectedRowIndex()
+        {
+            int index = -1;
+            //if (this.IsRowSelected)
+            //{
+            //    foreach (DataGridViewRow row in this.Rows)
+            //    {
+            //        if (row.Selected)
+            //        {
+            //            index = row.Index;
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    if(this.CurrentRow !=null)
+            //        index = this.CurrentRow.Index;
+            //}
+            if (this.SelectedRows.Count > 0)
+                index = this.SelectedRows[0].Index;
+            else if (this.CurrentRow != null)
+                index = this.CurrentRow.Index;
+            return index;
+        }
+
+        //private DataGridViewRow currentRowNew = null;
+        /// <summary>
+        /// 是否按回车执行TAB事件，即回车跳转到下一个控件
+        /// </summary>
+        [Category("自定义属性")]
+        [Description("获取dataGridView的当前行，处理过CurrentRow和SelectedRows，目前只适用于MultiSelect=False，因为上笔下笔操作时，Selected设置的行和CurrentRow是不一样的")]
+        [DefaultValue(null)]
+        public DataGridViewRow CurrentRowNew
+        {
+            get {
+                int index = GetSelectedRowIndex();
+                if (index >= 0)
+                    return this.Rows[index];
+                else
+                    return null;
+                //return currentRowNew; 
+            }
+            //set { currentRowNew = value; }
+        }
     }
 }

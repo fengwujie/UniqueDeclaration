@@ -103,6 +103,16 @@ namespace UniqueDeclaration.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap copy_24px {
+            get {
+                object obj = ResourceManager.GetObject("copy_24px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Delete_24px {
             get {
                 object obj = ResourceManager.GetObject("Delete_24px", resourceCulture);
@@ -226,6 +236,16 @@ namespace UniqueDeclaration.Properties {
         internal static System.Drawing.Bitmap structure_24px {
             get {
                 object obj = ResourceManager.GetObject("structure_24px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Undo_24px {
+            get {
+                object obj = ResourceManager.GetObject("Undo_24px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -322,5 +322,17 @@ namespace UniqueDeclaration
             objForm.Show();
         }
 
+        //Articles
+        private void FormCustFindSet_Click(object sender, EventArgs e)
+        {
+            FormCustFindSet objForm = new FormCustFindSet();
+            if (objForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                FormArticlesFile formArticlesFile = new FormArticlesFile();
+                formArticlesFile.CustValue = objForm.CustValue;
+                formArticlesFile.ShowDialog();
+            }
+        }
+
     }
 }

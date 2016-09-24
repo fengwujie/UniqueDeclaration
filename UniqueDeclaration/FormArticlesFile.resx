@@ -117,62 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="close_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\close_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="first_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\first_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Delete_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\Delete_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Save_24pxt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\Save_24pxt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Edit_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\Edit_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Magnify_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\Magnify_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Disk_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\Disk_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="last_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\last_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Undo_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\Undo_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="back_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\back_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="check_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\check_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Excel_2013_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\Excel_2013_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Find_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\Find_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Add_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\Add_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="shopping_webshop_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\shopping_webshop_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Print_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\Print_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="next_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\next_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="structure_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\structure_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="copy_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Image\copy_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+  <metadata name="toolStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="myContextMenuStripCell1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>127, 17</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>42</value>
+  </metadata>
 </root>

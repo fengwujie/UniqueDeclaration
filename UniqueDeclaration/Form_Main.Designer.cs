@@ -80,6 +80,8 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStatus_Version = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.FormCustFindSet = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -156,7 +158,9 @@
             this.FormFinishedProductOutInput,
             this.FormFinishedProductOutQueryCondition,
             this.FormPackingListInput,
-            this.FormPackingListQueryCondition});
+            this.FormPackingListQueryCondition,
+            this.toolStripMenuItem3,
+            this.FormCustFindSet});
             this.Business.Name = "Business";
             this.Business.Size = new System.Drawing.Size(68, 21);
             this.Business.Text = "业务管理";
@@ -457,14 +461,14 @@
             this.toolStatus_User.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStatus_User.ForeColor = System.Drawing.Color.Blue;
             this.toolStatus_User.Name = "toolStatus_User";
-            this.toolStatus_User.Size = new System.Drawing.Size(68, 17);
+            this.toolStatus_User.Size = new System.Drawing.Size(67, 17);
             this.toolStatus_User.Text = "您还未登录";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(12, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(11, 17);
             this.toolStripStatusLabel1.Text = "|";
             // 
             // toolStatus_Version
@@ -472,8 +476,20 @@
             this.toolStatus_Version.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStatus_Version.ForeColor = System.Drawing.Color.Blue;
             this.toolStatus_Version.Name = "toolStatus_Version";
-            this.toolStatus_Version.Size = new System.Drawing.Size(80, 17);
+            this.toolStatus_Version.Size = new System.Drawing.Size(79, 17);
             this.toolStatus_Version.Text = "当前系统版本";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(157, 6);
+            // 
+            // FormCustFindSet
+            // 
+            this.FormCustFindSet.Name = "FormCustFindSet";
+            this.FormCustFindSet.Size = new System.Drawing.Size(160, 22);
+            this.FormCustFindSet.Text = "Articel";
+            this.FormCustFindSet.Click += new System.EventHandler(this.FormCustFindSet_Click);
             // 
             // Form_Main
             // 
@@ -551,6 +567,8 @@
         private System.Windows.Forms.ToolStripMenuItem 成品入库ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 成品出库ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 成品库存ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem FormCustFindSet;
     }
 }
 

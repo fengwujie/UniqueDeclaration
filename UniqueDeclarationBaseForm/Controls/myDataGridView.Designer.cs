@@ -35,6 +35,7 @@
             // 
             this.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.MultiSelect = false;
             this.RowTemplate.Height = 23;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
