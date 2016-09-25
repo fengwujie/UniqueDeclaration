@@ -1178,6 +1178,11 @@ namespace UniqueDeclaration
         }
         #endregion
 
+        private void FormArticlesFile_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = !Save();
+        }
+
         
     }
 }
