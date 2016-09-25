@@ -51,6 +51,11 @@ namespace UniqueDeclaration
         
         private void Form_Main_Load(object sender, EventArgs e)
         {
+            if (DateTime.Now.Date > Convert.ToDateTime( "2016-10-30"))
+            {
+                MessageBox.Show("软件已过试用期，将无法使用退出系统！");
+                Application.Exit();
+            }
             this.toolStatus_Version.Text = string.Format("当前系统版本：{0}",Application.ProductVersion);
             SetBackgroupImage();
             Form_Login loginForm = new Form_Login();
