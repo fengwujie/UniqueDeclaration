@@ -71,6 +71,18 @@
     <Compile Include="FormArticlesFile.Designer.cs">
       <DependentUpon>FormArticlesFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormArticlesFile_ExportExcel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormArticlesFile_ExportExcel.Designer.cs">
+      <DependentUpon>FormArticlesFile_ExportExcel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormArticlesFile_Find.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormArticlesFile_Find.Designer.cs">
+      <DependentUpon>FormArticlesFile_Find.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCustFindSet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -309,6 +321,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormArticlesFile.resx">
       <DependentUpon>FormArticlesFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormArticlesFile_ExportExcel.resx">
+      <DependentUpon>FormArticlesFile_ExportExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormArticlesFile_Find.resx">
+      <DependentUpon>FormArticlesFile_Find.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCustFindSet.resx">
       <DependentUpon>FormCustFindSet.cs</DependentUpon>

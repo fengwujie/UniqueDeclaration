@@ -29,21 +29,9 @@
         private void InitializeComponent()
         {
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.tool1_First = new System.Windows.Forms.ToolStripButton();
-            this.tool1_up = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Down = new System.Windows.Forms.ToolStripButton();
-            this.tool1_End = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tool1_Add = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Save = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Undo = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Modify = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Delete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tool1_Query = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tool1_Print = new System.Windows.Forms.ToolStripButton();
-            this.btnCopy = new UniqueDeclarationBaseForm.Controls.myButton();
             this.btnExportExcel = new UniqueDeclarationBaseForm.Controls.myButton();
             this.myTabControl1 = new UniqueDeclarationBaseForm.Controls.myTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -74,24 +62,36 @@
             this.txt_Price = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable9 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_Colors = new UniqueDeclarationBaseForm.Controls.myTextBox();
-            this.myLable10 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.lab_Color = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_CostCurrencys = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable7 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_Cost = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable6 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.date_InputDate = new UniqueDeclarationBaseForm.Controls.myDateTimePicker();
             this.txt_KeyField = new UniqueDeclarationBaseForm.Controls.myTextBox();
-            this.myLable5 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.lab_Unique_No = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myLable4 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_SecondField = new UniqueDeclarationBaseForm.Controls.myTextBox();
-            this.myLable3 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.lab_StyleNo = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_Cust_Lab = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable2 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_Cust = new UniqueDeclarationBaseForm.Controls.myTextBox();
-            this.myLable1 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.lab_Cust = new UniqueDeclarationBaseForm.Controls.myLable();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.myDataGridView1 = new UniqueDeclarationBaseForm.Controls.myDataGridView();
             this.myContextMenuStripCell1 = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
+            this.btnCopy = new UniqueDeclarationBaseForm.Controls.myButton();
+            this.tool1_First = new System.Windows.Forms.ToolStripButton();
+            this.tool1_up = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Down = new System.Windows.Forms.ToolStripButton();
+            this.tool1_End = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Add = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Save = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Undo = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Modify = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Delete = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Query = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Print = new System.Windows.Forms.ToolStripButton();
             this.toolStrip2.SuspendLayout();
             this.myTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -123,142 +123,20 @@
             this.toolStrip2.TabIndex = 3;
             this.toolStrip2.Text = "toolStrip2";
             // 
-            // tool1_First
-            // 
-            this.tool1_First.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_First.Image = global::UniqueDeclaration.Properties.Resources.first_24px;
-            this.tool1_First.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_First.Name = "tool1_First";
-            this.tool1_First.Size = new System.Drawing.Size(23, 22);
-            this.tool1_First.Text = "首笔";
-            this.tool1_First.Click += new System.EventHandler(this.tool1_First_Click);
-            // 
-            // tool1_up
-            // 
-            this.tool1_up.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_up.Image = global::UniqueDeclaration.Properties.Resources.back_24px;
-            this.tool1_up.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_up.Name = "tool1_up";
-            this.tool1_up.Size = new System.Drawing.Size(23, 22);
-            this.tool1_up.Text = "上笔";
-            this.tool1_up.Click += new System.EventHandler(this.tool1_up_Click);
-            // 
-            // tool1_Down
-            // 
-            this.tool1_Down.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Down.Image = global::UniqueDeclaration.Properties.Resources.next_24px;
-            this.tool1_Down.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Down.Name = "tool1_Down";
-            this.tool1_Down.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Down.Text = "下笔";
-            this.tool1_Down.Click += new System.EventHandler(this.tool1_Down_Click);
-            // 
-            // tool1_End
-            // 
-            this.tool1_End.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_End.Image = global::UniqueDeclaration.Properties.Resources.last_24px;
-            this.tool1_End.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_End.Name = "tool1_End";
-            this.tool1_End.Size = new System.Drawing.Size(23, 22);
-            this.tool1_End.Text = "末笔";
-            this.tool1_End.Click += new System.EventHandler(this.tool1_End_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tool1_Add
-            // 
-            this.tool1_Add.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Add.Image = global::UniqueDeclaration.Properties.Resources.Add_24px;
-            this.tool1_Add.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Add.Name = "tool1_Add";
-            this.tool1_Add.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Add.Text = "新增";
-            this.tool1_Add.Click += new System.EventHandler(this.tool1_Add_Click);
-            // 
-            // tool1_Save
-            // 
-            this.tool1_Save.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Save.Image = global::UniqueDeclaration.Properties.Resources.Save_24pxt;
-            this.tool1_Save.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Save.Name = "tool1_Save";
-            this.tool1_Save.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Save.Text = "toolStripButton1";
-            this.tool1_Save.Click += new System.EventHandler(this.tool1_Save_Click);
-            // 
-            // tool1_Undo
-            // 
-            this.tool1_Undo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Undo.Image = global::UniqueDeclaration.Properties.Resources.Undo_24px;
-            this.tool1_Undo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Undo.Name = "tool1_Undo";
-            this.tool1_Undo.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Undo.Text = "撤消";
-            this.tool1_Undo.Click += new System.EventHandler(this.tool1_Undo_Click);
-            // 
-            // tool1_Modify
-            // 
-            this.tool1_Modify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Modify.Image = global::UniqueDeclaration.Properties.Resources.Edit_24px;
-            this.tool1_Modify.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Modify.Name = "tool1_Modify";
-            this.tool1_Modify.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Modify.Text = "修改";
-            this.tool1_Modify.Click += new System.EventHandler(this.tool1_Modify_Click);
-            // 
-            // tool1_Delete
-            // 
-            this.tool1_Delete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Delete.Image = global::UniqueDeclaration.Properties.Resources.Delete_24px;
-            this.tool1_Delete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Delete.Name = "tool1_Delete";
-            this.tool1_Delete.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Delete.Text = "删除";
-            this.tool1_Delete.Click += new System.EventHandler(this.tool1_Delete_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // tool1_Query
-            // 
-            this.tool1_Query.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Query.Image = global::UniqueDeclaration.Properties.Resources.Find_24px;
-            this.tool1_Query.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Query.Name = "tool1_Query";
-            this.tool1_Query.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Query.Text = "查询";
-            this.tool1_Query.ToolTipText = "查询";
-            this.tool1_Query.Click += new System.EventHandler(this.tool1_Query_Click);
-            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tool1_Print
-            // 
-            this.tool1_Print.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Print.Image = global::UniqueDeclaration.Properties.Resources.Print_24px;
-            this.tool1_Print.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Print.Name = "tool1_Print";
-            this.tool1_Print.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Print.Text = "打印";
-            this.tool1_Print.Click += new System.EventHandler(this.tool1_Print_Click);
-            // 
-            // btnCopy
-            // 
-            this.btnCopy.BackgroundImage = global::UniqueDeclaration.Properties.Resources.copy_24px;
-            this.btnCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCopy.Location = new System.Drawing.Point(381, 1);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(25, 23);
-            this.btnCopy.TabIndex = 4;
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
             // btnExportExcel
             // 
@@ -308,21 +186,21 @@
             this.tabPage1.Controls.Add(this.txt_Price);
             this.tabPage1.Controls.Add(this.myLable9);
             this.tabPage1.Controls.Add(this.txt_Colors);
-            this.tabPage1.Controls.Add(this.myLable10);
+            this.tabPage1.Controls.Add(this.lab_Color);
             this.tabPage1.Controls.Add(this.txt_CostCurrencys);
             this.tabPage1.Controls.Add(this.myLable7);
             this.tabPage1.Controls.Add(this.txt_Cost);
             this.tabPage1.Controls.Add(this.myLable6);
             this.tabPage1.Controls.Add(this.date_InputDate);
             this.tabPage1.Controls.Add(this.txt_KeyField);
-            this.tabPage1.Controls.Add(this.myLable5);
+            this.tabPage1.Controls.Add(this.lab_Unique_No);
             this.tabPage1.Controls.Add(this.myLable4);
             this.tabPage1.Controls.Add(this.txt_SecondField);
-            this.tabPage1.Controls.Add(this.myLable3);
+            this.tabPage1.Controls.Add(this.lab_StyleNo);
             this.tabPage1.Controls.Add(this.txt_Cust_Lab);
             this.tabPage1.Controls.Add(this.myLable2);
             this.tabPage1.Controls.Add(this.txt_Cust);
-            this.tabPage1.Controls.Add(this.myLable1);
+            this.tabPage1.Controls.Add(this.lab_Cust);
             this.tabPage1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -526,6 +404,7 @@
             this.txt_Descript.Name = "txt_Descript";
             this.txt_Descript.Size = new System.Drawing.Size(282, 21);
             this.txt_Descript.TabIndex = 10;
+            this.txt_Descript.TextChanged += new System.EventHandler(this.txt_Descript_TextChanged);
             this.txt_Descript.Validated += new System.EventHandler(this.txt_Descript_Validated);
             // 
             // myLable13
@@ -581,16 +460,17 @@
             this.txt_Colors.Name = "txt_Colors";
             this.txt_Colors.Size = new System.Drawing.Size(282, 21);
             this.txt_Colors.TabIndex = 7;
+            this.txt_Colors.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Colors_Validating);
             this.txt_Colors.Validated += new System.EventHandler(this.txt_Colors_Validated);
             // 
-            // myLable10
+            // lab_Color
             // 
-            this.myLable10.Location = new System.Drawing.Point(3, 110);
-            this.myLable10.Name = "myLable10";
-            this.myLable10.Size = new System.Drawing.Size(84, 20);
-            this.myLable10.TabIndex = 15;
-            this.myLable10.Text = "Color：";
-            this.myLable10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lab_Color.Location = new System.Drawing.Point(3, 110);
+            this.lab_Color.Name = "lab_Color";
+            this.lab_Color.Size = new System.Drawing.Size(84, 20);
+            this.lab_Color.TabIndex = 15;
+            this.lab_Color.Text = "Color：";
+            this.lab_Color.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txt_CostCurrencys
             // 
@@ -649,14 +529,14 @@
             this.txt_KeyField.TabIndex = 4;
             this.txt_KeyField.Validated += new System.EventHandler(this.txt_KeyField_Validated);
             // 
-            // myLable5
+            // lab_Unique_No
             // 
-            this.myLable5.Location = new System.Drawing.Point(4, 79);
-            this.myLable5.Name = "myLable5";
-            this.myLable5.Size = new System.Drawing.Size(84, 20);
-            this.myLable5.TabIndex = 8;
-            this.myLable5.Text = "Unique_NO：";
-            this.myLable5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lab_Unique_No.Location = new System.Drawing.Point(4, 79);
+            this.lab_Unique_No.Name = "lab_Unique_No";
+            this.lab_Unique_No.Size = new System.Drawing.Size(84, 20);
+            this.lab_Unique_No.TabIndex = 8;
+            this.lab_Unique_No.Text = "Unique_NO：";
+            this.lab_Unique_No.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // myLable4
             // 
@@ -676,14 +556,14 @@
             this.txt_SecondField.TabIndex = 2;
             this.txt_SecondField.Validated += new System.EventHandler(this.txt_SecondField_Validated);
             // 
-            // myLable3
+            // lab_StyleNo
             // 
-            this.myLable3.Location = new System.Drawing.Point(3, 48);
-            this.myLable3.Name = "myLable3";
-            this.myLable3.Size = new System.Drawing.Size(84, 20);
-            this.myLable3.TabIndex = 4;
-            this.myLable3.Text = "StyleNO：";
-            this.myLable3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lab_StyleNo.Location = new System.Drawing.Point(3, 48);
+            this.lab_StyleNo.Name = "lab_StyleNo";
+            this.lab_StyleNo.Size = new System.Drawing.Size(84, 20);
+            this.lab_StyleNo.TabIndex = 4;
+            this.lab_StyleNo.Text = "StyleNO：";
+            this.lab_StyleNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txt_Cust_Lab
             // 
@@ -710,16 +590,18 @@
             this.txt_Cust.Name = "txt_Cust";
             this.txt_Cust.Size = new System.Drawing.Size(113, 21);
             this.txt_Cust.TabIndex = 0;
+            this.txt_Cust.TextChanged += new System.EventHandler(this.txt_Cust_TextChanged);
+            this.txt_Cust.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Cust_Validating);
             this.txt_Cust.Validated += new System.EventHandler(this.txt_Cust_Validated);
             // 
-            // myLable1
+            // lab_Cust
             // 
-            this.myLable1.Location = new System.Drawing.Point(4, 17);
-            this.myLable1.Name = "myLable1";
-            this.myLable1.Size = new System.Drawing.Size(84, 20);
-            this.myLable1.TabIndex = 0;
-            this.myLable1.Text = "Cust：";
-            this.myLable1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lab_Cust.Location = new System.Drawing.Point(4, 17);
+            this.lab_Cust.Name = "lab_Cust";
+            this.lab_Cust.Size = new System.Drawing.Size(84, 20);
+            this.lab_Cust.TabIndex = 0;
+            this.lab_Cust.Text = "Cust：";
+            this.lab_Cust.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tabPage2
             // 
@@ -741,6 +623,7 @@
             this.myDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myDataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.myDataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.myDataGridView1.MultiSelect = false;
             this.myDataGridView1.Name = "myDataGridView1";
             this.myDataGridView1.RowTemplate.Height = 23;
             this.myDataGridView1.Size = new System.Drawing.Size(905, 345);
@@ -752,6 +635,128 @@
             this.myContextMenuStripCell1.MyDataGridView = this.myDataGridView1;
             this.myContextMenuStripCell1.Name = "myContextMenuStripCell1";
             this.myContextMenuStripCell1.Size = new System.Drawing.Size(101, 26);
+            // 
+            // btnCopy
+            // 
+            this.btnCopy.BackgroundImage = global::UniqueDeclaration.Properties.Resources.copy_24px;
+            this.btnCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCopy.Location = new System.Drawing.Point(381, 1);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(25, 23);
+            this.btnCopy.TabIndex = 4;
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            // 
+            // tool1_First
+            // 
+            this.tool1_First.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_First.Image = global::UniqueDeclaration.Properties.Resources.first_24px;
+            this.tool1_First.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_First.Name = "tool1_First";
+            this.tool1_First.Size = new System.Drawing.Size(23, 22);
+            this.tool1_First.Text = "首笔";
+            this.tool1_First.Click += new System.EventHandler(this.tool1_First_Click);
+            // 
+            // tool1_up
+            // 
+            this.tool1_up.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_up.Image = global::UniqueDeclaration.Properties.Resources.back_24px;
+            this.tool1_up.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_up.Name = "tool1_up";
+            this.tool1_up.Size = new System.Drawing.Size(23, 22);
+            this.tool1_up.Text = "上笔";
+            this.tool1_up.Click += new System.EventHandler(this.tool1_up_Click);
+            // 
+            // tool1_Down
+            // 
+            this.tool1_Down.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Down.Image = global::UniqueDeclaration.Properties.Resources.next_24px;
+            this.tool1_Down.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Down.Name = "tool1_Down";
+            this.tool1_Down.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Down.Text = "下笔";
+            this.tool1_Down.Click += new System.EventHandler(this.tool1_Down_Click);
+            // 
+            // tool1_End
+            // 
+            this.tool1_End.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_End.Image = global::UniqueDeclaration.Properties.Resources.last_24px;
+            this.tool1_End.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_End.Name = "tool1_End";
+            this.tool1_End.Size = new System.Drawing.Size(23, 22);
+            this.tool1_End.Text = "末笔";
+            this.tool1_End.Click += new System.EventHandler(this.tool1_End_Click);
+            // 
+            // tool1_Add
+            // 
+            this.tool1_Add.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Add.Image = global::UniqueDeclaration.Properties.Resources.Add_24px;
+            this.tool1_Add.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Add.Name = "tool1_Add";
+            this.tool1_Add.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Add.Text = "新增";
+            this.tool1_Add.Click += new System.EventHandler(this.tool1_Add_Click);
+            // 
+            // tool1_Save
+            // 
+            this.tool1_Save.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Save.Image = global::UniqueDeclaration.Properties.Resources.Save_24pxt;
+            this.tool1_Save.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Save.Name = "tool1_Save";
+            this.tool1_Save.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Save.Text = "toolStripButton1";
+            this.tool1_Save.Click += new System.EventHandler(this.tool1_Save_Click);
+            // 
+            // tool1_Undo
+            // 
+            this.tool1_Undo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Undo.Image = global::UniqueDeclaration.Properties.Resources.Undo_24px;
+            this.tool1_Undo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Undo.Name = "tool1_Undo";
+            this.tool1_Undo.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Undo.Text = "撤消";
+            this.tool1_Undo.Click += new System.EventHandler(this.tool1_Undo_Click);
+            // 
+            // tool1_Modify
+            // 
+            this.tool1_Modify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Modify.Image = global::UniqueDeclaration.Properties.Resources.Edit_24px;
+            this.tool1_Modify.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Modify.Name = "tool1_Modify";
+            this.tool1_Modify.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Modify.Text = "修改";
+            this.tool1_Modify.Click += new System.EventHandler(this.tool1_Modify_Click);
+            // 
+            // tool1_Delete
+            // 
+            this.tool1_Delete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Delete.Image = global::UniqueDeclaration.Properties.Resources.Delete_24px;
+            this.tool1_Delete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Delete.Name = "tool1_Delete";
+            this.tool1_Delete.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Delete.Text = "删除";
+            this.tool1_Delete.Click += new System.EventHandler(this.tool1_Delete_Click);
+            // 
+            // tool1_Query
+            // 
+            this.tool1_Query.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Query.Image = global::UniqueDeclaration.Properties.Resources.Find_24px;
+            this.tool1_Query.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Query.Name = "tool1_Query";
+            this.tool1_Query.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Query.Text = "查询";
+            this.tool1_Query.ToolTipText = "查询";
+            this.tool1_Query.Click += new System.EventHandler(this.tool1_Query_Click);
+            // 
+            // tool1_Print
+            // 
+            this.tool1_Print.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Print.Image = global::UniqueDeclaration.Properties.Resources.Print_24px;
+            this.tool1_Print.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Print.Name = "tool1_Print";
+            this.tool1_Print.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Print.Text = "打印";
+            this.tool1_Print.Click += new System.EventHandler(this.tool1_Print_Click);
             // 
             // FormArticlesFile
             // 
@@ -831,21 +836,21 @@
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_Price;
         private UniqueDeclarationBaseForm.Controls.myLable myLable9;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_Colors;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable10;
+        private UniqueDeclarationBaseForm.Controls.myLable lab_Color;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_CostCurrencys;
         private UniqueDeclarationBaseForm.Controls.myLable myLable7;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_Cost;
         private UniqueDeclarationBaseForm.Controls.myLable myLable6;
         private UniqueDeclarationBaseForm.Controls.myDateTimePicker date_InputDate;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_KeyField;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable5;
+        private UniqueDeclarationBaseForm.Controls.myLable lab_Unique_No;
         private UniqueDeclarationBaseForm.Controls.myLable myLable4;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_SecondField;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable3;
+        private UniqueDeclarationBaseForm.Controls.myLable lab_StyleNo;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_Cust_Lab;
         private UniqueDeclarationBaseForm.Controls.myLable myLable2;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_Cust;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable1;
+        private UniqueDeclarationBaseForm.Controls.myLable lab_Cust;
 
     }
 }
