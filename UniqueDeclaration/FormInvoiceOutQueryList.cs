@@ -82,11 +82,11 @@ namespace UniqueDeclaration
             {
                 int iOrderID = 0;
                 string strBooksNo = string.Empty;
-                if (this.myDataGridViewHead.CurrentRow != null)
+                if (this.myDataGridViewHead.CurrentRowNew != null)
                 {
-                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["Pid"].Value != DBNull.Value)
+                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["Pid"].Value != DBNull.Value)
                     {
-                        iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["Pid"].Value;
+                        iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["Pid"].Value;
                     }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
@@ -113,8 +113,8 @@ namespace UniqueDeclaration
             try
             {
                 string idvalue = DateTime.Now.ToString("yyyyMMddHHmmss");
-                string str装箱单号=this.myDataGridViewHead.CurrentRow == null ? string.Empty : (this.myDataGridViewHead.CurrentRow.Cells["装箱单号"].Value ==DBNull.Value ? string.Empty : this.myDataGridViewHead.CurrentRow.Cells["装箱单号"].Value.ToString());
-                int i序号 =this.myDataGridViewDetails.CurrentRow==null ? 0 : (this.myDataGridViewDetails.CurrentRow.Cells["序号"].Value == DBNull.Value ? 0 : Convert.ToInt32(this.myDataGridViewDetails.CurrentRow.Cells["序号"].Value));
+                string str装箱单号=this.myDataGridViewHead.CurrentRowNew == null ? string.Empty : (this.myDataGridViewHead.CurrentRowNew.Cells["装箱单号"].Value ==DBNull.Value ? string.Empty : this.myDataGridViewHead.CurrentRowNew.Cells["装箱单号"].Value.ToString());
+                int i序号 =this.myDataGridViewDetails.CurrentRowNew==null ? 0 : (this.myDataGridViewDetails.CurrentRowNew.Cells["序号"].Value == DBNull.Value ? 0 : Convert.ToInt32(this.myDataGridViewDetails.CurrentRowNew.Cells["序号"].Value));
                 
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
                 dataAccess.Open();
@@ -139,8 +139,8 @@ namespace UniqueDeclaration
                         }
                     }
                     dataManufacture.ExecuteNonQuery(string.Format("装箱单平均单耗明细 '{0}','{1}','',{2}",
-                        idvalue, this.myDataGridViewDetails.CurrentRow.Cells["产品编号"].Value == DBNull.Value ? string.Empty : this.myDataGridViewDetails.CurrentRow.Cells["产品编号"].Value.ToString(),
-                        this.myDataGridViewDetails.CurrentRow.Cells["Quantity"].Value == DBNull.Value ? 0 : Convert.ToDecimal(this.myDataGridViewDetails.CurrentRow.Cells["Quantity"].Value)), null);
+                        idvalue, this.myDataGridViewDetails.CurrentRowNew.Cells["产品编号"].Value == DBNull.Value ? string.Empty : this.myDataGridViewDetails.CurrentRowNew.Cells["产品编号"].Value.ToString(),
+                        this.myDataGridViewDetails.CurrentRowNew.Cells["Quantity"].Value == DBNull.Value ? 0 : Convert.ToDecimal(this.myDataGridViewDetails.CurrentRowNew.Cells["Quantity"].Value)), null);
                     dataManufacture.ExecuteNonQuery(string.Format("DELETE FROM 装箱单订单明细表 where idv='{0}'", idvalue), null);
                     DataTable dtTemp = dataManufacture.GetTable(string.Format(@"SELECT ltrim(case when PATINDEX('%-%',项号)=0 then 项号 else SUBSTRING(项号,1,PATINDEX('%-%',项号)-1) end) as 项号,
                                                         left(ltrim(料号),3) as 料号,max(商品编码) as 商品编码, max(商品名称) as 商品名称, max(商品规格) as 商品规格, max(计量单位) as 计量单位, 

@@ -133,12 +133,12 @@ namespace UniqueDeclaration
             {
                 int iOrderID = 0;
                 string strBooksNo = string.Empty;
-                if (this.myDataGridViewHead.CurrentRow !=null)
+                if (this.myDataGridViewHead.CurrentRowNew !=null)
                 {
-                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["料件出库表id"].Value != DBNull.Value)
+                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["料件出库表id"].Value != DBNull.Value)
                     {
-                        iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["料件出库表id"].Value;
-                        strBooksNo = this.myDataGridViewHead.CurrentRow.Cells["电子帐册号"].Value.ToString();
+                        iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["料件出库表id"].Value;
+                        strBooksNo = this.myDataGridViewHead.CurrentRowNew.Cells["电子帐册号"].Value.ToString();
                     }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);

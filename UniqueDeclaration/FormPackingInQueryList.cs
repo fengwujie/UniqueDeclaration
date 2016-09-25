@@ -199,11 +199,11 @@ namespace UniqueDeclaration
             {
                 int iOrderID = 0;
                 string strBooksNo = string.Empty;
-                if (this.myDataGridViewHead.CurrentRow != null)
+                if (this.myDataGridViewHead.CurrentRowNew != null)
                 {
-                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["Pid"].Value != DBNull.Value)
+                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["Pid"].Value != DBNull.Value)
                     {
-                        iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["Pid"].Value;
+                        iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["Pid"].Value;
                     }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);

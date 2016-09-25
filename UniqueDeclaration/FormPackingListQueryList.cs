@@ -160,11 +160,11 @@ namespace UniqueDeclaration
             try
             {
                 int iOrderID = 0;
-                if (this.myDataGridViewHead.CurrentRow != null)
+                if (this.myDataGridViewHead.CurrentRowNew != null)
                 {
-                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["订单id"].Value != DBNull.Value)
+                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["订单id"].Value != DBNull.Value)
                     {
-                        iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRow.Index].Cells["订单id"].Value;
+                        iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["订单id"].Value;
                     }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);

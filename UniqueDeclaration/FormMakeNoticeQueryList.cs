@@ -90,12 +90,12 @@ namespace UniqueDeclaration
             {
                 int iOrderID = 0;
                 string str手册编号=string.Empty;
-                if (this.dataGridViewHead.CurrentRow.Index >= 0)
+                if (this.dataGridViewHead.CurrentRowNew.Index >= 0)
                 {
-                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["制造通知单id"].Value != DBNull.Value)
+                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRowNew.Index].Cells["制造通知单id"].Value != DBNull.Value)
                     {
-                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["制造通知单id"].Value;
-                        str手册编号 = this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["手册编号"].Value.ToString();
+                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRowNew.Index].Cells["制造通知单id"].Value;
+                        str手册编号 = this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRowNew.Index].Cells["手册编号"].Value.ToString();
                     }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
@@ -139,12 +139,12 @@ namespace UniqueDeclaration
             {
                 int iOrderID = 0;
                 string strBooksNo = string.Empty;
-                if (this.dataGridViewHead.CurrentRow.Index >= 0)
+                if (this.dataGridViewHead.CurrentRowNew.Index >= 0)
                 {
-                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["制造通知单id"].Value != DBNull.Value)
+                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRowNew.Index].Cells["制造通知单id"].Value != DBNull.Value)
                     {
-                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["制造通知单id"].Value;
-                        strBooksNo = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRowNew.Index].Cells["制造通知单id"].Value;
+                        strBooksNo = this.dataGridViewHead.CurrentRowNew.Cells["手册编号"].Value.ToString();
                     }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
@@ -188,12 +188,12 @@ namespace UniqueDeclaration
             {
                 int iOrderID = 0;
                 string strBooksNo = string.Empty;
-                if (this.dataGridViewHead.CurrentRow.Index >= 0)
+                if (this.dataGridViewHead.CurrentRowNew.Index >= 0)
                 {
-                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["制造通知单id"].Value != DBNull.Value)
+                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRowNew.Index].Cells["制造通知单id"].Value != DBNull.Value)
                     {
-                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["制造通知单id"].Value;
-                        strBooksNo = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRowNew.Index].Cells["制造通知单id"].Value;
+                        strBooksNo = this.dataGridViewHead.CurrentRowNew.Cells["手册编号"].Value.ToString();
                     }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
@@ -236,12 +236,12 @@ namespace UniqueDeclaration
             {
                 int iOrderID = 0;
                 string strBooksNo = string.Empty;
-                if (this.dataGridViewHead.CurrentRow.Index >= 0)
+                if (this.dataGridViewHead.CurrentRowNew.Index >= 0)
                 {
-                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["制造通知单id"].Value != DBNull.Value)
+                    if (this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRowNew.Index].Cells["制造通知单id"].Value != DBNull.Value)
                     {
-                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRow.Index].Cells["制造通知单id"].Value;
-                        strBooksNo = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+                        iOrderID = (int)this.dataGridViewHead.Rows[this.dataGridViewHead.CurrentRowNew.Index].Cells["制造通知单id"].Value;
+                        strBooksNo = this.dataGridViewHead.CurrentRowNew.Cells["手册编号"].Value.ToString();
                     }
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
