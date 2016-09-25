@@ -29,10 +29,11 @@ namespace UniqueDeclaration
             dataAccess.Close();
             this.myTabControl1.SelectedIndex = 1;
             this.myDataGridView1.DataSource = dtArticle;
-            //if (myDataGridView1.RowCount > 0)
-            //{
-            //    this.myDataGridView1.Rows[0].Selected = true;
-            //}
+            InitGrid();
+            if (myDataGridView1.RowCount > 0)
+            {
+                this.myDataGridView1.Rows[0].Selected = true;
+            }
             this.myTabControl1.SelectedIndex = 0;
             setTool1Enabled();
             this.myDataGridView1_SelectionChanged(null, null);  //初期赋值时，不是GRID页签，CurrentRow为NULL，所以不能用这句
@@ -40,6 +41,75 @@ namespace UniqueDeclaration
             //    fillControl((myDataGridView1.Rows[0].DataBoundItem as DataRowView).Row);
             //else
             //    fillControl(null);
+
+        }
+
+        /// <summary>
+        /// 初始化GRID
+        /// </summary>
+        private void InitGrid()
+        {
+            this.myDataGridView1.AutoGenerateColumns = false;
+
+            this.myDataGridView1.Columns["ID"].Visible = false;
+
+            this.myDataGridView1.Columns["Cust"].DisplayIndex = 0;
+            this.myDataGridView1.Columns["Cust"].Width = 60;
+            this.myDataGridView1.Columns["Cust_Lab"].DisplayIndex = 1;
+            this.myDataGridView1.Columns["Cust_Lab"].Width = 78;
+            this.myDataGridView1.Columns["SecondField"].DisplayIndex = 2;
+            this.myDataGridView1.Columns["SecondField"].HeaderText = "Style_No";
+            this.myDataGridView1.Columns["SecondField"].Width = 78;
+            this.myDataGridView1.Columns["KeyField"].DisplayIndex = 3;
+            this.myDataGridView1.Columns["KeyField"].HeaderText = "Unique#";
+            this.myDataGridView1.Columns["KeyField"].Width = 78;
+            this.myDataGridView1.Columns["Colors"].DisplayIndex = 4;
+            this.myDataGridView1.Columns["Colors"].HeaderText = "Style_No";
+            this.myDataGridView1.Columns["Colors"].Width = 70;
+            this.myDataGridView1.Columns["InputDate"].DisplayIndex = 5;
+            this.myDataGridView1.Columns["InputDate"].Width = 70;
+            this.myDataGridView1.Columns["Descript"].DisplayIndex = 6;
+            this.myDataGridView1.Columns["Descript"].Width = 78;
+            this.myDataGridView1.Columns["Type"].DisplayIndex = 7;
+            this.myDataGridView1.Columns["Type"].HeaderText = "报关类别";
+            this.myDataGridView1.Columns["Type"].Width = 70;
+            this.myDataGridView1.Columns["typesort"].DisplayIndex = 8;
+            this.myDataGridView1.Columns["typesort"].HeaderText = "种类";
+            this.myDataGridView1.Columns["typesort"].Width = 70;
+            this.myDataGridView1.Columns["Unit"].DisplayIndex = 9;
+            this.myDataGridView1.Columns["Unit"].Width = 55;
+            this.myDataGridView1.Columns["Price"].DisplayIndex = 10;
+            this.myDataGridView1.Columns["Price"].Width = 60;
+            this.myDataGridView1.Columns["Currencys"].DisplayIndex = 11;
+            this.myDataGridView1.Columns["Currencys"].Width = 70;
+            this.myDataGridView1.Columns["Cost"].DisplayIndex = 12;
+            this.myDataGridView1.Columns["Cost"].HeaderText = "Factory Price";
+            this.myDataGridView1.Columns["Cost"].Width = 70;
+            this.myDataGridView1.Columns["CostCurrencys"].DisplayIndex = 13;
+            this.myDataGridView1.Columns["CostCurrencys"].HeaderText = "Currencys";
+            this.myDataGridView1.Columns["CostCurrencys"].Width = 70;
+            this.myDataGridView1.Columns["Weight"].DisplayIndex = 14;
+            this.myDataGridView1.Columns["Weight"].Width = 60;
+            this.myDataGridView1.Columns["UnitN"].DisplayIndex = 15;
+            this.myDataGridView1.Columns["UnitN"].Width = 55;
+            this.myDataGridView1.Columns["Packing"].DisplayIndex = 16;
+            this.myDataGridView1.Columns["Packing"].Width = 70;
+            this.myDataGridView1.Columns["Remark"].DisplayIndex = 17;
+            this.myDataGridView1.Columns["Remark"].Width = 100;
+            this.myDataGridView1.Columns["Remark1"].DisplayIndex = 18;
+            this.myDataGridView1.Columns["Remark1"].Width = 100;
+            this.myDataGridView1.Columns["Remark2"].DisplayIndex = 19;
+            this.myDataGridView1.Columns["Remark2"].Width = 100;
+            this.myDataGridView1.Columns["Remark3"].DisplayIndex = 20;
+            this.myDataGridView1.Columns["Remark3"].Width = 100;
+            this.myDataGridView1.Columns["notice"].DisplayIndex = 21;
+            this.myDataGridView1.Columns["notice"].HeaderText = "Notice";
+            this.myDataGridView1.Columns["notice"].Width = 70;
+
+            foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridView1.Columns)
+            {
+                textBoxColumn.ContextMenuStrip = this.myContextMenuStripCell1;
+            }
 
         }
 
@@ -54,7 +124,7 @@ namespace UniqueDeclaration
 
         private void tool1_up_Click(object sender, EventArgs e)
         {
-            int iSelectRow = this.myDataGridView1.CurrentRow.Index;
+            int iSelectRow = this.myDataGridView1.CurrentRowNew.Index;
             this.myDataGridView1.ClearSelection();
             this.myDataGridView1.Rows[iSelectRow - 1].Selected = true;
             this.myDataGridView1.CurrentCell = this.myDataGridView1.Rows[iSelectRow - 1].Cells["Cust"];
@@ -63,7 +133,7 @@ namespace UniqueDeclaration
 
         private void tool1_Down_Click(object sender, EventArgs e)
         {
-            int iSelectRow = this.myDataGridView1.CurrentRow.Index;
+            int iSelectRow = this.myDataGridView1.CurrentRowNew.Index;
             this.myDataGridView1.ClearSelection();
             this.myDataGridView1.Rows[iSelectRow + 1].Selected = true;
             this.myDataGridView1.CurrentCell = this.myDataGridView1.Rows[iSelectRow + 1].Cells["Cust"];
@@ -157,19 +227,19 @@ namespace UniqueDeclaration
                 else
                 {
                     //如果当前行索引为0
-                    if (this.myDataGridView1.CurrentRow == null) return;
-                    if (this.myDataGridView1.CurrentRow.Index == 0)
+                    if (this.myDataGridView1.CurrentRowNew == null) return;
+                    if (this.myDataGridView1.CurrentRowNew.Index == 0)
                     {
                         this.tool1_First.Enabled = false;
                         this.tool1_up.Enabled = false;
                         this.tool1_Down.Enabled = true;
                         this.tool1_End.Enabled = true;
                     }
-                    else if (this.myDataGridView1.CurrentRow.Index == this.myDataGridView1.RowCount - 1)  //如果行索引为最后一行
+                    else if (this.myDataGridView1.CurrentRowNew.Index == this.myDataGridView1.RowCount - 1)  //如果行索引为最后一行
                     {
                         this.tool1_First.Enabled = true;
                         this.tool1_up.Enabled = true;
-                        this.tool1_Down.Enabled = true;
+                        this.tool1_Down.Enabled = false;
                         this.tool1_End.Enabled = false;
                     }
                     else
@@ -280,7 +350,8 @@ namespace UniqueDeclaration
         #region 表头控件事件
         private void txt_Cust_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Cust"].ToString() != txt_Cust.Text.Trim())
             {
                 row["Cust"] = txt_Cust.Text.Trim();
@@ -289,7 +360,8 @@ namespace UniqueDeclaration
 
         private void txt_Cust_Lab_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Cust_Lab"].ToString() != txt_Cust_Lab.Text.Trim())
             {
                 row["Cust_Lab"] = txt_Cust_Lab.Text.Trim();
@@ -298,7 +370,8 @@ namespace UniqueDeclaration
 
         private void txt_SecondField_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["SecondField"].ToString() != txt_SecondField.Text.Trim())
             {
                 row["SecondField"] = txt_SecondField.Text.Trim();
@@ -307,7 +380,8 @@ namespace UniqueDeclaration
 
         private void date_InputDate_ValueChanged(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (date_InputDate.Checked)
             {
                 if (row["InputDate"] == DBNull.Value || Convert.ToDateTime(row["InputDate"]) != date_InputDate.Value)
@@ -322,7 +396,8 @@ namespace UniqueDeclaration
 
         private void txt_KeyField_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["KeyField"].ToString() != txt_KeyField.Text.Trim())
             {
                 row["KeyField"] = txt_KeyField.Text.Trim();
@@ -347,7 +422,8 @@ namespace UniqueDeclaration
 
         private void txt_Cost_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Cost"].ToString() != txt_Cost.Text.Trim())
             {
                 row["Cost"] = txt_Cost.Text.Trim();
@@ -356,7 +432,8 @@ namespace UniqueDeclaration
 
         private void txt_CostCurrencys_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["CostCurrencys"].ToString() != txt_CostCurrencys.Text.Trim())
             {
                 row["CostCurrencys"] = txt_CostCurrencys.Text.Trim();
@@ -365,7 +442,8 @@ namespace UniqueDeclaration
 
         private void txt_Colors_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Colors"].ToString() != txt_Colors.Text.Trim())
             {
                 row["Colors"] = txt_Colors.Text.Trim();
@@ -390,7 +468,8 @@ namespace UniqueDeclaration
 
         private void txt_Price_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Price"].ToString() != txt_Price.Text.Trim())
             {
                 row["Price"] = txt_Price.Text.Trim();
@@ -399,7 +478,8 @@ namespace UniqueDeclaration
 
         private void txt_Currencys_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Currencys"].ToString() != txt_Currencys.Text.Trim())
             {
                 row["Currencys"] = txt_Currencys.Text.Trim();
@@ -408,7 +488,8 @@ namespace UniqueDeclaration
 
         private void txt_Descript_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Descript"].ToString() != txt_Descript.Text.Trim())
             {
                 row["Descript"] = txt_Descript.Text.Trim();
@@ -417,7 +498,8 @@ namespace UniqueDeclaration
 
         private void txt_typesort_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["typesort"].ToString() != txt_typesort.Text.Trim())
             {
                 row["typesort"] = txt_typesort.Text.Trim();
@@ -426,7 +508,8 @@ namespace UniqueDeclaration
 
         private void txt_Unit_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Unit"].ToString() != txt_Unit.Text.Trim())
             {
                 row["Unit"] = txt_Unit.Text.Trim();
@@ -436,7 +519,8 @@ namespace UniqueDeclaration
         private void cbox_Type_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!bcbox_Type_SelectedIndexChanged) return;
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (cbox_Type.SelectedValue == null && row["Type"] == DBNull.Value) return;
             if (cbox_Type.SelectedValue == null)
             {
@@ -473,7 +557,8 @@ namespace UniqueDeclaration
 
         private void txt_Weight_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Weight"].ToString() != txt_Weight.Text.Trim())
             {
                 row["Weight"] = txt_Weight.Text.Trim();
@@ -482,7 +567,8 @@ namespace UniqueDeclaration
 
         private void txt_UnitN_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["UnitN"].ToString() != txt_UnitN.Text.Trim())
             {
                 row["UnitN"] = txt_UnitN.Text.Trim();
@@ -491,7 +577,8 @@ namespace UniqueDeclaration
 
         private void txt_Packing_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Packing"].ToString() != txt_Packing.Text.Trim())
             {
                 row["Packing"] = txt_Packing.Text.Trim();
@@ -500,7 +587,8 @@ namespace UniqueDeclaration
 
         private void txt_Remark_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Remark"].ToString() != txt_Remark.Text.Trim())
             {
                 row["Remark"] = txt_Remark.Text.Trim();
@@ -509,7 +597,8 @@ namespace UniqueDeclaration
 
         private void txt_Remark1_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Remark1"].ToString() != txt_Remark1.Text.Trim())
             {
                 row["Remark1"] = txt_Remark1.Text.Trim();
@@ -518,7 +607,8 @@ namespace UniqueDeclaration
 
         private void txt_Remark2_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Remark2"].ToString() != txt_Remark2.Text.Trim())
             {
                 row["Remark2"] = txt_Remark2.Text.Trim();
@@ -527,7 +617,8 @@ namespace UniqueDeclaration
 
         private void txt_Remark3_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Remark3"].ToString() != txt_Remark3.Text.Trim())
             {
                 row["Remark3"] = txt_Remark3.Text.Trim();
@@ -536,7 +627,8 @@ namespace UniqueDeclaration
 
         private void txt_Notice_Validated(object sender, EventArgs e)
         {
-            DataRow row = (this.myDataGridView1.CurrentRow.DataBoundItem as DataRowView).Row;
+            if (this.myDataGridView1.CurrentRowNew == null) return;
+            DataRow row = (this.myDataGridView1.CurrentRowNew.DataBoundItem as DataRowView).Row;
             if (row["Notice"].ToString() != txt_Notice.Text.Trim())
             {
                 row["Notice"] = txt_Notice.Text.Trim();
@@ -544,10 +636,6 @@ namespace UniqueDeclaration
         }
         #endregion
 
-        private void myDataGridView1_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
-        {
-
-        }
 
     }
 }

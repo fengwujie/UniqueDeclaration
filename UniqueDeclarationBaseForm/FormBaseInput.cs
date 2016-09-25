@@ -271,7 +271,7 @@ namespace UniqueDeclarationBaseForm
                     {
                         this.tool2_First.Enabled = true;
                         this.tool2_up.Enabled = true;
-                        this.tool2_Down.Enabled = true;
+                        this.tool2_Down.Enabled = false;
                         this.tool2_End.Enabled = false;
                     }
                     else

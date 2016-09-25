@@ -745,7 +745,6 @@
             this.myDataGridView1.RowTemplate.Height = 23;
             this.myDataGridView1.Size = new System.Drawing.Size(905, 345);
             this.myDataGridView1.TabIndex = 0;
-            this.myDataGridView1.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.myDataGridView1_CellMouseMove);
             this.myDataGridView1.SelectionChanged += new System.EventHandler(this.myDataGridView1_SelectionChanged);
             // 
             // myContextMenuStripCell1

@@ -119,7 +119,7 @@ namespace UniqueDeclaration
                     {
                         this.tool1_First.Enabled = true;
                         this.tool1_up.Enabled = true;
-                        this.tool1_Down.Enabled = true;
+                        this.tool1_Down.Enabled = false;
                         this.tool1_End.Enabled = false;
                     }
                     else
