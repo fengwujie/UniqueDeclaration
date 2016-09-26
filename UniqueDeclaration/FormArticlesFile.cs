@@ -37,6 +37,7 @@ namespace UniqueDeclaration
         private string strKeyFieldBeingExcel = string.Empty;
         private string strKeyFieldEndExcel = string.Empty;
         private string strCustExcel = string.Empty;
+
         private void FormArticlesFile_Load(object sender, EventArgs e)
         {
             bcbox_Type_SelectedIndexChanged = false;
@@ -69,6 +70,10 @@ namespace UniqueDeclaration
             this.txt_Cust.GotFocus += new System.EventHandler(this.txt_Cust_GotFocus);
             this.txt_Colors.GotFocus += new System.EventHandler(this.txt_Colors_GotFocus);
         }
+        private void FormArticlesFile_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = !Save();
+        }
 
         private void myDataGridView1_SelectionChanged(object sender, EventArgs e)
         {            
@@ -80,73 +85,6 @@ namespace UniqueDeclaration
             setTool1Enabled();
         }
 
-        /// <summary>
-        /// 初始化GRID
-        /// </summary>
-        private void InitGrid()
-        {
-            this.myDataGridView1.AutoGenerateColumns = false;
-
-            this.myDataGridView1.Columns["ID"].Visible = false;
-
-            this.myDataGridView1.Columns["Cust"].DisplayIndex = 0;
-            this.myDataGridView1.Columns["Cust"].Width = 60;
-            this.myDataGridView1.Columns["Cust_Lab"].DisplayIndex = 1;
-            this.myDataGridView1.Columns["Cust_Lab"].Width = 78;
-            this.myDataGridView1.Columns["SecondField"].DisplayIndex = 2;
-            this.myDataGridView1.Columns["SecondField"].HeaderText = "Style_No";
-            this.myDataGridView1.Columns["SecondField"].Width = 78;
-            this.myDataGridView1.Columns["KeyField"].DisplayIndex = 3;
-            this.myDataGridView1.Columns["KeyField"].HeaderText = "Unique#";
-            this.myDataGridView1.Columns["KeyField"].Width = 78;
-            this.myDataGridView1.Columns["Colors"].DisplayIndex = 4;
-            this.myDataGridView1.Columns["Colors"].Width = 70;
-            this.myDataGridView1.Columns["InputDate"].DisplayIndex = 5;
-            this.myDataGridView1.Columns["InputDate"].Width = 70;
-            this.myDataGridView1.Columns["Descript"].DisplayIndex = 6;
-            this.myDataGridView1.Columns["Descript"].Width = 78;
-            this.myDataGridView1.Columns["Type"].DisplayIndex = 7;
-            this.myDataGridView1.Columns["Type"].HeaderText = "报关类别";
-            this.myDataGridView1.Columns["Type"].Width = 78;
-            this.myDataGridView1.Columns["typesort"].DisplayIndex = 8;
-            this.myDataGridView1.Columns["typesort"].HeaderText = "种类";
-            this.myDataGridView1.Columns["typesort"].Width = 70;
-            this.myDataGridView1.Columns["Unit"].DisplayIndex = 9;
-            this.myDataGridView1.Columns["Unit"].Width = 55;
-            this.myDataGridView1.Columns["Price"].DisplayIndex = 10;
-            this.myDataGridView1.Columns["Price"].Width = 60;
-            this.myDataGridView1.Columns["Currencys"].DisplayIndex = 11;
-            this.myDataGridView1.Columns["Currencys"].Width = 70;
-            this.myDataGridView1.Columns["Cost"].DisplayIndex = 12;
-            this.myDataGridView1.Columns["Cost"].HeaderText = "Factory Price";
-            this.myDataGridView1.Columns["Cost"].Width = 110;
-            this.myDataGridView1.Columns["CostCurrencys"].DisplayIndex = 13;
-            this.myDataGridView1.Columns["CostCurrencys"].HeaderText = "Currencys";
-            this.myDataGridView1.Columns["CostCurrencys"].Width = 70;
-            this.myDataGridView1.Columns["Weight"].DisplayIndex = 14;
-            this.myDataGridView1.Columns["Weight"].Width = 60;
-            this.myDataGridView1.Columns["UnitN"].DisplayIndex = 15;
-            this.myDataGridView1.Columns["UnitN"].Width = 55;
-            this.myDataGridView1.Columns["Packing"].DisplayIndex = 16;
-            this.myDataGridView1.Columns["Packing"].Width = 100;
-            this.myDataGridView1.Columns["Remark"].DisplayIndex = 17;
-            this.myDataGridView1.Columns["Remark"].Width = 100;
-            this.myDataGridView1.Columns["Remark1"].DisplayIndex = 18;
-            this.myDataGridView1.Columns["Remark1"].Width = 100;
-            this.myDataGridView1.Columns["Remark2"].DisplayIndex = 19;
-            this.myDataGridView1.Columns["Remark2"].Width = 100;
-            this.myDataGridView1.Columns["Remark3"].DisplayIndex = 20;
-            this.myDataGridView1.Columns["Remark3"].Width = 100;
-            this.myDataGridView1.Columns["notice"].DisplayIndex = 21;
-            this.myDataGridView1.Columns["notice"].HeaderText = "Notice";
-            this.myDataGridView1.Columns["notice"].Width = 70;
-
-            foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridView1.Columns)
-            {
-                textBoxColumn.ContextMenuStrip = this.myContextMenuStripCell1;
-            }
-
-        }
 
         #region 菜单按钮事件
         private void tool1_First_Click(object sender, EventArgs e)
@@ -454,89 +392,17 @@ namespace UniqueDeclaration
                 ea.Dispose();
             }
         }
-        /// <summary>
-        /// 设置列名的文本长度
-        /// </summary>
-        /// <param name="dicColMaxValue">Dictionary数据集</param>
-        /// <param name="colName">列名</param>
-        /// <param name="colText">文本</param>
-        private void SetColMaxValue(Dictionary<string,long> dicColMaxValue,string colName,string colText)
+        //报关类别维护
+        private void btnType_Click(object sender, EventArgs e)
         {
-            long lCellLenght = StringTools.TextLenght(colText);
-            if (dicColMaxValue.ContainsKey(colName))  //如果字典中已经包含该列的数据，则跟当前文本判断，存储字符长度较长的文本
+            FormProductType objForm = new FormProductType();
+            objForm.ShowDialog();
+            if (objForm.bModify)  //如果资料有维护过，则需要重新加载报关类别
             {
-                if (dicColMaxValue[colName] < lCellLenght)
-                    dicColMaxValue[colName] = lCellLenght;
-            }
-            else
-            {
-                dicColMaxValue.Add(colName, lCellLenght);
-            }
-        }
-        /// <summary>
-        /// 设置tools的按钮是否可用
-        /// </summary>
-        private void setTool1Enabled()
-        {
-            this.tool1_Query.Enabled = true;
-            this.tool1_Add.Enabled = true;
-            DataTable dtTable = (DataTable)myDataGridView1.DataSource;
-            if (dtTable.Rows.Count>0)
-            {
-                this.tool1_Save.Enabled = true;
-                this.tool1_Undo.Enabled = true;
-                this.tool1_Delete.Enabled = true;
-                this.tool1_Modify.Enabled = true;
-                this.tool1_Print.Enabled = true;
-                this.btnCopy.Enabled = true;
-                //如果总行数为1时，则笔数移动按钮都为不可编辑
-                if (dtTable.Rows.Count == 1)
-                {
-                    this.tool1_First.Enabled = false;
-                    this.tool1_up.Enabled = false;
-                    this.tool1_Down.Enabled = false;
-                    this.tool1_End.Enabled = false;
-                }
-                else
-                {
-                    //如果当前行索引为0
-                    if (this.myDataGridView1.CurrentRowNew == null) return;
-                    if (this.myDataGridView1.CurrentRowNew.Index == 0)
-                    {
-                        this.tool1_First.Enabled = false;
-                        this.tool1_up.Enabled = false;
-                        this.tool1_Down.Enabled = true;
-                        this.tool1_End.Enabled = true;
-                    }
-                    else if (this.myDataGridView1.CurrentRowNew.Index == this.myDataGridView1.RowCount - 1)  //如果行索引为最后一行
-                    {
-                        this.tool1_First.Enabled = true;
-                        this.tool1_up.Enabled = true;
-                        this.tool1_Down.Enabled = false;
-                        this.tool1_End.Enabled = false;
-                    }
-                    else
-                    {
-                        this.tool1_First.Enabled = true;
-                        this.tool1_up.Enabled = true;
-                        this.tool1_Down.Enabled = true;
-                        this.tool1_End.Enabled = true;
-                    }
-                }
-            }
-            else
-            {
-                this.tool1_First.Enabled = false;
-                this.tool1_up.Enabled = false;
-                this.tool1_Down.Enabled = false;
-                this.tool1_End.Enabled = false;
-
-                this.tool1_Save.Enabled = false;
-                this.tool1_Undo.Enabled = false;
-                this.tool1_Delete.Enabled = false;
-                this.tool1_Modify.Enabled = false;
-                this.tool1_Print.Enabled = false;
-                this.btnCopy.Enabled = false;
+                bcbox_Type_SelectedIndexChanged = false;
+                object defaultValue = cbox_Type.SelectedValue == null ? -1 : cbox_Type.SelectedValue;
+                this.cbox_Type.InitialData(DataAccessEnum.DataAccessName.DataAccessName_Manufacture, "select * from sort order by 产品类别描述", "产品类别", "产品类别描述", defaultValue);
+                bcbox_Type_SelectedIndexChanged = true;
             }
         }
         #endregion
@@ -914,6 +780,73 @@ namespace UniqueDeclaration
 
         #region 方法函数
         /// <summary>
+        /// 初始化GRID
+        /// </summary>
+        private void InitGrid()
+        {
+            this.myDataGridView1.AutoGenerateColumns = false;
+
+            this.myDataGridView1.Columns["ID"].Visible = false;
+
+            this.myDataGridView1.Columns["Cust"].DisplayIndex = 0;
+            this.myDataGridView1.Columns["Cust"].Width = 60;
+            this.myDataGridView1.Columns["Cust_Lab"].DisplayIndex = 1;
+            this.myDataGridView1.Columns["Cust_Lab"].Width = 78;
+            this.myDataGridView1.Columns["SecondField"].DisplayIndex = 2;
+            this.myDataGridView1.Columns["SecondField"].HeaderText = "Style_No";
+            this.myDataGridView1.Columns["SecondField"].Width = 78;
+            this.myDataGridView1.Columns["KeyField"].DisplayIndex = 3;
+            this.myDataGridView1.Columns["KeyField"].HeaderText = "Unique#";
+            this.myDataGridView1.Columns["KeyField"].Width = 78;
+            this.myDataGridView1.Columns["Colors"].DisplayIndex = 4;
+            this.myDataGridView1.Columns["Colors"].Width = 70;
+            this.myDataGridView1.Columns["InputDate"].DisplayIndex = 5;
+            this.myDataGridView1.Columns["InputDate"].Width = 70;
+            this.myDataGridView1.Columns["Descript"].DisplayIndex = 6;
+            this.myDataGridView1.Columns["Descript"].Width = 78;
+            this.myDataGridView1.Columns["Type"].DisplayIndex = 7;
+            this.myDataGridView1.Columns["Type"].HeaderText = "报关类别";
+            this.myDataGridView1.Columns["Type"].Width = 78;
+            this.myDataGridView1.Columns["typesort"].DisplayIndex = 8;
+            this.myDataGridView1.Columns["typesort"].HeaderText = "种类";
+            this.myDataGridView1.Columns["typesort"].Width = 70;
+            this.myDataGridView1.Columns["Unit"].DisplayIndex = 9;
+            this.myDataGridView1.Columns["Unit"].Width = 55;
+            this.myDataGridView1.Columns["Price"].DisplayIndex = 10;
+            this.myDataGridView1.Columns["Price"].Width = 60;
+            this.myDataGridView1.Columns["Currencys"].DisplayIndex = 11;
+            this.myDataGridView1.Columns["Currencys"].Width = 70;
+            this.myDataGridView1.Columns["Cost"].DisplayIndex = 12;
+            this.myDataGridView1.Columns["Cost"].HeaderText = "Factory Price";
+            this.myDataGridView1.Columns["Cost"].Width = 110;
+            this.myDataGridView1.Columns["CostCurrencys"].DisplayIndex = 13;
+            this.myDataGridView1.Columns["CostCurrencys"].HeaderText = "Currencys";
+            this.myDataGridView1.Columns["CostCurrencys"].Width = 70;
+            this.myDataGridView1.Columns["Weight"].DisplayIndex = 14;
+            this.myDataGridView1.Columns["Weight"].Width = 60;
+            this.myDataGridView1.Columns["UnitN"].DisplayIndex = 15;
+            this.myDataGridView1.Columns["UnitN"].Width = 55;
+            this.myDataGridView1.Columns["Packing"].DisplayIndex = 16;
+            this.myDataGridView1.Columns["Packing"].Width = 100;
+            this.myDataGridView1.Columns["Remark"].DisplayIndex = 17;
+            this.myDataGridView1.Columns["Remark"].Width = 100;
+            this.myDataGridView1.Columns["Remark1"].DisplayIndex = 18;
+            this.myDataGridView1.Columns["Remark1"].Width = 100;
+            this.myDataGridView1.Columns["Remark2"].DisplayIndex = 19;
+            this.myDataGridView1.Columns["Remark2"].Width = 100;
+            this.myDataGridView1.Columns["Remark3"].DisplayIndex = 20;
+            this.myDataGridView1.Columns["Remark3"].Width = 100;
+            this.myDataGridView1.Columns["notice"].DisplayIndex = 21;
+            this.myDataGridView1.Columns["notice"].HeaderText = "Notice";
+            this.myDataGridView1.Columns["notice"].Width = 70;
+
+            foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridView1.Columns)
+            {
+                textBoxColumn.ContextMenuStrip = this.myContextMenuStripCell1;
+            }
+
+        }
+        /// <summary>
         /// 填充控件值
         /// </summary>
         /// <param name="dgvRow">DataGridViewRow行数据</param>
@@ -1176,12 +1109,93 @@ namespace UniqueDeclaration
             txt_Remark3.ReadOnly = bReadOnly;
             txt_Notice.ReadOnly = bReadOnly;
         }
-        #endregion
-
-        private void FormArticlesFile_FormClosing(object sender, FormClosingEventArgs e)
+        /// <summary>
+        /// 设置列名的文本长度
+        /// </summary>
+        /// <param name="dicColMaxValue">Dictionary数据集</param>
+        /// <param name="colName">列名</param>
+        /// <param name="colText">文本</param>
+        private void SetColMaxValue(Dictionary<string,long> dicColMaxValue,string colName,string colText)
         {
-            e.Cancel = !Save();
+            long lCellLenght = StringTools.TextLenght(colText);
+            if (dicColMaxValue.ContainsKey(colName))  //如果字典中已经包含该列的数据，则跟当前文本判断，存储字符长度较长的文本
+            {
+                if (dicColMaxValue[colName] < lCellLenght)
+                    dicColMaxValue[colName] = lCellLenght;
+            }
+            else
+            {
+                dicColMaxValue.Add(colName, lCellLenght);
+            }
         }
+        /// <summary>
+        /// 设置tools的按钮是否可用
+        /// </summary>
+        private void setTool1Enabled()
+        {
+            this.tool1_Query.Enabled = true;
+            this.tool1_Add.Enabled = true;
+            DataTable dtTable = (DataTable)myDataGridView1.DataSource;
+            if (dtTable.Rows.Count>0)
+            {
+                this.tool1_Save.Enabled = true;
+                this.tool1_Undo.Enabled = true;
+                this.tool1_Delete.Enabled = true;
+                this.tool1_Modify.Enabled = true;
+                this.tool1_Print.Enabled = true;
+                this.btnCopy.Enabled = true;
+                //如果总行数为1时，则笔数移动按钮都为不可编辑
+                if (dtTable.Rows.Count == 1)
+                {
+                    this.tool1_First.Enabled = false;
+                    this.tool1_up.Enabled = false;
+                    this.tool1_Down.Enabled = false;
+                    this.tool1_End.Enabled = false;
+                }
+                else
+                {
+                    //如果当前行索引为0
+                    if (this.myDataGridView1.CurrentRowNew == null) return;
+                    if (this.myDataGridView1.CurrentRowNew.Index == 0)
+                    {
+                        this.tool1_First.Enabled = false;
+                        this.tool1_up.Enabled = false;
+                        this.tool1_Down.Enabled = true;
+                        this.tool1_End.Enabled = true;
+                    }
+                    else if (this.myDataGridView1.CurrentRowNew.Index == this.myDataGridView1.RowCount - 1)  //如果行索引为最后一行
+                    {
+                        this.tool1_First.Enabled = true;
+                        this.tool1_up.Enabled = true;
+                        this.tool1_Down.Enabled = false;
+                        this.tool1_End.Enabled = false;
+                    }
+                    else
+                    {
+                        this.tool1_First.Enabled = true;
+                        this.tool1_up.Enabled = true;
+                        this.tool1_Down.Enabled = true;
+                        this.tool1_End.Enabled = true;
+                    }
+                }
+            }
+            else
+            {
+                this.tool1_First.Enabled = false;
+                this.tool1_up.Enabled = false;
+                this.tool1_Down.Enabled = false;
+                this.tool1_End.Enabled = false;
+
+                this.tool1_Save.Enabled = false;
+                this.tool1_Undo.Enabled = false;
+                this.tool1_Delete.Enabled = false;
+                this.tool1_Modify.Enabled = false;
+                this.tool1_Print.Enabled = false;
+                this.btnCopy.Enabled = false;
+            }
+        }
+        #endregion
+        
 
         
     }

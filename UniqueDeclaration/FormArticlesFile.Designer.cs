@@ -415,6 +415,7 @@
             this.btnType.TabIndex = 34;
             this.btnType.Text = "…";
             this.btnType.UseVisualStyleBackColor = true;
+            this.btnType.Click += new System.EventHandler(this.btnType_Click);
             // 
             // cbox_Type
             // 
