@@ -248,8 +248,30 @@ namespace UniqueDeclaration
         }
 
         private void tool1_Print_Click(object sender, EventArgs e)
-        {
+        {FormArticlesFile_ExportExcel objForm = new FormArticlesFile_ExportExcel();
+            objForm.strCustExcel = strCustExcel;
+            objForm.strKeyFieldBeingExcel = strKeyFieldBeingExcel;
+            objForm.strKeyFieldEndExcel = strKeyFieldEndExcel;
+            objForm.strSecondFieldBeingExcel = strSecondFieldBeingExcel;
+            objForm.strSecondFieldEndExcel = strSecondFieldEndExcel;
+            if (objForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                strCustExcel = objForm.strCustExcel;
+                strKeyFieldBeingExcel = objForm.strKeyFieldBeingExcel;
+                strKeyFieldEndExcel = objForm.strKeyFieldEndExcel;
+                strSecondFieldBeingExcel = objForm.strSecondFieldBeingExcel;
+                strSecondFieldEndExcel = objForm.strSecondFieldEndExcel;
+                DataTable dtDetail = getPrintDetailTable();
+                if (dtDetail == null) return;
+                dtDetail.Columns["Unique#"].ColumnName = "UniqueNo";
+                DataSet ds = new DataSet();
+                ds.Tables.Add(getPrintHeadTable());
+                ds.Tables.Add(dtDetail);
 
+                UniqueDeclaration.Report.FormReportArticles report = new Report.FormReportArticles();
+                report.ds = ds;
+                report.ShowDialog();
+            }
         }
 
         private void btnCopy_Click(object sender, EventArgs e)
@@ -312,33 +334,35 @@ namespace UniqueDeclaration
                 strKeyFieldEndExcel = objForm.strKeyFieldEndExcel;
                 strSecondFieldBeingExcel = objForm.strSecondFieldBeingExcel;
                 strSecondFieldEndExcel = objForm.strSecondFieldEndExcel;
-                string strWhere = string.Empty;
-                if (strCustExcel.Length > 0)
-                {
-                    strWhere = string.Format("Cust={0}", StringTools.SqlQ(strCustExcel));
-                }
-                if (strKeyFieldBeingExcel.Length > 0)
-                {
-                    strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("KeyField >={0}", StringTools.SqlQ(strKeyFieldBeingExcel));
-                }
-                if (strKeyFieldEndExcel.Length > 0)
-                {
-                    strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("KeyField <={0}", StringTools.SqlQ(strKeyFieldEndExcel));
-                }
-                if (strSecondFieldBeingExcel.Length > 0)
-                {
-                    strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("SecondField >={0}", StringTools.SqlQ(strSecondFieldBeingExcel));
-                }
-                if (strSecondFieldEndExcel.Length > 0)
-                {
-                    strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("SecondField <={0}", StringTools.SqlQ(strSecondFieldEndExcel));
-                }
-                if (strWhere.Length == 0) return;
-                //rs.Open "select KeyField as Unique#,SecondField as Style_No,Colors as Color,Currencys as Curr,Price,Remark from tabArticle where " & FindValue, deManufacture.cnnPublic, adOpenDynamic, adLockBatchOptimistic
-                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-                dataAccess.Open();
-                DataTable rs = dataAccess.GetTable(string.Format(@"select KeyField as Unique#,SecondField as Style_No,Colors as Color,Currencys as Curr,Price,Remark from tabArticle where {0}",strWhere), null);
-                dataAccess.Close();
+                //string strWhere = string.Empty;
+                //if (strCustExcel.Length > 0)
+                //{
+                //    strWhere = string.Format("Cust={0}", StringTools.SqlQ(strCustExcel));
+                //}
+                //if (strKeyFieldBeingExcel.Length > 0)
+                //{
+                //    strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("KeyField >={0}", StringTools.SqlQ(strKeyFieldBeingExcel));
+                //}
+                //if (strKeyFieldEndExcel.Length > 0)
+                //{
+                //    strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("KeyField <={0}", StringTools.SqlQ(strKeyFieldEndExcel));
+                //}
+                //if (strSecondFieldBeingExcel.Length > 0)
+                //{
+                //    strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("SecondField >={0}", StringTools.SqlQ(strSecondFieldBeingExcel));
+                //}
+                //if (strSecondFieldEndExcel.Length > 0)
+                //{
+                //    strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("SecondField <={0}", StringTools.SqlQ(strSecondFieldEndExcel));
+                //}
+                //if (strWhere.Length == 0) return;
+                ////rs.Open "select KeyField as Unique#,SecondField as Style_No,Colors as Color,Currencys as Curr,Price,Remark from tabArticle where " & FindValue, deManufacture.cnnPublic, adOpenDynamic, adLockBatchOptimistic
+                //IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                //dataAccess.Open();
+                //DataTable rs = dataAccess.GetTable(string.Format(@"select KeyField as Unique#,SecondField as Style_No,Colors as Color,Currencys as Curr,Price,Remark from tabArticle where {0}",strWhere), null);
+                //dataAccess.Close();
+                DataTable rs = getPrintDetailTable();
+                if (rs == null) return;
                 string strSourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\空白模版.xls");
                 string strDestFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"ExcelTemp\空白模版{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss")));
                 File.Copy(strSourceFile, strDestFile);
@@ -1193,6 +1217,64 @@ namespace UniqueDeclaration
                 this.tool1_Print.Enabled = false;
                 this.btnCopy.Enabled = false;
             }
+        }
+        /// <summary>
+        /// 获取报表打印的表头数据
+        /// </summary>
+        /// <returns></returns>
+        private DataTable getPrintHeadTable()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add(new DataColumn("Cust", typeof(string)));
+            dt.Columns.Add(new DataColumn("UniqueNo", typeof(string)));
+            dt.Columns.Add(new DataColumn("UniqueNoTo", typeof(string)));
+            dt.Columns.Add(new DataColumn("StyleNo", typeof(string)));
+            dt.Columns.Add(new DataColumn("StyleNoTo", typeof(string)));
+            DataRow newRow = dt.NewRow();
+            newRow["Cust"] = strCustExcel;
+            newRow["UniqueNo"] = strKeyFieldBeingExcel;
+            newRow["UniqueNoTo"] = strKeyFieldEndExcel;
+            newRow["StyleNo"] = strSecondFieldBeingExcel;
+            newRow["StyleNoTo"] = strSecondFieldEndExcel;
+            dt.Rows.Add(newRow);
+            return dt;
+        }
+
+        /// <summary>
+        /// 获取报表打印的表身数据
+        /// </summary>
+        /// <returns></returns>
+        private DataTable getPrintDetailTable()
+        {
+            DataTable dtData = null;
+            string strWhere = string.Empty;
+            if (strCustExcel.Length > 0)
+            {
+                strWhere = string.Format("Cust={0}", StringTools.SqlQ(strCustExcel));
+            }
+            if (strKeyFieldBeingExcel.Length > 0)
+            {
+                strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("KeyField >={0}", StringTools.SqlQ(strKeyFieldBeingExcel));
+            }
+            if (strKeyFieldEndExcel.Length > 0)
+            {
+                strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("KeyField <={0}", StringTools.SqlQ(strKeyFieldEndExcel));
+            }
+            if (strSecondFieldBeingExcel.Length > 0)
+            {
+                strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("SecondField >={0}", StringTools.SqlQ(strSecondFieldBeingExcel));
+            }
+            if (strSecondFieldEndExcel.Length > 0)
+            {
+                strWhere += (strWhere.Length > 0 ? " and " : "") + string.Format("SecondField <={0}", StringTools.SqlQ(strSecondFieldEndExcel));
+            }
+            if (strWhere.Length == 0) return dtData;
+            //rs.Open "select KeyField as Unique#,SecondField as Style_No,Colors as Color,Currencys as Curr,Price,Remark from tabArticle where " & FindValue, deManufacture.cnnPublic, adOpenDynamic, adLockBatchOptimistic
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            dtData = dataAccess.GetTable(string.Format(@"select KeyField as Unique#,SecondField as Style_No,Colors as Color,Currencys as Curr,Price,Remark from tabArticle where {0}", strWhere), null);
+            dataAccess.Close();
+            return dtData;
         }
         #endregion
         

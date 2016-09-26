@@ -52,9 +52,12 @@
     <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -311,6 +314,12 @@
     <Compile Include="FormProductType_Edit.Designer.cs">
       <DependentUpon>FormProductType_Edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReportArticles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportArticles.designer.cs">
+      <DependentUpon>FormReportArticles.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -331,6 +340,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataSetArticlesFile.cs">
+      <DependentUpon>DataSetArticlesFile.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataSetArticlesFile.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetArticlesFile.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormArticlesFile.resx">
       <DependentUpon>FormArticlesFile.cs</DependentUpon>
     </EmbeddedResource>
@@ -454,6 +472,9 @@
     <EmbeddedResource Include="FormProductType_Edit.resx">
       <DependentUpon>FormProductType_Edit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReportArticles.resx">
+      <DependentUpon>FormReportArticles.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormTest.resx">
       <DependentUpon>FormTest.cs</DependentUpon>
     </EmbeddedResource>
@@ -485,6 +506,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="DataSetArticlesFile.xsc">
+      <DependentUpon>DataSetArticlesFile.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetArticlesFile.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetArticlesFile.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetArticlesFile.xss">
+      <DependentUpon>DataSetArticlesFile.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
