@@ -268,9 +268,9 @@ namespace UniqueDeclaration
                 ds.Tables.Add(getPrintHeadTable());
                 ds.Tables.Add(dtDetail);
 
-                UniqueDeclaration.Report.FormReportArticles report = new Report.FormReportArticles();
-                report.ds = ds;
-                report.ShowDialog();
+                //FormReportArticlesFile report = new FormReportArticlesFile();
+                //report.ds = ds;
+                //report.ShowDialog();
             }
         }
 
