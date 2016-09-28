@@ -248,7 +248,8 @@ namespace UniqueDeclaration
         }
 
         private void tool1_Print_Click(object sender, EventArgs e)
-        {FormArticlesFile_ExportExcel objForm = new FormArticlesFile_ExportExcel();
+        {
+            FormArticlesFile_ExportExcel objForm = new FormArticlesFile_ExportExcel();
             objForm.strCustExcel = strCustExcel;
             objForm.strKeyFieldBeingExcel = strKeyFieldBeingExcel;
             objForm.strKeyFieldEndExcel = strKeyFieldEndExcel;
@@ -263,14 +264,16 @@ namespace UniqueDeclaration
                 strSecondFieldEndExcel = objForm.strSecondFieldEndExcel;
                 DataTable dtDetail = getPrintDetailTable();
                 if (dtDetail == null) return;
-                dtDetail.Columns["Unique#"].ColumnName = "UniqueNo";
-                DataSet ds = new DataSet();
-                ds.Tables.Add(getPrintHeadTable());
-                ds.Tables.Add(dtDetail);
+                dtDetail.Columns["Unique#"].ColumnName = "Unique_No";
 
-                //FormReportArticlesFile report = new FormReportArticlesFile();
-                //report.ds = ds;
-                //report.ShowDialog();
+                //DataSet ds = new DataSet();
+                //ds.Tables.Add(getPrintHeadTable());
+                //ds.Tables.Add(dtDetail);
+
+                getPrintFullTable(dtDetail);
+                FormReportArticlesFile report = new FormReportArticlesFile();
+                report.dtData = dtDetail;
+                report.ShowDialog();
             }
         }
 
@@ -1275,6 +1278,27 @@ namespace UniqueDeclaration
             dtData = dataAccess.GetTable(string.Format(@"select KeyField as Unique#,SecondField as Style_No,Colors as Color,Currencys as Curr,Price,Remark from tabArticle where {0}", strWhere), null);
             dataAccess.Close();
             return dtData;
+        }
+        
+        /// <summary>
+        /// 获取报表打印的完整数据（包含查询条件值）
+        /// </summary>
+        /// <returns></returns>
+        private void getPrintFullTable(DataTable dtDetail)
+        {
+            dtDetail.Columns.Add(new DataColumn("Cust", typeof(string)));
+            dtDetail.Columns.Add(new DataColumn("UniqueNo", typeof(string)));
+            dtDetail.Columns.Add(new DataColumn("UniqueNoTo", typeof(string)));
+            dtDetail.Columns.Add(new DataColumn("StyleNo", typeof(string)));
+            dtDetail.Columns.Add(new DataColumn("StyleNoTo", typeof(string)));
+            foreach (DataRow row in dtDetail.Rows)
+            {
+                row["Cust"] = strCustExcel;
+                row["UniqueNo"] = strKeyFieldBeingExcel;
+                row["UniqueNoTo"] = strKeyFieldEndExcel;
+                row["StyleNo"] = strSecondFieldBeingExcel;
+                row["StyleNoTo"] = strSecondFieldEndExcel;
+            }
         }
         #endregion
         
