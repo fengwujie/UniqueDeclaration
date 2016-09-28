@@ -31,5 +31,10 @@ namespace UniqueDeclaration
             this.reportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("DataSetArticlesFileDetail", dtData));
             this.reportViewer1.RefreshReport();
         }
+
+        private void FormReportArticlesFile_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.reportViewer1.Dispose();
+        }
     }
 }

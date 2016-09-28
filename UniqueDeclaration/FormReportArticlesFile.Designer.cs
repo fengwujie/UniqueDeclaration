@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.dtHeadBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.DataSetArticlesFile = new UniqueDeclaration.DataSetArticlesFile();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
@@ -50,22 +50,24 @@
             // reportViewer1
             // 
             this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource1.Name = "DataSetArticlesFile";
-            reportDataSource1.Value = this.dtHeadBindingSource;
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
+            reportDataSource2.Name = "DataSetArticlesFile";
+            reportDataSource2.Value = this.dtHeadBindingSource;
+            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource2);
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "UniqueDeclaration.ReportArticlesFile.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(0, 0);
             this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.Size = new System.Drawing.Size(770, 578);
+            this.reportViewer1.Size = new System.Drawing.Size(791, 578);
             this.reportViewer1.TabIndex = 0;
             // 
             // FormReportArticlesFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(770, 578);
+            this.ClientSize = new System.Drawing.Size(791, 578);
             this.Controls.Add(this.reportViewer1);
             this.Name = "FormReportArticlesFile";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Article";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormReportArticlesFile_FormClosing);
             this.Load += new System.EventHandler(this.FormReportArticlesFile_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtHeadBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataSetArticlesFile)).EndInit();

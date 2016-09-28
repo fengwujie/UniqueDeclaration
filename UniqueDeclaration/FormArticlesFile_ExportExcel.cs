@@ -24,7 +24,7 @@ namespace UniqueDeclaration
             txt_Cust.Text = strCustExcel;
             txt_KeyFieldBegin.Text = strKeyFieldBeingExcel;
             txt_KeyFieldEnd.Text = strKeyFieldEndExcel;
-            txt_SecondFieldBegin.Text = strKeyFieldBeingExcel;
+            txt_SecondFieldBegin.Text = strSecondFieldBeingExcel;
             txt_SecondFieldEnd.Text = strSecondFieldEndExcel;
             this.txt_SecondFieldBegin.GotFocus += new System.EventHandler(this.txt_SecondFieldBegin_GotFocus);
             this.txt_SecondFieldEnd.GotFocus += new System.EventHandler(this.txt_SecondFieldEnd_GotFocus);

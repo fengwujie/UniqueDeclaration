@@ -264,6 +264,11 @@ namespace UniqueDeclaration
                 strSecondFieldEndExcel = objForm.strSecondFieldEndExcel;
                 DataTable dtDetail = getPrintDetailTable();
                 if (dtDetail == null) return;
+                if (dtDetail.Rows.Count == 0)
+                {
+                    SysMessage.InformationMsg("没有符合条件的数据！");
+                    return;
+                }
                 dtDetail.Columns["Unique#"].ColumnName = "Unique_No";
 
                 //DataSet ds = new DataSet();
