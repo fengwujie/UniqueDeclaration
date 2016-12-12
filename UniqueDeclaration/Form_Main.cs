@@ -307,7 +307,6 @@ namespace UniqueDeclaration
 
         private void 成品入库ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             UniquePMS.frmInStock objForm = new UniquePMS.frmInStock();
             objForm.MdiParent = this;
             objForm.Show();
@@ -336,6 +335,25 @@ namespace UniqueDeclaration
                 FormArticlesFile formArticlesFile = new FormArticlesFile();
                 formArticlesFile.CustValue = objForm.CustValue;
                 formArticlesFile.ShowDialog();
+            }
+        }
+
+        //手册资料录入
+        private void FromManualInput_Click(object sender, EventArgs e)
+        {
+
+        }
+        //手册资料查询
+        private void FormManualQueryCondition_Click(object sender, EventArgs e)
+        {
+            UniqueDeclaration.Base.FormManualQueryCondition queryConditionForm = new UniqueDeclaration.Base.FormManualQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string strWhere = queryConditionForm.strReturnWhere;
+                UniqueDeclaration.Base.FormManualQueryList queryListForm = new UniqueDeclaration.Base.FormManualQueryList();
+                queryListForm.gstrWhere = strWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
             }
         }
 

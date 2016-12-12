@@ -58,6 +58,7 @@
             this.myDataGridViewDetails2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.myDataGridViewDetails2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.myDataGridViewDetails2.Location = new System.Drawing.Point(0, 172);
+            this.myDataGridViewDetails2.MultiSelect = false;
             this.myDataGridViewDetails2.Name = "myDataGridViewDetails2";
             this.myDataGridViewDetails2.ReadOnly = true;
             this.myDataGridViewDetails2.RowTemplate.Height = 23;
@@ -68,7 +69,7 @@
             // 
             this.myContextHead.MyDataGridView = this.myDataGridViewHead;
             this.myContextHead.Name = "myContextHead";
-            this.myContextHead.Size = new System.Drawing.Size(101, 26);
+            this.myContextHead.Size = new System.Drawing.Size(153, 48);
             // 
             // myContextDetails
             // 

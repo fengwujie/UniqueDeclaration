@@ -40,6 +40,7 @@
             this.tool1_Delete = new System.Windows.Forms.ToolStripButton();
             this.tool1_Number = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool1_BOM = new System.Windows.Forms.ToolStripButton();
             this.tool1_Query = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tool1_Print = new System.Windows.Forms.ToolStripButton();
@@ -73,6 +74,7 @@
             this.tool1_Delete,
             this.tool1_Number,
             this.toolStripSeparator2,
+            this.tool1_BOM,
             this.tool1_Query,
             this.toolStripSeparator4,
             this.tool1_Print,
@@ -184,6 +186,16 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
+            // tool1_BOM
+            // 
+            this.tool1_BOM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_BOM.Image = global::UniqueDeclarationBaseForm.Properties.Resources.structure_24px;
+            this.tool1_BOM.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_BOM.Name = "tool1_BOM";
+            this.tool1_BOM.Size = new System.Drawing.Size(23, 22);
+            this.tool1_BOM.Text = "明细";
+            this.tool1_BOM.Visible = false;
+            // 
             // tool1_Query
             // 
             this.tool1_Query.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -249,6 +261,7 @@
             this.myDataGridViewHead.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myDataGridViewHead.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.myDataGridViewHead.Location = new System.Drawing.Point(0, 0);
+            this.myDataGridViewHead.MultiSelect = false;
             this.myDataGridViewHead.Name = "myDataGridViewHead";
             this.myDataGridViewHead.ReadOnly = true;
             this.myDataGridViewHead.RowTemplate.Height = 23;
@@ -264,6 +277,7 @@
             this.myDataGridViewDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myDataGridViewDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.myDataGridViewDetails.Location = new System.Drawing.Point(0, 20);
+            this.myDataGridViewDetails.MultiSelect = false;
             this.myDataGridViewDetails.Name = "myDataGridViewDetails";
             this.myDataGridViewDetails.ReadOnly = true;
             this.myDataGridViewDetails.RowTemplate.Height = 23;
@@ -334,5 +348,6 @@
         public System.Windows.Forms.ToolStripButton tool1_Add;
         public System.Windows.Forms.ToolStripButton tool1_Import;
         public System.Windows.Forms.ToolStripButton tool1_Number;
+        public System.Windows.Forms.ToolStripButton tool1_BOM;
     }
 }

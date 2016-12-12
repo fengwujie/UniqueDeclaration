@@ -68,6 +68,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\FormManualQueryCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormManualQueryCondition.Designer.cs">
+      <DependentUpon>FormManualQueryCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormManualQueryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormManualQueryList.Designer.cs">
+      <DependentUpon>FormManualQueryList.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSetArticlesFile.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -345,6 +357,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Base\FormManualQueryCondition.resx">
+      <DependentUpon>FormManualQueryCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormManualQueryList.resx">
+      <DependentUpon>FormManualQueryList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormArticlesFile.resx">
       <DependentUpon>FormArticlesFile.cs</DependentUpon>
     </EmbeddedResource>

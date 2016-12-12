@@ -72,8 +72,6 @@
             this.arrangeIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -81,6 +79,11 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStatus_Version = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.Base = new System.Windows.Forms.ToolStripMenuItem();
+            this.FromManualInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormManualQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -88,6 +91,7 @@
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Base,
             this.Order,
             this.Business,
             this.Materials,
@@ -370,35 +374,35 @@
             // cascadeToolStripMenuItem
             // 
             this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.cascadeToolStripMenuItem.Text = "层叠(&C)";
             this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.CascadeToolStripMenuItem_Click);
             // 
             // tileVerticalToolStripMenuItem
             // 
             this.tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.tileVerticalToolStripMenuItem.Text = "垂直平铺(&V)";
             this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.TileVerticalToolStripMenuItem_Click);
             // 
             // tileHorizontalToolStripMenuItem
             // 
             this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.tileHorizontalToolStripMenuItem.Text = "水平平铺(&H)";
             this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.TileHorizontalToolStripMenuItem_Click);
             // 
             // closeAllToolStripMenuItem
             // 
             this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.closeAllToolStripMenuItem.Text = "全部关闭(&L)";
             this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.CloseAllToolStripMenuItem_Click);
             // 
             // arrangeIconsToolStripMenuItem
             // 
             this.arrangeIconsToolStripMenuItem.Name = "arrangeIconsToolStripMenuItem";
-            this.arrangeIconsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.arrangeIconsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.arrangeIconsToolStripMenuItem.Text = "排列图标(&A)";
             this.arrangeIconsToolStripMenuItem.Click += new System.EventHandler(this.ArrangeIconsToolStripMenuItem_Click);
             // 
@@ -421,22 +425,6 @@
             this.contentsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F1)));
             this.contentsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.contentsToolStripMenuItem.Text = "目录(&C)";
-            // 
-            // indexToolStripMenuItem
-            // 
-            this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
-            this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
-            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.indexToolStripMenuItem.Text = "索引(&I)";
-            // 
-            // searchToolStripMenuItem
-            // 
-            this.searchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("searchToolStripMenuItem.Image")));
-            this.searchToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.searchToolStripMenuItem.Text = "搜索(&S)";
             // 
             // toolStripSeparator8
             // 
@@ -463,26 +451,65 @@
             // 
             // toolStatus_User
             // 
-            this.toolStatus_User.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStatus_User.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.toolStatus_User.ForeColor = System.Drawing.Color.Blue;
             this.toolStatus_User.Name = "toolStatus_User";
-            this.toolStatus_User.Size = new System.Drawing.Size(67, 17);
+            this.toolStatus_User.Size = new System.Drawing.Size(72, 17);
             this.toolStatus_User.Text = "您还未登录";
             // 
             // toolStripStatusLabel1
             // 
-            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(11, 17);
             this.toolStripStatusLabel1.Text = "|";
             // 
             // toolStatus_Version
             // 
-            this.toolStatus_Version.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStatus_Version.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.toolStatus_Version.ForeColor = System.Drawing.Color.Blue;
             this.toolStatus_Version.Name = "toolStatus_Version";
-            this.toolStatus_Version.Size = new System.Drawing.Size(79, 17);
+            this.toolStatus_Version.Size = new System.Drawing.Size(85, 17);
             this.toolStatus_Version.Text = "当前系统版本";
+            // 
+            // Base
+            // 
+            this.Base.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FromManualInput,
+            this.FormManualQueryCondition});
+            this.Base.Name = "Base";
+            this.Base.Size = new System.Drawing.Size(68, 21);
+            this.Base.Text = "基础资料";
+            // 
+            // FromManualInput
+            // 
+            this.FromManualInput.Name = "FromManualInput";
+            this.FromManualInput.Size = new System.Drawing.Size(152, 22);
+            this.FromManualInput.Text = "手册资料录入";
+            this.FromManualInput.Click += new System.EventHandler(this.FromManualInput_Click);
+            // 
+            // FormManualQueryCondition
+            // 
+            this.FormManualQueryCondition.Name = "FormManualQueryCondition";
+            this.FormManualQueryCondition.Size = new System.Drawing.Size(152, 22);
+            this.FormManualQueryCondition.Text = "手册资料查询";
+            this.FormManualQueryCondition.Click += new System.EventHandler(this.FormManualQueryCondition_Click);
+            // 
+            // indexToolStripMenuItem
+            // 
+            this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
+            this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
+            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.indexToolStripMenuItem.Text = "索引(&I)";
+            // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("searchToolStripMenuItem.Image")));
+            this.searchToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.searchToolStripMenuItem.Text = "搜索(&S)";
             // 
             // Form_Main
             // 
@@ -561,6 +588,9 @@
         private System.Windows.Forms.ToolStripMenuItem 成品库存ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem FormCustFindSet;
+        private System.Windows.Forms.ToolStripMenuItem Base;
+        private System.Windows.Forms.ToolStripMenuItem FromManualInput;
+        private System.Windows.Forms.ToolStripMenuItem FormManualQueryCondition;
     }
 }
 
