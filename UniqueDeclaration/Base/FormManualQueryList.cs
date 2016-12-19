@@ -189,6 +189,65 @@ namespace UniqueDeclaration.Base
             }
         }
 
+        public override void tool1_Add_Click(object sender, EventArgs e)
+        {
+            //base.tool1_Add_Click(sender, e);
+            FormManualInput objForm = new FormManualInput();
+            objForm.MdiParent = this.MdiParent;
+            objForm.giOrderID = 0;
+            objForm.Show();
+        }
+
+        public override void tool1_Modify_Click(object sender, EventArgs e)
+        {
+            bool bHave = false;
+            int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["手册id"].Value);
+            foreach (Form childFrm in this.MdiParent.MdiChildren)
+            {
+                if (childFrm.Name == "FormManualInput")
+                {
+                    FormManualInput inputForm = (FormManualInput)childFrm;
+                    if (inputForm.giOrderID != 0 && inputForm.giOrderID == iOrderID)
+                    {
+                        bHave = true;
+                        childFrm.Activate();
+                        break;
+                    }
+                }
+            }
+            if (!bHave)
+            {
+                FormManualInput objForm = new FormManualInput();
+                objForm.MdiParent = this.MdiParent;
+                objForm.giOrderID = iOrderID;
+                objForm.Show();
+            }
+        }
+
+        public override void tool1_Delete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.myDataGridViewHead.CurrentRow == null) return;
+                int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["手册id"].Value);
+                if (SysMessage.OKCancelMsg(string.Format("真的要删除手册编号【{0}】吗？", this.myDataGridViewHead.CurrentRow.Cells["手册编号"].Value)) == System.Windows.Forms.DialogResult.Cancel) return;
+
+                IDataAccess data = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                data.Open();
+                DataTable dtList = data.GetTable(string.Format("删除指定的手册资料", iOrderID), null);
+                data.Close();
+                string strSuccess = string.Format("{0}[{1}]成功！", tool1_Delete.Text, this.myDataGridViewHead.CurrentRow.Cells["手册编号"].Value);
+                this.myDataGridViewHead.Rows.Remove(this.myDataGridViewHead.CurrentRow);
+                setTool1Enabled();
+                SysMessage.InformationMsg(strSuccess);
+            }
+            catch (Exception ex)
+            {
+                string strError = string.Format("{0} 出现错误：错误信息：{1}", tool1_Delete.Text, ex.Message);
+                SysMessage.ErrorMsg(strError);
+            }
+        }
+
         public override void tool1_ExportExcel_Click(object sender, EventArgs e)
         {
             base.tool1_ExportExcel_Click(sender, e);
