@@ -68,6 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\FormManualInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormManualInput.Designer.cs">
+      <DependentUpon>FormManualInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Base\FormManualQueryCondition.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -357,6 +363,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Base\FormManualInput.resx">
+      <DependentUpon>FormManualInput.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Base\FormManualQueryCondition.resx">
       <DependentUpon>FormManualQueryCondition.cs</DependentUpon>
     </EmbeddedResource>
