@@ -74,3 +74,4 @@ F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\RdlCompile.cache
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\RdlCompile.compiled
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormManualQueryCondition.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormManualQueryList.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormManualInput.resources

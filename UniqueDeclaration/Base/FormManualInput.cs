@@ -59,9 +59,9 @@ namespace UniqueDeclaration.Base
         #region 窗体事件
         private void FormManualInput_Load(object sender, EventArgs e)
         {
-            InitGrid();
             InitControlData();
             LoadDataSource();
+            InitGrid();
         }
 
         private void FormManualInput_FormClosing(object sender, FormClosingEventArgs e)
@@ -95,13 +95,53 @@ namespace UniqueDeclaration.Base
         /// </summary>
         public void InitGrid()
         {
+            InitGridDetails();
+            InitGridDetails2();
+        }
+        /// <summary>
+        /// 出口成品GRID初始化
+        /// </summary>
+        private void InitGridDetails()
+        {
+            this.myDataGridViewDetails.Columns["BM"].Visible = false;
+            this.myDataGridViewDetails.Columns["出口成品id"].Visible = false;
+            this.myDataGridViewDetails.Columns["总价"].ReadOnly = true;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            dataGridViewCellStyle1.Format = "F3";
+            dataGridViewCellStyle1.NullValue = null;
+            this.myDataGridViewDetails.Columns["数量"].DefaultCellStyle = dataGridViewCellStyle1;
+            this.myDataGridViewDetails.Columns["单价"].DefaultCellStyle = dataGridViewCellStyle1;
+            this.myDataGridViewDetails.Columns["总价"].DefaultCellStyle = dataGridViewCellStyle1;
+            foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridViewDetails.Columns)
+            {
+                textBoxColumn.ContextMenuStrip = this.myContextDetails;
+            }
+        }
+        /// <summary>
+        /// 进口料件GRID初始化
+        /// </summary>
+        private void InitGridDetails2()
+        {
+            this.myDataGridViewDetails2.Columns["BM"].Visible = false;
+            this.myDataGridViewDetails2.Columns["进口料件id"].Visible = false;
+            this.myDataGridViewDetails2.Columns["总价"].ReadOnly = true;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            dataGridViewCellStyle1.Format = "F3";
+            dataGridViewCellStyle1.NullValue = null;
+            this.myDataGridViewDetails2.Columns["数量"].DefaultCellStyle = dataGridViewCellStyle1;
+            this.myDataGridViewDetails2.Columns["单价"].DefaultCellStyle = dataGridViewCellStyle1;
+            this.myDataGridViewDetails2.Columns["总价"].DefaultCellStyle = dataGridViewCellStyle1;
+            foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridViewDetails2.Columns)
+            {
+                textBoxColumn.ContextMenuStrip = this.myContextDetails2;
+            }
         }
         /// <summary>
         /// 初始化界面上某些控件的初始值
         /// </summary>
         public void InitControlData()
         {
-
+            
         }
         /// <summary>
         /// 加载数据
@@ -117,8 +157,8 @@ namespace UniqueDeclaration.Base
         /// </summary>
         public void LoadDataSourceHead()
         {
-            string strSQL = string.Format("select * from 手册资料表 where 手册id=  ={0}", giOrderID);
-            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            string strSQL = string.Format("select * from 手册资料表 where 手册id={0}", giOrderID);
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
             dataAccess.Open();
             dtHead = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
@@ -133,6 +173,7 @@ namespace UniqueDeclaration.Base
                 dtHead.Rows.Add(rowHead);
                 rowHead["有效期限"] = date_有效期限.Value;
                 rowHead["审批日期"] = date_审批日期.Value;
+                rowHead["录入员"] = SystemGlobal.SystemGlobal_UserInfo.UserName;
                 fillControl(rowHead);
             }
         }
@@ -141,8 +182,8 @@ namespace UniqueDeclaration.Base
         /// </summary>
         public void LoadDataSourceDetails()
         {
-            string strSQL = string.Format("出口成品表录入查询 ", giOrderID);
-            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            string strSQL = string.Format("出口成品表录入查询 {0}", giOrderID);
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
             dataAccess.Open();
             dtDetails = dataAccess.GetTable(strSQL.ToString(), null);
             dataAccess.Close();
@@ -158,8 +199,8 @@ namespace UniqueDeclaration.Base
         /// </summary>
         public void LoadDataSourceDetails2()
         {
-            string strSQL = string.Format("进口料件表录入查询 ", giOrderID);
-            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            string strSQL = string.Format("进口料件表录入查询 {0}", giOrderID);
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
             dataAccess.Open();
             dtDetails2 = dataAccess.GetTable(strSQL.ToString(), null);
             dataAccess.Close();
@@ -442,7 +483,7 @@ namespace UniqueDeclaration.Base
                 if (rowHead.RowState == DataRowState.Added)
                 {
                     #region 新增数据
-                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
                     dataAccess.Open();
                     dataAccess.BeginTran();
                     try
@@ -907,9 +948,9 @@ namespace UniqueDeclaration.Base
         public void dtDetailsAddRow()
         {
             DataRow newRow = dtDetails.NewRow();
-            newRow["订单数量"] = 0;
-            newRow["申报单位"] = "个";
-            newRow["法定单位"] = "千克";
+            newRow["序号"] = dtDetails.Rows.Count;
+            newRow["币种"] = "USD";
+            newRow["征免"] = "征免";
             dtDetails.Rows.Add(newRow);
             setTool2Enabled();
         }
@@ -1020,9 +1061,8 @@ namespace UniqueDeclaration.Base
         public void dtDetailsAddRow2()
         {
             DataRow newRow = dtDetails2.NewRow();
-            newRow["订单数量"] = 0;
-            newRow["申报单位"] = "个";
-            newRow["法定单位"] = "千克";
+            newRow["序号"] = dtDetails2.Rows.Count;
+            newRow["币种"] = "USD";
             dtDetails2.Rows.Add(newRow);
             setTool3Enabled();
         }
@@ -1034,5 +1074,18 @@ namespace UniqueDeclaration.Base
             txt_手册编号3.Text = txt_手册编号.Text;
         }
 
+        #region 出口成品GRID事件
+        private void myDataGridViewDetails_SelectionChanged(object sender, EventArgs e)
+        {
+            setTool2Enabled();
+        }
+        #endregion
+
+        #region 进口料件GRID事件
+        private void myDataGridViewDetails2_SelectionChanged(object sender, EventArgs e)
+        {
+            setTool3Enabled();
+        }
+        #endregion
     }
 }

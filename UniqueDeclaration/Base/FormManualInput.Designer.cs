@@ -829,6 +829,7 @@
             this.myDataGridViewDetails.RowTemplate.Height = 23;
             this.myDataGridViewDetails.Size = new System.Drawing.Size(746, 339);
             this.myDataGridViewDetails.TabIndex = 5;
+            this.myDataGridViewDetails.SelectionChanged += new System.EventHandler(this.myDataGridViewDetails_SelectionChanged);
             // 
             // toolStrip2
             // 
@@ -1018,6 +1019,7 @@
             this.myDataGridViewDetails2.RowTemplate.Height = 23;
             this.myDataGridViewDetails2.Size = new System.Drawing.Size(752, 345);
             this.myDataGridViewDetails2.TabIndex = 5;
+            this.myDataGridViewDetails2.SelectionChanged += new System.EventHandler(this.myDataGridViewDetails2_SelectionChanged);
             // 
             // toolStrip3
             // 
