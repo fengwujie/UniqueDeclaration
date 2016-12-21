@@ -81,6 +81,7 @@ namespace UniqueDeclaration.Base
                 textBoxColumn.ContextMenuStrip = this.myContextMenuDetailsInput;
             }
         }
+
         #region 加载数据
         /// <summary>
         /// 加载表头数据

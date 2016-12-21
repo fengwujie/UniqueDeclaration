@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\FormManualBOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormManualBOM.Designer.cs">
+      <DependentUpon>FormManualBOM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Base\FormManualInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -365,6 +371,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Base\FormManualBOM.resx">
+      <DependentUpon>FormManualBOM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Base\FormManualInput.resx">
       <DependentUpon>FormManualInput.cs</DependentUpon>
     </EmbeddedResource>

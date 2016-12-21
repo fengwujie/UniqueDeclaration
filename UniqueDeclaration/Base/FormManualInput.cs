@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using DataAccess;
 using UniqueDeclarationPubilc;
+using UniqueDeclarationBaseForm.Controls;
+using UniqueDeclarationBaseForm;
 
 namespace UniqueDeclaration.Base
 {
@@ -41,11 +43,11 @@ namespace UniqueDeclaration.Base
         /// <summary>
         /// 出口成品明细表的第一个字段
         /// </summary>
-        private string gstrDetailFirstField = "";
+        private string gstrDetailFirstField = "序号";
         /// <summary>
         /// 进口料件明细表的第一个字段
         /// </summary>
-        private string gstrDetailFirstField2 = "";
+        private string gstrDetailFirstField2 = "序号";
         /// <summary>
         /// 控制是否触发单元格回车事件，如果是回车事件后，指定到某个单元格，这种情况下就不再触发回车事件
         /// </summary>
@@ -205,7 +207,7 @@ namespace UniqueDeclaration.Base
             dtDetails2 = dataAccess.GetTable(strSQL.ToString(), null);
             dataAccess.Close();
             bCellKeyPress = false;
-            this.myDataGridViewDetails2.DataSource = dtDetails;
+            this.myDataGridViewDetails2.DataSource = dtDetails2;
             bCellKeyPress = true;
             if (dtDetails2.Rows.Count == 0)
                 dtDetailsAddRow2();
@@ -498,7 +500,7 @@ namespace UniqueDeclaration.Base
                             rowHead["进出口岸一"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["进出口岸一"].ToString()),
                             rowHead["经营单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["经营单位"].ToString()),
                             rowHead["贸易方式"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["贸易方式"].ToString()),
-                            rowHead["有效期限"],
+                            StringTools.SqlQ(Convert.ToDateTime( rowHead["有效期限"]).ToShortDateString()),
                             rowHead["收货单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["收货单位"].ToString()),
                             rowHead["起抵地"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["起抵地"].ToString()),
                             rowHead["重点标志"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["重点标志"].ToString()),
@@ -520,7 +522,7 @@ namespace UniqueDeclaration.Base
                             rowHead["进出口岸四"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["进出口岸四"].ToString()),
                             rowHead["进出口岸五"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["进出口岸五"].ToString()),
                             rowHead["审批员"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["审批员"].ToString()),
-                            rowHead["审批日期"],
+                            StringTools.SqlQ(Convert.ToDateTime( rowHead["审批日期"]).ToShortDateString()),
                             rowHead["保税方式"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["保税方式"].ToString()),
                             rowHead["备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["备注"].ToString()),
                             rowHead["录入员"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["录入员"].ToString()),
@@ -591,7 +593,7 @@ namespace UniqueDeclaration.Base
                 else //if (rowHead.RowState == DataRowState.Modified || (dtDetails.GetChanges() !=null && dtDetails.GetChanges().Rows.Count>0))
                 {
                     #region 修改数据
-                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
                     dataAccess.Open();
                     dataAccess.BeginTran();
                     try
@@ -607,7 +609,7 @@ namespace UniqueDeclaration.Base
                             rowHead["进出口岸一"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["进出口岸一"].ToString()),
                             rowHead["经营单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["经营单位"].ToString()),
                             rowHead["贸易方式"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["贸易方式"].ToString()),
-                            rowHead["有效期限"],
+                            StringTools.SqlQ(Convert.ToDateTime( rowHead["有效期限"]).ToShortDateString()),
                             rowHead["收货单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["收货单位"].ToString()),
                             rowHead["起抵地"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["起抵地"].ToString()),
                             rowHead["重点标志"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["重点标志"].ToString()),
@@ -629,12 +631,12 @@ namespace UniqueDeclaration.Base
                             rowHead["进出口岸四"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["进出口岸四"].ToString()),
                             rowHead["进出口岸五"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["进出口岸五"].ToString()),
                             rowHead["审批员"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["审批员"].ToString()),
-                            rowHead["审批日期"],
+                            StringTools.SqlQ( Convert.ToDateTime(rowHead["审批日期"]).ToShortDateString()),
                             rowHead["保税方式"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["保税方式"].ToString()),
                             rowHead["备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["备注"].ToString()),
                             rowHead["录入员"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["录入员"].ToString()),
                             rowHead["工缴费率"] == DBNull.Value ? "NULL" : rowHead["工缴费率"],
-                                rowHead["手册id"]);
+                            rowHead["手册id"]);
                             dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                             strBuilder.Clear();
                         }
@@ -886,7 +888,85 @@ namespace UniqueDeclaration.Base
 
         private void tool2_BOM_Click(object sender, EventArgs e)
         {
+            //if (this.myDataGridViewDetails.RowCount == 0) return;
+            //if (rowHead["手册编号"].ToString() == "")
+            //{
+            //    SysMessage.InformationMsg("请输入电子帐册号！");
+            //    return;
+            //}
+            //#region 判断是否已经有打开的BOM窗体
+            //foreach (Form childFrm in this.MdiParent.MdiChildren)
+            //{
+            //    if (childFrm.Name == "FormManualBOM")
+            //    {
+            //        FormManualBOM orderBomForm = (FormManualBOM)childFrm;
+            //        if (orderBomForm.OrderId == Convert.ToInt32(this.myDataGridViewDetails.CurrentRow.Cells["订单id"].Value)
+            //            && orderBomForm.OrderListId == Convert.ToInt32(this.myDataGridViewDetails.CurrentRow.Cells["订单明细表id"].Value))
+            //        {
+            //            childFrm.Activate();
+            //            return;
+            //        }
+            //    }
+            //}
+            //#endregion
 
+            //#region 删除当前订单明细ID对应的非当前配件ID或产品ID的数据
+            //IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            //dataAccess.Open();
+            //int iOrderID = Convert.ToInt32(this.dataGridViewHead.CurrentRow.Cells["订单id"].Value);
+            //string strSQL = string.Format("delete from 产品配件改样报关材料明细表  where 订单id ={0} and 订单明细表id not in (select 订单明细表id from 报关订单明细表 where 订单id ={0})", iOrderID);
+            //dataAccess.ExecuteNonQuery(strSQL, null);
+            //strSQL = string.Format("delete from 产品配件改样报关材料表 where 订单id ={0} and 订单明细表id not in (select 订单明细表id from 报关订单明细表 where 订单id ={0})", iOrderID);
+            //dataAccess.ExecuteNonQuery(strSQL, null);
+            //dataAccess.Close();
+            //int iOrderDetailID = Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["订单明细表id"].Value);
+            //if (this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value == DBNull.Value || Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value) == 0)
+            //{
+            //    dataAccess.Open();
+            //    strSQL = string.Format("delete from 产品配件改样报关材料明细表 where 配件id is not null and 订单id ={0} and 订单明细表id ={1} and 配件id<> {2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["配件id"].Value.ToString()));
+            //    dataAccess.ExecuteNonQuery(strSQL, null);
+            //    strSQL = string.Format("delete from 产品配件改样报关材料表 where 配件id is not null and 订单id ={0} and 订单明细表id ={1} and 配件id<>{2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["配件id"].Value.ToString()));
+            //    dataAccess.ExecuteNonQuery(strSQL, null);
+            //    dataAccess.Close();
+            //}
+            //else
+            //{
+            //    dataAccess.Open();
+            //    strSQL = string.Format("delete from 产品配件改样报关材料明细表 where 配件id is not null and 订单id ={0} and 订单明细表id ={1} and 产品id<> {2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value.ToString()));
+            //    dataAccess.ExecuteNonQuery(strSQL, null);
+            //    strSQL = string.Format("delete from 产品配件改样报关材料表 where 配件id is not null and 订单id ={0} and 订单明细表id ={1} and 产品id<>{2}", iOrderID, iOrderDetailID, StringTools.intParse(this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value.ToString()));
+            //    dataAccess.ExecuteNonQuery(strSQL, null);
+            //    dataAccess.Close();
+            //}
+            //#endregion
+
+            //FormFinishedProductOutBOM formBOM = new FormFinishedProductOutBOM();
+            //formBOM.Pid = this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value == DBNull.Value ? 0 : Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["产品id"].Value);
+            //formBOM.Fid = this.dataGridViewDetails.CurrentRow.Cells["配件id"].Value == DBNull.Value ? 0 : Convert.ToInt32(this.dataGridViewDetails.CurrentRow.Cells["配件id"].Value);
+            //formBOM.OrderId = iOrderID;
+            //formBOM.OrderCode = this.dataGridViewHead.CurrentRow.Cells["订单号码"].Value.ToString();
+            //formBOM.OrderListId = iOrderDetailID;
+            //formBOM.ManualCode = this.dataGridViewHead.CurrentRow.Cells["手册编号"].Value.ToString();
+            //formBOM.mstrName = this.dataGridViewDetails.CurrentRow.Cells["型号"].Value.ToString();
+            //formBOM.ProductCode = this.dataGridViewDetails.CurrentRow.Cells["成品项号"].Value.ToString();
+            //formBOM.Amount = this.dataGridViewDetails.CurrentRow.Cells["订单数量"].Value == DBNull.Value ? 0 : StringTools.decimalParse(this.dataGridViewDetails.CurrentRow.Cells["订单数量"].Value.ToString());
+            //formBOM.AllWeight = (this.dataGridViewDetails.CurrentRow.Cells["实际总重"].Value == null || this.dataGridViewDetails.CurrentRow.Cells["实际总重"].Value == DBNull.Value) ? 0 : float.Parse(this.dataGridViewDetails.CurrentRow.Cells["实际总重"].Value.ToString());
+            //formBOM.FactWeight = this.dataGridViewDetails.CurrentRow.Cells["总重"].Value == DBNull.Value ? 0 : float.Parse(this.dataGridViewDetails.CurrentRow.Cells["总重"].Value.ToString());
+            //formBOM.Unitname = this.dataGridViewDetails.CurrentRow.Cells["申报单位"].Value.ToString();
+            //formBOM.modename = this.dataGridViewDetails.CurrentRow.Cells["成品规格型号"].Value.ToString();
+            //if (this.dataGridViewDetails.CurrentRow.Cells["成品名称及商编"].Value != DBNull.Value)
+            //{
+            //    string 成品名称及商编 = this.dataGridViewDetails.CurrentRow.Cells["成品名称及商编"].Value.ToString();
+            //    formBOM.NameCode1 = 成品名称及商编.Substring(0, 成品名称及商编.LastIndexOf('/'));
+            //    formBOM.NameCode2 = 成品名称及商编.Substring(成品名称及商编.LastIndexOf('/') + 1);
+            //}
+            //else
+            //{
+            //    formBOM.NameCode1 = "";
+            //    formBOM.NameCode2 = "";
+            //}
+            //formBOM.MdiParent = this.MdiParent;
+            //formBOM.Show();
         }
         /// <summary>
         /// 设置出口成品tools的按钮是否可用
@@ -948,7 +1028,7 @@ namespace UniqueDeclaration.Base
         public void dtDetailsAddRow()
         {
             DataRow newRow = dtDetails.NewRow();
-            newRow["序号"] = dtDetails.Rows.Count;
+            newRow["序号"] = dtDetails.Rows.Count + 1;
             newRow["币种"] = "USD";
             newRow["征免"] = "征免";
             dtDetails.Rows.Add(newRow);
@@ -1061,23 +1141,504 @@ namespace UniqueDeclaration.Base
         public void dtDetailsAddRow2()
         {
             DataRow newRow = dtDetails2.NewRow();
-            newRow["序号"] = dtDetails2.Rows.Count;
+            newRow["序号"] = dtDetails2.Rows.Count + 1;
             newRow["币种"] = "USD";
             dtDetails2.Rows.Add(newRow);
             setTool3Enabled();
         }
         #endregion
 
+        #region 表头控件事件 
         private void txt_手册编号_TextChanged(object sender, EventArgs e)
         {
             txt_手册编号2.Text = txt_手册编号.Text;
             txt_手册编号3.Text = txt_手册编号.Text;
         }
+        //文本控件值变化后同步到rowHead中
+        private void txt_Validated(object sender, EventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            string fieldName = txtBox.Name.Replace("txt_","");
+            if (rowHead[fieldName].ToString() != txtBox.Text)
+            {
+                rowHead[fieldName] = txtBox.Text;
+            }
+        }
+        //日期控件值变化后同步到rowHead中
+        private void date_有效期限_ValueChanged(object sender, EventArgs e)
+        {
+            myDateTimePicker dtPicker = (myDateTimePicker)sender;
+            string fieldName = dtPicker.Name.Replace("date_","");
+            if (Convert.ToDateTime(rowHead[fieldName]) != dtPicker.Value)
+            {
+                rowHead[fieldName] = dtPicker.Value;
+            }
+        }
+        //文本控件值变化时验证
+        private void txt_Validating(object sender, CancelEventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            string fieldName = txtBox.Name.Replace("txt_", "");
+            string strSQL = string.Empty;
+            IDataAccess dataAccess = null;
+            switch (fieldName)
+            {
+                case "手册编号":
+                    #region 手册编号
+                    if (rowHead.RowState == DataRowState.Added)
+                    {
+                        strSQL = string.Format("SELECT 手册id FROM 手册资料表 WHERE 手册编号 ={0}", StringTools.SqlQ(txtBox.Text));
+                        dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                        dataAccess.Open();
+                        DataTable dtManual = dataAccess.GetTable(strSQL.ToString(), null);
+                        dataAccess.Close();
+                        if (dtManual.Rows.Count > 0)
+                        {
+                            SysMessage.InformationMsg("手册编号已经存在，请重新输入！");
+                            e.Cancel = true;
+                            txtBox.Focus();
+                        }
+                    }
+                    break;
+                    #endregion
+                case "经营单位":
+                    #region 经营单位
+                    strSQL = string.Format("帮助录入查询 {0},0", StringTools.SqlQ(txtBox.Text));
+                    dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    dataAccess.Open();
+                    DataTable dt经营单位 = dataAccess.GetTable(strSQL.ToString(), null);
+                    dataAccess.Close();
+                    DataRow selectRow经营单位 = null;
+                    if (dt经营单位.Rows.Count == 0)
+                    {
+                        SysMessage.InformationMsg("此经营单位不存在！");
+                        e.Cancel = true;
+                        txtBox.Focus();
+                    }
+                    else if (dt经营单位.Rows.Count == 1)
+                    {
+                        selectRow经营单位 = dt经营单位.Rows[0];
+                    }
+                    else if (dt经营单位.Rows.Count > 1)
+                    {
+                        FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
+                        formSelect.strFormText = "选择经营单位";
+                        formSelect.dtData = dt经营单位;
+                        if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            selectRow经营单位 = formSelect.returnRow;
+                        }
+                        else
+                        {
+                            e.Cancel = true;
+                            txtBox.Focus();
+                        }
+                    }
+                    if (selectRow经营单位 != null)
+                    {
+                        txtBox.Text = selectRow经营单位["c_name"].ToString();
+                        txt_收货单位.Text = selectRow经营单位["c_name"].ToString();
+                        txt_收货单位编码.Text = selectRow经营单位["com_Code"].ToString();
+                        txt_企业地址.Text = selectRow经营单位["C_Address"].ToString();
+                        txt_联系人.Text = selectRow经营单位["linkman"].ToString();
+                        txt_联系电话.Text = selectRow经营单位["Tel1"].ToString();
+                        rowHead["经营单位"] = selectRow经营单位["c_name"];
+                        rowHead["收货单位"] = selectRow经营单位["c_name"];
+                        rowHead["收货单位编码"] = selectRow经营单位["com_Code"];
+                        rowHead["企业地址"] = selectRow经营单位["C_Address"];
+                        rowHead["联系人"] = selectRow经营单位["linkman"];
+                        rowHead["联系电话"] = selectRow经营单位["Tel1"];
+                    }
+                    break;
+                    #endregion
+                case "收货单位":
+                    #region 收货单位
+                    strSQL = string.Format("帮助录入查询 {0},0", StringTools.SqlQ(txtBox.Text));
+                    dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    dataAccess.Open();
+                    DataTable dt收货单位 = dataAccess.GetTable(strSQL.ToString(), null);
+                    dataAccess.Close();
+                    DataRow selectRow收货单位 = null;
+                    if (dt收货单位.Rows.Count == 0)
+                    {
+                        SysMessage.InformationMsg("此收货单位不存在！");
+                        e.Cancel = true;
+                        txtBox.Focus();
+                    }
+                    else if (dt收货单位.Rows.Count == 1)
+                    {
+                        selectRow收货单位 = dt收货单位.Rows[0];
+                    }
+                    else if (dt收货单位.Rows.Count > 1)
+                    {
+                        FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
+                        formSelect.strFormText = "选择收货单位";
+                        formSelect.dtData = dt收货单位;
+                        if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            selectRow收货单位 = formSelect.returnRow;
+                        }
+                        else
+                        {
+                            e.Cancel = true;
+                            txtBox.Focus();
+                        }
+                    }
+                    if (selectRow收货单位 != null)
+                    {
+                        txtBox.Text = selectRow收货单位["c_name"].ToString();
+                        txt_收货单位.Text = selectRow收货单位["c_name"].ToString();
+                        txt_收货单位编码.Text = selectRow收货单位["com_Code"].ToString();
+                        txt_企业地址.Text = selectRow收货单位["C_Address"].ToString();
+                        txt_联系人.Text = selectRow收货单位["linkman"].ToString();
+                        txt_联系电话.Text = selectRow收货单位["Tel1"].ToString();
+                        rowHead["经营单位"] = selectRow收货单位["c_name"];
+                        rowHead["收货单位"] = selectRow收货单位["c_name"];
+                        rowHead["收货单位编码"] = selectRow收货单位["com_Code"];
+                        rowHead["企业地址"] = selectRow收货单位["C_Address"];
+                        rowHead["联系人"] = selectRow收货单位["linkman"];
+                        rowHead["联系电话"] = selectRow收货单位["Tel1"];
+                    }
+                    break;
+                    #endregion
+                case "外商公司":
+                    #region 外商公司
+                    strSQL = string.Format("帮助录入查询 {0},2", StringTools.SqlQ(txtBox.Text));
+                    dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    dataAccess.Open();
+                    DataTable dt外商公司 = dataAccess.GetTable(strSQL.ToString(), null);
+                    dataAccess.Close();
+                    DataRow selectRow外商公司 = null;
+                    if (dt外商公司.Rows.Count == 0)
+                    {
+                        SysMessage.InformationMsg("此外商公司不存在！");
+                        e.Cancel = true;
+                        txtBox.Focus();
+                    }
+                    else if (dt外商公司.Rows.Count == 1)
+                    {
+                        selectRow外商公司 = dt外商公司.Rows[0];
+                    }
+                    else if (dt外商公司.Rows.Count > 1)
+                    {
+                        FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
+                        formSelect.strFormText = "选择外商公司";
+                        formSelect.dtData = dt外商公司;
+                        if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            selectRow外商公司 = formSelect.returnRow;
+                        }
+                        else
+                        {
+                            e.Cancel = true;
+                            txtBox.Focus();
+                        }
+                    }
+                    if (selectRow外商公司 != null)
+                    {
+                        txtBox.Text = selectRow外商公司["c_name"].ToString();
+                        rowHead["外商公司"] = selectRow外商公司["c_name"];
+                    }
+                    break;
+                    #endregion
+            }
+        }
+        //工缴费率
+        private void txt_工缴费率_Validating(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                decimal.Parse(txt_工缴费率.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                SysMessage.ErrorMsg(ex.Message);
+                e.Cancel = true;
+            }
+        }
+        #endregion
 
         #region 出口成品GRID事件
         private void myDataGridViewDetails_SelectionChanged(object sender, EventArgs e)
         {
             setTool2Enabled();
+        }
+
+        private void myDataGridViewDetails_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!bCellEndEdit) return;
+            myDataGridView dgv = sender as myDataGridView;
+            DataGridViewCell cell = dgv[e.ColumnIndex, e.RowIndex];
+            GridKeyEnter(dgv, cell, false);
+        }
+
+        private void myDataGridViewDetails_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == SystemConst.GridKeysEnter)
+            {
+                myDataGridView dgv = sender as myDataGridView;
+                DataGridViewCell cell = dgv.CurrentCell;
+                GridKeyEnter(dgv, cell, true);
+            }
+        }
+
+        private void myDataGridViewDetails_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            myDataGridView dgv = (myDataGridView)sender;
+            string colName = dgv.Columns[e.ColumnIndex].Name;
+            if (colName == "序号" || colName == "数量" || colName == "单价")
+                e.Cancel = false;
+        }
+        private void GridKeyEnter(myDataGridView dgv, DataGridViewCell cell, bool bKeyEnter)
+        {
+            if (!bCellKeyPress) return;
+            string colName = dgv.Columns[cell.ColumnIndex].Name;
+            switch (colName)
+            {
+                case "序号":   //跳转到"产品编号"  
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        if (dgv.CurrentRow.Cells["序号"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        {
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["产品编号", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                        else
+                        {
+                            validate序号(dgv, cell);
+                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["产品编号", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                    }
+                    else
+                    {
+                        if (dgv.CurrentRow.Cells["序号"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        {
+                            validate序号(dgv, cell);
+                        }
+                    }
+                    #endregion
+                    break;
+                case "产品编号"://跳转到"商品编号"
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["商品编号", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "商品编号"://跳转到"品名规格型号"
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["品名规格型号", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "品名规格型号":  //跳转到"数量"
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["数量", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "数量":   //跳转到"单位"
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        if (dgv.CurrentRow.Cells["数量"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        {
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["单位", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                        else
+                        {
+                            validate数量(dgv, cell);
+                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["单位", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                    }
+                    else
+                    {
+                        if (dgv.CurrentRow.Cells["数量"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        {
+                            validate数量(dgv, cell);
+                        }
+                    }
+                    #endregion
+                    break;
+                case "单位":   //跳转到"单价"
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["单价", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "单价":   //跳转到"币种"
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        if (dgv.CurrentRow.Cells["单价"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        {
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["币种", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                        else
+                        {
+                            validate单价(dgv, cell);
+                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["币种", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                    }
+                    else
+                    {
+                        if (dgv.CurrentRow.Cells["单价"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        {
+                            validate单价(dgv, cell);
+                        }
+                    }
+                    #endregion
+                    break;
+                case "币种":   //跳转到"总价"  
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["总价", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "总价":   //跳转到"征免" 
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["征免", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "征免":   //跳转到"备注"  
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["备注", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "备注":   //跳转到"序号"  
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        validate备注(dgv, cell);
+                        (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                    }
+                    #endregion
+                    break;
+            }
+        }
+        private void validate序号(myDataGridView dgv, DataGridViewCell cell)
+        {
+            if (cell.EditedFormattedValue.ToString() == "")
+            {
+                dgv.Rows[cell.RowIndex].Cells["序号"].Value = DBNull.Value;
+            }
+            else
+            {
+                try
+                {
+                    decimal.Parse(cell.EditedFormattedValue.ToString());
+                    dgv.Rows[cell.RowIndex].Cells["序号"].Value = cell.EditedFormattedValue;
+                }
+                catch
+                {
+                    dgv.Rows[cell.RowIndex].Cells["序号"].Value = 0;
+                }
+            }
+        }
+        private void validate数量(myDataGridView dgv, DataGridViewCell cell)
+        {
+            if (cell.EditedFormattedValue.ToString() == "")
+            {
+                dgv.Rows[cell.RowIndex].Cells["数量"].Value = DBNull.Value;
+                dgv.Rows[cell.RowIndex].Cells["总价"].Value = DBNull.Value;
+            }
+            else
+            {
+                try
+                {
+                    decimal.Parse(cell.EditedFormattedValue.ToString());
+                    dgv.Rows[cell.RowIndex].Cells["数量"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
+                    if (dgv.Rows[cell.RowIndex].Cells["单价"].Value != DBNull.Value)
+                    {
+                        dgv.Rows[cell.RowIndex].Cells["总价"].Value = Convert.ToDecimal(cell.EditedFormattedValue) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["单价"].Value);
+                    }
+                    (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                }
+                catch
+                {
+                    dgv.Rows[cell.RowIndex].Cells["数量"].Value = DBNull.Value;
+                    dgv.Rows[cell.RowIndex].Cells["总价"].Value = DBNull.Value;
+                }
+            }
+        }
+        private void validate单价(myDataGridView dgv, DataGridViewCell cell)
+        {
+            if (cell.EditedFormattedValue.ToString() == "")
+            {
+                dgv.Rows[cell.RowIndex].Cells["单价"].Value = DBNull.Value;
+                dgv.Rows[cell.RowIndex].Cells["总价"].Value = DBNull.Value;
+            }
+            else
+            {
+                try
+                {
+                    decimal.Parse(cell.EditedFormattedValue.ToString());
+                    dgv.Rows[cell.RowIndex].Cells["单价"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
+                    if (dgv.Rows[cell.RowIndex].Cells["数量"].Value != DBNull.Value)
+                    {
+                        dgv.Rows[cell.RowIndex].Cells["总价"].Value = Convert.ToDecimal(cell.EditedFormattedValue) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["数量"].Value);
+                    }
+                    (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                }
+                catch
+                {
+                    dgv.Rows[cell.RowIndex].Cells["单价"].Value = DBNull.Value;
+                    dgv.Rows[cell.RowIndex].Cells["总价"].Value = DBNull.Value;
+                }
+            }
+        }
+        private void validate备注(myDataGridView dgv, DataGridViewCell cell)
+        {
+            dgv["备注", cell.RowIndex].Value = cell.EditedFormattedValue;
+            //如果当前行的商品编号为空，则跳转到当前行的商品编号
+            if (dgv.Rows[cell.RowIndex].Cells["商品编号"].Value == DBNull.Value
+                || dgv.Rows[cell.RowIndex].Cells["商品编号"].Value.ToString().Trim() == "")
+            {
+                dgv.CurrentCell = dgv["商品编号", cell.RowIndex];
+            }
+            else
+            {
+                //否则跳转到下一行的产品编号，如果是最后一行，则新增一行
+                if (cell.RowIndex == dgv.Rows.Count - 1)
+                {
+                    dtDetailsAddRow();
+                    dgv.CurrentCell = dgv["产品编号", cell.RowIndex + 1];
+                }
+                else
+                {
+                    dgv.CurrentCell = dgv["产品编号", cell.RowIndex + 1];
+                }
+            }
         }
         #endregion
 
@@ -1085,7 +1646,270 @@ namespace UniqueDeclaration.Base
         private void myDataGridViewDetails2_SelectionChanged(object sender, EventArgs e)
         {
             setTool3Enabled();
+        }      
+
+        private void myDataGridViewDetails2_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            myDataGridView dgv = (myDataGridView)sender;
+            string colName = dgv.Columns[e.ColumnIndex].Name;
+            if (colName == "序号" || colName == "数量" || colName == "单价")
+                e.Cancel = false;
+        }
+
+        private void myDataGridViewDetails2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!bCellEndEdit) return;
+            myDataGridView dgv = sender as myDataGridView;
+            DataGridViewCell cell = dgv[e.ColumnIndex, e.RowIndex];
+            GridKeyEnter2(dgv, cell, false);
+        }
+
+        private void myDataGridViewDetails2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == SystemConst.GridKeysEnter)
+            {
+                myDataGridView dgv = sender as myDataGridView;
+                DataGridViewCell cell = dgv.CurrentCell;
+                GridKeyEnter2(dgv, cell, true);
+            }
+        }
+        private void GridKeyEnter2(myDataGridView dgv, DataGridViewCell cell, bool bKeyEnter)
+        {
+            if (!bCellKeyPress) return;
+            string colName = dgv.Columns[cell.ColumnIndex].Name;
+            switch (colName)
+            {
+                case "序号":   //跳转到"商品编号"  
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        if (dgv.CurrentRow.Cells["序号"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        {
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["产品编号", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                        else
+                        {
+                            validate序号2(dgv, cell);
+                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["产品编号", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                    }
+                    else
+                    {
+                        if (dgv.CurrentRow.Cells["序号"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        {
+                            validate序号2(dgv, cell);
+                        }
+                    }
+                    #endregion
+                    break;
+                case "商品编号"://跳转到"品名规格型号"
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["品名规格型号", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "品名规格型号":  //跳转到"数量"
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["数量", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "数量":   //跳转到"单位"
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        if (dgv.CurrentRow.Cells["数量"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        {
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["单位", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                        else
+                        {
+                            validate数量2(dgv, cell);
+                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["单位", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                    }
+                    else
+                    {
+                        if (dgv.CurrentRow.Cells["数量"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        {
+                            validate数量2(dgv, cell);
+                        }
+                    }
+                    #endregion
+                    break;
+                case "单位":   //跳转到"单价"
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["单价", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "单价":   //跳转到"币种"
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        if (dgv.CurrentRow.Cells["单价"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        {
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["币种", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                        else
+                        {
+                            validate单价2(dgv, cell);
+                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["币种", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                    }
+                    else
+                    {
+                        if (dgv.CurrentRow.Cells["单价"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        {
+                            validate单价2(dgv, cell);
+                        }
+                    }
+                    #endregion
+                    break;
+                case "币种":   //跳转到"总价"  
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["总价", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "总价":   //跳转到"征免" 
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["征免", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "征免":   //跳转到"序号"  
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        validate征免2(dgv, cell);
+                        (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                    }
+                    #endregion
+                    break;
+            }
+        }
+        private void validate序号2(myDataGridView dgv, DataGridViewCell cell)
+        {
+            if (cell.EditedFormattedValue.ToString() == "")
+            {
+                dgv.Rows[cell.RowIndex].Cells["序号"].Value = DBNull.Value;
+            }
+            else
+            {
+                try
+                {
+                    decimal.Parse(cell.EditedFormattedValue.ToString());
+                    dgv.Rows[cell.RowIndex].Cells["序号"].Value = cell.EditedFormattedValue;
+                }
+                catch
+                {
+                    dgv.Rows[cell.RowIndex].Cells["序号"].Value = 0;
+                }
+            }
+        }
+        private void validate数量2(myDataGridView dgv, DataGridViewCell cell)
+        {
+            if (cell.EditedFormattedValue.ToString() == "")
+            {
+                dgv.Rows[cell.RowIndex].Cells["数量"].Value = DBNull.Value;
+                dgv.Rows[cell.RowIndex].Cells["总价"].Value = DBNull.Value;
+            }
+            else
+            {
+                try
+                {
+                    decimal.Parse(cell.EditedFormattedValue.ToString());
+                    dgv.Rows[cell.RowIndex].Cells["数量"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
+                    if (dgv.Rows[cell.RowIndex].Cells["单价"].Value != DBNull.Value)
+                    {
+                        dgv.Rows[cell.RowIndex].Cells["总价"].Value = Convert.ToDecimal(cell.EditedFormattedValue) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["单价"].Value);
+                    }
+                    (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                }
+                catch
+                {
+                    dgv.Rows[cell.RowIndex].Cells["数量"].Value = DBNull.Value;
+                    dgv.Rows[cell.RowIndex].Cells["总价"].Value = DBNull.Value;
+                }
+            }
+        }
+        private void validate单价2(myDataGridView dgv, DataGridViewCell cell)
+        {
+            if (cell.EditedFormattedValue.ToString() == "")
+            {
+                dgv.Rows[cell.RowIndex].Cells["单价"].Value = DBNull.Value;
+                dgv.Rows[cell.RowIndex].Cells["总价"].Value = DBNull.Value;
+            }
+            else
+            {
+                try
+                {
+                    decimal.Parse(cell.EditedFormattedValue.ToString());
+                    dgv.Rows[cell.RowIndex].Cells["单价"].Value = Convert.ToDecimal(cell.EditedFormattedValue);
+                    if (dgv.Rows[cell.RowIndex].Cells["数量"].Value != DBNull.Value)
+                    {
+                        dgv.Rows[cell.RowIndex].Cells["总价"].Value = Convert.ToDecimal(cell.EditedFormattedValue) * Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["数量"].Value);
+                    }
+                    (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                }
+                catch
+                {
+                    dgv.Rows[cell.RowIndex].Cells["单价"].Value = DBNull.Value;
+                    dgv.Rows[cell.RowIndex].Cells["总价"].Value = DBNull.Value;
+                }
+            }
+        }
+        private void validate征免2(myDataGridView dgv, DataGridViewCell cell)
+        {
+            dgv["征免", cell.RowIndex].Value = cell.EditedFormattedValue;
+            //如果当前行的商品编号为空，则跳转到当前行的商品编号
+            if (dgv.Rows[cell.RowIndex].Cells["商品编号"].Value == DBNull.Value
+                || dgv.Rows[cell.RowIndex].Cells["商品编号"].Value.ToString().Trim() == "")
+            {
+                dgv.CurrentCell = dgv["商品编号", cell.RowIndex];
+            }
+            else
+            {
+                //否则跳转到下一行的产品编号，如果是最后一行，则新增一行
+                if (cell.RowIndex == dgv.Rows.Count - 1)
+                {
+                    dtDetailsAddRow2();
+                    dgv.CurrentCell = dgv["商品编号", cell.RowIndex + 1];
+                }
+                else
+                {
+                    dgv.CurrentCell = dgv["商品编号", cell.RowIndex + 1];
+                }
+            }
         }
         #endregion
+
+
     }
 }

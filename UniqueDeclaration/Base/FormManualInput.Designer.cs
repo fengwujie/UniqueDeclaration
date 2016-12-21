@@ -250,6 +250,8 @@
             this.txt_外商公司.Name = "txt_外商公司";
             this.txt_外商公司.Size = new System.Drawing.Size(183, 21);
             this.txt_外商公司.TabIndex = 27;
+            this.txt_外商公司.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
+            this.txt_外商公司.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_备注
             // 
@@ -258,6 +260,7 @@
             this.txt_备注.Name = "txt_备注";
             this.txt_备注.Size = new System.Drawing.Size(605, 21);
             this.txt_备注.TabIndex = 61;
+            this.txt_备注.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable15
             // 
@@ -275,6 +278,7 @@
             this.txt_录入员.Name = "txt_录入员";
             this.txt_录入员.Size = new System.Drawing.Size(95, 21);
             this.txt_录入员.TabIndex = 59;
+            this.txt_录入员.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_征免性质
             // 
@@ -283,6 +287,7 @@
             this.txt_征免性质.Name = "txt_征免性质";
             this.txt_征免性质.Size = new System.Drawing.Size(99, 21);
             this.txt_征免性质.TabIndex = 29;
+            this.txt_征免性质.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable30
             // 
@@ -300,6 +305,7 @@
             this.txt_保税方式.Name = "txt_保税方式";
             this.txt_保税方式.Size = new System.Drawing.Size(95, 21);
             this.txt_保税方式.TabIndex = 57;
+            this.txt_保税方式.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_批文号
             // 
@@ -308,6 +314,7 @@
             this.txt_批文号.Name = "txt_批文号";
             this.txt_批文号.Size = new System.Drawing.Size(140, 21);
             this.txt_批文号.TabIndex = 31;
+            this.txt_批文号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable29
             // 
@@ -326,6 +333,7 @@
             this.date_审批日期.Name = "date_审批日期";
             this.date_审批日期.Size = new System.Drawing.Size(95, 21);
             this.date_审批日期.TabIndex = 55;
+            this.date_审批日期.ValueChanged += new System.EventHandler(this.date_有效期限_ValueChanged);
             // 
             // txt_协议书号
             // 
@@ -334,6 +342,7 @@
             this.txt_协议书号.Name = "txt_协议书号";
             this.txt_协议书号.Size = new System.Drawing.Size(140, 21);
             this.txt_协议书号.TabIndex = 33;
+            this.txt_协议书号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable28
             // 
@@ -351,6 +360,7 @@
             this.txt_审批员.Name = "txt_审批员";
             this.txt_审批员.Size = new System.Drawing.Size(95, 21);
             this.txt_审批员.TabIndex = 53;
+            this.txt_审批员.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_进口合同
             // 
@@ -359,6 +369,7 @@
             this.txt_进口合同.Name = "txt_进口合同";
             this.txt_进口合同.Size = new System.Drawing.Size(140, 21);
             this.txt_进口合同.TabIndex = 35;
+            this.txt_进口合同.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_进出口岸五
             // 
@@ -367,6 +378,7 @@
             this.txt_进出口岸五.Name = "txt_进出口岸五";
             this.txt_进出口岸五.Size = new System.Drawing.Size(95, 21);
             this.txt_进出口岸五.TabIndex = 51;
+            this.txt_进出口岸五.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_出口合同
             // 
@@ -375,6 +387,7 @@
             this.txt_出口合同.Name = "txt_出口合同";
             this.txt_出口合同.Size = new System.Drawing.Size(140, 21);
             this.txt_出口合同.TabIndex = 37;
+            this.txt_出口合同.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable26
             // 
@@ -392,6 +405,7 @@
             this.txt_进出口岸四.Name = "txt_进出口岸四";
             this.txt_进出口岸四.Size = new System.Drawing.Size(95, 21);
             this.txt_进出口岸四.TabIndex = 49;
+            this.txt_进出口岸四.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_进口总值
             // 
@@ -400,6 +414,7 @@
             this.txt_进口总值.Name = "txt_进口总值";
             this.txt_进口总值.Size = new System.Drawing.Size(140, 21);
             this.txt_进口总值.TabIndex = 39;
+            this.txt_进口总值.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable25
             // 
@@ -417,6 +432,7 @@
             this.txt_进出口岸三.Name = "txt_进出口岸三";
             this.txt_进出口岸三.Size = new System.Drawing.Size(95, 21);
             this.txt_进出口岸三.TabIndex = 47;
+            this.txt_进出口岸三.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_出口总值
             // 
@@ -425,6 +441,7 @@
             this.txt_出口总值.Name = "txt_出口总值";
             this.txt_出口总值.Size = new System.Drawing.Size(140, 21);
             this.txt_出口总值.TabIndex = 41;
+            this.txt_出口总值.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable24
             // 
@@ -442,6 +459,7 @@
             this.txt_进出口岸二.Name = "txt_进出口岸二";
             this.txt_进出口岸二.Size = new System.Drawing.Size(95, 21);
             this.txt_进出口岸二.TabIndex = 45;
+            this.txt_进出口岸二.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_监管费
             // 
@@ -450,6 +468,7 @@
             this.txt_监管费.Name = "txt_监管费";
             this.txt_监管费.Size = new System.Drawing.Size(140, 21);
             this.txt_监管费.TabIndex = 43;
+            this.txt_监管费.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_经营单位
             // 
@@ -458,6 +477,8 @@
             this.txt_经营单位.Name = "txt_经营单位";
             this.txt_经营单位.Size = new System.Drawing.Size(183, 21);
             this.txt_经营单位.TabIndex = 5;
+            this.txt_经营单位.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
+            this.txt_经营单位.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable4
             // 
@@ -475,6 +496,7 @@
             this.txt_贸易方式.Name = "txt_贸易方式";
             this.txt_贸易方式.Size = new System.Drawing.Size(99, 21);
             this.txt_贸易方式.TabIndex = 7;
+            this.txt_贸易方式.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // date_有效期限
             // 
@@ -482,6 +504,7 @@
             this.date_有效期限.Name = "date_有效期限";
             this.date_有效期限.Size = new System.Drawing.Size(107, 21);
             this.date_有效期限.TabIndex = 9;
+            this.date_有效期限.ValueChanged += new System.EventHandler(this.date_有效期限_ValueChanged);
             // 
             // myLable6
             // 
@@ -499,6 +522,8 @@
             this.txt_收货单位.Name = "txt_收货单位";
             this.txt_收货单位.Size = new System.Drawing.Size(183, 21);
             this.txt_收货单位.TabIndex = 12;
+            this.txt_收货单位.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
+            this.txt_收货单位.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable8
             // 
@@ -516,6 +541,7 @@
             this.txt_起抵地.Name = "txt_起抵地";
             this.txt_起抵地.Size = new System.Drawing.Size(134, 21);
             this.txt_起抵地.TabIndex = 14;
+            this.txt_起抵地.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_重点标志
             // 
@@ -524,6 +550,7 @@
             this.txt_重点标志.Name = "txt_重点标志";
             this.txt_重点标志.Size = new System.Drawing.Size(107, 21);
             this.txt_重点标志.TabIndex = 16;
+            this.txt_重点标志.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_收货单位编码
             // 
@@ -532,6 +559,7 @@
             this.txt_收货单位编码.Name = "txt_收货单位编码";
             this.txt_收货单位编码.Size = new System.Drawing.Size(183, 21);
             this.txt_收货单位编码.TabIndex = 18;
+            this.txt_收货单位编码.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable11
             // 
@@ -549,6 +577,7 @@
             this.txt_企业地址.Name = "txt_企业地址";
             this.txt_企业地址.Size = new System.Drawing.Size(316, 21);
             this.txt_企业地址.TabIndex = 20;
+            this.txt_企业地址.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_联系人
             // 
@@ -557,6 +586,7 @@
             this.txt_联系人.Name = "txt_联系人";
             this.txt_联系人.Size = new System.Drawing.Size(183, 21);
             this.txt_联系人.TabIndex = 22;
+            this.txt_联系人.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable13
             // 
@@ -574,6 +604,7 @@
             this.txt_联系电话.Name = "txt_联系电话";
             this.txt_联系电话.Size = new System.Drawing.Size(316, 21);
             this.txt_联系电话.TabIndex = 24;
+            this.txt_联系电话.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_手册编号
             // 
@@ -583,6 +614,8 @@
             this.txt_手册编号.Size = new System.Drawing.Size(253, 21);
             this.txt_手册编号.TabIndex = 1;
             this.txt_手册编号.TextChanged += new System.EventHandler(this.txt_手册编号_TextChanged);
+            this.txt_手册编号.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
+            this.txt_手册编号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable1
             // 
@@ -611,6 +644,7 @@
             this.txt_进出口岸一.Name = "txt_进出口岸一";
             this.txt_进出口岸一.Size = new System.Drawing.Size(216, 21);
             this.txt_进出口岸一.TabIndex = 3;
+            this.txt_进出口岸一.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // shapeContainer2
             // 
@@ -829,7 +863,10 @@
             this.myDataGridViewDetails.RowTemplate.Height = 23;
             this.myDataGridViewDetails.Size = new System.Drawing.Size(746, 339);
             this.myDataGridViewDetails.TabIndex = 5;
+            this.myDataGridViewDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.myDataGridViewDetails_CellEndEdit);
+            this.myDataGridViewDetails.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.myDataGridViewDetails_DataError);
             this.myDataGridViewDetails.SelectionChanged += new System.EventHandler(this.myDataGridViewDetails_SelectionChanged);
+            this.myDataGridViewDetails.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myDataGridViewDetails_KeyPress);
             // 
             // toolStrip2
             // 
@@ -963,6 +1000,8 @@
             this.txt_工缴费率.Name = "txt_工缴费率";
             this.txt_工缴费率.Size = new System.Drawing.Size(176, 21);
             this.txt_工缴费率.TabIndex = 7;
+            this.txt_工缴费率.Validating += new System.ComponentModel.CancelEventHandler(this.txt_工缴费率_Validating);
+            this.txt_工缴费率.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable32
             // 
@@ -1019,7 +1058,10 @@
             this.myDataGridViewDetails2.RowTemplate.Height = 23;
             this.myDataGridViewDetails2.Size = new System.Drawing.Size(752, 345);
             this.myDataGridViewDetails2.TabIndex = 5;
+            this.myDataGridViewDetails2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.myDataGridViewDetails2_CellEndEdit);
+            this.myDataGridViewDetails2.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.myDataGridViewDetails2_DataError);
             this.myDataGridViewDetails2.SelectionChanged += new System.EventHandler(this.myDataGridViewDetails2_SelectionChanged);
+            this.myDataGridViewDetails2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myDataGridViewDetails2_KeyPress);
             // 
             // toolStrip3
             // 
