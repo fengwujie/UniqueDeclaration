@@ -195,6 +195,7 @@
             this.tool1_BOM.Size = new System.Drawing.Size(23, 22);
             this.tool1_BOM.Text = "明细";
             this.tool1_BOM.Visible = false;
+            this.tool1_BOM.Click += new System.EventHandler(this.tool1_BOM_Click);
             // 
             // tool1_Query
             // 

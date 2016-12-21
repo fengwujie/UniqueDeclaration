@@ -79,7 +79,11 @@ namespace UniqueDeclarationBaseForm
         {
 
         }
+        //BOM
+        public virtual void tool1_BOM_Click(object sender, EventArgs e)
+        {
 
+        }
 
     }
 }

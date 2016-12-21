@@ -249,6 +249,40 @@ namespace UniqueDeclaration.Base
             }
         }
 
+        public override void tool1_BOM_Click(object sender, EventArgs e)
+        {
+            //base.tool1_BOM_Click(sender, e);
+            #region 判断手册编号是否存在
+            if (this.myDataGridViewDetails.RowCount == 0) return;
+            #endregion
+
+            #region 判断是否已经有打开的BOM窗体
+            foreach (Form childFrm in this.MdiParent.MdiChildren)
+            {
+                if (childFrm.Name == "FormManualBOM")
+                {
+                    FormManualBOM orderBomForm = (FormManualBOM)childFrm;
+                    if (orderBomForm.mIntID == Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["手册id"].Value)
+                        && orderBomForm.mnPId == Convert.ToInt32(this.myDataGridViewDetails.CurrentRow.Cells["出口成品id"].Value))
+                    {
+                        childFrm.Activate();
+                        return;
+                    }
+                }
+            }
+            #endregion
+
+            #region 打开BOM窗体
+            FormManualBOM formBOM = new FormManualBOM();
+            formBOM.mIntID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["手册id"].Value);
+            formBOM.mstrNo = this.myDataGridViewHead.CurrentRow.Cells["手册id"].Value.ToString();
+            formBOM.mnPId = Convert.ToInt32(this.myDataGridViewDetails.CurrentRow.Cells["出口成品id"].Value);
+            formBOM.mstrName = this.myDataGridViewDetails.CurrentRow.Cells["品名规格型号"].Value.ToString();
+            formBOM.MdiParent = this.MdiParent;
+            formBOM.Show();
+            #endregion
+        }
+
         public override void tool1_ExportExcel_Click(object sender, EventArgs e)
         {
             base.tool1_ExportExcel_Click(sender, e);

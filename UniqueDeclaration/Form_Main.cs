@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using UniqueDeclarationPubilc;
+using UniqueDeclaration.Base;
 
 namespace UniqueDeclaration
 {
@@ -341,12 +342,15 @@ namespace UniqueDeclaration
         //手册资料录入
         private void FromManualInput_Click(object sender, EventArgs e)
         {
-
+            FormManualInput objForm = new FormManualInput();
+            objForm.MdiParent = this.MdiParent;
+            objForm.giOrderID = 0;
+            objForm.Show();
         }
         //手册资料查询
         private void FormManualQueryCondition_Click(object sender, EventArgs e)
         {
-            UniqueDeclaration.Base.FormManualQueryCondition queryConditionForm = new UniqueDeclaration.Base.FormManualQueryCondition();
+            FormManualQueryCondition queryConditionForm = new FormManualQueryCondition();
             if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string strWhere = queryConditionForm.strReturnWhere;

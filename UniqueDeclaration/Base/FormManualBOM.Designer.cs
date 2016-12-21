@@ -31,13 +31,13 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tool_Save = new System.Windows.Forms.ToolStripButton();
             this.tool_Close = new System.Windows.Forms.ToolStripButton();
-            this.myDataGridViewBOM = new UniqueDeclarationBaseForm.Controls.myDataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnDelete = new UniqueDeclarationBaseForm.Controls.myButton();
+            this.myDataGridViewBOM = new UniqueDeclarationBaseForm.Controls.myDataGridView();
             this.myContextBOM = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.myDataGridViewBOM)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.myDataGridViewBOM)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -71,19 +71,6 @@
             this.tool_Close.Text = "关闭";
             this.tool_Close.Click += new System.EventHandler(this.tool_Close_Click);
             // 
-            // myDataGridViewBOM
-            // 
-            this.myDataGridViewBOM.AllowUserToAddRows = false;
-            this.myDataGridViewBOM.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.myDataGridViewBOM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.myDataGridViewBOM.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.myDataGridViewBOM.Location = new System.Drawing.Point(6, 20);
-            this.myDataGridViewBOM.MultiSelect = false;
-            this.myDataGridViewBOM.Name = "myDataGridViewBOM";
-            this.myDataGridViewBOM.RowTemplate.Height = 23;
-            this.myDataGridViewBOM.Size = new System.Drawing.Size(511, 372);
-            this.myDataGridViewBOM.TabIndex = 1;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnDelete);
@@ -105,6 +92,22 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // myDataGridViewBOM
+            // 
+            this.myDataGridViewBOM.AllowUserToAddRows = false;
+            this.myDataGridViewBOM.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.myDataGridViewBOM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.myDataGridViewBOM.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.myDataGridViewBOM.Location = new System.Drawing.Point(6, 20);
+            this.myDataGridViewBOM.MultiSelect = false;
+            this.myDataGridViewBOM.Name = "myDataGridViewBOM";
+            this.myDataGridViewBOM.RowTemplate.Height = 23;
+            this.myDataGridViewBOM.Size = new System.Drawing.Size(511, 372);
+            this.myDataGridViewBOM.TabIndex = 1;
+            this.myDataGridViewBOM.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.myDataGridViewBOM_CellEndEdit);
+            this.myDataGridViewBOM.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.myDataGridViewBOM_DataError);
+            this.myDataGridViewBOM.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myDataGridViewBOM_KeyPress);
+            // 
             // myContextBOM
             // 
             this.myContextBOM.MyDataGridView = this.myDataGridViewBOM;
@@ -120,13 +123,14 @@
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "FormManualBOM";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormManualBOM";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormManualBOM_FormClosing);
             this.Load += new System.EventHandler(this.FormManualBOM_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.myDataGridViewBOM)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.myDataGridViewBOM)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
