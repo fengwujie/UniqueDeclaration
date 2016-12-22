@@ -76,3 +76,5 @@ F:\Unique\UniqueDeclaration\UniqueDeclaration\bin\Debug\office.xml
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.exe
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.pdb
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormManualBOM.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMergeRelationMaterialsInput.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMergeRelationMaterialsQueryList.resources

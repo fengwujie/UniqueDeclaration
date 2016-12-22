@@ -94,6 +94,24 @@
     <Compile Include="Base\FormManualQueryList.Designer.cs">
       <DependentUpon>FormManualQueryList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Base\FormMergeRelationMaterialsInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormMergeRelationMaterialsInput.Designer.cs">
+      <DependentUpon>FormMergeRelationMaterialsInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormMergeRelationMaterialsQueryCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormMergeRelationMaterialsQueryCondition.Designer.cs">
+      <DependentUpon>FormMergeRelationMaterialsQueryCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormMergeRelationMaterialsQueryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormMergeRelationMaterialsQueryList.Designer.cs">
+      <DependentUpon>FormMergeRelationMaterialsQueryList.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSetArticlesFile.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -382,6 +400,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Base\FormManualQueryList.resx">
       <DependentUpon>FormManualQueryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormMergeRelationMaterialsInput.resx">
+      <DependentUpon>FormMergeRelationMaterialsInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormMergeRelationMaterialsQueryList.resx">
+      <DependentUpon>FormMergeRelationMaterialsQueryList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormArticlesFile.resx">
       <DependentUpon>FormArticlesFile.cs</DependentUpon>

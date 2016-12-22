@@ -87,8 +87,26 @@ namespace UniqueDeclaration
             {
                 Directory.CreateDirectory(strDestRoot);
             }
-        }  
+        }
 
+        /// <summary>
+        /// 设置主窗体背景图片
+        /// </summary>
+        private void SetBackgroupImage()
+        {
+            //设置背景图
+            System.IO.FileInfo file = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Image\bg.jpg"));
+            Image bImg = Image.FromFile(file.FullName, false);
+            this.BackgroundImage = bImg;
+        }
+
+        private void Form_Main_SizeChanged(object sender, EventArgs e)
+        {
+            this.BackgroundImage = null;
+            SetBackgroupImage();
+        }
+
+        #region 订单管理菜单
         //预先订单录入
         private void FormOrderInput_Click(object sender, EventArgs e)
         {
@@ -130,28 +148,53 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
-
         private void 测试窗体ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormTest objForm = new FormTest();
             objForm.MdiParent = this;
             objForm.Show();
         }
-        /// <summary>
-        /// 设置主窗体背景图片
-        /// </summary>
-        private void SetBackgroupImage()
-        {
-            //设置背景图
-            System.IO.FileInfo file = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Image\bg.jpg"));
-            Image bImg = Image.FromFile(file.FullName, false);
-            this.BackgroundImage = bImg;
-        }
+        #endregion
 
-        private void Form_Main_SizeChanged(object sender, EventArgs e)
+        #region 料件管理菜单
+        //料件入库
+        private void FormMaterialsInInput_Click(object sender, EventArgs e)
         {
-            this.BackgroundImage = null;
-            SetBackgroupImage();
+            FormMaterialsInInput objForm = new FormMaterialsInInput();
+            objForm.MdiParent = this;
+            objForm.Show();
+        }
+        //料件入库查询
+        private void FormMaterialsInQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormMaterialsInQueryCondition queryConditionForm = new FormMaterialsInQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string strWhere = queryConditionForm.strReturnWhere;
+                FormMaterialsInQueryList queryListForm = new FormMaterialsInQueryList();
+                queryListForm.gstrWhere = strWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
+        //料件进销存查询
+        private void FormMaterialsJXCQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormMaterialsJXCQueryCondition queryConditionForm = new FormMaterialsJXCQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                UniqueDeclarationBaseForm.FormBaseQueryListSingle queryListForm = new UniqueDeclarationBaseForm.FormBaseQueryListSingle();
+                queryListForm.gstrWhere = queryConditionForm.strReturnWhere;
+                queryListForm.mdFromDate = queryConditionForm.mdFromDate;
+                queryListForm.mdFromDateString = queryConditionForm.mdFromDateString;
+                queryListForm.mdToDate = queryConditionForm.mdToDate;
+                queryListForm.mdToDateString = queryConditionForm.mdToDateString;
+                queryListForm.ManualCode = queryConditionForm.ManualCode;
+                queryListForm.passvalue = queryConditionForm.passvalue;
+                queryListForm.mQueryWay = UniqueDeclarationBaseForm.ReportsEnum.ReportsEnum_rpt料件进销存;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
         }
         //料件出库查询
         private void FormMaterialsOutQueryCondition_Click(object sender, EventArgs e)
@@ -173,6 +216,9 @@ namespace UniqueDeclaration
             objForm.MdiParent = this;
             objForm.Show();
         }
+        #endregion
+        
+        #region 业务管理菜单
         //成品出货录入
         private void FormFinishedProductOutInput_Click(object sender, EventArgs e)
         {
@@ -213,6 +259,20 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
+        //Articles
+        private void FormCustFindSet_Click(object sender, EventArgs e)
+        {
+            FormCustFindSet objForm = new FormCustFindSet();
+            if (objForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                FormArticlesFile formArticlesFile = new FormArticlesFile();
+                formArticlesFile.CustValue = objForm.CustValue;
+                formArticlesFile.ShowDialog();
+            }
+        }
+        #endregion
+
+        #region 进口管理菜单
         //进口管理——PACKING LIST（录入）
         private void FormPackingInput_Click(object sender, EventArgs e)
         {
@@ -233,6 +293,9 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
+        #endregion
+
+        #region 出口管理菜单
         //出口管理——PACKING LIST（录入）
         private void FormPackingOutInput_Click(object sender, EventArgs e)
         {
@@ -266,46 +329,9 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
-        //料件入库
-        private void FormMaterialsInInput_Click(object sender, EventArgs e)
-        {
-            FormMaterialsInInput objForm = new FormMaterialsInInput();
-            objForm.MdiParent = this;
-            objForm.Show();
-        }
-        //料件入库查询
-        private void FormMaterialsInQueryCondition_Click(object sender, EventArgs e)
-        {
-            FormMaterialsInQueryCondition queryConditionForm = new FormMaterialsInQueryCondition();
-            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string strWhere = queryConditionForm.strReturnWhere;
-                FormMaterialsInQueryList queryListForm = new FormMaterialsInQueryList();
-                queryListForm.gstrWhere = strWhere;
-                queryListForm.MdiParent = this;
-                queryListForm.Show();
-            }
-        }
-        //料件进销存查询
-        private void FormMaterialsJXCQueryCondition_Click(object sender, EventArgs e)
-        {
-            FormMaterialsJXCQueryCondition queryConditionForm = new FormMaterialsJXCQueryCondition();
-            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                UniqueDeclarationBaseForm.FormBaseQueryListSingle queryListForm = new UniqueDeclarationBaseForm.FormBaseQueryListSingle ();
-                queryListForm.gstrWhere = queryConditionForm.strReturnWhere;
-                queryListForm.mdFromDate = queryConditionForm.mdFromDate;
-                queryListForm.mdFromDateString = queryConditionForm.mdFromDateString;
-                queryListForm.mdToDate = queryConditionForm.mdToDate;
-                queryListForm.mdToDateString = queryConditionForm.mdToDateString;
-                queryListForm.ManualCode = queryConditionForm.ManualCode;
-                queryListForm.passvalue = queryConditionForm.passvalue;
-                queryListForm.mQueryWay = UniqueDeclarationBaseForm.ReportsEnum.ReportsEnum_rpt料件进销存;
-                queryListForm.MdiParent = this;
-                queryListForm.Show();
-            }
-        }
+        #endregion
 
+        #region 成品仓库管理
         private void 成品入库ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UniquePMS.frmInStock objForm = new UniquePMS.frmInStock();
@@ -326,19 +352,9 @@ namespace UniqueDeclaration
             objForm.MdiParent = this;
             objForm.Show();
         }
+        #endregion
 
-        //Articles
-        private void FormCustFindSet_Click(object sender, EventArgs e)
-        {
-            FormCustFindSet objForm = new FormCustFindSet();
-            if (objForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                FormArticlesFile formArticlesFile = new FormArticlesFile();
-                formArticlesFile.CustValue = objForm.CustValue;
-                formArticlesFile.ShowDialog();
-            }
-        }
-
+        #region 基础资料
         //手册资料录入
         private void FromManualInput_Click(object sender, EventArgs e)
         {
@@ -360,6 +376,28 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
+        //商品归并关系表（料件）录入
+        private void FormMergeRelationMaterialsInput_Click(object sender, EventArgs e)
+        {
+            FormMergeRelationMaterialsInput objForm = new FormMergeRelationMaterialsInput();
+            objForm.MdiParent = this.MdiParent;
+            objForm.gstrManualNo = string.Empty;
+            objForm.Show();
+        }
+        //商品归并关系表（料件）查询
+        private void FormMergeRelationMaterialsQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormMergeRelationMaterialsQueryCondition queryConditionForm = new FormMergeRelationMaterialsQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string cManualNo = queryConditionForm.cManualNo;
+                UniqueDeclaration.Base.FormMergeRelationMaterialsQueryList queryListForm = new UniqueDeclaration.Base.FormMergeRelationMaterialsQueryList();
+                queryListForm.gstrManualNo = cManualNo;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
+        #endregion
 
     }
 }

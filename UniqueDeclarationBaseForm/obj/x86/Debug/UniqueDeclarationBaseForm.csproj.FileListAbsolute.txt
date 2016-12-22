@@ -28,3 +28,4 @@ F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclar
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.csproj.GenerateResource.Cache
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.dll
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.pdb
+F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.FormBaseManualCondition.resources
