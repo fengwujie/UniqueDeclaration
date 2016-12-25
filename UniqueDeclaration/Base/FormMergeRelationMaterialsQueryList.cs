@@ -22,6 +22,10 @@ namespace UniqueDeclaration.Base
         /// </summary>
         private bool bTriggerGridViewHead_SelectionChanged = true;
         /// <summary>
+        /// 是否触发行变化事件
+        /// </summary>
+        private bool bTriggerGridViewDetails_SelectionChanged = true;
+        /// <summary>
         /// 查询窗体的传进来的手册编号
         /// </summary>
         public string gstrManualNo = string.Empty;
@@ -31,11 +35,12 @@ namespace UniqueDeclaration.Base
             base.tool1_Number.Visible = false;
             base.tool1_Import.Visible = false;
             base.tool1_Print.Visible = true;
+            this.myDataGridViewDetails.SelectionChanged += new EventHandler(myDataGridViewDetails_SelectionChanged);
             LoadDataSourceHead();
 
-            //InitGridHead();
-            //InitGridDetails();
-            //InitGridDetails2();
+            InitGridHead();
+            InitGridDetails();
+            InitGridDetails2();
         }
 
         #region 加载数据
@@ -96,7 +101,10 @@ namespace UniqueDeclaration.Base
                 dataAccess.Close();
 
                 DataTableTools.AddEmptyRow(dtDetails);
+                bTriggerGridViewDetails_SelectionChanged = false;
                 this.myDataGridViewDetails.DataSource = dtDetails;
+                bTriggerGridViewDetails_SelectionChanged = true;
+                this.myDataGridViewDetails_SelectionChanged(null, null);
             }
             catch (Exception ex)
             {
@@ -146,7 +154,7 @@ namespace UniqueDeclaration.Base
                 {
                     if (this.myDataGridViewDetails.Rows[this.myDataGridViewDetails.CurrentRowNew.Index].Cells["归并前料件id"].Value != DBNull.Value)
                     {
-                        项号id = this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["序号"].Value.ToString().Trim();
+                        项号id = this.myDataGridViewDetails.Rows[this.myDataGridViewDetails.CurrentRowNew.Index].Cells["序号"].Value.ToString().Trim();
                         if (项号id.Length == 1)
                             项号id = string.Format("0{0}", 项号id);
                     }
@@ -179,18 +187,12 @@ namespace UniqueDeclaration.Base
         #region 初始化GRID
         private void InitGridHead()
         {
-            this.myDataGridViewHead.AutoGenerateColumns = false;
-            this.myDataGridViewHead.Columns["订单id"].Visible = false;
 
-            this.myDataGridViewHead.Columns["订单号码"].DisplayIndex = 0;
-            this.myDataGridViewHead.Columns["手册编号"].DisplayIndex = 1;
-            this.myDataGridViewHead.Columns["客户代码"].DisplayIndex = 2;
-            this.myDataGridViewHead.Columns["客户代码"].Width = 78;
-            this.myDataGridViewHead.Columns["客户名称"].DisplayIndex = 3;
-            this.myDataGridViewHead.Columns["出货日期"].DisplayIndex = 4;
-            this.myDataGridViewHead.Columns["出货日期"].Width = 78;
-            this.myDataGridViewHead.Columns["录入日期"].DisplayIndex = 5;
-            this.myDataGridViewHead.Columns["录入日期"].Width = 78;
+            this.myDataGridViewHead.AutoGenerateColumns = false;
+            this.myDataGridViewHead.Columns["归并后料件id"].Visible = false;
+
+            this.myDataGridViewHead.Columns["序号"].DisplayIndex = 0;
+            this.myDataGridViewHead.Columns["电子帐册号"].DisplayIndex = 1;
             foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridViewHead.Columns)
             {
                 textBoxColumn.ContextMenuStrip = this.myContextHead;
@@ -200,55 +202,7 @@ namespace UniqueDeclaration.Base
         {
             this.myDataGridViewDetails.AutoGenerateColumns = false;
             this.myDataGridViewDetails.Columns["BM"].Visible = false;
-            this.myDataGridViewDetails.Columns["订单明细表id"].Visible = false;
-            //this.myDataGridViewDetails.Columns["订单id"].Visible = false;
-            this.myDataGridViewDetails.Columns["制造通知单id"].Visible = false;
-            this.myDataGridViewDetails.Columns["产品id"].Visible = false;
-            this.myDataGridViewDetails.Columns["配件id"].Visible = false;
-
-            this.myDataGridViewDetails.Columns["制造通知单号"].DisplayIndex = 0;
-            this.myDataGridViewDetails.Columns["制造通知单号"].Width = 100;
-            this.myDataGridViewDetails.Columns["客人型号"].DisplayIndex = 1;
-            this.myDataGridViewDetails.Columns["客人型号"].Width = 78;
-            this.myDataGridViewDetails.Columns["优丽型号"].DisplayIndex = 2;
-            this.myDataGridViewDetails.Columns["优丽型号"].Width = 78;
-            this.myDataGridViewDetails.Columns["颜色"].DisplayIndex = 3;
-            this.myDataGridViewDetails.Columns["颜色"].Width = 55;
-            this.myDataGridViewDetails.Columns["订单数量"].DisplayIndex = 4;
-            this.myDataGridViewDetails.Columns["订单数量"].Width = 78;
-            this.myDataGridViewDetails.Columns["单位"].DisplayIndex = 5;
-            this.myDataGridViewDetails.Columns["单位"].Width = 55;
-            this.myDataGridViewDetails.Columns["箱数"].DisplayIndex = 6;
-            this.myDataGridViewDetails.Columns["箱数"].Width = 55;
-            this.myDataGridViewDetails.Columns["型号"].DisplayIndex = 7;
-            //this.myDataGridViewDetails.Columns["型号"].Width = 78;
-            this.myDataGridViewDetails.Columns["型号"].HeaderText = "生产型号";
-            this.myDataGridViewDetails.Columns["生产数量"].DisplayIndex = 8;
-            this.myDataGridViewDetails.Columns["生产数量"].Width = 78;
-            this.myDataGridViewDetails.Columns["实际总重"].DisplayIndex = 9;
-            this.myDataGridViewDetails.Columns["实际总重"].Width = 78;
-            this.myDataGridViewDetails.Columns["总重"].DisplayIndex = 10;
-            this.myDataGridViewDetails.Columns["总重"].Width = 55;
-            this.myDataGridViewDetails.Columns["版本号"].DisplayIndex = 11;
-            this.myDataGridViewDetails.Columns["版本号"].Width = 90;
-            this.myDataGridViewDetails.Columns["版本号"].HeaderText = "企业版本号";
-            this.myDataGridViewDetails.Columns["内部版本号"].DisplayIndex = 12;
-            this.myDataGridViewDetails.Columns["内部版本号"].Width = 90;
-            this.myDataGridViewDetails.Columns["成品项号"].DisplayIndex = 13;
-            this.myDataGridViewDetails.Columns["成品项号"].Width = 78;
-            this.myDataGridViewDetails.Columns["成品名称及商编"].DisplayIndex = 14;
-            this.myDataGridViewDetails.Columns["成品名称及商编"].Width = 130;
-            this.myDataGridViewDetails.Columns["成品规格型号"].DisplayIndex = 15;
-            this.myDataGridViewDetails.Columns["成品规格型号"].Width = 110;
-            this.myDataGridViewDetails.Columns["申报单位"].DisplayIndex = 16;
-            this.myDataGridViewDetails.Columns["申报单位"].Width = 78;
-            this.myDataGridViewDetails.Columns["法定单位"].DisplayIndex = 17;
-            this.myDataGridViewDetails.Columns["法定单位"].Width = 78;
-            this.myDataGridViewDetails.Columns["变更规格型号"].DisplayIndex = 18;
-            this.myDataGridViewDetails.Columns["变更规格型号"].Width = 100;
-            this.myDataGridViewDetails.Columns["订单备注"].DisplayIndex = 19;
-            this.myDataGridViewDetails.Columns["订单备注"].Width = 78;
-
+            this.myDataGridViewDetails.Columns["归并前料件id"].Visible = false;
             foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridViewDetails.Columns)
             {
                 textBoxColumn.ContextMenuStrip = this.myContextDetails;
@@ -258,21 +212,6 @@ namespace UniqueDeclaration.Base
         {
             if (this.myDataGridViewDetails2.DataSource != null)
             {
-                this.myDataGridViewDetails2.Columns["序号"].DisplayIndex = 0;
-                this.myDataGridViewDetails2.Columns["序号"].Width = 55;
-                this.myDataGridViewDetails2.Columns["商品编码"].DisplayIndex = 1;
-                this.myDataGridViewDetails2.Columns["商品编码"].Width = 78;
-                this.myDataGridViewDetails2.Columns["商品名称"].DisplayIndex = 2;
-                this.myDataGridViewDetails2.Columns["商品名称"].Width = 78;
-                this.myDataGridViewDetails2.Columns["规格型号"].DisplayIndex = 3;
-                this.myDataGridViewDetails2.Columns["规格型号"].Width = 150;
-                this.myDataGridViewDetails2.Columns["计量单位"].DisplayIndex = 4;
-                this.myDataGridViewDetails2.Columns["计量单位"].Width = 78;
-                this.myDataGridViewDetails2.Columns["损耗率"].DisplayIndex = 5;
-                this.myDataGridViewDetails2.Columns["损耗率"].Width = 70;
-                this.myDataGridViewDetails2.Columns["总用量"].DisplayIndex = 6;
-                this.myDataGridViewDetails2.Columns["总用量"].Width = 70;
-                this.myDataGridViewDetails2.Columns["单耗"].Visible = false;
                 foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridViewDetails2.Columns)
                 {
                     textBoxColumn.ContextMenuStrip = this.myContextDetails2;
@@ -328,7 +267,25 @@ namespace UniqueDeclaration.Base
 
         public override void tool1_Delete_Click(object sender, EventArgs e)
         {
-            base.tool1_Delete_Click(sender, e);
+            try
+            {
+            if (this.myDataGridViewHead.CurrentRow == null) return;
+            if (SysMessage.YesNoMsg(string.Format("真的要删除此商品编码【{0}】吗？", this.myDataGridViewHead.CurrentRow.Cells["商品编码"].Value)) == System.Windows.Forms.DialogResult.No) return;
+            string strSQL = string.Format("删除指定的归并后料件清单资料 {0}", this.myDataGridViewHead.CurrentRow.Cells["归并后料件id"].Value);
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            dataAccess.ExecuteNonQuery(strSQL,null);
+            dataAccess.Close();
+            string strSuccess = string.Format("{0}[{1}]成功！", tool1_Delete.Text, this.myDataGridViewHead.CurrentRow.Cells["商品编码"].Value);
+            this.myDataGridViewHead.Rows.Remove(this.myDataGridViewHead.CurrentRow);
+            setTool1Enabled();
+            SysMessage.InformationMsg(strSuccess);
+            }
+            catch (Exception ex)
+            {
+                string strError = string.Format("{0} 出现错误：错误信息：{1}", tool1_Delete.Text, ex.Message);
+                SysMessage.ErrorMsg(strError);
+            }
         }
 
         public override void tool1_Modify_Click(object sender, EventArgs e)
@@ -431,6 +388,13 @@ namespace UniqueDeclaration.Base
             if (bTriggerGridViewHead_SelectionChanged)
             {
                 LoadDataSourceDetails();
+            }
+        }
+        private void myDataGridViewDetails_SelectionChanged(object sender, EventArgs e)
+        {
+            if (bTriggerGridViewDetails_SelectionChanged)
+            {
+                LoadDataSourceDetails2();
             }
         }
     }
