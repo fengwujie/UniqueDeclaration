@@ -262,7 +262,11 @@ namespace UniqueDeclaration.Base
 
         public override void tool1_Add_Click(object sender, EventArgs e)
         {
-            base.tool1_Add_Click(sender, e);
+            //base.tool1_Add_Click(sender, e);
+            FormMergeRelationMaterialsInput objForm = new FormMergeRelationMaterialsInput();
+            objForm.MdiParent = this.MdiParent;
+            objForm.giOrderID = 0;
+            objForm.Show();
         }
 
         public override void tool1_Delete_Click(object sender, EventArgs e)
@@ -290,7 +294,29 @@ namespace UniqueDeclaration.Base
 
         public override void tool1_Modify_Click(object sender, EventArgs e)
         {
-            base.tool1_Modify_Click(sender, e);
+            //base.tool1_Modify_Click(sender, e);
+            bool bHave = false;
+            int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["归并后料件id"].Value);
+            foreach (Form childFrm in this.MdiParent.MdiChildren)
+            {
+                if (childFrm.Name == "FormMergeRelationMaterialsInput")
+                {
+                    FormMergeRelationMaterialsInput inputForm = (FormMergeRelationMaterialsInput)childFrm;
+                    if (inputForm.giOrderID != 0 && inputForm.giOrderID == iOrderID)
+                    {
+                        bHave = true;
+                        childFrm.Activate();
+                        break;
+                    }
+                }
+            }
+            if (!bHave)
+            {
+                FormMergeRelationMaterialsInput objForm = new FormMergeRelationMaterialsInput();
+                objForm.MdiParent = this.MdiParent;
+                objForm.giOrderID = iOrderID;
+                objForm.Show();
+            }
         }
 
         public override void tool1_Query_Click(object sender, EventArgs e)

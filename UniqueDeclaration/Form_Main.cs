@@ -381,7 +381,7 @@ namespace UniqueDeclaration
         {
             FormMergeRelationMaterialsInput objForm = new FormMergeRelationMaterialsInput();
             objForm.MdiParent = this.MdiParent;
-            objForm.gstrManualNo = string.Empty;
+            objForm.giOrderID = 0;
             objForm.Show();
         }
         //商品归并关系表（料件）查询
