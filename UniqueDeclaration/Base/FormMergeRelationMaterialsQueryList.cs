@@ -203,6 +203,17 @@ namespace UniqueDeclaration.Base
             this.myDataGridViewDetails.AutoGenerateColumns = false;
             this.myDataGridViewDetails.Columns["BM"].Visible = false;
             this.myDataGridViewDetails.Columns["归并前料件id"].Visible = false;
+            this.myDataGridViewDetails.Columns["序号"].DisplayIndex = 0;
+            this.myDataGridViewDetails.Columns["产品编号"].DisplayIndex = 1;
+            this.myDataGridViewDetails.Columns["商品编码"].DisplayIndex = 2;
+            this.myDataGridViewDetails.Columns["商品名称"].DisplayIndex = 3;
+            this.myDataGridViewDetails.Columns["商品规格"].DisplayIndex = 4;
+            this.myDataGridViewDetails.Columns["单价"].DisplayIndex = 5;
+            this.myDataGridViewDetails.Columns["币种"].DisplayIndex = 6;
+            this.myDataGridViewDetails.Columns["计量单位"].DisplayIndex = 7;
+            this.myDataGridViewDetails.Columns["法定单位"].DisplayIndex = 8;
+            this.myDataGridViewDetails.Columns["换算因子"].DisplayIndex = 9;
+            this.myDataGridViewDetails.Columns["对应编号"].DisplayIndex = 10;
             foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridViewDetails.Columns)
             {
                 textBoxColumn.ContextMenuStrip = this.myContextDetails;

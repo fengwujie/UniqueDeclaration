@@ -34,6 +34,12 @@
             this.tool1_Close = new System.Windows.Forms.ToolStripButton();
             this.myTabControl1 = new UniqueDeclarationBaseForm.Controls.myTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txt_换算因子 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.txt_四位大类序号 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.myLable1 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.myLable2 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.cbox_电子帐册号 = new UniqueDeclarationBaseForm.Controls.myComboBox();
+            this.cbox_主料 = new UniqueDeclarationBaseForm.Controls.myComboBox();
             this.txt_商品名称 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.txt_商品规格 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.txt_计量单位 = new UniqueDeclarationBaseForm.Controls.myTextBox();
@@ -68,13 +74,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tool2_Add = new System.Windows.Forms.ToolStripButton();
             this.tool2_Delete = new System.Windows.Forms.ToolStripButton();
-            this.tool2_BOM = new System.Windows.Forms.ToolStripButton();
-            this.cbox_主料 = new UniqueDeclarationBaseForm.Controls.myComboBox();
-            this.cbox_电子帐册号 = new UniqueDeclarationBaseForm.Controls.myComboBox();
-            this.txt_换算因子 = new UniqueDeclarationBaseForm.Controls.myTextBox();
-            this.txt_四位大类序号 = new UniqueDeclarationBaseForm.Controls.myTextBox();
-            this.myLable1 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.myLable2 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myContextDetails = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
             this.toolStrip1.SuspendLayout();
             this.myTabControl1.SuspendLayout();
@@ -104,6 +103,7 @@
             this.tool1_Add.Name = "tool1_Add";
             this.tool1_Add.Size = new System.Drawing.Size(23, 22);
             this.tool1_Add.Text = "新增";
+            this.tool1_Add.Click += new System.EventHandler(this.tool1_Add_Click);
             // 
             // tool1_Save
             // 
@@ -113,6 +113,7 @@
             this.tool1_Save.Name = "tool1_Save";
             this.tool1_Save.Size = new System.Drawing.Size(23, 22);
             this.tool1_Save.Text = "保存";
+            this.tool1_Save.Click += new System.EventHandler(this.tool1_Save_Click);
             // 
             // tool1_Close
             // 
@@ -122,6 +123,7 @@
             this.tool1_Close.Name = "tool1_Close";
             this.tool1_Close.Size = new System.Drawing.Size(23, 22);
             this.tool1_Close.Text = "关闭";
+            this.tool1_Close.Click += new System.EventHandler(this.tool1_Close_Click);
             // 
             // myTabControl1
             // 
@@ -174,13 +176,70 @@
             this.tabPage1.Text = "归并后料件清单";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // txt_换算因子
+            // 
+            this.txt_换算因子.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_换算因子.Location = new System.Drawing.Point(127, 404);
+            this.txt_换算因子.Name = "txt_换算因子";
+            this.txt_换算因子.Size = new System.Drawing.Size(208, 21);
+            this.txt_换算因子.TabIndex = 13;
+            this.txt_换算因子.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_换算因子.Validated += new System.EventHandler(this.txt_Validated);
+            // 
+            // txt_四位大类序号
+            // 
+            this.txt_四位大类序号.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_四位大类序号.Location = new System.Drawing.Point(127, 434);
+            this.txt_四位大类序号.Name = "txt_四位大类序号";
+            this.txt_四位大类序号.Size = new System.Drawing.Size(208, 21);
+            this.txt_四位大类序号.TabIndex = 14;
+            this.txt_四位大类序号.Validating += new System.ComponentModel.CancelEventHandler(this.txtInt_Validating);
+            this.txt_四位大类序号.Validated += new System.EventHandler(this.txt_Validated);
+            // 
+            // myLable1
+            // 
+            this.myLable1.AutoSize = true;
+            this.myLable1.Location = new System.Drawing.Point(62, 408);
+            this.myLable1.Name = "myLable1";
+            this.myLable1.Size = new System.Drawing.Size(65, 12);
+            this.myLable1.TabIndex = 80;
+            this.myLable1.Text = "换算因子：";
+            // 
+            // myLable2
+            // 
+            this.myLable2.AutoSize = true;
+            this.myLable2.Location = new System.Drawing.Point(38, 438);
+            this.myLable2.Name = "myLable2";
+            this.myLable2.Size = new System.Drawing.Size(89, 12);
+            this.myLable2.TabIndex = 82;
+            this.myLable2.Text = "四位大类序号：";
+            // 
+            // cbox_电子帐册号
+            // 
+            this.cbox_电子帐册号.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbox_电子帐册号.FormattingEnabled = true;
+            this.cbox_电子帐册号.Location = new System.Drawing.Point(127, 75);
+            this.cbox_电子帐册号.Name = "cbox_电子帐册号";
+            this.cbox_电子帐册号.Size = new System.Drawing.Size(208, 20);
+            this.cbox_电子帐册号.TabIndex = 2;
+            // 
+            // cbox_主料
+            // 
+            this.cbox_主料.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbox_主料.FormattingEnabled = true;
+            this.cbox_主料.Location = new System.Drawing.Point(127, 46);
+            this.cbox_主料.Name = "cbox_主料";
+            this.cbox_主料.Size = new System.Drawing.Size(208, 20);
+            this.cbox_主料.TabIndex = 1;
+            // 
             // txt_商品名称
             // 
             this.txt_商品名称.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_商品名称.Location = new System.Drawing.Point(127, 164);
             this.txt_商品名称.Name = "txt_商品名称";
             this.txt_商品名称.Size = new System.Drawing.Size(208, 21);
-            this.txt_商品名称.TabIndex = 53;
+            this.txt_商品名称.TabIndex = 5;
+            this.txt_商品名称.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_商品规格
             // 
@@ -188,7 +247,8 @@
             this.txt_商品规格.Location = new System.Drawing.Point(127, 194);
             this.txt_商品规格.Name = "txt_商品规格";
             this.txt_商品规格.Size = new System.Drawing.Size(208, 21);
-            this.txt_商品规格.TabIndex = 59;
+            this.txt_商品规格.TabIndex = 6;
+            this.txt_商品规格.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_计量单位
             // 
@@ -196,7 +256,8 @@
             this.txt_计量单位.Location = new System.Drawing.Point(127, 344);
             this.txt_计量单位.Name = "txt_计量单位";
             this.txt_计量单位.Size = new System.Drawing.Size(208, 21);
-            this.txt_计量单位.TabIndex = 61;
+            this.txt_计量单位.TabIndex = 11;
+            this.txt_计量单位.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_法定单位
             // 
@@ -204,7 +265,8 @@
             this.txt_法定单位.Location = new System.Drawing.Point(127, 374);
             this.txt_法定单位.Name = "txt_法定单位";
             this.txt_法定单位.Size = new System.Drawing.Size(208, 21);
-            this.txt_法定单位.TabIndex = 63;
+            this.txt_法定单位.TabIndex = 12;
+            this.txt_法定单位.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_产销国
             // 
@@ -212,7 +274,8 @@
             this.txt_产销国.Location = new System.Drawing.Point(127, 224);
             this.txt_产销国.Name = "txt_产销国";
             this.txt_产销国.Size = new System.Drawing.Size(208, 21);
-            this.txt_产销国.TabIndex = 65;
+            this.txt_产销国.TabIndex = 7;
+            this.txt_产销国.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_币种
             // 
@@ -220,7 +283,8 @@
             this.txt_币种.Location = new System.Drawing.Point(127, 314);
             this.txt_币种.Name = "txt_币种";
             this.txt_币种.Size = new System.Drawing.Size(208, 21);
-            this.txt_币种.TabIndex = 73;
+            this.txt_币种.TabIndex = 10;
+            this.txt_币种.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_损耗率
             // 
@@ -228,7 +292,9 @@
             this.txt_损耗率.Location = new System.Drawing.Point(127, 254);
             this.txt_损耗率.Name = "txt_损耗率";
             this.txt_损耗率.Size = new System.Drawing.Size(208, 21);
-            this.txt_损耗率.TabIndex = 67;
+            this.txt_损耗率.TabIndex = 8;
+            this.txt_损耗率.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_损耗率.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable24
             // 
@@ -245,7 +311,9 @@
             this.txt_单价.Location = new System.Drawing.Point(127, 284);
             this.txt_单价.Name = "txt_单价";
             this.txt_单价.Size = new System.Drawing.Size(208, 21);
-            this.txt_单价.TabIndex = 71;
+            this.txt_单价.TabIndex = 9;
+            this.txt_单价.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_单价.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable14
             // 
@@ -316,7 +384,9 @@
             this.txt_序号.Location = new System.Drawing.Point(127, 16);
             this.txt_序号.Name = "txt_序号";
             this.txt_序号.Size = new System.Drawing.Size(208, 21);
-            this.txt_序号.TabIndex = 26;
+            this.txt_序号.TabIndex = 0;
+            this.txt_序号.Validating += new System.ComponentModel.CancelEventHandler(this.txtInt_Validating);
+            this.txt_序号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable4
             // 
@@ -333,7 +403,8 @@
             this.txt_产品编号.Location = new System.Drawing.Point(127, 104);
             this.txt_产品编号.Name = "txt_产品编号";
             this.txt_产品编号.Size = new System.Drawing.Size(208, 21);
-            this.txt_产品编号.TabIndex = 34;
+            this.txt_产品编号.TabIndex = 3;
+            this.txt_产品编号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_商品编码
             // 
@@ -341,7 +412,8 @@
             this.txt_商品编码.Location = new System.Drawing.Point(127, 134);
             this.txt_商品编码.Name = "txt_商品编码";
             this.txt_商品编码.Size = new System.Drawing.Size(208, 21);
-            this.txt_商品编码.TabIndex = 38;
+            this.txt_商品编码.TabIndex = 4;
+            this.txt_商品编码.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable3
             // 
@@ -404,6 +476,10 @@
             this.myDataGridViewDetails.RowTemplate.Height = 23;
             this.myDataGridViewDetails.Size = new System.Drawing.Size(696, 439);
             this.myDataGridViewDetails.TabIndex = 6;
+            this.myDataGridViewDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.myDataGridViewDetails_CellEndEdit);
+            this.myDataGridViewDetails.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.myDataGridViewDetails_DataError);
+            this.myDataGridViewDetails.SelectionChanged += new System.EventHandler(this.myDataGridViewDetails_SelectionChanged);
+            this.myDataGridViewDetails.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myDataGridViewDetails_KeyPress);
             // 
             // toolStrip2
             // 
@@ -414,8 +490,7 @@
             this.tool2_End,
             this.toolStripSeparator1,
             this.tool2_Add,
-            this.tool2_Delete,
-            this.tool2_BOM});
+            this.tool2_Delete});
             this.toolStrip2.Location = new System.Drawing.Point(3, 3);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(696, 25);
@@ -487,73 +562,11 @@
             this.tool2_Delete.Text = "删除";
             this.tool2_Delete.Click += new System.EventHandler(this.tool2_Delete_Click);
             // 
-            // tool2_BOM
-            // 
-            this.tool2_BOM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool2_BOM.Image = global::UniqueDeclaration.Properties.Resources.structure_24px;
-            this.tool2_BOM.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool2_BOM.Name = "tool2_BOM";
-            this.tool2_BOM.Size = new System.Drawing.Size(23, 22);
-            this.tool2_BOM.Text = "明细";
-            this.tool2_BOM.Click += new System.EventHandler(this.tool2_BOM_Click);
-            // 
-            // cbox_主料
-            // 
-            this.cbox_主料.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbox_主料.FormattingEnabled = true;
-            this.cbox_主料.Location = new System.Drawing.Point(127, 46);
-            this.cbox_主料.Name = "cbox_主料";
-            this.cbox_主料.Size = new System.Drawing.Size(208, 20);
-            this.cbox_主料.TabIndex = 78;
-            // 
-            // cbox_电子帐册号
-            // 
-            this.cbox_电子帐册号.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbox_电子帐册号.FormattingEnabled = true;
-            this.cbox_电子帐册号.Location = new System.Drawing.Point(127, 75);
-            this.cbox_电子帐册号.Name = "cbox_电子帐册号";
-            this.cbox_电子帐册号.Size = new System.Drawing.Size(208, 20);
-            this.cbox_电子帐册号.TabIndex = 79;
-            // 
-            // txt_换算因子
-            // 
-            this.txt_换算因子.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_换算因子.Location = new System.Drawing.Point(127, 404);
-            this.txt_换算因子.Name = "txt_换算因子";
-            this.txt_换算因子.Size = new System.Drawing.Size(208, 21);
-            this.txt_换算因子.TabIndex = 81;
-            // 
-            // txt_四位大类序号
-            // 
-            this.txt_四位大类序号.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_四位大类序号.Location = new System.Drawing.Point(127, 434);
-            this.txt_四位大类序号.Name = "txt_四位大类序号";
-            this.txt_四位大类序号.Size = new System.Drawing.Size(208, 21);
-            this.txt_四位大类序号.TabIndex = 83;
-            // 
-            // myLable1
-            // 
-            this.myLable1.AutoSize = true;
-            this.myLable1.Location = new System.Drawing.Point(62, 408);
-            this.myLable1.Name = "myLable1";
-            this.myLable1.Size = new System.Drawing.Size(65, 12);
-            this.myLable1.TabIndex = 80;
-            this.myLable1.Text = "换算因子：";
-            // 
-            // myLable2
-            // 
-            this.myLable2.AutoSize = true;
-            this.myLable2.Location = new System.Drawing.Point(38, 438);
-            this.myLable2.Name = "myLable2";
-            this.myLable2.Size = new System.Drawing.Size(89, 12);
-            this.myLable2.TabIndex = 82;
-            this.myLable2.Text = "四位大类序号：";
-            // 
             // myContextDetails
             // 
             this.myContextDetails.MyDataGridView = this.myDataGridViewDetails;
             this.myContextDetails.Name = "myContextDetails";
-            this.myContextDetails.Size = new System.Drawing.Size(153, 48);
+            this.myContextDetails.Size = new System.Drawing.Size(101, 26);
             // 
             // FormMergeRelationMaterialsInput
             // 
@@ -597,7 +610,6 @@
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton tool2_Add;
         public System.Windows.Forms.ToolStripButton tool2_Delete;
-        public System.Windows.Forms.ToolStripButton tool2_BOM;
         private UniqueDeclarationBaseForm.Controls.myDataGridView myDataGridViewDetails;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_序号;
         private UniqueDeclarationBaseForm.Controls.myLable myLable4;
