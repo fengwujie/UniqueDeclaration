@@ -1,6 +1,6 @@
 ﻿namespace UniqueDeclaration.Base
 {
-    partial class FormMergeRelationMaterialsInput
+    partial class FormMergeRelationProductInput
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -91,8 +91,8 @@
             this.tool1_Close});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(710, 25);
-            this.toolStrip1.TabIndex = 2;
+            this.toolStrip1.Size = new System.Drawing.Size(922, 25);
+            this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // tool1_Add
@@ -133,8 +133,8 @@
             this.myTabControl1.Location = new System.Drawing.Point(0, 25);
             this.myTabControl1.Name = "myTabControl1";
             this.myTabControl1.SelectedIndex = 0;
-            this.myTabControl1.Size = new System.Drawing.Size(710, 496);
-            this.myTabControl1.TabIndex = 3;
+            this.myTabControl1.Size = new System.Drawing.Size(922, 514);
+            this.myTabControl1.TabIndex = 4;
             // 
             // tabPage1
             // 
@@ -171,7 +171,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(702, 470);
+            this.tabPage1.Size = new System.Drawing.Size(914, 488);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "归并后料件清单";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -460,7 +460,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(702, 470);
+            this.tabPage2.Size = new System.Drawing.Size(914, 488);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "归并前料件清单";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -476,7 +476,7 @@
             this.myDataGridViewDetails.MultiSelect = false;
             this.myDataGridViewDetails.Name = "myDataGridViewDetails";
             this.myDataGridViewDetails.RowTemplate.Height = 23;
-            this.myDataGridViewDetails.Size = new System.Drawing.Size(696, 439);
+            this.myDataGridViewDetails.Size = new System.Drawing.Size(908, 457);
             this.myDataGridViewDetails.TabIndex = 6;
             this.myDataGridViewDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.myDataGridViewDetails_CellEndEdit);
             this.myDataGridViewDetails.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.myDataGridViewDetails_DataError);
@@ -495,7 +495,7 @@
             this.tool2_Delete});
             this.toolStrip2.Location = new System.Drawing.Point(3, 3);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(696, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(908, 25);
             this.toolStrip2.TabIndex = 5;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -570,16 +570,16 @@
             this.myContextDetails.Name = "myContextDetails";
             this.myContextDetails.Size = new System.Drawing.Size(101, 26);
             // 
-            // FormMergeRelationMaterialsInput
+            // FormMergeRelationProductInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(710, 521);
+            this.ClientSize = new System.Drawing.Size(922, 539);
             this.Controls.Add(this.myTabControl1);
             this.Controls.Add(this.toolStrip1);
-            this.Name = "FormMergeRelationMaterialsInput";
-            this.Text = "商品归并关系表（料件）录入";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMergeRelationMaterialsInput_FormClosing);
-            this.Load += new System.EventHandler(this.FormMergeRelationMaterialsInput_Load);
+            this.Name = "FormMergeRelationProductInput";
+            this.Text = "商品归并关系表（成品）录入";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMergeRelationProductInput_FormClosing);
+            this.Load += new System.EventHandler(this.FormMergeRelationProductInput_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.myTabControl1.ResumeLayout(false);
@@ -603,24 +603,12 @@
         private System.Windows.Forms.ToolStripButton tool1_Close;
         private UniqueDeclarationBaseForm.Controls.myTabControl myTabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        public System.Windows.Forms.ToolStrip toolStrip2;
-        public System.Windows.Forms.ToolStripButton tool2_First;
-        public System.Windows.Forms.ToolStripButton tool2_up;
-        public System.Windows.Forms.ToolStripButton tool2_Down;
-        public System.Windows.Forms.ToolStripButton tool2_End;
-        public System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton tool2_Add;
-        public System.Windows.Forms.ToolStripButton tool2_Delete;
-        private UniqueDeclarationBaseForm.Controls.myDataGridView myDataGridViewDetails;
-        private UniqueDeclarationBaseForm.Controls.myTextBox txt_序号;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable4;
-        private UniqueDeclarationBaseForm.Controls.myTextBox txt_产品编号;
-        private UniqueDeclarationBaseForm.Controls.myTextBox txt_商品编码;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable3;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable7;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable10;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable12;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_换算因子;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_四位大类序号;
+        private UniqueDeclarationBaseForm.Controls.myLable myLable1;
+        private UniqueDeclarationBaseForm.Controls.myLable myLable2;
+        private UniqueDeclarationBaseForm.Controls.myComboBox cbox_电子帐册号;
+        private UniqueDeclarationBaseForm.Controls.myComboBox cbox_主料;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_商品名称;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_商品规格;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_计量单位;
@@ -637,12 +625,24 @@
         private UniqueDeclarationBaseForm.Controls.myLable myLable18;
         private UniqueDeclarationBaseForm.Controls.myLable myLable19;
         private UniqueDeclarationBaseForm.Controls.myLable myLable21;
-        private UniqueDeclarationBaseForm.Controls.myComboBox cbox_电子帐册号;
-        private UniqueDeclarationBaseForm.Controls.myComboBox cbox_主料;
-        private UniqueDeclarationBaseForm.Controls.myTextBox txt_换算因子;
-        private UniqueDeclarationBaseForm.Controls.myTextBox txt_四位大类序号;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable1;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable2;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_序号;
+        private UniqueDeclarationBaseForm.Controls.myLable myLable4;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_产品编号;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_商品编码;
+        private UniqueDeclarationBaseForm.Controls.myLable myLable3;
+        private UniqueDeclarationBaseForm.Controls.myLable myLable7;
+        private UniqueDeclarationBaseForm.Controls.myLable myLable10;
+        private UniqueDeclarationBaseForm.Controls.myLable myLable12;
+        private System.Windows.Forms.TabPage tabPage2;
+        private UniqueDeclarationBaseForm.Controls.myDataGridView myDataGridViewDetails;
+        public System.Windows.Forms.ToolStrip toolStrip2;
+        public System.Windows.Forms.ToolStripButton tool2_First;
+        public System.Windows.Forms.ToolStripButton tool2_up;
+        public System.Windows.Forms.ToolStripButton tool2_Down;
+        public System.Windows.Forms.ToolStripButton tool2_End;
+        public System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton tool2_Add;
+        public System.Windows.Forms.ToolStripButton tool2_Delete;
         private UniqueDeclarationBaseForm.Controls.myContextMenuStripCell myContextDetails;
     }
 }

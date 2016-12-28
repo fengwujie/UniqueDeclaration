@@ -397,7 +397,30 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
+        //商品归并关系表（成品）录入
+        private void FormMergeRelationProductInput_Click(object sender, EventArgs e)
+        {
+            FormMergeRelationProductInput objForm = new FormMergeRelationProductInput();
+            objForm.MdiParent = this.MdiParent;
+            objForm.giOrderID = 0;
+            objForm.Show();
+        }
+        //商品归并关系表（成品）查询
+        private void FormMergeRelationProductQueryList_Click(object sender, EventArgs e)
+        {
+            FormMergeRelationProductQueryCondition queryConditionForm = new FormMergeRelationProductQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string cManualNo = queryConditionForm.cManualNo;
+                UniqueDeclaration.Base.FormMergeRelationProductQueryList queryListForm = new UniqueDeclaration.Base.FormMergeRelationProductQueryList();
+                queryListForm.gstrManualNo = cManualNo;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
         #endregion
+
+
 
     }
 }

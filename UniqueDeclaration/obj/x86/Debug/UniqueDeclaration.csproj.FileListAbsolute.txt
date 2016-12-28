@@ -78,3 +78,5 @@ F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.pd
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormManualBOM.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMergeRelationMaterialsInput.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMergeRelationMaterialsQueryList.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMergeRelationProductInput.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMergeRelationProductQueryList.resources

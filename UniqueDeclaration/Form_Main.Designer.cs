@@ -34,6 +34,12 @@
             this.Base = new System.Windows.Forms.ToolStripMenuItem();
             this.FromManualInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormManualQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.FormMergeRelationMaterialsInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormMergeRelationMaterialsQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.FormMergeRelationProductInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormMergeRelationProductQueryList = new System.Windows.Forms.ToolStripMenuItem();
             this.Order = new System.Windows.Forms.ToolStripMenuItem();
             this.FormOrderInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormOrderQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,6 +81,8 @@
             this.arrangeIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -82,14 +90,6 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStatus_Version = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
-            this.FormMergeRelationMaterialsInput = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormMergeRelationMaterialsQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.商品归并关系表成品录入ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.商品归并关系表成品查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -122,8 +122,8 @@
             this.FormMergeRelationMaterialsInput,
             this.FormMergeRelationMaterialsQueryCondition,
             this.toolStripMenuItem5,
-            this.商品归并关系表成品录入ToolStripMenuItem,
-            this.商品归并关系表成品查询ToolStripMenuItem});
+            this.FormMergeRelationProductInput,
+            this.FormMergeRelationProductQueryList});
             this.Base.Name = "Base";
             this.Base.Size = new System.Drawing.Size(68, 21);
             this.Base.Text = "基础资料";
@@ -141,6 +141,44 @@
             this.FormManualQueryCondition.Size = new System.Drawing.Size(232, 22);
             this.FormManualQueryCondition.Text = "手册资料查询";
             this.FormManualQueryCondition.Click += new System.EventHandler(this.FormManualQueryCondition_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(229, 6);
+            // 
+            // FormMergeRelationMaterialsInput
+            // 
+            this.FormMergeRelationMaterialsInput.Name = "FormMergeRelationMaterialsInput";
+            this.FormMergeRelationMaterialsInput.Size = new System.Drawing.Size(232, 22);
+            this.FormMergeRelationMaterialsInput.Text = "商品归并关系表（料件）录入";
+            this.FormMergeRelationMaterialsInput.Click += new System.EventHandler(this.FormMergeRelationMaterialsInput_Click);
+            // 
+            // FormMergeRelationMaterialsQueryCondition
+            // 
+            this.FormMergeRelationMaterialsQueryCondition.Name = "FormMergeRelationMaterialsQueryCondition";
+            this.FormMergeRelationMaterialsQueryCondition.Size = new System.Drawing.Size(232, 22);
+            this.FormMergeRelationMaterialsQueryCondition.Text = "商品归并关系表（料件）查询";
+            this.FormMergeRelationMaterialsQueryCondition.Click += new System.EventHandler(this.FormMergeRelationMaterialsQueryCondition_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(229, 6);
+            // 
+            // FormMergeRelationProductInput
+            // 
+            this.FormMergeRelationProductInput.Name = "FormMergeRelationProductInput";
+            this.FormMergeRelationProductInput.Size = new System.Drawing.Size(232, 22);
+            this.FormMergeRelationProductInput.Text = "商品归并关系表（成品）录入";
+            this.FormMergeRelationProductInput.Click += new System.EventHandler(this.FormMergeRelationProductInput_Click);
+            // 
+            // FormMergeRelationProductQueryList
+            // 
+            this.FormMergeRelationProductQueryList.Name = "FormMergeRelationProductQueryList";
+            this.FormMergeRelationProductQueryList.Size = new System.Drawing.Size(232, 22);
+            this.FormMergeRelationProductQueryList.Text = "商品归并关系表（成品）查询";
+            this.FormMergeRelationProductQueryList.Click += new System.EventHandler(this.FormMergeRelationProductQueryList_Click);
             // 
             // Order
             // 
@@ -461,6 +499,22 @@
             this.contentsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.contentsToolStripMenuItem.Text = "目录(&C)";
             // 
+            // indexToolStripMenuItem
+            // 
+            this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
+            this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
+            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.indexToolStripMenuItem.Text = "索引(&I)";
+            // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("searchToolStripMenuItem.Image")));
+            this.searchToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.searchToolStripMenuItem.Text = "搜索(&S)";
+            // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
@@ -506,58 +560,6 @@
             this.toolStatus_Version.Name = "toolStatus_Version";
             this.toolStatus_Version.Size = new System.Drawing.Size(85, 17);
             this.toolStatus_Version.Text = "当前系统版本";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(229, 6);
-            // 
-            // FormMergeRelationMaterialsInput
-            // 
-            this.FormMergeRelationMaterialsInput.Name = "FormMergeRelationMaterialsInput";
-            this.FormMergeRelationMaterialsInput.Size = new System.Drawing.Size(232, 22);
-            this.FormMergeRelationMaterialsInput.Text = "商品归并关系表（料件）录入";
-            this.FormMergeRelationMaterialsInput.Click += new System.EventHandler(this.FormMergeRelationMaterialsInput_Click);
-            // 
-            // FormMergeRelationMaterialsQueryCondition
-            // 
-            this.FormMergeRelationMaterialsQueryCondition.Name = "FormMergeRelationMaterialsQueryCondition";
-            this.FormMergeRelationMaterialsQueryCondition.Size = new System.Drawing.Size(232, 22);
-            this.FormMergeRelationMaterialsQueryCondition.Text = "商品归并关系表（料件）查询";
-            this.FormMergeRelationMaterialsQueryCondition.Click += new System.EventHandler(this.FormMergeRelationMaterialsQueryCondition_Click);
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(229, 6);
-            // 
-            // 商品归并关系表成品录入ToolStripMenuItem
-            // 
-            this.商品归并关系表成品录入ToolStripMenuItem.Name = "商品归并关系表成品录入ToolStripMenuItem";
-            this.商品归并关系表成品录入ToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.商品归并关系表成品录入ToolStripMenuItem.Text = "商品归并关系表（成品）录入";
-            // 
-            // 商品归并关系表成品查询ToolStripMenuItem
-            // 
-            this.商品归并关系表成品查询ToolStripMenuItem.Name = "商品归并关系表成品查询ToolStripMenuItem";
-            this.商品归并关系表成品查询ToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.商品归并关系表成品查询ToolStripMenuItem.Text = "商品归并关系表（成品）查询";
-            // 
-            // indexToolStripMenuItem
-            // 
-            this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
-            this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
-            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.indexToolStripMenuItem.Text = "索引(&I)";
-            // 
-            // searchToolStripMenuItem
-            // 
-            this.searchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("searchToolStripMenuItem.Image")));
-            this.searchToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.searchToolStripMenuItem.Text = "搜索(&S)";
             // 
             // Form_Main
             // 
@@ -643,8 +645,8 @@
         private System.Windows.Forms.ToolStripMenuItem FormMergeRelationMaterialsInput;
         private System.Windows.Forms.ToolStripMenuItem FormMergeRelationMaterialsQueryCondition;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
-        private System.Windows.Forms.ToolStripMenuItem 商品归并关系表成品录入ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 商品归并关系表成品查询ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem FormMergeRelationProductInput;
+        private System.Windows.Forms.ToolStripMenuItem FormMergeRelationProductQueryList;
     }
 }
 

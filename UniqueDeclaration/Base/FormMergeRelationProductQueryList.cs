@@ -10,37 +10,30 @@ using UniqueDeclarationPubilc;
 
 namespace UniqueDeclaration.Base
 {
-    public partial class FormMergeRelationMaterialsQueryList : UniqueDeclarationBaseForm.FormBaseQueryList2
+    public partial class FormMergeRelationProductQueryList : UniqueDeclarationBaseForm.FormBaseQueryList2
     {
-        public FormMergeRelationMaterialsQueryList()
+        public FormMergeRelationProductQueryList()
         {
             InitializeComponent();
         }
-        
+
         /// <summary>
         /// 是否触发行变化事件
         /// </summary>
         private bool bTriggerGridViewHead_SelectionChanged = true;
         /// <summary>
-        /// 是否触发行变化事件
-        /// </summary>
-        private bool bTriggerGridViewDetails_SelectionChanged = true;
-        /// <summary>
         /// 查询窗体的传进来的手册编号
         /// </summary>
         public string gstrManualNo = string.Empty;
-
-        private void FormMergeRelationMaterialsQueryList_Load(object sender, EventArgs e)
+        private void FormMergeRelationProductQueryList_Load(object sender, EventArgs e)
         {
             base.tool1_Number.Visible = false;
             base.tool1_Import.Visible = false;
             base.tool1_Print.Visible = true;
-            this.myDataGridViewDetails.SelectionChanged += new EventHandler(myDataGridViewDetails_SelectionChanged);
             LoadDataSourceHead();
 
             InitGridHead();
             InitGridDetails();
-            InitGridDetails2();
         }
 
         #region 加载数据
@@ -53,7 +46,7 @@ namespace UniqueDeclaration.Base
             {
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
-                string strSQL =string.Format( "select * FROM 归并后料件清单 where 电子帐册号={0} ORDER BY 序号",StringTools.SqlQ( gstrManualNo));
+                string strSQL = string.Format("select * FROM 归并后成品清单 where 电子帐册号={0} ORDER BY 序号", StringTools.SqlQ(gstrManualNo));
                 DataTable dtHead = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
                 bTriggerGridViewHead_SelectionChanged = false;
@@ -91,20 +84,17 @@ namespace UniqueDeclaration.Base
                 int iOrderID = 0;
                 if (this.myDataGridViewHead.CurrentRowNew != null && this.myDataGridViewHead.CurrentRowNew.Index >= 0)
                 {
-                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["归并后料件id"].Value != DBNull.Value)
-                        iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["归并后料件id"].Value;
+                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["归并后成品id"].Value != DBNull.Value)
+                        iOrderID = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["归并后成品id"].Value;
                 }
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
-                string strSQL = string.Format("exec 商品归并表录入查询 {0}", iOrderID);
+                string strSQL = string.Format("exec 商品归并成品表录入查询  {0}", iOrderID);
                 DataTable dtDetails = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
 
                 DataTableTools.AddEmptyRow(dtDetails);
-                bTriggerGridViewDetails_SelectionChanged = false;
                 this.myDataGridViewDetails.DataSource = dtDetails;
-                bTriggerGridViewDetails_SelectionChanged = true;
-                this.myDataGridViewDetails_SelectionChanged(null, null);
             }
             catch (Exception ex)
             {
@@ -120,75 +110,15 @@ namespace UniqueDeclaration.Base
             //    }
             //}
         }
-        /// <summary>
-        /// 加载归并前材料明细用量表
-        /// </summary>
-        private void LoadDataSourceDetails2()
-        {
-            //bool bShow = false;
-            //if (formBaseLoading == null)
-            //{
-            //    formBaseLoading = new FormBaseLoading();
-            //    bShow = true;
-            //    formBaseLoading.strLoadText = string.Format("加载【{0}】数据，请稍等。。。。。。", this.tabPage4.Text);
-            //    formBaseLoading.Show();
-            //    formBaseLoading.Refresh();
-            //}
-            try
-            {
-                string 序号id = string.Empty;
-                string 项号id = string.Empty;
-                string 电子帐册号 = string.Empty;
-
-                if (this.myDataGridViewHead.CurrentRowNew != null && this.myDataGridViewHead.CurrentRowNew.Index >= 0)
-                {
-                    if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["归并后料件id"].Value != DBNull.Value)
-                    {
-                        序号id = this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["序号"].Value.ToString().Trim();
-                        if (序号id.Length == 1) 
-                            序号id = string.Format("0{0}",序号id);
-                        电子帐册号 = this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["电子帐册号"].Value.ToString().Trim();
-                    }
-                }
-                if (this.myDataGridViewDetails.CurrentRowNew != null && this.myDataGridViewDetails.CurrentRowNew.Index >= 0)
-                {
-                    if (this.myDataGridViewDetails.Rows[this.myDataGridViewDetails.CurrentRowNew.Index].Cells["归并前料件id"].Value != DBNull.Value)
-                    {
-                        项号id = this.myDataGridViewDetails.Rows[this.myDataGridViewDetails.CurrentRowNew.Index].Cells["序号"].Value.ToString().Trim();
-                        if (项号id.Length == 1)
-                            项号id = string.Format("0{0}", 项号id);
-                    }
-                }
-                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-                dataAccess.Open();
-                string strSQL = string.Format("exec 归并前料件清单明细查询 '{0}','{1}','{2}'", 序号id, 项号id,电子帐册号);
-                DataTable dtDetails2 = dataAccess.GetTable(strSQL, null);
-                dataAccess.Close();
-
-                DataTableTools.AddEmptyRow(dtDetails2);
-                this.myDataGridViewDetails2.DataSource = dtDetails2;
-            }
-            catch (Exception ex)
-            {
-                SysMessage.ErrorMsg(string.Format("加载数据出错LoadDataSourceDetails2，错误信息如下：{0}{1}", Environment.NewLine, ex.Message));
-            }
-            //finally
-            //{
-            //    if (bShow && formBaseLoading != null)
-            //    {
-            //        formBaseLoading.Close();
-            //        formBaseLoading.Dispose();
-            //        formBaseLoading = null;
-            //    }
-            //}
-        }
         #endregion
-        
+
         #region 初始化GRID
         private void InitGridHead()
         {
+
             this.myDataGridViewHead.AutoGenerateColumns = false;
-            this.myDataGridViewHead.Columns["归并后料件id"].Visible = false;
+            this.myDataGridViewHead.Columns["归并后成品id"].Visible = false;
+
             this.myDataGridViewHead.Columns["序号"].DisplayIndex = 0;
             this.myDataGridViewHead.Columns["电子帐册号"].DisplayIndex = 2;
             this.myDataGridViewHead.Columns["产品编号"].DisplayIndex = 3;
@@ -205,6 +135,11 @@ namespace UniqueDeclaration.Base
             this.myDataGridViewHead.Columns["损耗率"].DisplayIndex = 13;
             this.myDataGridViewHead.Columns["主料"].DisplayIndex = 14;
             this.myDataGridViewHead.Columns["四位大类序号"].DisplayIndex = 15;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            dataGridViewCellStyle1.Format = "F1";
+            dataGridViewCellStyle1.NullValue = null;
+            this.myDataGridViewHead.Columns["单价"].DefaultCellStyle = dataGridViewCellStyle1;
+            this.myDataGridViewHead.Columns["换算因子"].DefaultCellStyle = dataGridViewCellStyle1;
             foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridViewHead.Columns)
             {
                 textBoxColumn.ContextMenuStrip = this.myContextHead;
@@ -214,7 +149,7 @@ namespace UniqueDeclaration.Base
         {
             this.myDataGridViewDetails.AutoGenerateColumns = false;
             this.myDataGridViewDetails.Columns["BM"].Visible = false;
-            this.myDataGridViewDetails.Columns["归并前料件id"].Visible = false;
+            this.myDataGridViewDetails.Columns["归并前成品id"].Visible = false;
             this.myDataGridViewDetails.Columns["序号"].DisplayIndex = 0;
             this.myDataGridViewDetails.Columns["产品编号"].DisplayIndex = 1;
             this.myDataGridViewDetails.Columns["商品编码"].DisplayIndex = 2;
@@ -226,35 +161,30 @@ namespace UniqueDeclaration.Base
             this.myDataGridViewDetails.Columns["计量单位"].HeaderText = "申报计量单位";
             this.myDataGridViewDetails.Columns["法定单位"].DisplayIndex = 8;
             this.myDataGridViewDetails.Columns["换算因子"].DisplayIndex = 9;
-            this.myDataGridViewDetails.Columns["对应编号"].DisplayIndex = 10;
+            this.myDataGridViewDetails.Columns["日期"].DisplayIndex = 10;
+            this.myDataGridViewDetails.Columns["对应编号"].DisplayIndex = 11;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             dataGridViewCellStyle1.Format = "F3";
             dataGridViewCellStyle1.NullValue = null;
             this.myDataGridViewDetails.Columns["单价"].DefaultCellStyle = dataGridViewCellStyle1;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            dataGridViewCellStyle2.Format = "F1";
+            dataGridViewCellStyle2.NullValue = null;
+            this.myDataGridViewDetails.Columns["换算因子"].DefaultCellStyle = dataGridViewCellStyle2;
             foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridViewDetails.Columns)
             {
                 textBoxColumn.ContextMenuStrip = this.myContextDetails;
             }
         }
-        private void InitGridDetails2()
-        {
-            if (this.myDataGridViewDetails2.DataSource != null)
-            {
-                foreach (DataGridViewTextBoxColumn textBoxColumn in this.myDataGridViewDetails2.Columns)
-                {
-                    textBoxColumn.ContextMenuStrip = this.myContextDetails2;
-                }
-            }
-        }
         #endregion
-        
+
         #region tools事件
         public override void tool1_First_Click(object sender, EventArgs e)
         {
             base.tool1_First_Click(sender, e);
             this.myDataGridViewHead.ClearSelection();
             this.myDataGridViewHead.Rows[0].Selected = true;
-            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[0].Cells["电子帐册号"];
+            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[0].Cells["序号"];
             setTool1Enabled();
         }
 
@@ -264,7 +194,7 @@ namespace UniqueDeclaration.Base
             int iSelectRow = this.myDataGridViewHead.CurrentRow.Index;
             this.myDataGridViewHead.ClearSelection();
             this.myDataGridViewHead.Rows[iSelectRow - 1].Selected = true;
-            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[iSelectRow - 1].Cells["电子帐册号"];
+            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[iSelectRow - 1].Cells["序号"];
             setTool1Enabled();
 
         }
@@ -275,7 +205,7 @@ namespace UniqueDeclaration.Base
             int iSelectRow = this.myDataGridViewHead.CurrentRow.Index;
             this.myDataGridViewHead.ClearSelection();
             this.myDataGridViewHead.Rows[iSelectRow + 1].Selected = true;
-            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[iSelectRow + 1].Cells["电子帐册号"];
+            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[iSelectRow + 1].Cells["序号"];
             setTool1Enabled();
         }
 
@@ -284,14 +214,14 @@ namespace UniqueDeclaration.Base
             base.tool1_End_Click(sender, e);
             this.myDataGridViewHead.ClearSelection();
             this.myDataGridViewHead.Rows[this.myDataGridViewHead.RowCount - 1].Selected = true;
-            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[this.myDataGridViewHead.RowCount - 1].Cells["电子帐册号"];
+            this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[this.myDataGridViewHead.RowCount - 1].Cells["序号"];
             setTool1Enabled();
         }
 
         public override void tool1_Add_Click(object sender, EventArgs e)
         {
             //base.tool1_Add_Click(sender, e);
-            FormMergeRelationMaterialsInput objForm = new FormMergeRelationMaterialsInput();
+            FormMergeRelationProductInput objForm = new FormMergeRelationProductInput();
             objForm.MdiParent = this.MdiParent;
             objForm.giOrderID = 0;
             objForm.Show();
@@ -301,17 +231,17 @@ namespace UniqueDeclaration.Base
         {
             try
             {
-            if (this.myDataGridViewHead.CurrentRow == null) return;
-            if (SysMessage.YesNoMsg(string.Format("真的要删除此商品编码【{0}】吗？", this.myDataGridViewHead.CurrentRow.Cells["商品编码"].Value)) == System.Windows.Forms.DialogResult.No) return;
-            string strSQL = string.Format("删除指定的归并后料件清单资料 {0}", this.myDataGridViewHead.CurrentRow.Cells["归并后料件id"].Value);
-            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-            dataAccess.Open();
-            dataAccess.ExecuteNonQuery(strSQL,null);
-            dataAccess.Close();
-            string strSuccess = string.Format("{0}[{1}]成功！", tool1_Delete.Text, this.myDataGridViewHead.CurrentRow.Cells["商品编码"].Value);
-            this.myDataGridViewHead.Rows.Remove(this.myDataGridViewHead.CurrentRow);
-            setTool1Enabled();
-            SysMessage.InformationMsg(strSuccess);
+                if (this.myDataGridViewHead.CurrentRow == null) return;
+                if (SysMessage.YesNoMsg(string.Format("真的要删除此商品编码【{0}】吗？", this.myDataGridViewHead.CurrentRow.Cells["商品编码"].Value)) == System.Windows.Forms.DialogResult.No) return;
+                string strSQL = string.Format("删除指定的归并后成品清单资料 {0}", this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value);
+                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                dataAccess.Open();
+                dataAccess.ExecuteNonQuery(strSQL, null);
+                dataAccess.Close();
+                string strSuccess = string.Format("{0}[{1}]成功！", tool1_Delete.Text, this.myDataGridViewHead.CurrentRow.Cells["商品编码"].Value);
+                this.myDataGridViewHead.Rows.Remove(this.myDataGridViewHead.CurrentRow);
+                setTool1Enabled();
+                SysMessage.InformationMsg(strSuccess);
             }
             catch (Exception ex)
             {
@@ -324,12 +254,12 @@ namespace UniqueDeclaration.Base
         {
             //base.tool1_Modify_Click(sender, e);
             bool bHave = false;
-            int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["归并后料件id"].Value);
+            int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value);
             foreach (Form childFrm in this.MdiParent.MdiChildren)
             {
-                if (childFrm.Name == "FormMergeRelationMaterialsInput")
+                if (childFrm.Name == "FormMergeRelationProductInput")
                 {
-                    FormMergeRelationMaterialsInput inputForm = (FormMergeRelationMaterialsInput)childFrm;
+                    FormMergeRelationProductInput inputForm = (FormMergeRelationProductInput)childFrm;
                     if (inputForm.giOrderID != 0 && inputForm.giOrderID == iOrderID)
                     {
                         bHave = true;
@@ -340,7 +270,7 @@ namespace UniqueDeclaration.Base
             }
             if (!bHave)
             {
-                FormMergeRelationMaterialsInput objForm = new FormMergeRelationMaterialsInput();
+                FormMergeRelationProductInput objForm = new FormMergeRelationProductInput();
                 objForm.MdiParent = this.MdiParent;
                 objForm.giOrderID = iOrderID;
                 objForm.Show();
@@ -350,7 +280,7 @@ namespace UniqueDeclaration.Base
         public override void tool1_Query_Click(object sender, EventArgs e)
         {
             base.tool1_Query_Click(sender, e);
-            FormMergeRelationMaterialsQueryCondition queryConditionForm = new FormMergeRelationMaterialsQueryCondition();
+            FormMergeRelationProductQueryCondition queryConditionForm = new FormMergeRelationProductQueryCondition();
             if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 gstrManualNo = queryConditionForm.cManualNo;
@@ -442,13 +372,6 @@ namespace UniqueDeclaration.Base
             if (bTriggerGridViewHead_SelectionChanged)
             {
                 LoadDataSourceDetails();
-            }
-        }
-        private void myDataGridViewDetails_SelectionChanged(object sender, EventArgs e)
-        {
-            if (bTriggerGridViewDetails_SelectionChanged)
-            {
-                LoadDataSourceDetails2();
             }
         }
     }

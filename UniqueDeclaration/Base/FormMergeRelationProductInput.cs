@@ -11,9 +11,9 @@ using UniqueDeclarationBaseForm.Controls;
 
 namespace UniqueDeclaration.Base
 {
-    public partial class FormMergeRelationMaterialsInput : UniqueDeclarationBaseForm.FormBase
+    public partial class FormMergeRelationProductInput : UniqueDeclarationBaseForm.FormBase
     {
-        public FormMergeRelationMaterialsInput()
+        public FormMergeRelationProductInput()
         {
             InitializeComponent();
         }
@@ -54,14 +54,14 @@ namespace UniqueDeclaration.Base
         #endregion
 
         #region 窗体事件
-        private void FormMergeRelationMaterialsInput_Load(object sender, EventArgs e)
+        private void FormMergeRelationProductInput_Load(object sender, EventArgs e)
         {
             InitControlData();
             LoadDataSource();
             InitGrid();
         }
 
-        private void FormMergeRelationMaterialsInput_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormMergeRelationProductInput_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult result = CheckModify();
             switch (result)
@@ -84,8 +84,8 @@ namespace UniqueDeclaration.Base
                     break;
             }
         }
-        #endregion 
-        
+        #endregion
+
         #region 方法
         /// <summary>
         /// 出口成品GRID初始化
@@ -94,7 +94,7 @@ namespace UniqueDeclaration.Base
         {
             this.myDataGridViewDetails.AutoGenerateColumns = false;
             this.myDataGridViewDetails.Columns["BM"].Visible = false;
-            this.myDataGridViewDetails.Columns["归并前料件id"].Visible = false;
+            this.myDataGridViewDetails.Columns["归并前成品id"].Visible = false;
             this.myDataGridViewDetails.Columns["序号"].DisplayIndex = 0;
             this.myDataGridViewDetails.Columns["产品编号"].DisplayIndex = 1;
             this.myDataGridViewDetails.Columns["商品编码"].DisplayIndex = 2;
@@ -106,7 +106,8 @@ namespace UniqueDeclaration.Base
             this.myDataGridViewDetails.Columns["计量单位"].HeaderText = "申报计量单位";
             this.myDataGridViewDetails.Columns["法定单位"].DisplayIndex = 8;
             this.myDataGridViewDetails.Columns["换算因子"].DisplayIndex = 9;
-            this.myDataGridViewDetails.Columns["对应编号"].DisplayIndex = 10;
+            this.myDataGridViewDetails.Columns["日期"].DisplayIndex = 10;
+            this.myDataGridViewDetails.Columns["对应编号"].DisplayIndex = 11;
             this.myDataGridViewDetails.Columns["商品编码"].ReadOnly = true;
             this.myDataGridViewDetails.Columns["商品名称"].ReadOnly = true;
             this.myDataGridViewDetails.Columns["计量单位"].ReadOnly = true;
@@ -153,7 +154,7 @@ namespace UniqueDeclaration.Base
         /// </summary>
         public void LoadDataSourceHead()
         {
-            string strSQL = string.Format("select * from 归并后料件清单 where 归并后料件id ={0}", giOrderID);
+            string strSQL = string.Format("select * from 归并后成品清单 where 归并后成品id= {0}", giOrderID);
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             dataAccess.Open();
             dtHead = dataAccess.GetTable(strSQL, null);
@@ -177,7 +178,7 @@ namespace UniqueDeclaration.Base
         /// </summary>
         public void LoadDataSourceDetails()
         {
-            string strSQL = string.Format("商品归并表录入查询 {0}", giOrderID);
+            string strSQL = string.Format("商品归并成品表录入查询 {0}", giOrderID);
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             dataAccess.Open();
             dtDetails = dataAccess.GetTable(strSQL.ToString(), null);
@@ -211,7 +212,7 @@ namespace UniqueDeclaration.Base
             //如果表头没异动，再判断表身是否有异动
             if (!bModify)
             {
-                //归并前料件id
+                //归并前成品id
                 for (int iRow = 0; iRow < dtDetails.Rows.Count; iRow++)
                 {
                     DataRow row = dtDetails.Rows[iRow];
@@ -232,7 +233,7 @@ namespace UniqueDeclaration.Base
                         }
                         else if (row.RowState == DataRowState.Deleted)
                         {
-                            if (row["归并前料件id", DataRowVersion.Original] != DBNull.Value)
+                            if (row["归并前成品id", DataRowVersion.Original] != DBNull.Value)
                             {
                                 bModify = true;
                                 break;
@@ -361,7 +362,7 @@ namespace UniqueDeclaration.Base
                     try
                     {
                         #region 新增表头数据
-                        strBuilder.AppendLine(@"INSERT INTO [归并后料件清单]([电子帐册号],[序号],[产品编号],[商品编码],[商品名称],[商品规格],[产销国]
+                        strBuilder.AppendLine(@"INSERT INTO [归并后成品清单]([电子帐册号],[序号],[产品编号],[商品编码],[商品名称],[商品规格],[产销国]
            ,[计量单位],[法定单位],[换算因子],[单价],[损耗率],[币种],[主料],[四位大类序号])");
                         strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14})",
                             rowHead["电子帐册号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["电子帐册号"].ToString()),
@@ -381,8 +382,8 @@ namespace UniqueDeclaration.Base
                             rowHead["四位大类序号"] == DBNull.Value ? "NULL" : rowHead["四位大类序号"]);
                         strBuilder.AppendLine("select @@IDENTITY--新增预先录入订单时，自动生成的订单ID");
                         DataTable dtInsert = dataAccess.GetTable(strBuilder.ToString(), null);
-                        object 归并后料件id = dtInsert.Rows[0][0]; // dataAccess.ExecScalar(strBuilder.ToString(), null);
-                        rowHead["归并后料件id"] = 归并后料件id;
+                        object 归并后成品id = dtInsert.Rows[0][0]; // dataAccess.ExecScalar(strBuilder.ToString(), null);
+                        rowHead["归并后成品id"] = 归并后成品id;
                         strBuilder.Clear();
                         #endregion
 
@@ -390,21 +391,22 @@ namespace UniqueDeclaration.Base
                         foreach (DataRow row in dtDetails.Rows)
                         {
                             if (row["产品编号"] == DBNull.Value || row["产品编号"].ToString().Trim().Length == 0) continue;
-                            strBuilder.AppendLine("INSERT INTO [归并前料件清单]([归并后料件id],[产品编号],[序号],[商品规格],[对应编号],[单价])");
-                            strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5})",
-                                归并后料件id, row["产品编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["产品编号"].ToString()),
+                            strBuilder.AppendLine("INSERT INTO [归并前成品清单]([归并后成品id],[产品编号],[序号],[商品规格],[对应编号],[单价],[日期])");
+                            strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6})",
+                                归并后成品id, row["产品编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["产品编号"].ToString()),
                                 row["序号"] == DBNull.Value ? "NULL" : row["序号"],
                                 row["商品规格"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["商品规格"].ToString()),
                                 row["对应编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["对应编号"].ToString()),
-                                row["单价"] == DBNull.Value ? "NULL" : row["单价"]);
+                                row["单价"] == DBNull.Value ? "NULL" : row["单价"],
+                                row["日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["日期"].ToString()));
                             strBuilder.AppendLine("select @@IDENTITY--新增预先录入订单时，自动生成的订单ID");
-                            object 归并前料件id = dataAccess.ExecScalar(strBuilder.ToString(), null);
+                            object 归并前成品id = dataAccess.ExecScalar(strBuilder.ToString(), null);
                             strBuilder.Clear();
-                            row["归并前料件id"] = 归并前料件id;
+                            row["归并前成品id"] = 归并前成品id;
                         }
                         #endregion
 
-                        giOrderID = Convert.ToInt32(归并后料件id);
+                        giOrderID = Convert.ToInt32(归并后成品id);
                         dataAccess.CommitTran();
                         dataAccess.Close();
                     }
@@ -427,9 +429,9 @@ namespace UniqueDeclaration.Base
                         #region 修改表头数据
                         if (rowHead.RowState == DataRowState.Modified)
                         {
-                            strBuilder.AppendFormat(@"UPDATE [归并后料件清单]
+                            strBuilder.AppendFormat(@"UPDATE [归并后成品清单]
    SET [电子帐册号] = {0},[序号] = {1},[产品编号] = {2},[商品编码] = {3},[商品名称] = {4},[商品规格] = {5},[产销国] = {6},[计量单位] = {7},
-   [法定单位] ={8},[换算因子] = {9},[单价] = {10},[损耗率] ={11},[币种] ={12},[主料] = {13},[四位大类序号] ={14} where 归并后料件id={15}",
+   [法定单位] ={8},[换算因子] = {9},[单价] = {10},[损耗率] ={11},[币种] ={12},[主料] = {13},[四位大类序号] ={14} where 归并后成品id={15}",
                             rowHead["电子帐册号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["电子帐册号"].ToString()),
                             rowHead["序号"] == DBNull.Value ? "NULL" : rowHead["序号"].ToString(),
                             rowHead["产品编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品编号"].ToString()),
@@ -445,7 +447,7 @@ namespace UniqueDeclaration.Base
                             rowHead["币种"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["币种"].ToString()),
                             rowHead["主料"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["主料"].ToString()),
                             rowHead["四位大类序号"] == DBNull.Value ? "NULL" : rowHead["四位大类序号"],
-                            rowHead["归并后料件id"]);
+                            rowHead["归并后成品id"]);
                             dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                             strBuilder.Clear();
                         }
@@ -458,25 +460,26 @@ namespace UniqueDeclaration.Base
                             if (row.RowState == DataRowState.Added)
                             {
                                 if (row["产品编号"] == DBNull.Value || row["产品编号"].ToString().Trim().Length == 0) continue;
-                                strBuilder.AppendLine("INSERT INTO [归并前料件清单]([归并后料件id],[产品编号],[序号],[商品规格],[对应编号],[单价])");
-                                strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5})",
-                                    rowHead["归并后料件id"], row["产品编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["产品编号"].ToString()),
+                                strBuilder.AppendLine("INSERT INTO [归并前成品清单]([归并后成品id],[产品编号],[序号],[商品规格],[对应编号],[单价],[日期])");
+                                strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6})",
+                                    rowHead["归并后成品id"], row["产品编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["产品编号"].ToString()),
                                     row["序号"] == DBNull.Value ? "NULL" : row["序号"],
                                     row["商品规格"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["商品规格"].ToString()),
                                     row["对应编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["对应编号"].ToString()),
-                                    row["单价"] == DBNull.Value ? "NULL" : row["单价"]);
+                                    row["单价"] == DBNull.Value ? "NULL" : row["单价"],
+                                row["日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["日期"].ToString()));
                                 strBuilder.AppendLine("select @@IDENTITY--新增预先录入订单时，自动生成的订单ID");
-                                object 归并前料件id = dataAccess.ExecScalar(strBuilder.ToString(), null);
+                                object 归并前成品id = dataAccess.ExecScalar(strBuilder.ToString(), null);
                                 strBuilder.Clear();
-                                row["归并前料件id"] = 归并前料件id;
+                                row["归并前成品id"] = 归并前成品id;
                             }
                             #endregion
 
                             #region 删除表身数据
                             else if (row.RowState == DataRowState.Deleted)
                             {
-                                if (row["归并前料件id", DataRowVersion.Original] == DBNull.Value) continue;
-                                strBuilder.AppendFormat(@"DELETE FROM [归并前料件清单] WHERE 归并前料件id={0}", row["归并前料件id", DataRowVersion.Original]);
+                                if (row["归并前成品id", DataRowVersion.Original] == DBNull.Value) continue;
+                                strBuilder.AppendFormat(@"DELETE FROM [归并前成品清单] WHERE 归并前成品id={0}", row["归并前成品id", DataRowVersion.Original]);
                                 dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                                 strBuilder.Clear();
                             }
@@ -485,21 +488,22 @@ namespace UniqueDeclaration.Base
                             #region 修改表身数据
                             else if (row.RowState == DataRowState.Modified)
                             {
-                                if (row["归并前料件id"] == DBNull.Value) continue;
+                                if (row["归并前成品id"] == DBNull.Value) continue;
                                 if (row["产品编号"] == DBNull.Value || row["产品编号"].ToString().Trim().Length == 0)
                                 {
-                                    strBuilder.AppendFormat(@"DELETE FROM [归并前料件清单] WHERE 归并前料件id={0}", row["归并前料件id"]);
+                                    strBuilder.AppendFormat(@"DELETE FROM [归并前成品清单] WHERE 归并前成品id={0}", row["归并前成品id"]);
                                 }
                                 else
                                 {
-                                    strBuilder.AppendFormat(@"UPDATE [dbo].[归并前料件清单] SET [归并后料件id] = {0},[产品编号] = {1},
-                                                        [序号] = {2},[商品规格] = {3},[对应编号] = {4},[单价] = {5} WHERE [归并前料件id]={6}",
-                                    rowHead["归并后料件id"], row["产品编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["产品编号"].ToString()),
+                                    strBuilder.AppendFormat(@"UPDATE [dbo].[归并前成品清单] SET [归并后成品id] = {0},[产品编号] = {1},
+                                                        [序号] = {2},[商品规格] = {3},[对应编号] = {4},[单价] = {5},[日期]={6} WHERE [归并前成品id]={7}",
+                                    rowHead["归并后成品id"], row["产品编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["产品编号"].ToString()),
                                     row["序号"] == DBNull.Value ? "NULL" : row["序号"],
                                     row["商品规格"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["商品规格"].ToString()),
                                     row["对应编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["对应编号"].ToString()),
                                     row["单价"] == DBNull.Value ? "NULL" : row["单价"],
-                                    row["归并前料件id"]);
+                                    row["日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["日期"].ToString()),
+                                    row["归并前成品id"]);
                                 }
                                 dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                                 strBuilder.Clear();
@@ -540,7 +544,87 @@ namespace UniqueDeclaration.Base
             return bSuccess;
         }
         #endregion
-        
+
+        #region 表头控件事件
+        private void txt_Validated(object sender, EventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            string fieldName = txtBox.Name.Replace("txt_", "");
+            if (rowHead[fieldName].ToString() != txtBox.Text)
+            {
+                if (fieldName == "序号" || fieldName == "损耗率" || fieldName == "单价" || fieldName == "换算因子")
+                {
+                    if (txtBox.Text.Trim().Length == 0)
+                    {
+                        rowHead[fieldName] = DBNull.Value;
+                    }
+                    else
+                    {
+                        rowHead[fieldName] = txtBox.Text;
+                        if (fieldName == "序号")
+                        {
+                            if (txt_产品编号.Text.Trim().Length > 0) return;
+                            if (txtBox.Text.Length == 1)
+                            {
+                                txt_产品编号.Text = string.Format("A0{0}", txtBox.Text.Trim());
+                            }
+                            else
+                            {
+                                txt_产品编号.Text = string.Format("A{0}", txtBox.Text.Trim());
+                            }
+                            rowHead["产品编号"] = txt_产品编号.Text;
+                        }
+                    }
+                }
+                else
+                {
+                    rowHead[fieldName] = txtBox.Text;
+                }
+            }
+        }
+        private void txtInt_Validating(object sender, CancelEventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            if (txtBox.Text.Trim().Length > 0)
+            {
+                try
+                {
+                    int.Parse(txtBox.Text.Trim());
+                }
+                catch (Exception ex)
+                {
+                    SysMessage.ErrorMsg(ex.Message);
+                    e.Cancel = true;
+                }
+            }
+        }
+        private void txtFloat_Validating(object sender, CancelEventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            if (txtBox.Text.Trim().Length > 0)
+            {
+                try
+                {
+                    decimal.Parse(txtBox.Text.Trim());
+                }
+                catch (Exception ex)
+                {
+                    SysMessage.ErrorMsg(ex.Message);
+                    e.Cancel = true;
+                }
+            }
+        }
+        private void cbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (bcbox_SelectedIndexChanged)
+            {
+                myComboBox cbox = (myComboBox)sender;
+                string fieldName = cbox.Name.Replace("cbox_", "");
+                rowHead[fieldName] = cbox.Text;
+            }
+        }
+        #endregion
+
         #region 表头tool
         private void tool1_Add_Click(object sender, EventArgs e)
         {
@@ -680,101 +764,21 @@ namespace UniqueDeclaration.Base
         public void dtDetailsAddRow()
         {
             DataRow newRow = dtDetails.NewRow();
-            int i序号=dtDetails.Rows.Count + 1;
+            int i序号 = dtDetails.Rows.Count + 1;
             newRow["序号"] = i序号;
-            if(txt_商品编码.Text.Trim().Length>0)
+            if (txt_商品编码.Text.Trim().Length > 0)
             {
-                newRow["产品编号"] = i序号>9 ? string.Format("{0}{1}", txt_产品编号.Text.Trim(), i序号) : string.Format("{0}0{1}", txt_产品编号.Text.Trim(), i序号);
+                newRow["产品编号"] = i序号 > 9 ? string.Format("{0}{1}", txt_产品编号.Text.Trim(), i序号) : string.Format("{0}0{1}", txt_产品编号.Text.Trim(), i序号);
                 newRow["商品编码"] = txt_商品编码.Text.Trim();
                 newRow["商品名称"] = txt_商品名称.Text.Trim();
                 newRow["计量单位"] = txt_计量单位.Text.Trim();
                 newRow["法定单位"] = txt_法定单位.Text.Trim();
                 newRow["币种"] = "USD";
-                newRow["单价"] =txt_单价.Text.Length == 0 ? 0 : Convert.ToDecimal( txt_单价.Text);
-                newRow["换算因子"] = txt_换算因子.Text.Length == 0 ? 0 : Convert.ToDecimal( txt_换算因子.Text);
+                newRow["单价"] = txt_单价.Text.Length == 0 ? 0 : Convert.ToDecimal(txt_单价.Text);
+                newRow["换算因子"] = txt_换算因子.Text.Length == 0 ? 0 : Convert.ToDecimal(txt_换算因子.Text);
             }
             dtDetails.Rows.Add(newRow);
             setTool2Enabled();
-        }
-        #endregion
-
-        #region 表头控件事件
-        private void txt_Validated(object sender, EventArgs e)
-        {
-            myTextBox txtBox = (myTextBox)sender;
-            string fieldName = txtBox.Name.Replace("txt_", "");
-            if (rowHead[fieldName].ToString() != txtBox.Text)
-            {
-                if (fieldName=="序号" || fieldName == "损耗率" || fieldName == "单价" || fieldName == "换算因子")
-                {
-                    if (txtBox.Text.Trim().Length == 0)
-                    {
-                        rowHead[fieldName] = DBNull.Value;
-                    }
-                    else
-                    {
-                        rowHead[fieldName] = txtBox.Text;
-                        if (fieldName == "序号")
-                        {
-                            if (txt_产品编号.Text.Trim().Length > 0) return;
-                            if (txtBox.Text.Length == 1)
-                            {
-                                txt_产品编号.Text = string.Format("A0{0}", txtBox.Text.Trim());
-                            }
-                            else
-                            {
-                                txt_产品编号.Text = string.Format("A{0}", txtBox.Text.Trim());
-                            }
-                            rowHead["产品编号"] = txt_产品编号.Text;
-                        }
-                    }
-                }
-                else
-                {
-                    rowHead[fieldName] = txtBox.Text;
-                }
-            }
-        }
-        private void txtInt_Validating(object sender, CancelEventArgs e)
-        {
-            myTextBox txtBox = (myTextBox)sender;
-            if (txtBox.Text.Trim().Length > 0)
-            {
-                try
-                {
-                    int.Parse(txtBox.Text.Trim());
-                }
-                catch (Exception ex)
-                {
-                    SysMessage.ErrorMsg(ex.Message);
-                    e.Cancel = true;
-                }
-            }
-        }
-        private void txtFloat_Validating(object sender, CancelEventArgs e)
-        {
-            myTextBox txtBox = (myTextBox)sender;
-            if (txtBox.Text.Trim().Length > 0)
-            {
-                try
-                {
-                    decimal.Parse(txtBox.Text.Trim());
-                }
-                catch (Exception ex)
-                {
-                    SysMessage.ErrorMsg(ex.Message);
-                    e.Cancel = true;
-                }
-            }
-        }
-        private void cbox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (bcbox_SelectedIndexChanged)
-            {
-                myComboBox cbox = (myComboBox)sender;
-                string fieldName = cbox.Name.Replace("cbox_", "");
-                rowHead[fieldName] = cbox.Text;
-            }
         }
         #endregion
 
@@ -927,11 +931,39 @@ namespace UniqueDeclaration.Base
                     }
                     #endregion
                     break;
-                case "换算因子":   //跳转到"对应编号"  
+                case "换算因子":   //跳转到"日期"  
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["对应编号", cell.RowIndex];
+                        dgv.CurrentCell = dgv["日期", cell.RowIndex];
+                    }
+                    #endregion
+                    break;
+                case "日期":   //跳转到"对应编号"  
+                    #region CELL回车跳转
+                    if (bKeyEnter)
+                    {
+                        if ( dgv.CurrentRow.Cells["日期"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        {
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["对应编号", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                        else
+                        {
+                            validate日期(dgv, cell);
+                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["对应编号", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                    }
+                    else
+                    {
+                        if (dgv.CurrentRow.Cells["日期"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        {
+                            validate对应编号(dgv, cell);
+                        }
                     }
                     #endregion
                     break;
@@ -981,6 +1013,26 @@ namespace UniqueDeclaration.Base
                 catch
                 {
                     dgv.Rows[cell.RowIndex].Cells["单价"].Value = DBNull.Value;
+                }
+            }
+        }
+        private void validate日期(myDataGridView dgv, DataGridViewCell cell)
+        {
+            if (cell.EditedFormattedValue.ToString() == "")
+            {
+                dgv.Rows[cell.RowIndex].Cells["日期"].Value = DBNull.Value;
+            }
+            else
+            {
+                try
+                {
+                    Convert.ToDateTime(cell.EditedFormattedValue.ToString());
+
+                    dgv.Rows[cell.RowIndex].Cells["日期"].Value = Convert.ToDateTime(cell.EditedFormattedValue).ToString("yyyy-MM-dd");
+                }
+                catch
+                {
+                    dgv.Rows[cell.RowIndex].Cells["日期"].Value = DBNull.Value;
                 }
             }
         }
