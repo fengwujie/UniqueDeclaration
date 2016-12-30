@@ -545,10 +545,10 @@ namespace UniqueDeclaration
                     dataAccess.BeginTran();
                     try
                     {
-                        #region //修改表头数据
+                        #region 修改表头数据
                         if (rowHead.RowState == DataRowState.Modified)
                         {
-                            strBuilder.AppendFormat("UPDATE [报关预先订单表] SET [订单号码]={0},[客户代码]={1},[客户名称]={2},[出货日期]={3},[录入日期]={4},[手册编号]={5},[流水号]={6} where 订单id={7}",
+                            strBuilder.AppendFormat("UPDATE [报关预先订单表] SET [订单号码]={0},[客户代码]={1},[客户名称]={2},[出货日期]='{3}',[录入日期]='{4}',[手册编号]='{5}',[流水号]={6} where 订单id={7}",
                                                     rowHead["订单号码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["订单号码"].ToString()),
                                 rowHead["客户代码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["客户代码"].ToString()),
                                 rowHead["客户名称"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["客户名称"].ToString()),

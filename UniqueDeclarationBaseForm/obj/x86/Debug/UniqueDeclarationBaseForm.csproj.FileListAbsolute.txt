@@ -18,6 +18,7 @@ F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclar
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.FormBaseBOMCompare.resources
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.FormBaseDialogInput.resources
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.FormBaseInput.resources
+F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.FormBaseManualCondition.resources
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.FormBaseQueryListSingle.resources
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.FormBaseLoading.resources
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.FormBaseQueryCondition.resources
@@ -28,4 +29,3 @@ F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclar
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.csproj.GenerateResource.Cache
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.dll
 F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.pdb
-F:\Unique\UniqueDeclaration\UniqueDeclarationBaseForm\obj\x86\Debug\UniqueDeclarationBaseForm.FormBaseManualCondition.resources
