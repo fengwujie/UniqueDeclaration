@@ -78,7 +78,7 @@ namespace UniqueDeclarationBaseForm
             else if (strControlName.StartsWith("cbox_"))  //下拉控件
             {
                 myComboBox cbox = (myComboBox)control;
-                if (cbox.SelectedValue.ToString().Length > 0)
+                if (cbox.SelectedValue!=null && cbox.SelectedValue.ToString().Length > 0)
                 {
                     string tag = cbox.Tag.ToString();
                     string dataType = tag.Split(',')[0];

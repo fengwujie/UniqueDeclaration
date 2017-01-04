@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\FormBaseDataQueryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormBaseDataQueryList.Designer.cs">
+      <DependentUpon>FormBaseDataQueryList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Base\FormManualBOM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,24 @@
     </Compile>
     <Compile Include="Base\FormManualQueryList.Designer.cs">
       <DependentUpon>FormManualQueryList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormMaterialsInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormMaterialsInput.Designer.cs">
+      <DependentUpon>FormMaterialsInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormMaterialsQueryCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormMaterialsQueryCondition.Designer.cs">
+      <DependentUpon>FormMaterialsQueryCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormMaterialsQueryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormMaterialsQueryList.Designer.cs">
+      <DependentUpon>FormMaterialsQueryList.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\FormMergeRelationMaterialsInput.cs">
       <SubType>Form</SubType>
@@ -407,6 +431,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Base\FormBaseDataQueryList.resx">
+      <DependentUpon>FormBaseDataQueryList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Base\FormManualBOM.resx">
       <DependentUpon>FormManualBOM.cs</DependentUpon>
     </EmbeddedResource>
@@ -418,6 +445,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Base\FormManualQueryList.resx">
       <DependentUpon>FormManualQueryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormMaterialsInput.resx">
+      <DependentUpon>FormMaterialsInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormMaterialsQueryCondition.resx">
+      <DependentUpon>FormMaterialsQueryCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormMaterialsQueryList.resx">
+      <DependentUpon>FormMaterialsQueryList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Base\FormMergeRelationMaterialsInput.resx">
       <DependentUpon>FormMergeRelationMaterialsInput.cs</DependentUpon>

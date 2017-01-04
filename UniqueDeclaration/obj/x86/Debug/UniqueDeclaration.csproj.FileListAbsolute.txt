@@ -80,3 +80,7 @@ F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\RdlCompile.cache
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\RdlCompile.compiled
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.exe
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.pdb
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormBaseDataQueryList.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMaterialsQueryCondition.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMaterialsInput.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMaterialsQueryList.resources

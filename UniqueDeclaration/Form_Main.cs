@@ -355,6 +355,26 @@ namespace UniqueDeclaration
         #endregion
 
         #region 基础资料
+        //料件资料录入
+        private void FormMaterialsInput_Click(object sender, EventArgs e)
+        {
+            FormMaterialsInput objForm = new FormMaterialsInput();
+            objForm.MdiParent = this.MdiParent;
+            objForm.giOrderID = 0;
+            objForm.Show();
+        }
+        //料件资料查询
+        private void FormMaterialsQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormMaterialsQueryCondition queryConditionForm = new FormMaterialsQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                UniqueDeclaration.Base.FormMaterialsQueryList queryListForm = new UniqueDeclaration.Base.FormMaterialsQueryList();
+                queryListForm.gstrWhere = queryConditionForm.strReturnWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
         //手册资料录入
         private void FromManualInput_Click(object sender, EventArgs e)
         {
@@ -419,6 +439,7 @@ namespace UniqueDeclaration
             }
         }
         #endregion
+
 
 
 
