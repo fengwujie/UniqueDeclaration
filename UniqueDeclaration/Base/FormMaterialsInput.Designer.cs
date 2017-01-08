@@ -83,6 +83,9 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tool1_Add = new System.Windows.Forms.ToolStripButton();
             this.tool1_Save = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnClone = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tool1_Close = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -104,6 +107,8 @@
             this.txt_料件型号.Name = "txt_料件型号";
             this.txt_料件型号.Size = new System.Drawing.Size(209, 21);
             this.txt_料件型号.TabIndex = 1;
+            this.txt_料件型号.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
+            this.txt_料件型号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_显示型号
             // 
@@ -111,7 +116,8 @@
             this.txt_显示型号.Location = new System.Drawing.Point(434, 37);
             this.txt_显示型号.Name = "txt_显示型号";
             this.txt_显示型号.Size = new System.Drawing.Size(209, 21);
-            this.txt_显示型号.TabIndex = 3;
+            this.txt_显示型号.TabIndex = 2;
+            this.txt_显示型号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_显示型号
             // 
@@ -139,7 +145,8 @@
             this.txt_显示型号L.Location = new System.Drawing.Point(434, 64);
             this.txt_显示型号L.Name = "txt_显示型号L";
             this.txt_显示型号L.Size = new System.Drawing.Size(209, 21);
-            this.txt_显示型号L.TabIndex = 8;
+            this.txt_显示型号L.TabIndex = 4;
+            this.txt_显示型号L.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable3
             // 
@@ -156,7 +163,8 @@
             this.txt_电子帐册型号.Location = new System.Drawing.Point(108, 64);
             this.txt_电子帐册型号.Name = "txt_电子帐册型号";
             this.txt_电子帐册型号.Size = new System.Drawing.Size(209, 21);
-            this.txt_电子帐册型号.TabIndex = 6;
+            this.txt_电子帐册型号.TabIndex = 3;
+            this.txt_电子帐册型号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable4
             // 
@@ -183,7 +191,8 @@
             this.txt_料件名.Location = new System.Drawing.Point(108, 91);
             this.txt_料件名.Name = "txt_料件名";
             this.txt_料件名.Size = new System.Drawing.Size(209, 21);
-            this.txt_料件名.TabIndex = 10;
+            this.txt_料件名.TabIndex = 5;
+            this.txt_料件名.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_料件名
             // 
@@ -201,7 +210,8 @@
             this.cbox_采购区域.Location = new System.Drawing.Point(434, 92);
             this.cbox_采购区域.Name = "cbox_采购区域";
             this.cbox_采购区域.Size = new System.Drawing.Size(209, 20);
-            this.cbox_采购区域.TabIndex = 12;
+            this.cbox_采购区域.TabIndex = 6;
+            this.cbox_采购区域.SelectedIndexChanged += new System.EventHandler(this.cbox_SelectedIndexChanged);
             // 
             // txt_单位数量
             // 
@@ -209,7 +219,9 @@
             this.txt_单位数量.Location = new System.Drawing.Point(434, 118);
             this.txt_单位数量.Name = "txt_单位数量";
             this.txt_单位数量.Size = new System.Drawing.Size(209, 21);
-            this.txt_单位数量.TabIndex = 16;
+            this.txt_单位数量.TabIndex = 8;
+            this.txt_单位数量.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_单位数量.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_单位数量
             // 
@@ -227,7 +239,8 @@
             this.txt_料件单位.Location = new System.Drawing.Point(108, 118);
             this.txt_料件单位.Name = "txt_料件单位";
             this.txt_料件单位.Size = new System.Drawing.Size(209, 21);
-            this.txt_料件单位.TabIndex = 14;
+            this.txt_料件单位.TabIndex = 7;
+            this.txt_料件单位.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable8
             // 
@@ -244,7 +257,9 @@
             this.txt_仓库数量1.Location = new System.Drawing.Point(434, 145);
             this.txt_仓库数量1.Name = "txt_仓库数量1";
             this.txt_仓库数量1.Size = new System.Drawing.Size(209, 21);
-            this.txt_仓库数量1.TabIndex = 20;
+            this.txt_仓库数量1.TabIndex = 10;
+            this.txt_仓库数量1.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_仓库数量1.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_仓库数量1
             // 
@@ -262,7 +277,8 @@
             this.txt_仓库单位1.Location = new System.Drawing.Point(108, 145);
             this.txt_仓库单位1.Name = "txt_仓库单位1";
             this.txt_仓库单位1.Size = new System.Drawing.Size(209, 21);
-            this.txt_仓库单位1.TabIndex = 18;
+            this.txt_仓库单位1.TabIndex = 9;
+            this.txt_仓库单位1.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_仓库单位1
             // 
@@ -280,7 +296,9 @@
             this.txt_仓库数量2.Location = new System.Drawing.Point(434, 172);
             this.txt_仓库数量2.Name = "txt_仓库数量2";
             this.txt_仓库数量2.Size = new System.Drawing.Size(209, 21);
-            this.txt_仓库数量2.TabIndex = 24;
+            this.txt_仓库数量2.TabIndex = 12;
+            this.txt_仓库数量2.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_仓库数量2.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_仓库数量2
             // 
@@ -298,7 +316,8 @@
             this.txt_仓库单位2.Location = new System.Drawing.Point(108, 172);
             this.txt_仓库单位2.Name = "txt_仓库单位2";
             this.txt_仓库单位2.Size = new System.Drawing.Size(209, 21);
-            this.txt_仓库单位2.TabIndex = 22;
+            this.txt_仓库单位2.TabIndex = 11;
+            this.txt_仓库单位2.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_仓库单位2
             // 
@@ -316,7 +335,9 @@
             this.txt_领料数量1.Location = new System.Drawing.Point(434, 199);
             this.txt_领料数量1.Name = "txt_领料数量1";
             this.txt_领料数量1.Size = new System.Drawing.Size(209, 21);
-            this.txt_领料数量1.TabIndex = 28;
+            this.txt_领料数量1.TabIndex = 14;
+            this.txt_领料数量1.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_领料数量1.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_领料数量1
             // 
@@ -334,7 +355,8 @@
             this.txt_领料单位1.Location = new System.Drawing.Point(108, 199);
             this.txt_领料单位1.Name = "txt_领料单位1";
             this.txt_领料单位1.Size = new System.Drawing.Size(209, 21);
-            this.txt_领料单位1.TabIndex = 26;
+            this.txt_领料单位1.TabIndex = 13;
+            this.txt_领料单位1.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_领料单位1
             // 
@@ -352,7 +374,9 @@
             this.txt_领料数量2.Location = new System.Drawing.Point(434, 226);
             this.txt_领料数量2.Name = "txt_领料数量2";
             this.txt_领料数量2.Size = new System.Drawing.Size(209, 21);
-            this.txt_领料数量2.TabIndex = 32;
+            this.txt_领料数量2.TabIndex = 16;
+            this.txt_领料数量2.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_领料数量2.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_领料数量2
             // 
@@ -370,7 +394,8 @@
             this.txt_领料单位2.Location = new System.Drawing.Point(108, 226);
             this.txt_领料单位2.Name = "txt_领料单位2";
             this.txt_领料单位2.Size = new System.Drawing.Size(209, 21);
-            this.txt_领料单位2.TabIndex = 30;
+            this.txt_领料单位2.TabIndex = 15;
+            this.txt_领料单位2.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_领料单位2
             // 
@@ -388,7 +413,9 @@
             this.txt_换算数量.Location = new System.Drawing.Point(434, 253);
             this.txt_换算数量.Name = "txt_换算数量";
             this.txt_换算数量.Size = new System.Drawing.Size(209, 21);
-            this.txt_换算数量.TabIndex = 36;
+            this.txt_换算数量.TabIndex = 18;
+            this.txt_换算数量.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_换算数量.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable17
             // 
@@ -405,7 +432,8 @@
             this.txt_换算单位.Location = new System.Drawing.Point(108, 253);
             this.txt_换算单位.Name = "txt_换算单位";
             this.txt_换算单位.Size = new System.Drawing.Size(209, 21);
-            this.txt_换算单位.TabIndex = 34;
+            this.txt_换算单位.TabIndex = 17;
+            this.txt_换算单位.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable18
             // 
@@ -423,7 +451,8 @@
             this.cbox_料件类别.Location = new System.Drawing.Point(108, 280);
             this.cbox_料件类别.Name = "cbox_料件类别";
             this.cbox_料件类别.Size = new System.Drawing.Size(209, 20);
-            this.cbox_料件类别.TabIndex = 38;
+            this.cbox_料件类别.TabIndex = 19;
+            this.cbox_料件类别.SelectedIndexChanged += new System.EventHandler(this.cbox_SelectedIndexChanged);
             // 
             // lab_料件类别
             // 
@@ -442,7 +471,8 @@
             this.cbox_报关类别.Location = new System.Drawing.Point(434, 280);
             this.cbox_报关类别.Name = "cbox_报关类别";
             this.cbox_报关类别.Size = new System.Drawing.Size(209, 20);
-            this.cbox_报关类别.TabIndex = 40;
+            this.cbox_报关类别.TabIndex = 20;
+            this.cbox_报关类别.SelectedIndexChanged += new System.EventHandler(this.cbox_SelectedIndexChanged);
             // 
             // myLable20
             // 
@@ -459,7 +489,8 @@
             this.txt_所属仓库.Location = new System.Drawing.Point(434, 306);
             this.txt_所属仓库.Name = "txt_所属仓库";
             this.txt_所属仓库.Size = new System.Drawing.Size(209, 21);
-            this.txt_所属仓库.TabIndex = 44;
+            this.txt_所属仓库.TabIndex = 22;
+            this.txt_所属仓库.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable21
             // 
@@ -476,7 +507,9 @@
             this.txt_安全存量.Location = new System.Drawing.Point(108, 306);
             this.txt_安全存量.Name = "txt_安全存量";
             this.txt_安全存量.Size = new System.Drawing.Size(209, 21);
-            this.txt_安全存量.TabIndex = 42;
+            this.txt_安全存量.TabIndex = 21;
+            this.txt_安全存量.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_安全存量.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_安全存量
             // 
@@ -494,7 +527,8 @@
             this.txt_料件存放位置.Location = new System.Drawing.Point(108, 333);
             this.txt_料件存放位置.Name = "txt_料件存放位置";
             this.txt_料件存放位置.Size = new System.Drawing.Size(209, 21);
-            this.txt_料件存放位置.TabIndex = 46;
+            this.txt_料件存放位置.TabIndex = 23;
+            this.txt_料件存放位置.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable23
             // 
@@ -511,7 +545,8 @@
             this.txt_料件备注.Location = new System.Drawing.Point(108, 360);
             this.txt_料件备注.Name = "txt_料件备注";
             this.txt_料件备注.Size = new System.Drawing.Size(535, 21);
-            this.txt_料件备注.TabIndex = 48;
+            this.txt_料件备注.TabIndex = 24;
+            this.txt_料件备注.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable24
             // 
@@ -533,10 +568,16 @@
             // 
             // datetime_料件建档日期
             // 
+            this.datetime_料件建档日期.Checked = false;
+            this.datetime_料件建档日期.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.datetime_料件建档日期.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datetime_料件建档日期.Location = new System.Drawing.Point(108, 387);
             this.datetime_料件建档日期.Name = "datetime_料件建档日期";
+            this.datetime_料件建档日期.ShowCheckBox = true;
             this.datetime_料件建档日期.Size = new System.Drawing.Size(209, 21);
-            this.datetime_料件建档日期.TabIndex = 51;
+            this.datetime_料件建档日期.TabIndex = 25;
+            this.datetime_料件建档日期.ValueChanged += new System.EventHandler(this.datetime_料件建档日期_ValueChanged);
+            this.datetime_料件建档日期.Validated += new System.EventHandler(this.datetime_料件建档日期_Validated);
             // 
             // chk_计算库存
             // 
@@ -544,20 +585,24 @@
             this.chk_计算库存.Location = new System.Drawing.Point(368, 391);
             this.chk_计算库存.Name = "chk_计算库存";
             this.chk_计算库存.Size = new System.Drawing.Size(60, 16);
-            this.chk_计算库存.TabIndex = 52;
+            this.chk_计算库存.TabIndex = 26;
             this.chk_计算库存.Text = "扣库存";
             this.chk_计算库存.UseVisualStyleBackColor = true;
+            this.chk_计算库存.CheckedChanged += new System.EventHandler(this.chk_计算库存_CheckedChanged);
             // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tool1_Add,
             this.tool1_Save,
+            this.toolStripSeparator2,
+            this.btnClone,
+            this.toolStripSeparator1,
             this.tool1_Close});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(766, 25);
-            this.toolStrip1.TabIndex = 53;
+            this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // tool1_Add
@@ -579,6 +624,26 @@
             this.tool1_Save.Size = new System.Drawing.Size(23, 22);
             this.tool1_Save.Text = "保存";
             this.tool1_Save.Click += new System.EventHandler(this.tool1_Save_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnClone
+            // 
+            this.btnClone.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnClone.Image = global::UniqueDeclaration.Properties.Resources.copy_24px;
+            this.btnClone.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnClone.Name = "btnClone";
+            this.btnClone.Size = new System.Drawing.Size(23, 22);
+            this.btnClone.Text = "克隆";
+            this.btnClone.Click += new System.EventHandler(this.btnClone_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // tool1_Close
             // 
@@ -716,5 +781,8 @@
         private System.Windows.Forms.ToolStripButton tool1_Add;
         private System.Windows.Forms.ToolStripButton tool1_Save;
         private System.Windows.Forms.ToolStripButton tool1_Close;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton btnClone;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

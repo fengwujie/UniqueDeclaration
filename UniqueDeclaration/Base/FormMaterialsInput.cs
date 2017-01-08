@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using DataAccess;
 using UniqueDeclarationPubilc;
+using UniqueDeclarationBaseForm.Controls;
 
 namespace UniqueDeclaration.Base
 {
@@ -30,13 +31,38 @@ namespace UniqueDeclaration.Base
         /// 表头数据集的行数据
         /// </summary>
         public DataRow rowHead = null;
+        /// <summary>
+        /// 是否触发下拉控件的变化事件
+        /// </summary>
+        private bool bcbox_SelectedIndexChanged = false;
+        /// <summary>
+        /// 是否触发料件建档日期事件
+        /// </summary>
+        private bool bdatetime_料件建档日期_ValueChanged = false;
+        /// <summary>
+        /// 是否触发复选框值变化事件
+        /// </summary>
+        private bool bchk_计算库存_CheckedChanged = false;
+        /// <summary>
+        /// 文本控件失去焦点事件
+        /// </summary>
+        private bool btxt_LostFocus = false;
         #endregion
 
         #region 窗体事件
         private void FormMaterialsInput_Load(object sender, EventArgs e)
         {
             InitControlData();
-            LoadDataSource();
+            LoadDataSource();            
+            txt_料件型号.LostFocus += new EventHandler(txt_LostFocus);
+            txt_显示型号.LostFocus += new EventHandler(txt_LostFocus);
+            txt_电子帐册型号.LostFocus += new EventHandler(txt_LostFocus);
+            txt_料件单位.LostFocus += new EventHandler(txt_LostFocus);
+            txt_仓库单位1.LostFocus += new EventHandler(txt_LostFocus);
+            txt_仓库单位2.LostFocus += new EventHandler(txt_LostFocus);
+            txt_领料单位1.LostFocus += new EventHandler(txt_LostFocus);
+            txt_领料单位2.LostFocus += new EventHandler(txt_LostFocus);
+            txt_换算单位.LostFocus += new EventHandler(txt_LostFocus);
         }
 
         private void FormMaterialsInput_FormClosing(object sender, FormClosingEventArgs e)
@@ -70,6 +96,7 @@ namespace UniqueDeclaration.Base
         /// </summary>
         public void InitControlData()
         {
+            bcbox_SelectedIndexChanged = false;
             this.cbox_料件类别.InitialData(DataAccess.DataAccessEnum.DataAccessName.DataAccessName_Manufacture, "SELECT [料件类别],[料件类别说明] FROM [料件类别表]", "料件类别", "料件类别说明", -1);
             this.cbox_报关类别.InitialData(DataAccess.DataAccessEnum.DataAccessName.DataAccessName_Manufacture, "select 料件报关分类 as 报关类别 from 料件报关分类 order by 料件报关分类", "报关类别", "报关类别", -1);
             DataTable dtTemp = new DataTable();
@@ -84,9 +111,13 @@ namespace UniqueDeclaration.Base
             newRow2["采购区域名称"] = "国外";
             dtTemp.Rows.Add(newRow2);
             this.cbox_采购区域.InitialData(dtTemp, "采购区域", "采购区域名称", -1);
+            bcbox_SelectedIndexChanged = true;
 
-            datetime_料件建档日期.Value =DateTime.Now;
-            datetime_料件建档日期.Checked = false;
+            //bdatetime_料件建档日期_ValueChanged = false;
+            //datetime_料件建档日期.Value =DateTime.Now;
+            //datetime_料件建档日期.Checked = false;
+            bdatetime_料件建档日期_ValueChanged = true;
+
         }
         /// <summary>
         /// 加载数据
@@ -94,10 +125,13 @@ namespace UniqueDeclaration.Base
         public void LoadDataSource()
         {
             string strSQL = string.Format("SELECT * FROM 料件资料表 WHERE 料件id = {0}", giOrderID);
-            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             dataAccess.Open();
             dtHead = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
+            bcbox_SelectedIndexChanged = false;
+            bdatetime_料件建档日期_ValueChanged = false;
+            bchk_计算库存_CheckedChanged = false;
             if (dtHead.Rows.Count > 0)
             {
                 rowHead = dtHead.Rows[0];
@@ -109,8 +143,12 @@ namespace UniqueDeclaration.Base
                 dtHead.Rows.Add(rowHead);
                 datetime_料件建档日期.Value = DateTime.Now;
                 datetime_料件建档日期.Checked = false;
+                rowHead["计算库存"] = 1;
                 fillControl(rowHead);
             }
+            bcbox_SelectedIndexChanged = true;
+            bdatetime_料件建档日期_ValueChanged = true;
+            bchk_计算库存_CheckedChanged = true;
         }
         /// <summary>
         /// 检查数据是否有修改，并返回对应的操作选项
@@ -126,10 +164,10 @@ namespace UniqueDeclaration.Base
             }
             else if (rowHead.RowState == DataRowState.Added)
             {
-                if (rowHead["手册编号"].ToString().Length > 0)
-                {
+                //if (rowHead["手册编号"].ToString().Length > 0)
+                //{
                     bModify = true;
-                }
+                //}
             }
             if (bModify)
             {
@@ -171,7 +209,15 @@ namespace UniqueDeclaration.Base
             }
             if (row.Table.Columns.Contains("料件建档日期"))
             {
-                datetime_料件建档日期.Value = Convert.ToDateTime(row["料件建档日期"]);
+                if (row["料件建档日期"] == DBNull.Value)
+                {
+                    datetime_料件建档日期.Checked = false;
+                }
+                else
+                {
+                    datetime_料件建档日期.Checked = true;
+                    datetime_料件建档日期.Value = Convert.ToDateTime(row["料件建档日期"]);
+                }
             }
             if (row.Table.Columns.Contains("料件名"))
             {
@@ -381,22 +427,22 @@ namespace UniqueDeclaration.Base
                 if (rowHead.RowState == DataRowState.Added)
                 {
                     #region 新增数据
-                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                     dataAccess.Open();
                     dataAccess.BeginTran();
                     try
                     {
                         #region 新增表头数据
-                        strBuilder.AppendLine(@"INSERT INTO [手册资料表]([料件型号],[显示型号],[电子帐册型号],[显示型号L],[料件名],[料件建档日期],[仓库数量1],[仓库单位1],
+                        strBuilder.AppendLine(@"INSERT INTO [料件资料表]([料件型号],[显示型号],[电子帐册型号],[显示型号L],[料件名],[料件建档日期],[仓库数量1],[仓库单位1],
                                                 [仓库数量2],[仓库单位2],[单位数量],[领料数量1],[领料单位1] ,[领料数量2],[领料单位2],[安全存量],[料件类别],
-                                                [料件存放位置],[料件备注],[计算库存],[报关类别],[换算数量],[换算单位],[采购区域],[所属仓库])");
-                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24})",
+                                                [料件存放位置],[料件备注],[计算库存],[报关类别],[换算数量],[换算单位],[采购区域],[所属仓库],[料件单位],[保税])");
+                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24,{25})",
                             rowHead["料件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件型号"].ToString()),
                             rowHead["显示型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["显示型号"].ToString()),
                             rowHead["电子帐册型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["电子帐册型号"].ToString()),
                             rowHead["显示型号L"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["显示型号L"].ToString()),
                             rowHead["料件名"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件名"].ToString()),
-                            rowHead["料件建档日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(Convert.ToDateTime(rowHead["料件建档日期"]).ToShortDateString()),
+                            rowHead["料件建档日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(Convert.ToDateTime(rowHead["料件建档日期"]).ToString("yyyy-MM-dd HH:mm:ss")),
                             rowHead["仓库数量1"] == DBNull.Value ? "NULL" : rowHead["仓库数量1"],
                             rowHead["仓库单位1"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["仓库单位1"].ToString()),
                             rowHead["仓库数量2"] == DBNull.Value ? "NULL" : rowHead["仓库数量2"],
@@ -410,11 +456,13 @@ namespace UniqueDeclaration.Base
                             rowHead["料件类别"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件类别"].ToString()),
                             rowHead["料件存放位置"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件存放位置"].ToString()),
                             rowHead["料件备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件备注"].ToString()),
-                            rowHead["计算库存"] == DBNull.Value ? "NULL" : Convert.ToBoolean(rowHead["计算库存"])==true ? "1" :"0" ,
+                            rowHead["计算库存"] == DBNull.Value ? "NULL" : Convert.ToBoolean(rowHead["计算库存"]) == true ? "1" : "0",
                             rowHead["报关类别"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["报关类别"].ToString()),
                             rowHead["换算数量"] == DBNull.Value ? "NULL" : rowHead["换算数量"],
+                            rowHead["换算单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["换算单位"].ToString()),
                             rowHead["采购区域"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["采购区域"].ToString()),
-                            rowHead["所属仓库"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["所属仓库"].ToString()));
+                            rowHead["所属仓库"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["所属仓库"].ToString()),
+                            rowHead["料件单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件单位"].ToString()),0);
                         strBuilder.AppendLine("select @@IDENTITY--新增预先录入订单时，自动生成的订单ID");
                         DataTable dtInsert = dataAccess.GetTable(strBuilder.ToString(), null);
                         object 料件id = dtInsert.Rows[0][0]; // dataAccess.ExecScalar(strBuilder.ToString(), null);
@@ -436,7 +484,7 @@ namespace UniqueDeclaration.Base
                 else //if (rowHead.RowState == DataRowState.Modified || (dtDetails.GetChanges() !=null && dtDetails.GetChanges().Rows.Count>0))
                 {
                     #region 修改数据
-                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                     dataAccess.Open();
                     dataAccess.BeginTran();
                     try
@@ -444,15 +492,15 @@ namespace UniqueDeclaration.Base
                         #region 修改表头数据
                         if (rowHead.RowState == DataRowState.Modified)
                         {
-                            strBuilder.AppendFormat(@"UPDATE [手册资料表] set [料件型号]={0},[显示型号]={1},[电子帐册型号]={2},[显示型号L]={3},[料件名]={4},[料件建档日期]={5},[仓库数量1]={6},[仓库单位1]={7},
+                            strBuilder.AppendFormat(@"UPDATE [料件资料表] set [料件型号]={0},[显示型号]={1},[电子帐册型号]={2},[显示型号L]={3},[料件名]={4},[料件建档日期]={5},[仓库数量1]={6},[仓库单位1]={7},
                                                 [仓库数量2]={8},[仓库单位2]={9},[单位数量]={10},[领料数量1]={11},[领料单位1]={12} ,[领料数量2]={13},[领料单位2]={14},[安全存量]={15},[料件类别]={16},
-                                                [料件存放位置]={17},[料件备注]={18},[计算库存]={19},[报关类别]={20},[换算数量]={21},[换算单位]={22},[采购区域]={23},[所属仓库]={24} where 料件id={25}",
+                                                [料件存放位置]={17},[料件备注]={18},[计算库存]={19},[报关类别]={20},[换算数量]={21},[换算单位]={22},[采购区域]={23},[所属仓库]={24},[料件单位]={25} where 料件id={26}",
                              rowHead["料件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件型号"].ToString()),
                             rowHead["显示型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["显示型号"].ToString()),
                             rowHead["电子帐册型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["电子帐册型号"].ToString()),
                             rowHead["显示型号L"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["显示型号L"].ToString()),
                             rowHead["料件名"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件名"].ToString()),
-                            rowHead["料件建档日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(Convert.ToDateTime(rowHead["料件建档日期"]).ToShortDateString()),
+                            rowHead["料件建档日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(Convert.ToDateTime(rowHead["料件建档日期"]).ToString("yyyy-MM-dd HH:mm:ss")),
                             rowHead["仓库数量1"] == DBNull.Value ? "NULL" : rowHead["仓库数量1"],
                             rowHead["仓库单位1"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["仓库单位1"].ToString()),
                             rowHead["仓库数量2"] == DBNull.Value ? "NULL" : rowHead["仓库数量2"],
@@ -469,8 +517,10 @@ namespace UniqueDeclaration.Base
                             rowHead["计算库存"] == DBNull.Value ? "NULL" : Convert.ToBoolean(rowHead["计算库存"]) == true ? "1" : "0",
                             rowHead["报关类别"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["报关类别"].ToString()),
                             rowHead["换算数量"] == DBNull.Value ? "NULL" : rowHead["换算数量"],
+                            rowHead["换算单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["换算单位"].ToString()),
                             rowHead["采购区域"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["采购区域"].ToString()),
                             rowHead["所属仓库"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["所属仓库"].ToString()),
+                            rowHead["料件单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件单位"].ToString()),
                             rowHead["料件id"]);
                             dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                             strBuilder.Clear();
@@ -509,24 +559,215 @@ namespace UniqueDeclaration.Base
         #region tool1事件
         private void tool1_Add_Click(object sender, EventArgs e)
         {
+            DialogResult result = CheckModify();
+            switch (result)
+            {
+                case System.Windows.Forms.DialogResult.Yes:
+                    if (Save(false))
+                        LoadDataSource();
+                    break;
+                case System.Windows.Forms.DialogResult.No:
+                    {
+                        giOrderID = 0;
+                        LoadDataSource();
+                    }
+                    break;
+                case System.Windows.Forms.DialogResult.Cancel:
 
+                    break;
+            }
         }
 
         private void tool1_Save_Click(object sender, EventArgs e)
         {
-
+            Save(true);
         }
 
-        private void tool1_Close_Click(object sender, EventArgs e)
+        //复制
+        private void btnClone_Click(object sender, EventArgs e)
         {
 
+        }
+        private void tool1_Close_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        #endregion
+
+        #region 表头控件事件
+        //文本控件值变化时验证
+        private void txt_Validating(object sender, CancelEventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            if (txtBox.Text.Trim().Length == 0) return;
+            string fieldName = txtBox.Name.Replace("txt_", "");
+            string strSQL = string.Empty;
+            IDataAccess dataAccess = null;
+            switch (fieldName)
+            {
+                case "料件型号":
+                    #region 料件型号
+                    if (rowHead.RowState == DataRowState.Added)
+                    {
+                        strSQL = string.Format("SELECT 料件id FROM 料件资料表 WHERE 料件型号 = {0}", StringTools.SqlQ(txtBox.Text));
+                        dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                        dataAccess.Open();
+                        DataTable dtManual = dataAccess.GetTable(strSQL.ToString(), null);
+                        dataAccess.Close();
+                        if (dtManual.Rows.Count > 0)
+                        {
+                            SysMessage.InformationMsg("此料件型号已存在，请重新输入！");
+                            e.Cancel = true;
+                            txtBox.Focus();
+                        }
+                    }
+                    break;
+                    #endregion
+            }
+        }
+        private void txt_Validated(object sender, EventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            string fieldName = txtBox.Name.Replace("txt_", "");
+            if (rowHead[fieldName].ToString() != txtBox.Text)
+            {
+                rowHead[fieldName] = txtBox.Text;
+            }
+        }
+        private void txtInt_Validating(object sender, CancelEventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            if (txtBox.Text.Trim().Length > 0)
+            {
+                try
+                {
+                    int.Parse(txtBox.Text.Trim());
+                }
+                catch (Exception ex)
+                {
+                    SysMessage.ErrorMsg(ex.Message);
+                    e.Cancel = true;
+                }
+            }
+        }
+        private void txtFloat_Validating(object sender, CancelEventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            if (txtBox.Text.Trim().Length > 0)
+            {
+                try
+                {
+                    decimal.Parse(txtBox.Text.Trim());
+                }
+                catch (Exception ex)
+                {
+                    SysMessage.ErrorMsg(ex.Message);
+                    e.Cancel = true;
+                }
+            }
+        }
+        private void cbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (bcbox_SelectedIndexChanged)
+            {
+                myComboBox cbox = (myComboBox)sender;
+                string fieldName = cbox.Name.Replace("cbox_", "");
+                rowHead[fieldName] = cbox.SelectedValue;
+            }
+        }
+        private void datetime_料件建档日期_Validated(object sender, EventArgs e)
+        {
+            if (!bdatetime_料件建档日期_ValueChanged) return;
+            if (datetime_料件建档日期.Checked)
+            {
+                if (rowHead["料件建档日期"] == DBNull.Value || Convert.ToDateTime(rowHead["料件建档日期"]) != datetime_料件建档日期.Value)
+                {
+                    rowHead["料件建档日期"] = datetime_料件建档日期.Value;
+                }
+            }
+            else
+            {
+                if (rowHead["料件建档日期"] != DBNull.Value)
+                {
+                    rowHead["料件建档日期"] = DBNull.Value;
+                }
+            } 
+        }
+        private void datetime_料件建档日期_ValueChanged(object sender, EventArgs e)
+        {
+            if (!bdatetime_料件建档日期_ValueChanged) return;
+            if (datetime_料件建档日期.Checked)
+            {
+                if (rowHead["料件建档日期"] == DBNull.Value || Convert.ToDateTime(rowHead["料件建档日期"]) != datetime_料件建档日期.Value)
+                {
+                    rowHead["料件建档日期"] = datetime_料件建档日期.Value;
+                }
+            }
+            else
+            {
+                if (rowHead["料件建档日期"] != DBNull.Value)
+                {
+                    rowHead["料件建档日期"] = DBNull.Value;
+                }
+            } 
+        }
+        private void chk_计算库存_CheckedChanged(object sender, EventArgs e)
+        {
+            if (bchk_计算库存_CheckedChanged)
+            {
+                if (Convert.ToBoolean(rowHead["计算库存"]) != chk_计算库存.Checked)
+                {
+                    rowHead["计算库存"] = chk_计算库存.Checked == true ? 1 : 0;
+                }
+            }
+        }
+        //失去焦点事件
+        void txt_LostFocus(object sender, EventArgs e)
+        {           
+            myTextBox txtBox = (myTextBox)sender;
+            string fieldName = txtBox.Name.Replace("txt_", "");
+            if (txtBox.Text.Trim().Length > 0)
+            {
+                txtBox.Text = txtBox.Text.Trim().ToUpper();
+                if(rowHead[fieldName].ToString()!=txtBox.Text.Trim().ToString())
+                    rowHead[fieldName] = txtBox.Text;
+            }
+            switch (fieldName)
+            {
+                case "显示型号":
+                    #region 显示型号
+                    if (txt_料件名.Text.Trim().Length == 0)
+                    {
+                        txt_料件名.Text = txt_显示型号.Text;
+                        rowHead["料件名"] = txt_料件名.Text;
+                    }
+                    break;
+                    #endregion
+            }
         }
         #endregion
 
         //编号生成
         private void btnCreateNo_Click(object sender, EventArgs e)
         {
-
+            if (txt_显示型号.Text.Trim().Length == 0)
+            {
+                SysMessage.InformationMsg(string.Format("【{0}】不能为空！",lab_显示型号.Text));
+                txt_显示型号.Focus();
+                return;
+            }
+            string strSQL = string.Format("料件台北编号生成 {0}", StringTools.SqlQ(txt_显示型号.Text.Trim()));
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            DataTable dtManual = dataAccess.GetTable(strSQL.ToString(), null);
+            dataAccess.Close();
+            if (txt_料件名.Text.Trim().Length == 0)
+            {
+                txt_料件名.Text = txt_显示型号.Text;
+                rowHead["料件名"] = txt_料件名.Text;
+            }
+            txt_显示型号.Text = dtManual.Rows[0][0].ToString();
+            rowHead["显示型号"] = dtManual.Rows[0][0].ToString();
         }
 
     }
