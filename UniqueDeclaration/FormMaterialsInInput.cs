@@ -775,8 +775,8 @@ namespace UniqueDeclaration
                 {
                     rs = dataManufacture.GetTable(string.Format(@"SELECT R.报关单号,R.清单编号, R.发票号, SUM(RM.入库数量) AS 入库数量, L.料件型号, L.显示型号, 
                                                                         L.显示型号L as 新显示型号,L.电子帐册型号, RM.料件id, L.料件名, L.仓库数量2, L.换算数量, L.换算单位 
-                                                                    FROM dbo.料件资料表 L RIGHT OUTER JOIN dbo.料件入库明细表 RM ON L.料件id = RM.料件id 
-                                                                    RIGHT OUTER JOIN dbo.料件入库表 R ON RM.料件入库表id = R.料件入库表id 
+                                                                    FROM 料件资料表 L RIGHT OUTER JOIN 料件入库明细表 RM ON L.料件id = RM.料件id 
+                                                                    RIGHT OUTER JOIN 料件入库表 R ON RM.料件入库表id = R.料件入库表id 
                                                             WHERE R.发票号 ={0} GROUP BY L.显示型号L,R.报关单号,R.清单编号,R.发票号, L.料件型号, L.显示型号, 
                                                                 L.电子帐册型号, RM.料件id,L.料件名, L.仓库数量2, L.换算数量, L.换算单位 ",StringTools.SqlQ(txt_发票号.Text.Trim())), null);
                 }
@@ -784,8 +784,8 @@ namespace UniqueDeclaration
                 {
                     rs = dataManufacture.GetTable(string.Format(@"SELECT R.报关单号,R.清单编号, R.发票号, SUM(RM.入库数量) AS 入库数量, L.料件型号, L.显示型号, 
                                                                         L.显示型号L as 新显示型号,L.电子帐册型号, RM.料件id, L.料件名, L.仓库数量2, L.换算数量, L.换算单位 
-                                                                    FROM dbo.料件资料表 L RIGHT OUTER JOIN dbo.料件入库明细表 RM ON L.料件id = RM.料件id 
-                                                                    RIGHT OUTER JOIN dbo.料件入库表 R ON RM.料件入库表id = R.料件入库表id 
+                                                                    FROM 料件资料表 L RIGHT OUTER JOIN 料件入库明细表 RM ON L.料件id = RM.料件id 
+                                                                    RIGHT OUTER JOIN 料件入库表 R ON RM.料件入库表id = R.料件入库表id 
                                                                     WHERE R.报关单号 ={0} GROUP BY L.显示型号L,R.报关单号,R.清单编号,R.发票号, L.料件型号, L.显示型号, 
                                                                     L.电子帐册型号, RM.料件id,L.料件名, L.仓库数量2, L.换算数量, L.换算单位 ",StringTools.SqlQ(txt_报关单号.Text.Trim())), null);
                 }
@@ -794,8 +794,8 @@ namespace UniqueDeclaration
             {
                 rs = dataManufacture.GetTable(string.Format(@"SELECT R.报关单号,R.清单编号, R.发票号, SUM(RM.入库数量) AS 入库数量, L.料件型号, L.显示型号, 
                                                                     L.显示型号L as 新显示型号,L.电子帐册型号, RM.料件id, L.料件名, L.仓库数量2, L.换算数量, L.换算单位 
-                                                                FROM dbo.料件资料表 L RIGHT OUTER JOIN dbo.料件入库明细表 RM ON L.料件id = RM.料件id 
-                                                                RIGHT OUTER JOIN dbo.料件入库表 R ON RM.料件入库表id = R.料件入库表id 
+                                                                FROM 料件资料表 L RIGHT OUTER JOIN 料件入库明细表 RM ON L.料件id = RM.料件id 
+                                                                RIGHT OUTER JOIN 料件入库表 R ON RM.料件入库表id = R.料件入库表id 
                                                                 WHERE R.清单编号 ={0} GROUP BY L.显示型号L,R.报关单号,R.清单编号, R.发票号, L.料件型号, L.显示型号,
                                                                 L.电子帐册型号, RM.料件id,L.料件名, L.仓库数量2, L.换算数量, L.换算单位 ",StringTools.SqlQ(txt_清单编号.Text.Trim())), null);
             }
@@ -827,7 +827,7 @@ namespace UniqueDeclaration
                     {
                         dataManufacture.Open();
                         DataTable crs = dataManufacture.GetTable(string.Format(@"SELECT Q.产品编号,H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,
-                                                            H.损耗率,H.单价 FROM dbo.归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
+                                                            H.损耗率,H.单价 FROM 归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
                                                             where Q.产品编号={0} AND H.电子帐册号='{1}'",
                                           StringTools.SqlQ(newRow["料号"].ToString().Substring(0,5)),cbox_电子帐册号.SelectedValue),null);
                         dataManufacture.Close();
@@ -1087,7 +1087,7 @@ namespace UniqueDeclaration
             if (dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString() != "")
             {
                 strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率,H.单价 
-                                        FROM dbo.归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
+                                        FROM 归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
                                         where Q.产品编号='{0}' AND H.电子帐册号='{1}'",
                                     dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString().Substring(0, 5), cbox_电子帐册号.SelectedValue);
                 dataAccess.Open();
@@ -1160,7 +1160,7 @@ namespace UniqueDeclaration
             if (dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString() != "")
             {
                 strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率,H.单价 
-                                        FROM dbo.归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
+                                        FROM 归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
                                         where Q.产品编号='{0}' AND H.电子帐册号='{1}'",
                                     dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString().Substring(0, 5), cbox_电子帐册号.SelectedValue);
                 dataAccess.Open();

@@ -119,7 +119,7 @@ namespace UniqueDeclaration
             this.gstrDetailFirstField = "PackageNo";
             bcbox_custid_SelectedIndexChanged = false;
             this.cbox_custid.InitialData(DataAccess.DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade,
-                "SELECT custid, com_Abbr FROM dbo.Customer", "custid", "com_Abbr",-1);
+                "SELECT custid, com_Abbr FROM Customer", "custid", "com_Abbr",-1);
             bcbox_custid_SelectedIndexChanged = true;
         }
         /// <summary>

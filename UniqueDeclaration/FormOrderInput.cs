@@ -928,7 +928,7 @@ namespace UniqueDeclaration
             {
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
-                string strSQL = string.Format("select KeyField as 客户代码,SecondField as 客户名称 from dbo.tabCustomer WHERE KeyField = {0} order by KeyField", StringTools.SqlQ(this.txt_客户代码.Text.Trim()));
+                string strSQL = string.Format("select KeyField as 客户代码,SecondField as 客户名称 from tabCustomer WHERE KeyField = {0} order by KeyField", StringTools.SqlQ(this.txt_客户代码.Text.Trim()));
                 DataTable dttabCustomer = dataAccess.GetTable(strSQL, null);
                 dataAccess.Close();
                 if (dttabCustomer.Rows.Count == 0)
@@ -1599,12 +1599,12 @@ namespace UniqueDeclaration
             {
                 if (配件id == 0)
                 {
-                    strSQL = string.Format("SELECT 订单id From dbo.产品配件改样报关订单材料明细表 where 订单id ={0} and 订单明细表id ={1} and 产品id ={2}",
+                    strSQL = string.Format("SELECT 订单id From 产品配件改样报关订单材料明细表 where 订单id ={0} and 订单明细表id ={1} and 产品id ={2}",
                         订单id, 订单明细表id, 产品id);
                 }
                 else
                 {
-                    strSQL = string.Format("SELECT 订单id From dbo.产品配件改样报关订单材料明细表 where 订单id ={0} and 订单明细表id ={1} and 配件id ={2}",
+                    strSQL = string.Format("SELECT 订单id From 产品配件改样报关订单材料明细表 where 订单id ={0} and 订单明细表id ={1} and 配件id ={2}",
                         订单id, 订单明细表id, 配件id);
                 }
                 dataAccess.Open();

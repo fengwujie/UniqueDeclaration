@@ -1166,14 +1166,14 @@ namespace UniqueDeclaration
                 strSQL = string.Format(@"SELECT L.订单id, L.订单明细表id, isnull(L.产品id,0) as 产品id, isnull(L.配件id,0) as 配件id,
 str(case when PATINDEX('%-%',L.项号)=0 then L.项号 else SUBSTRING(L.项号,1,PATINDEX('%-%',L.项号)-1) end)  AS 号, str(case when PATINDEX('%-%',L.项号)=0 then '' else SUBSTRING(L.项号,PATINDEX('%-%',L.项号)+1,len(L.项号)-PATINDEX('%-%',L.项号)) end)  AS 项,
 L.项号, L.商品编码, L.商品名称,H.商品规格 AS 规格型号,L.计量单位, str(sum(L.单耗*(1-case when L.损耗率 is null then 0 else 0 end)), 10, 5) AS 单耗,L.损耗率 
-From dbo.产品配件改样报关订单材料明细表 L left outer join 归并后料件清单 H on H.产品编号=substring(L.编号,1,3)
+From 产品配件改样报关订单材料明细表 L left outer join 归并后料件清单 H on H.产品编号=substring(L.编号,1,3)
 where left(ltrim(L.显示型号),1)='A' and  H.电子帐册号={0} AND L.订单id ={1} and L.订单明细表id ={2} and L.产品id ={3}
 group by L.订单id, L.订单明细表id, isnull(L.产品id,0), isnull(L.配件id,0),
 str(case when PATINDEX('%-%',L.项号)=0 then L.项号 else SUBSTRING(L.项号,1,PATINDEX('%-%',L.项号)-1) end), str(case when PATINDEX('%-%',L.项号)=0 then '' else SUBSTRING(L.项号,PATINDEX('%-%',L.项号)+1,len(L.项号)-PATINDEX('%-%',L.项号)) end),
 L.项号, L.商品编码, L.商品名称,H.商品规格,L.计量单位,L.损耗率
 Union All 
 SELECT 订单id, 订单明细表id, 产品id, 配件id,str(序号),str(''), LTRIM(STR(序号)),商品编码,商品名称,规格型号,计量单位, str(数量*(1-case when 损耗率 is null then 0 else 0 end), 10, 5),损耗率 
-From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id ={1} and 订单明细表id ={2} and 产品id ={3} order by 号,项",
+From 产品配件改样报关订单材料表 where 区域='A' AND 订单id ={1} and 订单明细表id ={2} and 产品id ={3} order by 号,项",
                                                StringTools.SqlQ(ManualCode),OrderId,OrderListId,Pid);
             }
             else
@@ -1181,14 +1181,14 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 strSQL = string.Format(@"SELECT L.订单id, L.订单明细表id, isnull(L.产品id,0) as 产品id, isnull(L.配件id,0) as 配件id,
 str(case when PATINDEX('%-%',L.项号)=0 then L.项号 else SUBSTRING(L.项号,1,PATINDEX('%-%',L.项号)-1) end)  AS 号, str(case when PATINDEX('%-%',L.项号)=0 then '' else SUBSTRING(L.项号,PATINDEX('%-%',L.项号)+1,len(L.项号)-PATINDEX('%-%',L.项号)) end)  AS 项,
 L.项号, L.商品编码, L.商品名称,H.商品规格 AS 规格型号,L.计量单位, str(sum(L.单耗*(1-case when L.损耗率 is null then 0 else 0 end)), 10, 5) AS 单耗,L.损耗率 
-From dbo.产品配件改样报关订单材料明细表 L left outer join 归并后料件清单 H on H.产品编号=substring(L.编号,1,3)
+From 产品配件改样报关订单材料明细表 L left outer join 归并后料件清单 H on H.产品编号=substring(L.编号,1,3)
 where left(ltrim(L.显示型号),1)='A' and  H.电子帐册号={0} AND L.订单id ={1} and L.订单明细表id ={2} and L.配件id ={3}
 group by L.订单id, L.订单明细表id, isnull(L.产品id,0), isnull(L.配件id,0),
 str(case when PATINDEX('%-%',L.项号)=0 then L.项号 else SUBSTRING(L.项号,1,PATINDEX('%-%',L.项号)-1) end), str(case when PATINDEX('%-%',L.项号)=0 then '' else SUBSTRING(L.项号,PATINDEX('%-%',L.项号)+1,len(L.项号)-PATINDEX('%-%',L.项号)) end),
 L.项号, L.商品编码, L.商品名称,H.商品规格,L.计量单位,L.损耗率
 Union All 
 SELECT 订单id, 订单明细表id, 产品id, 配件id,str(序号),str(''), LTRIM(STR(序号)),商品编码,商品名称,规格型号,计量单位, str(数量*(1-case when 损耗率 is null then 0 else 0 end), 10, 5),损耗率 
-From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id ={1} and 订单明细表id ={2} and 配件id ={3} order by 号,项",
+From 产品配件改样报关订单材料表 where 区域='A' AND 订单id ={1} and 订单明细表id ={2} and 配件id ={3} order by 号,项",
                                                StringTools.SqlQ(ManualCode), OrderId, OrderListId, Fid);
             }
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
@@ -1213,7 +1213,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 if (row.RowState == DataRowState.Added)
                 {
                     if (row["料件id"] == DBNull.Value) continue;
-                    strSQL += string.Format(@"INSERT INTO [Manufacture].[dbo].[产品配件改样报关订单材料表]
+                    strSQL += string.Format(@"INSERT INTO [产品配件改样报关订单材料表]
                                                ([订单id],[订单明细表id],[产品id],[配件id],[料件id],[料件型号],[序号],[编号]
                                                ,[品名],[商品编码],[商品名称],[规格型号],[计量单位],[数量],[单位],[备注] ,[损耗率] ,[区域])
                                          VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17})" + Environment.NewLine,
@@ -1242,7 +1242,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 else if (row.RowState == DataRowState.Deleted)
                 {
                     if (row["产品配件改样报关订单材料表id", DataRowVersion.Original] == DBNull.Value) continue;
-                    strSQL += string.Format("DELETE FROM [dbo].[产品配件改样报关订单材料表] WHERE [产品配件改样报关订单材料表id]={0}" + Environment.NewLine, row["产品配件改样报关订单材料表id",DataRowVersion.Original]);
+                    strSQL += string.Format("DELETE FROM [产品配件改样报关订单材料表] WHERE [产品配件改样报关订单材料表id]={0}" + Environment.NewLine, row["产品配件改样报关订单材料表id",DataRowVersion.Original]);
                 }
                 #endregion
 
@@ -1250,7 +1250,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 else if (row.RowState == DataRowState.Modified)
                 {
                     if (row["产品配件改样报关订单材料表id"] == DBNull.Value) continue;
-                    strSQL += string.Format(@"UPDATE [Manufacture].[dbo].[产品配件改样报关订单材料表]
+                    strSQL += string.Format(@"UPDATE [产品配件改样报关订单材料表]
                                                    SET [订单id] = {0},[订单明细表id] ={1},[产品id] = {2} ,[配件id] = {3},[料件id] = {4}
                                                       ,[料件型号] = {5},[序号] = {6},[编号] = {7},[品名] ={8} ,[商品编码] ={9} ,[商品名称] = {10}
                                                       ,[规格型号] = {11},[计量单位] = {12},[数量] = {13} ,[单位] = {14} ,[备注] = {15}
@@ -1298,7 +1298,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 if (row.RowState == DataRowState.Added)
                 {
                     if (row["料件id"] == DBNull.Value) continue;
-                    strSQL += string.Format(@"INSERT INTO [dbo].[产品配件改样报关订单材料明细表]
+                    strSQL += string.Format(@"INSERT INTO [产品配件改样报关订单材料明细表]
                                            ([订单id],[订单明细表id],[产品id],[配件id],[料件id],[型号],[显示型号],[品名],[项号],[编号]
                                            ,[商品编码],[商品名称],[规格型号],[计量单位],[数量],[单位],[单耗],[单耗单位],[损耗率],[换算率])
                                      VALUES ({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19})" + Environment.NewLine,
@@ -1329,7 +1329,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 else if (row.RowState == DataRowState.Deleted)
                 {
                     if (row["产品配件改样报关订单材料明细表id", DataRowVersion.Original] == DBNull.Value) continue;
-                    strSQL += string.Format("DELETE FROM [dbo].[产品配件改样报关订单材料明细表] WHERE [产品配件改样报关订单材料明细表id]={0}" + Environment.NewLine, row["产品配件改样报关订单材料明细表id", DataRowVersion.Original]);
+                    strSQL += string.Format("DELETE FROM [产品配件改样报关订单材料明细表] WHERE [产品配件改样报关订单材料明细表id]={0}" + Environment.NewLine, row["产品配件改样报关订单材料明细表id", DataRowVersion.Original]);
                 }
                 #endregion
 
@@ -1337,7 +1337,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                 else if (row.RowState == DataRowState.Modified)
                 {
                     if (row["产品配件改样报关订单材料明细表id"] == DBNull.Value) continue;
-                    strSQL += string.Format(@"UPDATE [dbo].[产品配件改样报关订单材料明细表] SET [订单id] = {0},[订单明细表id] ={1},[产品id] = {2},[配件id] = {3},[料件id] = {4}
+                    strSQL += string.Format(@"UPDATE [产品配件改样报关订单材料明细表] SET [订单id] = {0},[订单明细表id] ={1},[产品id] = {2},[配件id] = {3},[料件id] = {4}
                                           ,[型号] ={5},[显示型号] ={6},[品名] = {7},[项号] = {8},[编号] = {9},[商品编码] = {10},[商品名称] = {11},[规格型号] = {12},[计量单位] = {13},[数量] = {14}
                                           ,[单位] = {15},[单耗] = {16},[单耗单位] = {17},[损耗率] = {18},[换算率] = {19} WHERE [产品配件改样报关订单材料明细表id]={20}" + Environment.NewLine,
                                     row["订单id"] == DBNull.Value ? "NULL" : row["订单id"],
@@ -1862,7 +1862,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
 
             if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Trim() != "")
             {
-                strSQL = string.Format(@"SELECT H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率 FROM dbo.归并后料件清单 H 
+                strSQL = string.Format(@"SELECT H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率 FROM 归并后料件清单 H 
                                                     LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
                                                     where H.序号={0} AND H.电子帐册号='{1}'",
                                                     StringTools.intParse(dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 2)), ManualCode);
@@ -1952,7 +1952,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
 
             if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Trim() != "")
             {
-                strSQL = string.Format(@"SELECT H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率 FROM dbo.归并后料件清单 H 
+                strSQL = string.Format(@"SELECT H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率 FROM 归并后料件清单 H 
                                                     LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
                                                     where H.序号='{0}' AND H.电子帐册号='{1}'",
                                         StringTools.intParse(dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 2)), ManualCode);
@@ -2129,7 +2129,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
 
             if (dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Trim() != "")
             {
-                strSQL = string.Format(@"SELECT H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率 FROM dbo.归并后料件清单 H 
+                strSQL = string.Format(@"SELECT H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率 FROM 归并后料件清单 H 
                                                     LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
                                                     where H.序号={0} AND H.电子帐册号='{1}'",
                                                     StringTools.intParse(dgv.Rows[cell.RowIndex].Cells["显示型号"].Value.ToString().Substring(1, 2)), ManualCode);
@@ -2487,7 +2487,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
             if (dgv.Rows[cell.RowIndex].Cells["编号"].Value.ToString().Trim() != "")
             {
                 strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.商品编码, H.商品名称, H.商品规格, H.计量单位,H.计量单位,H.损耗率 
-                                                        FROM dbo.归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
+                                                        FROM 归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
                                                         where Q.产品编号='{0}' AND H.电子帐册号='{1}'",
                                                                          dgv.Rows[cell.RowIndex].Cells["编号"].Value.ToString().Substring(0, 5), ManualCode);
                 dataAccess.Open();
@@ -2884,7 +2884,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                         newRow["编号"] = row["显示型号"] == DBNull.Value ? "" : row["显示型号"];
                         newRow["料件型号"] = row["型号"] == DBNull.Value ? "" : row["型号"];
                         newRow["品名"] = row["品名"];
-                        strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.损耗率, H.商品编码, H.商品名称, Q.商品规格, H.计量单位 FROM dbo.归并后料件清单 H 
+                        strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.损耗率, H.商品编码, H.商品名称, Q.商品规格, H.计量单位 FROM 归并后料件清单 H 
                                     LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id where H.序号={0} AND H.电子帐册号='{1}'", newRow["序号"],ManualCode);
                         dtTemp = dataAccess.GetTable(strSQL, null);
                         if (dtTemp.Rows.Count > 0)
@@ -3022,7 +3022,7 @@ From dbo.产品配件改样报关订单材料表 where 区域='A' AND 订单id =
                         newRow["编号"] = row["显示型号"] == DBNull.Value ? "" : row["显示型号"];
                         newRow["料件型号"] = row["型号"] == DBNull.Value ? "" : row["型号"];
                         newRow["品名"] = row["品名"];
-                        strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.损耗率, H.商品编码, H.商品名称, Q.商品规格, H.计量单位 FROM dbo.归并后料件清单 H 
+                        strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.损耗率, H.商品编码, H.商品名称, Q.商品规格, H.计量单位 FROM 归并后料件清单 H 
                                     LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id where H.序号={0} AND H.电子帐册号='{1}'", newRow["序号"], ManualCode);
                         dtTemp = dataAccess.GetTable(strSQL, null);
                         if (dtTemp.Rows.Count > 0)

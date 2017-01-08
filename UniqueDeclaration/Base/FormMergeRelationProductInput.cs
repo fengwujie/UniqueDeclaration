@@ -495,7 +495,7 @@ namespace UniqueDeclaration.Base
                                 }
                                 else
                                 {
-                                    strBuilder.AppendFormat(@"UPDATE [dbo].[归并前成品清单] SET [归并后成品id] = {0},[产品编号] = {1},
+                                    strBuilder.AppendFormat(@"UPDATE [归并前成品清单] SET [归并后成品id] = {0},[产品编号] = {1},
                                                         [序号] = {2},[商品规格] = {3},[对应编号] = {4},[单价] = {5},[日期]={6} WHERE [归并前成品id]={7}",
                                     rowHead["归并后成品id"], row["产品编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["产品编号"].ToString()),
                                     row["序号"] == DBNull.Value ? "NULL" : row["序号"],

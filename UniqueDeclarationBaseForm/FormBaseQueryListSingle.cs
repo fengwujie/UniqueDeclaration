@@ -54,7 +54,7 @@ namespace UniqueDeclarationBaseForm
                     this.Text = "制造通知单在线量产品明细查询";
                     dataAccess.Open();
                     dataAccess.ExecuteNonQuery("delete from 装箱单明细临时表", null);
-                    dataAccess.ExecuteNonQuery(string.Format(@"Insert into dbo.装箱单明细临时表(手册编号,数量,归并前成品序号,日期,成品项号,订单号码) 
+                    dataAccess.ExecuteNonQuery(string.Format(@"Insert into 装箱单明细临时表(手册编号,数量,归并前成品序号,日期,成品项号,订单号码) 
                                                         SELECT  XM.手册编号,XM.数量,XM.归并前成品序号,X.录入日期,XM.成品项号,XM.订单号码 
                                                         FROM OPENDATASOURCE('SQLOLEDB','Data Source=unique;User ID=SA;Password=').uniquegrade.dbo.装箱单表 X 
                                                         LEFT OUTER JOIN OPENDATASOURCE('SQLOLEDB','Data Source=unique;User ID=SA;Password=').uniquegrade.dbo.装箱单明细表 XM ON X.订单id = XM.订单id 
@@ -131,7 +131,7 @@ namespace UniqueDeclarationBaseForm
 //                    {
 //                        dataAccess.Open();
 //                        dataAccess.ExecuteNonQuery("delete from 装箱单明细临时表", null);
-//                        dataAccess.ExecuteNonQuery(string.Format(@"Insert into dbo.装箱单明细临时表(手册编号,数量,归并前成品序号,日期,成品项号,订单号码) 
+//                        dataAccess.ExecuteNonQuery(string.Format(@"Insert into 装箱单明细临时表(手册编号,数量,归并前成品序号,日期,成品项号,订单号码) 
 //                                                        SELECT  XM.手册编号,XM.数量, XM.归并前成品序号,X.录入日期,XM.成品项号,XM.订单号码 
 //                                                        FROM OPENDATASOURCE('SQLOLEDB','Data Source=unique;User ID=SA;Password=').uniquegrade.dbo.装箱单表 X 
 //                                                        LEFT OUTER JOIN OPENDATASOURCE('SQLOLEDB','Data Source=unique;User ID=SA;Password=').uniquegrade.dbo.装箱单明细表 XM ON X.订单id = XM.订单id 

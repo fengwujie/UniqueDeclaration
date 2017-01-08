@@ -1036,7 +1036,7 @@ namespace UniqueDeclaration
                         - StringTools.decimalParse(dgv.Rows[cell.RowIndex].Cells["出库数量"].Value.ToString());
                 }
                 strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率,H.单价 
-                                                        FROM dbo.归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
+                                                        FROM 归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
                                                         where Q.产品编号='{0}' AND H.电子帐册号='{1}'",
                                     dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString().Substring(0, 5), cbox_电子帐册号.SelectedValue);
                 dataAccess.Open();
@@ -1120,7 +1120,7 @@ namespace UniqueDeclaration
                         - StringTools.decimalParse(dgv.Rows[cell.RowIndex].Cells["出库数量"].Value.ToString());
                 }
                 strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率,H.单价 
-                                                        FROM dbo.归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
+                                                        FROM 归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
                                                         where Q.产品编号='{0}' AND H.电子帐册号='{1}'",
                                     dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString().Substring(0, 5), cbox_电子帐册号.SelectedValue);
                 dataAccess.Open();

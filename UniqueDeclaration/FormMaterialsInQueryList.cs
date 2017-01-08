@@ -440,7 +440,7 @@ namespace UniqueDeclaration
                 dataGWT.Open();
                 foreach (DataRow rsRow in rs.Rows)
                 {
-                    DataTable crs = dataManufacture.GetTable(string.Format(@"SELECT H.单价 FROM dbo.归并前料件清单 Q RIGHT OUTER JOIN 归并后料件清单 H ON Q.归并后料件id = H.归并后料件id 
+                    DataTable crs = dataManufacture.GetTable(string.Format(@"SELECT H.单价 FROM 归并前料件清单 Q RIGHT OUTER JOIN 归并后料件清单 H ON Q.归并后料件id = H.归并后料件id 
                                     WHERE H.电子帐册号='{0}' and Q.产品编号='{1}'", mRs["电子帐册号"], rsRow["料号"]), null);
                     if (crs.Rows.Count > 0 && crs.Rows[0]["单价"] != DBNull.Value)
                         PriceValue = Convert.ToDecimal(Convert.ToDecimal(crs.Rows[0]["单价"]).ToString("N2"));
