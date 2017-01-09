@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tool1_First = new System.Windows.Forms.ToolStripButton();
             this.tool1_up = new System.Windows.Forms.ToolStripButton();
             this.tool1_Down = new System.Windows.Forms.ToolStripButton();
@@ -50,14 +50,14 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStrip2.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myDataGridViewHead)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStrip2
+            // toolStrip1
             // 
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tool1_First,
             this.tool1_up,
             this.tool1_Down,
@@ -74,11 +74,11 @@
             this.toolStripSeparator4,
             this.tool1_Print,
             this.tool1_ExportExcel});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1060, 25);
-            this.toolStrip2.TabIndex = 4;
-            this.toolStrip2.Text = "toolStrip2";
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1060, 25);
+            this.toolStrip1.TabIndex = 4;
+            this.toolStrip1.Text = "toolStrip2";
             // 
             // tool1_First
             // 
@@ -232,7 +232,7 @@
             // 
             this.myContextMenu.MyDataGridView = this.myDataGridViewHead;
             this.myContextMenu.Name = "myContextMenu";
-            this.myContextMenu.Size = new System.Drawing.Size(101, 26);
+            this.myContextMenu.Size = new System.Drawing.Size(153, 48);
             // 
             // myDataGridViewHead
             // 
@@ -278,12 +278,12 @@
             this.ClientSize = new System.Drawing.Size(1060, 588);
             this.Controls.Add(this.myDataGridViewHead);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStrip2);
+            this.Controls.Add(this.toolStrip1);
             this.Name = "FormBaseDataQueryList";
             this.Text = "基本资料查询窗体";
             this.Load += new System.EventHandler(this.FormBaseDataQueryList_Load);
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myDataGridViewHead)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -294,7 +294,7 @@
 
         #endregion
 
-        public System.Windows.Forms.ToolStrip toolStrip2;
+        public System.Windows.Forms.ToolStrip toolStrip1;
         public System.Windows.Forms.ToolStripButton tool1_First;
         public System.Windows.Forms.ToolStripButton tool1_up;
         public System.Windows.Forms.ToolStripButton tool1_Down;
@@ -311,10 +311,10 @@
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         public System.Windows.Forms.ToolStripButton tool1_Print;
         public System.Windows.Forms.ToolStripButton tool1_ExportExcel;
-        private UniqueDeclarationBaseForm.Controls.myContextMenuStripCell myContextMenu;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         public UniqueDeclarationBaseForm.Controls.myDataGridView myDataGridViewHead;
+        public UniqueDeclarationBaseForm.Controls.myContextMenuStripCell myContextMenu;
     }
 }
