@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using DataAccess;
 using UniqueDeclarationPubilc;
 using UniqueDeclarationBaseForm.Controls;
+using UniqueDeclarationBaseForm;
 
 namespace UniqueDeclaration.Base
 {
@@ -203,9 +204,9 @@ namespace UniqueDeclaration.Base
             {
                 txt_电子帐册型号.Text = row["电子帐册型号"].ToString();
             }
-            if (row.Table.Columns.Contains("显示型号"))
+            if (row.Table.Columns.Contains("显示型号L"))
             {
-                txt_显示型号.Text = row["显示型号"].ToString();
+                txt_显示型号L.Text = row["显示型号L"].ToString();
             }
             if (row.Table.Columns.Contains("料件建档日期"))
             {
@@ -334,6 +335,7 @@ namespace UniqueDeclaration.Base
         /// </summary>
         public bool Save(bool bShowSuccessMsg)
         {
+            btnCreateNo.Focus();
             bool bSuccess = true;
             try
             {
@@ -354,6 +356,12 @@ namespace UniqueDeclaration.Base
                 {
                     SysMessage.InformationMsg(string.Format("[{0}]不能为空！", lab_料件名.Text));
                     txt_料件名.Focus();
+                    return false;
+                }
+                if (txt_料件单位.Text.Trim().Length == 0)
+                {
+                    SysMessage.InformationMsg(string.Format("[{0}]不能为空！", lab_料件单位.Text));
+                    txt_料件单位.Focus();
                     return false;
                 }
                 if (txt_仓库数量1.Text.Trim().Length == 0)
@@ -436,7 +444,7 @@ namespace UniqueDeclaration.Base
                         strBuilder.AppendLine(@"INSERT INTO [料件资料表]([料件型号],[显示型号],[电子帐册型号],[显示型号L],[料件名],[料件建档日期],[仓库数量1],[仓库单位1],
                                                 [仓库数量2],[仓库单位2],[单位数量],[领料数量1],[领料单位1] ,[领料数量2],[领料单位2],[安全存量],[料件类别],
                                                 [料件存放位置],[料件备注],[计算库存],[报关类别],[换算数量],[换算单位],[采购区域],[所属仓库],[料件单位],[保税])");
-                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24,{25})",
+                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},0)",
                             rowHead["料件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件型号"].ToString()),
                             rowHead["显示型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["显示型号"].ToString()),
                             rowHead["电子帐册型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["电子帐册型号"].ToString()),
@@ -462,7 +470,7 @@ namespace UniqueDeclaration.Base
                             rowHead["换算单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["换算单位"].ToString()),
                             rowHead["采购区域"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["采购区域"].ToString()),
                             rowHead["所属仓库"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["所属仓库"].ToString()),
-                            rowHead["料件单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件单位"].ToString()),0);
+                            rowHead["料件单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["料件单位"].ToString()));
                         strBuilder.AppendLine("select @@IDENTITY--新增预先录入订单时，自动生成的订单ID");
                         DataTable dtInsert = dataAccess.GetTable(strBuilder.ToString(), null);
                         object 料件id = dtInsert.Rows[0][0]; // dataAccess.ExecScalar(strBuilder.ToString(), null);
@@ -586,7 +594,34 @@ namespace UniqueDeclaration.Base
         //复制
         private void btnClone_Click(object sender, EventArgs e)
         {
-
+            FormBaseDialogInput objForm = new FormBaseDialogInput();
+            objForm.strDefault = txt_料件型号.Text;
+            objForm.strFormText = "料件资料克隆(请输入源料件型号：)";
+            if (objForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (objForm.strReturn.Trim().Length > 0)
+                {
+                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                    dataAccess.Open();
+                    string strSQL = string.Format("SELECT * FROM 料件资料表 WHERE 料件型号 = {0}",StringTools.SqlQ(objForm.strReturn));
+                    DataTable dtTemp = dataAccess.GetTable(strSQL.ToString(), null);
+                    dataAccess.Close();
+                    if (dtTemp.Rows.Count == 0)
+                    {
+                        SysMessage.InformationMsg("指定的料件不存存！");
+                    }
+                    else
+                    {
+                        // "料件id", "料件型号", "料件建档日期"  不做处理
+                        foreach (DataColumn col in dtTemp.Columns)
+                        {
+                            if (col.ColumnName != "料件id" && col.ColumnName != "料件型号" && col.ColumnName != "料件建档日期")
+                                rowHead[col.ColumnName] = dtTemp.Rows[0][col.ColumnName];
+                        }
+                        fillControl(rowHead);
+                    }
+                }
+            }
         }
         private void tool1_Close_Click(object sender, EventArgs e)
         {
@@ -756,7 +791,10 @@ namespace UniqueDeclaration.Base
                 txt_显示型号.Focus();
                 return;
             }
-            string strSQL = string.Format("料件台北编号生成 {0}", StringTools.SqlQ(txt_显示型号.Text.Trim()));
+            string strSQL = string.Format(@"declare @No varchar(10)
+                                            set @No={0}
+                                            exec [料件台北编号生成] @No out
+                                            select @No as no", StringTools.SqlQ(txt_显示型号.Text.Trim()));
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             dataAccess.Open();
             DataTable dtManual = dataAccess.GetTable(strSQL.ToString(), null);

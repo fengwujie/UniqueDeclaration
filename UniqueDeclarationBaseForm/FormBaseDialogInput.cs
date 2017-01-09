@@ -21,6 +21,8 @@ namespace UniqueDeclarationBaseForm
 
         public string strReturn = string.Empty;
 
+        public string strDefault = string.Empty;
+
         private void btnOK_Click(object sender, EventArgs e)
         {
             if (this.txt_input.Text.Trim().Length == 0)
@@ -43,6 +45,7 @@ namespace UniqueDeclarationBaseForm
         private void FormBaseDialogInput_Load(object sender, EventArgs e)
         {
             this.Text = strFormText;
+            this.txt_input.Text = strDefault;
         }
     }
 }

@@ -88,10 +88,8 @@ namespace UniqueDeclaration.Base
             FormMaterialsQueryCondition queryConditionForm = new FormMaterialsQueryCondition();
             if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                UniqueDeclaration.Base.FormMaterialsQueryList queryListForm = new UniqueDeclaration.Base.FormMaterialsQueryList();
-                queryListForm.gstrWhere = queryConditionForm.strReturnWhere;
-                queryListForm.MdiParent = this;
-                queryListForm.Show();
+                gstrWhere = queryConditionForm.strReturnWhere;
+                LoadDataSource();
             }
         }
         public override void tool1_BOM_Click(object sender, EventArgs e)

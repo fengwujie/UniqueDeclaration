@@ -359,7 +359,7 @@ namespace UniqueDeclaration
         private void FormMaterialsInput_Click(object sender, EventArgs e)
         {
             FormMaterialsInput objForm = new FormMaterialsInput();
-            objForm.MdiParent = this.MdiParent;
+            objForm.MdiParent = this;
             objForm.giOrderID = 0;
             objForm.Show();
         }
@@ -379,7 +379,7 @@ namespace UniqueDeclaration
         private void FromManualInput_Click(object sender, EventArgs e)
         {
             FormManualInput objForm = new FormManualInput();
-            objForm.MdiParent = this.MdiParent;
+            objForm.MdiParent = this;
             objForm.giOrderID = 0;
             objForm.Show();
         }
@@ -400,7 +400,7 @@ namespace UniqueDeclaration
         private void FormMergeRelationMaterialsInput_Click(object sender, EventArgs e)
         {
             FormMergeRelationMaterialsInput objForm = new FormMergeRelationMaterialsInput();
-            objForm.MdiParent = this.MdiParent;
+            objForm.MdiParent = this;
             objForm.giOrderID = 0;
             objForm.Show();
         }
@@ -421,7 +421,7 @@ namespace UniqueDeclaration
         private void FormMergeRelationProductInput_Click(object sender, EventArgs e)
         {
             FormMergeRelationProductInput objForm = new FormMergeRelationProductInput();
-            objForm.MdiParent = this.MdiParent;
+            objForm.MdiParent = this;
             objForm.giOrderID = 0;
             objForm.Show();
         }

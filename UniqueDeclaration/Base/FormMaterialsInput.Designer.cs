@@ -44,7 +44,7 @@
             this.txt_单位数量 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.lab_单位数量 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_料件单位 = new UniqueDeclarationBaseForm.Controls.myTextBox();
-            this.myLable8 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.lab_料件单位 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_仓库数量1 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.lab_仓库数量1 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_仓库单位1 = new UniqueDeclarationBaseForm.Controls.myTextBox();
@@ -242,14 +242,15 @@
             this.txt_料件单位.TabIndex = 7;
             this.txt_料件单位.Validated += new System.EventHandler(this.txt_Validated);
             // 
-            // myLable8
+            // lab_料件单位
             // 
-            this.myLable8.Location = new System.Drawing.Point(23, 118);
-            this.myLable8.Name = "myLable8";
-            this.myLable8.Size = new System.Drawing.Size(79, 18);
-            this.myLable8.TabIndex = 13;
-            this.myLable8.Text = "企业单位：";
-            this.myLable8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lab_料件单位.ForeColor = System.Drawing.Color.Red;
+            this.lab_料件单位.Location = new System.Drawing.Point(23, 118);
+            this.lab_料件单位.Name = "lab_料件单位";
+            this.lab_料件单位.Size = new System.Drawing.Size(79, 18);
+            this.lab_料件单位.TabIndex = 13;
+            this.lab_料件单位.Text = "企业单位：";
+            this.lab_料件单位.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txt_仓库数量1
             // 
@@ -698,7 +699,7 @@
             this.Controls.Add(this.txt_单位数量);
             this.Controls.Add(this.lab_单位数量);
             this.Controls.Add(this.txt_料件单位);
-            this.Controls.Add(this.myLable8);
+            this.Controls.Add(this.lab_料件单位);
             this.Controls.Add(this.cbox_采购区域);
             this.Controls.Add(this.myLable5);
             this.Controls.Add(this.txt_料件名);
@@ -741,7 +742,7 @@
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_单位数量;
         private UniqueDeclarationBaseForm.Controls.myLable lab_单位数量;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_料件单位;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable8;
+        private UniqueDeclarationBaseForm.Controls.myLable lab_料件单位;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_仓库数量1;
         private UniqueDeclarationBaseForm.Controls.myLable lab_仓库数量1;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_仓库单位1;
