@@ -19,9 +19,9 @@ namespace UniqueDeclaration.Base
 
         public override void FormBaseDataQueryList_Load(object sender, EventArgs e)
         {
-            this.gstrSQL ="SELECT * FROM 料件资料表 {0} ORDER BY 料件型号";
+            this.gstrSQL = "SELECT 料件资料表.*,料件类别表.料件类别说明 FROM 料件资料表 inner join 料件类别表 on 料件资料表.料件类别=料件类别表.料件类别 {0} ORDER BY 料件型号";
             this.gstrDetailFirstField = "报关类别";
-            base.FormBaseDataQueryList_Load(sender, e);
+            base.FormBaseDataQueryList_Load(sender, e);           
         }
 
         public override void initGrid()
@@ -29,10 +29,14 @@ namespace UniqueDeclaration.Base
             this.myDataGridViewHead.AutoGenerateColumns = false;
             this.myDataGridViewHead.Columns["料件id"].Visible = false;
             this.myDataGridViewHead.Columns["显示型号L"].Visible = false;
+            this.myDataGridViewHead.Columns["料件类别"].Visible = false;
             this.myDataGridViewHead.Columns["料件项号"].Visible = false;
             this.myDataGridViewHead.Columns["归并序号"].Visible = false;
             this.myDataGridViewHead.Columns["仓位"].Visible = false;
             this.myDataGridViewHead.Columns["料件基本编号"].Visible = false;
+            this.myDataGridViewHead.Columns["计算库存"].Visible = false;
+            this.myDataGridViewHead.Columns["料件规格"].Visible = false;
+            this.myDataGridViewHead.Columns["所属仓库"].Visible = false;
 
             this.myDataGridViewHead.Columns["报关类别"].DisplayIndex = 0;
             this.myDataGridViewHead.Columns["料件型号"].DisplayIndex = 1;
@@ -65,7 +69,8 @@ namespace UniqueDeclaration.Base
             this.myDataGridViewHead.Columns["换算数量"].HeaderText = "换算率";
             this.myDataGridViewHead.Columns["保税"].DisplayIndex = 17;
             this.myDataGridViewHead.Columns["安全存量"].DisplayIndex = 18;
-            this.myDataGridViewHead.Columns["料件类别"].DisplayIndex = 19;
+            this.myDataGridViewHead.Columns["料件类别说明"].DisplayIndex = 19;
+            this.myDataGridViewHead.Columns["料件类别说明"].HeaderText = "料件类别";
             this.myDataGridViewHead.Columns["采购区域"].DisplayIndex = 20;
             this.myDataGridViewHead.Columns["料件存放位置"].DisplayIndex = 21;
             this.myDataGridViewHead.Columns["料件存放位置"].HeaderText = "存放位置";
@@ -78,17 +83,6 @@ namespace UniqueDeclaration.Base
             //dataGridViewCellStyle1.NullValue = null;
             //this.myDataGridViewHead.Columns["单价"].DefaultCellStyle = dataGridViewCellStyle1;
             //this.myDataGridViewHead.Columns["换算因子"].DefaultCellStyle = dataGridViewCellStyle1;
-
-//            this.cbox_料件类别.InitialData(DataAccess.DataAccessEnum.DataAccessName.DataAccessName_Manufacture, "SELECT [料件类别],[料件类别说明] FROM [料件类别表]", "料件类别", "料件类别说明", -1);
-//            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-//            dataAccess.Open();
-//            DataTable dtTemp = dataAccess.GetTable("SELECT [料件类别],[料件类别说明] FROM [料件类别表]",null);
-//            DataGridViewComboBoxColumn cbo料件类别 = new DataGridViewComboBoxColumn();   
-//            cbo料件类别.DataSource = dtTemp；   
-//cbo料件类别.DataPropertyName= datagrid的数据源的要绑定的列；   
-//cbo料件类别.d...Member="下拉框显示的TEXT";   
-//cbo料件类别.ValueMember="隐藏的值"；   
-
             foreach (DataGridViewColumn textBoxColumn in this.myDataGridViewHead.Columns)
             {
                 if (textBoxColumn.Name!="计算库存")

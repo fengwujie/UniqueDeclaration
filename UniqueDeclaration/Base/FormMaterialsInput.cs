@@ -63,7 +63,7 @@ namespace UniqueDeclaration.Base
             txt_仓库单位2.LostFocus += new EventHandler(txt_LostFocus);
             txt_领料单位1.LostFocus += new EventHandler(txt_LostFocus);
             txt_领料单位2.LostFocus += new EventHandler(txt_LostFocus);
-            txt_换算单位.LostFocus += new EventHandler(txt_LostFocus);
+            txt_换算单位.LostFocus += new EventHandler(txt_LostFocus);            
         }
 
         private void FormMaterialsInput_FormClosing(object sender, FormClosingEventArgs e)

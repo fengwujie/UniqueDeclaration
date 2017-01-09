@@ -62,6 +62,7 @@ namespace UniqueDeclaration.Base
                     dataAccess.Close();
                     DataTableTools.AddEmptyRow(dtHead);
                     this.myDataGridViewHead.DataSource = dtHead;
+                    setTool1Enabled();
                 }
                 catch (Exception ex)
                 {
