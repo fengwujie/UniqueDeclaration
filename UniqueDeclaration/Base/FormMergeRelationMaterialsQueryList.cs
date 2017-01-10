@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using DataAccess;
 using UniqueDeclarationPubilc;
+using System.IO;
 
 namespace UniqueDeclaration.Base
 {
@@ -34,7 +35,8 @@ namespace UniqueDeclaration.Base
         {
             base.tool1_Number.Visible = false;
             base.tool1_Import.Visible = false;
-            base.tool1_Print.Visible = true;
+            base.tool1_Print.Visible = false;            
+            this.tool1_PrintView.Visible = true;
             this.myDataGridViewDetails.SelectionChanged += new EventHandler(myDataGridViewDetails_SelectionChanged);
             LoadDataSourceHead();
 
@@ -358,6 +360,54 @@ namespace UniqueDeclaration.Base
             }
         }
 
+        public override void tool1_PrintView_Click(object sender, EventArgs e)
+        {
+            //base.tool1_PrintView_Click(sender, e);
+            if (SysMessage.YesNoMsg("数据是否导入EXCEL文件？") == System.Windows.Forms.DialogResult.No) return;
+
+            DataTable dtHead = (DataTable)myDataGridViewHead.DataSource;
+            DataTable dtDetails = (DataTable)myDataGridViewDetails.DataSource;
+            if (dtHead.Rows.Count > 0)
+            {
+                long n = 0;
+                string strSourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\归并关系表.xls");
+                string strDestFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"ExcelTemp\归并关系表{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss")));
+                File.Copy(strSourceFile, strDestFile);
+                File.SetAttributes(strDestFile, File.GetAttributes(strDestFile) | FileAttributes.ReadOnly);
+                string fn = strDestFile;
+                ExcelTools ea = new ExcelTools();
+                ea.SafeOpen(fn);
+                ea.ActiveSheet(1); // 激活
+                n = 6;
+                DataGridViewRow gridViewRowHead = myDataGridViewHead.CurrentRowNew;
+                ea.SetValue(string.Format("N{0}", n),DateTime.Now.ToString("yyyy-MM-ddd"));
+                ea.SetValue(string.Format("J{0}", n), gridViewRowHead.Cells["序号"].Value.ToString());
+                ea.SetValue(string.Format("K{0}", n), gridViewRowHead.Cells["产品编号"].Value.ToString());
+                ea.SetValue(string.Format("L{0}", n), gridViewRowHead.Cells["商品编码"].Value.ToString());
+                ea.SetValue(string.Format("M{0}", n), gridViewRowHead.Cells["商品名称"].Value.ToString());
+                ea.SetValue(string.Format("N{0}", n), gridViewRowHead.Cells["商品规格"].Value.ToString());
+                ea.SetValue(string.Format("O{0}", n), gridViewRowHead.Cells["单价"].Value.ToString());
+                ea.SetValue(string.Format("P{0}", n), gridViewRowHead.Cells["计量单位"].Value.ToString());
+                ea.SetValue(string.Format("Q{0}", n), gridViewRowHead.Cells["法定单位"].Value.ToString());
+                ea.SetValue(string.Format("R{0}", n), gridViewRowHead.Cells["换算因子"].Value.ToString());
+                foreach (DataRow row in dtDetails.Rows)
+                {
+                    ea.SetValue(string.Format("A{0}", n), row["序号"].ToString());
+                    ea.SetValue(string.Format("B{0}", n), row["产品编号"].ToString());
+                    ea.SetValue(string.Format("C{0}", n), row["商品编码"].ToString());
+                    ea.SetValue(string.Format("D{0}", n), row["商品名称"].ToString());
+                    ea.SetValue(string.Format("E{0}", n), row["商品规格"].ToString());
+                    ea.SetValue(string.Format("F{0}", n), row["单价"].ToString());
+                    ea.SetValue(string.Format("G{0}", n), row["计量单位"].ToString());
+                    ea.SetValue(string.Format("H{0}", n), row["法定单位"].ToString());
+                    ea.SetValue(string.Format("I{0}", n), row["换算因子"].ToString());
+                    n++;
+                }
+                ea.Visible = true;
+                ea.Dispose();
+            }
+        }
+        
         public override void tool1_ExportExcel_Click(object sender, EventArgs e)
         {
             base.tool1_ExportExcel_Click(sender, e);
@@ -449,6 +499,126 @@ namespace UniqueDeclaration.Base
             if (bTriggerGridViewDetails_SelectionChanged)
             {
                 LoadDataSourceDetails2();
+            }
+        }
+        //基本数据导出
+        private void btnBaseDataExport_Click(object sender, EventArgs e)
+        {
+            if (SysMessage.YesNoMsg("数据是否导入EXCEL文件？") == System.Windows.Forms.DialogResult.No) return;
+            long n = 0;
+            string 计量单位Char, 法定单位Char, 币种Char;
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            string strSQL = string.Format("SELECT '1' AS 类型,H.主料,H.四位大类序号,H.序号, H.商品编码, H.商品名称, H.商品规格, H.计量单位, H.币种,H.单价, H.法定单位,  H.换算因子, Q.产品编号,Q.商品规格 AS 归并前商品规格, '1' AS 商品类型,H.法定单位 AS 企业单位, Q.单价 AS 归并前单价 FROM 归并后料件清单 H left outer  JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id where H.电子帐册号={0} order by H.序号,Q.序号", StringTools.SqlQ(gstrManualNo));
+            DataTable dtData = dataAccess.GetTable(strSQL, null);
+            dataAccess.Close();
+            if (dtData.Rows.Count > 0)
+            {
+                string strSourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\基础数据导入.xls");
+                string strDestFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"ExcelTemp\基础数据导入{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss")));
+                File.Copy(strSourceFile, strDestFile);
+                File.SetAttributes(strDestFile, File.GetAttributes(strDestFile) | FileAttributes.ReadOnly);
+                string fn = strDestFile;
+                ExcelTools ea = new ExcelTools();
+                ea.SafeOpen(fn);
+                ea.ActiveSheet(1); // 激活
+                IDataAccess dataGWT = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_GWT);
+                DataTable dtUnit = null;
+                DataTable dtCurr = null;
+                n = 3;
+                foreach (DataRow row in dtData.Rows)
+                {
+                    #region 计量单位
+                    if (row["计量单位"] == DBNull.Value && row["计量单位"].ToString().Trim() == "")
+                    {
+                        计量单位Char = "";
+                    }
+                    else
+                    {
+                        dataGWT.Open();
+                        dtUnit = dataGWT.GetTable(string.Format("SELECT * FROM unit where ut_name={0}", StringTools.SqlQ(row["计量单位"].ToString())), null);
+                        dataGWT.Close();
+                        if (dtUnit.Rows.Count > 0)
+                        {
+                            计量单位Char = dtUnit.Rows[0]["Unit"].ToString();
+                        }
+                        else
+                        {
+                            计量单位Char = row["计量单位"].ToString().Trim();
+                        }
+                    }
+                    #endregion
+
+                    #region 法定单位
+                    if (row["法定单位"] == DBNull.Value && row["法定单位"].ToString().Trim() == "")
+                    {
+                        法定单位Char = "";
+                    }
+                    else
+                    {
+                        dataGWT.Open();
+                        dtUnit = dataGWT.GetTable(string.Format("SELECT * FROM unit where ut_name={0}", StringTools.SqlQ(row["法定单位"].ToString())), null);
+                        dataGWT.Close();
+                        if (dtUnit.Rows.Count > 0)
+                        {
+                            法定单位Char = dtUnit.Rows[0]["Unit"].ToString();
+                        }
+                        else
+                        {
+                            法定单位Char = row["法定单位"].ToString().Trim();
+                        }
+                    }
+                    #endregion
+                    
+                    #region 币种
+                    if (row["币种"] == DBNull.Value && row["币种"].ToString().Trim() == "")
+                    {
+                        币种Char = "";
+                    }
+                    else
+                    {
+                        dataGWT.Open();
+                        dtCurr = dataGWT.GetTable(string.Format("SELECT * FROM curr where cr_name={0} or cr_ab={0}", StringTools.SqlQ(row["币种"].ToString())), null);
+                        dataGWT.Close();
+                        if (dtUnit.Rows.Count > 0)
+                        {
+                            币种Char = dtCurr.Rows[0]["curr"].ToString();
+                        }
+                        else
+                        {
+                            币种Char = row["法定单位"].ToString().Trim();
+                        }
+                    }
+                    #endregion
+
+                    #region 设置单元格的值
+                    ea.SetValue(string.Format("A{0}", n), row["类型"].ToString());
+                    ea.SetValue(string.Format("B{0}", n), row["序号"].ToString());
+                    ea.SetValue(string.Format("C{0}", n), row["商品编码"].ToString());
+                    ea.SetValue(string.Format("E{0}", n), row["商品名称"].ToString());
+                    ea.SetValue(string.Format("F{0}", n), row["商品规格"].ToString());
+                    ea.SetValue(string.Format("G{0}", n), 计量单位Char);
+                    ea.SetValue(string.Format("H{0}", n), 币种Char);
+                    ea.SetValue(string.Format("I{0}", n), row["单价"].ToString());
+                    ea.SetValue(string.Format("K{0}", n), 法定单位Char);
+                    ea.SetValue(string.Format("Q{0}", n), row["四位大类序号"].ToString());
+                    ea.SetValue(string.Format("R{0}", n), row["换算因子"].ToString());
+                    ea.SetValue(string.Format("V{0}", n), row["产品编号"].ToString());
+                    ea.SetValue(string.Format("W{0}", n), row["商品名称"].ToString());
+                    ea.SetValue(string.Format("X{0}", n), row["归并前商品规格"].ToString());
+                    ea.SetValue(string.Format("Y{0}", n), row["商品类型"].ToString());
+                    ea.SetValue(string.Format("Z{0}", n), 法定单位Char);
+                    ea.SetValue(string.Format("AB{0}", n), row["归并前单价"].ToString());
+                    ea.SetValue(string.Format("AC{0}", n), 币种Char);
+                    ea.SetValue(string.Format("AF{0}", n), row["换算因子"].ToString());
+                    ea.SetValue(string.Format("AP{0}", n), row["换算因子"].ToString());
+                    ea.SetValue(string.Format("AS{0}", n), row["归并前单价"].ToString());
+                    ea.SetValue(string.Format("AT{0}", n), row["主料"].ToString()=="主料" ? "1" : "2");
+                    #endregion
+                    n++;
+                }
+                ea.Visible = true;
+                ea.Dispose();
             }
         }
     }

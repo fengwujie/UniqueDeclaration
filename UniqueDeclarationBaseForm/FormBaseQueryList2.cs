@@ -84,6 +84,12 @@ namespace UniqueDeclarationBaseForm
         {
 
         }
+        //打印预览
+        public virtual void tool1_PrintView_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

@@ -43,6 +43,7 @@
             this.tool1_BOM = new System.Windows.Forms.ToolStripButton();
             this.tool1_Query = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool1_PrintView = new System.Windows.Forms.ToolStripButton();
             this.tool1_Print = new System.Windows.Forms.ToolStripButton();
             this.tool1_ExportExcel = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -77,6 +78,7 @@
             this.tool1_BOM,
             this.tool1_Query,
             this.toolStripSeparator4,
+            this.tool1_PrintView,
             this.tool1_Print,
             this.tool1_ExportExcel});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
@@ -212,6 +214,17 @@
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tool1_PrintView
+            // 
+            this.tool1_PrintView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_PrintView.Image = global::UniqueDeclarationBaseForm.Properties.Resources.Magnify_24px;
+            this.tool1_PrintView.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_PrintView.Name = "tool1_PrintView";
+            this.tool1_PrintView.Size = new System.Drawing.Size(23, 22);
+            this.tool1_PrintView.Text = "打印预览";
+            this.tool1_PrintView.Visible = false;
+            this.tool1_PrintView.Click += new System.EventHandler(this.tool1_PrintView_Click);
             // 
             // tool1_Print
             // 
@@ -350,5 +363,6 @@
         public System.Windows.Forms.ToolStripButton tool1_Import;
         public System.Windows.Forms.ToolStripButton tool1_Number;
         public System.Windows.Forms.ToolStripButton tool1_BOM;
+        public System.Windows.Forms.ToolStripButton tool1_PrintView;
     }
 }
