@@ -154,6 +154,12 @@
     <Compile Include="Base\FormMergeRelationProductQueryList.Designer.cs">
       <DependentUpon>FormMergeRelationProductQueryList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Base\FormMergeRelationProduct_SesialSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormMergeRelationProduct_SesialSelect.Designer.cs">
+      <DependentUpon>FormMergeRelationProduct_SesialSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSetArticlesFile.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -466,6 +472,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Base\FormMergeRelationProductQueryList.resx">
       <DependentUpon>FormMergeRelationProductQueryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormMergeRelationProduct_SesialSelect.resx">
+      <DependentUpon>FormMergeRelationProduct_SesialSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormArticlesFile.resx">
       <DependentUpon>FormArticlesFile.cs</DependentUpon>

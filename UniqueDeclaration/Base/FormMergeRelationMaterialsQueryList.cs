@@ -35,8 +35,8 @@ namespace UniqueDeclaration.Base
         {
             base.tool1_Number.Visible = false;
             base.tool1_Import.Visible = false;
-            base.tool1_Print.Visible = false;            
-            this.tool1_PrintView.Visible = true;
+            base.tool1_Print.Visible = false;
+            base.tool1_PrintView.Visible = true;
             this.myDataGridViewDetails.SelectionChanged += new EventHandler(myDataGridViewDetails_SelectionChanged);
             LoadDataSourceHead();
 

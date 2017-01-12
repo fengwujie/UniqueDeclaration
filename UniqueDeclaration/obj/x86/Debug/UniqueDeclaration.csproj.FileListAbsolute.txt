@@ -21,14 +21,19 @@ F:\Unique\UniqueDeclaration\UniqueDeclaration\bin\Debug\UniquePMS.xml
 F:\Unique\UniqueDeclaration\UniqueDeclaration\bin\Debug\UniqueDeclarationDAL.pdb
 F:\Unique\UniqueDeclaration\UniqueDeclaration\bin\Debug\office.xml
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.csprojResolveAssemblyReference.cache
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormBaseDataQueryList.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormManualBOM.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormManualInput.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormManualQueryCondition.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormManualQueryList.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMaterialsInput.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMaterialsQueryCondition.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMaterialsQueryList.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMergeRelationMaterialsInput.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMergeRelationMaterialsQueryList.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMergeRelationProductInput.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMergeRelationProductQueryList.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMergeRelationProduct_SesialSelect.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.FormArticlesFile.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.FormArticlesFile_ExportExcel.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.FormArticlesFile_Find.resources
@@ -80,7 +85,3 @@ F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\RdlCompile.cache
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\RdlCompile.compiled
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.exe
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.pdb
-F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormBaseDataQueryList.resources
-F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMaterialsQueryCondition.resources
-F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMaterialsInput.resources
-F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormMaterialsQueryList.resources
