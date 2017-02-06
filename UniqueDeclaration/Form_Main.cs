@@ -374,6 +374,26 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
+        //配件资料录入
+        private void FormFitInput_Click(object sender, EventArgs e)
+        {
+            FormFitInput objForm = new FormFitInput();
+            objForm.MdiParent = this;
+            objForm.giOrderID = 0;
+            objForm.Show();
+        }
+        //配件资料查询
+        private void FormFitQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormFitQueryCondition queryConditionForm = new FormFitQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                UniqueDeclaration.Base.FormFitQueryList queryListForm = new UniqueDeclaration.Base.FormFitQueryList();
+                queryListForm.gstrWhere = queryConditionForm.strReturnWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
         //手册资料录入
         private void FromManualInput_Click(object sender, EventArgs e)
         {
@@ -438,7 +458,6 @@ namespace UniqueDeclaration
             }
         }
         #endregion
-
 
 
 

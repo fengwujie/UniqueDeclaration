@@ -76,6 +76,24 @@
     <Compile Include="Base\FormBaseDataQueryList.Designer.cs">
       <DependentUpon>FormBaseDataQueryList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Base\FormFitInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormFitInput.Designer.cs">
+      <DependentUpon>FormFitInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormFitQueryCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormFitQueryCondition.Designer.cs">
+      <DependentUpon>FormFitQueryCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormFitQueryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormFitQueryList.Designer.cs">
+      <DependentUpon>FormFitQueryList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Base\FormManualBOM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -439,6 +457,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Base\FormBaseDataQueryList.resx">
       <DependentUpon>FormBaseDataQueryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormFitInput.resx">
+      <DependentUpon>FormFitInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormFitQueryCondition.resx">
+      <DependentUpon>FormFitQueryCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormFitQueryList.resx">
+      <DependentUpon>FormFitQueryList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Base\FormManualBOM.resx">
       <DependentUpon>FormManualBOM.cs</DependentUpon>

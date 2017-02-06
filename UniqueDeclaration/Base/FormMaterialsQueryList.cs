@@ -139,7 +139,7 @@ namespace UniqueDeclaration.Base
                 dataAccess.Open();
                 dataAccess.ExecuteNonQuery(strSQL, null);
                 dataAccess.Close();
-                string strSuccess = string.Format("{0} 料件型号【{0}】，料件名称【{1}】成功！", tool1_Delete.Text, this.myDataGridViewHead.CurrentRow.Cells["料件型号"].Value, this.myDataGridViewHead.CurrentRow.Cells["料件名称"].Value);
+                string strSuccess = string.Format("{0} 料件型号【{1}】，料件名称【{2}】成功！", tool1_Delete.Text, this.myDataGridViewHead.CurrentRow.Cells["料件型号"].Value, this.myDataGridViewHead.CurrentRow.Cells["料件名称"].Value);
                 this.myDataGridViewHead.Rows.Remove(this.myDataGridViewHead.CurrentRow);
                 setTool1Enabled();
                 SysMessage.InformationMsg(strSuccess);

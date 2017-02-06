@@ -85,3 +85,6 @@ F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\RdlCompile.cache
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\RdlCompile.compiled
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.exe
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.pdb
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormFitInput.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormFitQueryCondition.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormFitQueryList.resources

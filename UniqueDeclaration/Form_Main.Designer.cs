@@ -32,6 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.Base = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormMaterialsInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormMaterialsQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.FormFitQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.FromManualInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormManualQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
@@ -81,6 +86,8 @@
             this.arrangeIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -88,11 +95,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStatus_Version = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.FormMaterialsQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
-            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormMaterialsInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormFitInput = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -122,6 +125,9 @@
             this.FormMaterialsInput,
             this.FormMaterialsQueryCondition,
             this.toolStripSeparator2,
+            this.FormFitInput,
+            this.FormFitQueryCondition,
+            this.toolStripSeparator3,
             this.FromManualInput,
             this.FormManualQueryCondition,
             this.toolStripMenuItem4,
@@ -133,6 +139,37 @@
             this.Base.Name = "Base";
             this.Base.Size = new System.Drawing.Size(68, 21);
             this.Base.Text = "基础资料";
+            // 
+            // FormMaterialsInput
+            // 
+            this.FormMaterialsInput.Name = "FormMaterialsInput";
+            this.FormMaterialsInput.Size = new System.Drawing.Size(232, 22);
+            this.FormMaterialsInput.Text = "料件资料录入";
+            this.FormMaterialsInput.Click += new System.EventHandler(this.FormMaterialsInput_Click);
+            // 
+            // FormMaterialsQueryCondition
+            // 
+            this.FormMaterialsQueryCondition.Name = "FormMaterialsQueryCondition";
+            this.FormMaterialsQueryCondition.Size = new System.Drawing.Size(232, 22);
+            this.FormMaterialsQueryCondition.Text = "料件资料查询";
+            this.FormMaterialsQueryCondition.Click += new System.EventHandler(this.FormMaterialsQueryCondition_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(229, 6);
+            // 
+            // FormFitQueryCondition
+            // 
+            this.FormFitQueryCondition.Name = "FormFitQueryCondition";
+            this.FormFitQueryCondition.Size = new System.Drawing.Size(232, 22);
+            this.FormFitQueryCondition.Text = "配件资料查询";
+            this.FormFitQueryCondition.Click += new System.EventHandler(this.FormFitQueryCondition_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(229, 6);
             // 
             // FromManualInput
             // 
@@ -505,6 +542,22 @@
             this.contentsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.contentsToolStripMenuItem.Text = "目录(&C)";
             // 
+            // indexToolStripMenuItem
+            // 
+            this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
+            this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
+            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.indexToolStripMenuItem.Text = "索引(&I)";
+            // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("searchToolStripMenuItem.Image")));
+            this.searchToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.searchToolStripMenuItem.Text = "搜索(&S)";
+            // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
@@ -551,40 +604,12 @@
             this.toolStatus_Version.Size = new System.Drawing.Size(85, 17);
             this.toolStatus_Version.Text = "当前系统版本";
             // 
-            // toolStripSeparator2
+            // FormFitInput
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(229, 6);
-            // 
-            // FormMaterialsQueryCondition
-            // 
-            this.FormMaterialsQueryCondition.Name = "FormMaterialsQueryCondition";
-            this.FormMaterialsQueryCondition.Size = new System.Drawing.Size(232, 22);
-            this.FormMaterialsQueryCondition.Text = "料件资料查询";
-            this.FormMaterialsQueryCondition.Click += new System.EventHandler(this.FormMaterialsQueryCondition_Click);
-            // 
-            // indexToolStripMenuItem
-            // 
-            this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
-            this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
-            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.indexToolStripMenuItem.Text = "索引(&I)";
-            // 
-            // searchToolStripMenuItem
-            // 
-            this.searchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("searchToolStripMenuItem.Image")));
-            this.searchToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.searchToolStripMenuItem.Text = "搜索(&S)";
-            // 
-            // FormMaterialsInput
-            // 
-            this.FormMaterialsInput.Name = "FormMaterialsInput";
-            this.FormMaterialsInput.Size = new System.Drawing.Size(232, 22);
-            this.FormMaterialsInput.Text = "料件资料录入";
-            this.FormMaterialsInput.Click += new System.EventHandler(this.FormMaterialsInput_Click);
+            this.FormFitInput.Name = "FormFitInput";
+            this.FormFitInput.Size = new System.Drawing.Size(232, 22);
+            this.FormFitInput.Text = "配件资料录入";
+            this.FormFitInput.Click += new System.EventHandler(this.FormFitInput_Click);
             // 
             // Form_Main
             // 
@@ -675,6 +700,9 @@
         private System.Windows.Forms.ToolStripMenuItem FormMaterialsQueryCondition;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem FormMaterialsInput;
+        private System.Windows.Forms.ToolStripMenuItem FormFitQueryCondition;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem FormFitInput;
     }
 }
 
