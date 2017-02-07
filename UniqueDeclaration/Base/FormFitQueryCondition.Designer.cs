@@ -33,25 +33,25 @@
             this.txt_配件名 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable2 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myLable3 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.cbox_配件组别 = new UniqueDeclarationBaseForm.Controls.myComboBox();
             this.txt_配件存放位置 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable4 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myLable7 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myLable8 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.datetime_配件建档日期2 = new UniqueDeclarationBaseForm.Controls.myDateTimePicker();
             this.datetime_配件建档日期1 = new UniqueDeclarationBaseForm.Controls.myDateTimePicker();
+            this.txt_配件组别 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txt_配件组别);
             this.groupBox1.Controls.Add(this.myLable7);
             this.groupBox1.Controls.Add(this.myLable8);
             this.groupBox1.Controls.Add(this.datetime_配件建档日期2);
             this.groupBox1.Controls.Add(this.datetime_配件建档日期1);
             this.groupBox1.Controls.Add(this.txt_配件存放位置);
             this.groupBox1.Controls.Add(this.myLable4);
-            this.groupBox1.Controls.Add(this.cbox_配件组别);
             this.groupBox1.Controls.Add(this.myLable3);
             this.groupBox1.Controls.Add(this.txt_配件名);
             this.groupBox1.Controls.Add(this.myLable2);
@@ -62,7 +62,7 @@
             // 
             // myCheckBox1
             // 
-            this.myCheckBox1.Location = new System.Drawing.Point(297, 88);
+            this.myCheckBox1.Location = new System.Drawing.Point(309, 88);
             // 
             // btnOK
             // 
@@ -118,16 +118,6 @@
             this.myLable3.TabIndex = 4;
             this.myLable3.Text = "组别：";
             this.myLable3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cbox_配件组别
-            // 
-            this.cbox_配件组别.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbox_配件组别.FormattingEnabled = true;
-            this.cbox_配件组别.Location = new System.Drawing.Point(81, 91);
-            this.cbox_配件组别.Name = "cbox_配件组别";
-            this.cbox_配件组别.Size = new System.Drawing.Size(175, 20);
-            this.cbox_配件组别.TabIndex = 5;
-            this.cbox_配件组别.Tag = "string,配件组别";
             // 
             // txt_配件存放位置
             // 
@@ -189,6 +179,15 @@
             this.datetime_配件建档日期1.TabIndex = 53;
             this.datetime_配件建档日期1.Tag = "1,配件建档日期";
             // 
+            // txt_配件组别
+            // 
+            this.txt_配件组别.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_配件组别.Location = new System.Drawing.Point(81, 90);
+            this.txt_配件组别.Name = "txt_配件组别";
+            this.txt_配件组别.Size = new System.Drawing.Size(175, 21);
+            this.txt_配件组别.TabIndex = 57;
+            this.txt_配件组别.Tag = "配件组别";
+            // 
             // FormFitQueryCondition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -208,7 +207,6 @@
         private UniqueDeclarationBaseForm.Controls.myLable myLable1;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_配件存放位置;
         private UniqueDeclarationBaseForm.Controls.myLable myLable4;
-        private UniqueDeclarationBaseForm.Controls.myComboBox cbox_配件组别;
         private UniqueDeclarationBaseForm.Controls.myLable myLable3;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_配件名;
         private UniqueDeclarationBaseForm.Controls.myLable myLable2;
@@ -217,5 +215,6 @@
         private UniqueDeclarationBaseForm.Controls.myLable myLable8;
         private UniqueDeclarationBaseForm.Controls.myDateTimePicker datetime_配件建档日期2;
         private UniqueDeclarationBaseForm.Controls.myDateTimePicker datetime_配件建档日期1;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_配件组别;
     }
 }
