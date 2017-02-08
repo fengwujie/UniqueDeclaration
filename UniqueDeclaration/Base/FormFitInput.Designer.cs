@@ -38,6 +38,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tool1_Close = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txt_配件组别 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.datetime_配件建档日期 = new UniqueDeclarationBaseForm.Controls.myDateTimePicker();
             this.myLable9 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_配件备注 = new UniqueDeclarationBaseForm.Controls.myTextBox();
@@ -55,7 +56,6 @@
             this.myLable2 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_编号 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable1 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.txt_配件组别 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -169,6 +169,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "配件资料";
             // 
+            // txt_配件组别
+            // 
+            this.txt_配件组别.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_配件组别.Location = new System.Drawing.Point(71, 134);
+            this.txt_配件组别.Name = "txt_配件组别";
+            this.txt_配件组别.Size = new System.Drawing.Size(113, 21);
+            this.txt_配件组别.TabIndex = 4;
+            this.txt_配件组别.Validating += new System.ComponentModel.CancelEventHandler(this.txtInt_Validating);
+            this.txt_配件组别.Validated += new System.EventHandler(this.txt_Validated);
+            // 
             // datetime_配件建档日期
             // 
             this.datetime_配件建档日期.Checked = false;
@@ -178,7 +188,7 @@
             this.datetime_配件建档日期.Location = new System.Drawing.Point(71, 244);
             this.datetime_配件建档日期.Name = "datetime_配件建档日期";
             this.datetime_配件建档日期.Size = new System.Drawing.Size(175, 21);
-            this.datetime_配件建档日期.TabIndex = 19;
+            this.datetime_配件建档日期.TabIndex = 8;
             // 
             // myLable9
             // 
@@ -195,7 +205,8 @@
             this.txt_配件备注.Location = new System.Drawing.Point(71, 208);
             this.txt_配件备注.Name = "txt_配件备注";
             this.txt_配件备注.Size = new System.Drawing.Size(317, 21);
-            this.txt_配件备注.TabIndex = 16;
+            this.txt_配件备注.TabIndex = 7;
+            this.txt_配件备注.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable8
             // 
@@ -212,7 +223,8 @@
             this.txt_配件存放位置.Location = new System.Drawing.Point(71, 172);
             this.txt_配件存放位置.Name = "txt_配件存放位置";
             this.txt_配件存放位置.Size = new System.Drawing.Size(317, 21);
-            this.txt_配件存放位置.TabIndex = 14;
+            this.txt_配件存放位置.TabIndex = 6;
+            this.txt_配件存放位置.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable7
             // 
@@ -229,7 +241,9 @@
             this.txt_实际总重.Location = new System.Drawing.Point(275, 136);
             this.txt_实际总重.Name = "txt_实际总重";
             this.txt_实际总重.Size = new System.Drawing.Size(113, 21);
-            this.txt_实际总重.TabIndex = 12;
+            this.txt_实际总重.TabIndex = 5;
+            this.txt_实际总重.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_实际总重.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable6
             // 
@@ -255,7 +269,9 @@
             this.txt_配件名.Location = new System.Drawing.Point(71, 96);
             this.txt_配件名.Name = "txt_配件名";
             this.txt_配件名.Size = new System.Drawing.Size(317, 21);
-            this.txt_配件名.TabIndex = 7;
+            this.txt_配件名.TabIndex = 3;
+            this.txt_配件名.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
+            this.txt_配件名.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable4
             // 
@@ -272,7 +288,8 @@
             this.txt_配件型号.Location = new System.Drawing.Point(71, 57);
             this.txt_配件型号.Name = "txt_配件型号";
             this.txt_配件型号.Size = new System.Drawing.Size(317, 21);
-            this.txt_配件型号.TabIndex = 5;
+            this.txt_配件型号.TabIndex = 2;
+            this.txt_配件型号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // lab_配件型号
             // 
@@ -289,7 +306,8 @@
             this.txt_电子帐册编号.Location = new System.Drawing.Point(275, 20);
             this.txt_电子帐册编号.Name = "txt_电子帐册编号";
             this.txt_电子帐册编号.Size = new System.Drawing.Size(113, 21);
-            this.txt_电子帐册编号.TabIndex = 3;
+            this.txt_电子帐册编号.TabIndex = 1;
+            this.txt_电子帐册编号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable2
             // 
@@ -306,7 +324,8 @@
             this.txt_编号.Location = new System.Drawing.Point(71, 21);
             this.txt_编号.Name = "txt_编号";
             this.txt_编号.Size = new System.Drawing.Size(100, 21);
-            this.txt_编号.TabIndex = 1;
+            this.txt_编号.TabIndex = 0;
+            this.txt_编号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable1
             // 
@@ -316,14 +335,6 @@
             this.myLable1.TabIndex = 0;
             this.myLable1.Text = "编号：";
             this.myLable1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txt_配件组别
-            // 
-            this.txt_配件组别.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_配件组别.Location = new System.Drawing.Point(71, 134);
-            this.txt_配件组别.Name = "txt_配件组别";
-            this.txt_配件组别.Size = new System.Drawing.Size(113, 21);
-            this.txt_配件组别.TabIndex = 20;
             // 
             // FormFitInput
             // 

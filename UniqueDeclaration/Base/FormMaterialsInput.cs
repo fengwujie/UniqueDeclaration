@@ -642,7 +642,8 @@ namespace UniqueDeclaration.Base
             {
                 case "料件型号":
                     #region 料件型号
-                    if (rowHead.RowState == DataRowState.Added)
+                    if (rowHead.RowState == DataRowState.Added || 
+                        (rowHead.RowState == DataRowState.Modified && rowHead["料件型号",DataRowVersion.Original].ToString() != txtBox.Text))
                     {
                         strSQL = string.Format("SELECT 料件id FROM 料件资料表 WHERE 料件型号 = {0}", StringTools.SqlQ(txtBox.Text));
                         dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);

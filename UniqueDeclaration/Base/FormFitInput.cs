@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using DataAccess;
 using UniqueDeclarationPubilc;
+using UniqueDeclarationBaseForm.Controls;
+using UniqueDeclarationBaseForm;
 
 namespace UniqueDeclaration.Base
 {
@@ -30,10 +32,6 @@ namespace UniqueDeclaration.Base
         /// 表头数据集的行数据
         /// </summary>
         public DataRow rowHead = null;
-        /// <summary>
-        /// 文本控件失去焦点事件
-        /// </summary>
-        private bool btxt_LostFocus = false;
         #endregion
 
         #region 窗体事件
@@ -138,11 +136,11 @@ namespace UniqueDeclaration.Base
         {
             if (row.Table.Columns.Contains("编号"))
             {
-                txt_编号.Text = row["编号"].ToString();
+                txt_编号.Text = row["编号"].ToString().Trim();
             }
             if (row.Table.Columns.Contains("电子帐册编号"))
             {
-                txt_电子帐册编号.Text = row["电子帐册编号"].ToString();
+                txt_电子帐册编号.Text = row["电子帐册编号"].ToString().Trim();
             }
             if (row.Table.Columns.Contains("配件型号"))
             {
@@ -179,6 +177,9 @@ namespace UniqueDeclaration.Base
         /// </summary>
         public bool Save(bool bShowSuccessMsg)
         {
+            Control control = this.ActiveControl;
+            Control nextControl = this.GetNextControl(control, false);
+            nextControl.Focus();
             bool bSuccess = true;
             try
             {
@@ -213,8 +214,7 @@ namespace UniqueDeclaration.Base
                             rowHead["配件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件型号"].ToString()),
                             rowHead["配件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件型号"].ToString()),
                             rowHead["配件建档日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(Convert.ToDateTime(rowHead["配件建档日期"]).ToString("yyyy-MM-dd HH:mm:ss")),
-                            rowHead["配件组别"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件组别"].ToString()),
-                            rowHead["配件存放位置"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件存放位置"].ToString()),
+                            rowHead["配件组别"] == DBNull.Value ? "NULL" :rowHead["配件组别"],
                             rowHead["配件存放位置"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件存放位置"].ToString()),
                             rowHead["配件备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件备注"].ToString()),
                             rowHead["实际总重"] == DBNull.Value ? "NULL" : rowHead["实际总重"]);
@@ -254,8 +254,7 @@ namespace UniqueDeclaration.Base
                             rowHead["配件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件型号"].ToString()),
                             rowHead["配件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件型号"].ToString()),
                             rowHead["配件建档日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(Convert.ToDateTime(rowHead["配件建档日期"]).ToString("yyyy-MM-dd HH:mm:ss")),
-                            rowHead["配件组别"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件组别"].ToString()),
-                            rowHead["配件存放位置"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件存放位置"].ToString()),
+                            rowHead["配件组别"] == DBNull.Value ? "NULL" : rowHead["配件组别"],
                             rowHead["配件存放位置"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件存放位置"].ToString()),
                             rowHead["配件备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件备注"].ToString()),
                             rowHead["实际总重"] == DBNull.Value ? "NULL" : rowHead["实际总重"],
@@ -324,12 +323,65 @@ namespace UniqueDeclaration.Base
         //复制
         private void btnClone_Click(object sender, EventArgs e)
         {
-
+            FormBaseDialogInput objForm = new FormBaseDialogInput();
+            objForm.strDefault = txt_配件型号.Text;
+            objForm.strFormText = "配件资料克隆(请输入源配件型号：)";
+            if (objForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (objForm.strReturn.Trim().Length > 0)
+                {
+                    IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                    dataAccess.Open();
+                    string strSQL = string.Format("SELECT * FROM 配件资料表 WHERE 配件型号 = {0}", StringTools.SqlQ(objForm.strReturn));
+                    DataTable dtTemp = dataAccess.GetTable(strSQL.ToString(), null);
+                    dataAccess.Close();
+                    if (dtTemp.Rows.Count == 0)
+                    {
+                        SysMessage.InformationMsg("指定的配件不存存！");
+                    }
+                    else
+                    {
+                        // "配件id", "配件型号", "配件建档日期"  不做处理
+                        foreach (DataColumn col in dtTemp.Columns)
+                        {
+                            if (col.ColumnName != "配件id" && col.ColumnName != "配件型号" && col.ColumnName != "配件建档日期")
+                                rowHead[col.ColumnName] = dtTemp.Rows[0][col.ColumnName];
+                        }
+                        fillControl(rowHead);
+                    }
+                }
+            }
         }
         //BOM结构
         private void tool1_BOM_Click(object sender, EventArgs e)
         {
+            if (rowHead.RowState == DataRowState.Added)
+            {
+                SysMessage.InformationMsg("新增配件资料未保存，不允许执行该操作！");
+                return;
+            }
+            #region 判断是否已经有打开的BOM窗体
+            foreach (Form childFrm in this.MdiParent.MdiChildren)
+            {
+                if (childFrm.Name == "FormFitBOM")
+                {
+                    FormFitBOM orderBomForm = (FormFitBOM)childFrm;
+                    if (orderBomForm.mnFId ==Convert.ToInt32(rowHead["配件id"]))
+                    {
+                        childFrm.Activate();
+                        return;
+                    }
+                }
+            }
+            #endregion
 
+            FormFitBOM formBOM = new FormFitBOM();
+            formBOM.mbShow = false;
+            formBOM.mnFId = Convert.ToInt32(rowHead["配件id"]);
+            formBOM.mstrName = rowHead["配件型号"].ToString();
+            formBOM.mstrGroup = rowHead["配件组别"].ToString();
+            formBOM.MdiParent = this.MdiParent;
+            formBOM.Show();
         }
         //关闭
         private void tool1_Close_Click(object sender, EventArgs e)
@@ -338,5 +390,79 @@ namespace UniqueDeclaration.Base
         }
         #endregion
 
+        #region 表头控件事件
+        //文本控件值变化时验证
+        private void txt_Validating(object sender, CancelEventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            if (txtBox.Text.Trim().Length == 0) return;
+            string fieldName = txtBox.Name.Replace("txt_", "");
+            string strSQL = string.Empty;
+            IDataAccess dataAccess = null;
+            switch (fieldName)
+            {
+                case "配件型号":
+                    #region 配件型号
+                    if (rowHead.RowState == DataRowState.Added ||
+                        (rowHead.RowState == DataRowState.Modified && rowHead["配件型号", DataRowVersion.Original].ToString() != txtBox.Text))
+                    {
+                        strSQL = string.Format("SELECT 配件id FROM 配件资料表 WHERE 配件型号 = {0}", StringTools.SqlQ(txtBox.Text));
+                        dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                        dataAccess.Open();
+                        DataTable dtManual = dataAccess.GetTable(strSQL.ToString(), null);
+                        dataAccess.Close();
+                        if (dtManual.Rows.Count > 0)
+                        {
+                            SysMessage.InformationMsg("此配件型号已存在，请重新输入！");
+                            e.Cancel = true;
+                            txtBox.Focus();
+                        }
+                    }
+                    break;
+                    #endregion
+            }
+        }
+        private void txt_Validated(object sender, EventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            string fieldName = txtBox.Name.Replace("txt_", "");
+            if (rowHead[fieldName].ToString() != txtBox.Text)
+            {
+                rowHead[fieldName] = txtBox.Text;
+            }
+        }
+        private void txtInt_Validating(object sender, CancelEventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            if (txtBox.Text.Trim().Length > 0)
+            {
+                try
+                {
+                    int.Parse(txtBox.Text.Trim());
+                }
+                catch (Exception ex)
+                {
+                    SysMessage.ErrorMsg(ex.Message);
+                    e.Cancel = true;
+                }
+            }
+        }
+        private void txtFloat_Validating(object sender, CancelEventArgs e)
+        {
+            myTextBox txtBox = (myTextBox)sender;
+            if (txtBox.Text.Trim().Length > 0)
+            {
+                try
+                {
+                    decimal.Parse(txtBox.Text.Trim());
+                }
+                catch (Exception ex)
+                {
+                    SysMessage.ErrorMsg(ex.Message);
+                    e.Cancel = true;
+                }
+            }
+        }
+        #endregion
     }
 }

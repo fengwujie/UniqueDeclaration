@@ -133,6 +133,29 @@ namespace UniqueDeclaration.Base
         public override void tool1_BOM_Click(object sender, EventArgs e)
         {
             base.tool1_BOM_Click(sender, e);
+            if (this.myDataGridViewHead.RowCount == 0) return;
+            #region 判断是否已经有打开的BOM窗体
+            foreach (Form childFrm in this.MdiParent.MdiChildren)
+            {
+                if (childFrm.Name == "FormFitBOM")
+                {
+                    FormFitBOM orderBomForm = (FormFitBOM)childFrm;
+                    if (orderBomForm.mnFId == Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["配件id"].Value))
+                    {
+                        childFrm.Activate();
+                        return;
+                    }
+                }
+            }
+            #endregion
+
+            FormFitBOM formBOM = new FormFitBOM();
+            formBOM.mbShow = false;
+            formBOM.mnFId =Convert.ToInt32( this.myDataGridViewHead.CurrentRow.Cells["配件id"].Value);
+            formBOM.mstrName = this.myDataGridViewHead.CurrentRow.Cells["配件型号"].Value.ToString();
+            formBOM.mstrGroup = this.myDataGridViewHead.CurrentRow.Cells["配件组别"].Value.ToString();
+            formBOM.MdiParent = this.MdiParent;
+            formBOM.Show();
         }
 
         public override void tool1_Print_Click(object sender, EventArgs e)
