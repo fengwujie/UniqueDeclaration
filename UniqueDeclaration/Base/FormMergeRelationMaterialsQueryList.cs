@@ -422,6 +422,12 @@ namespace UniqueDeclaration.Base
         {
             base.tool1_Print_Click(sender, e);
         }
+
+        public override void tool1_Import_Click(object sender, EventArgs e)
+        {
+            base.tool1_Import_Click(sender, e);
+
+        }
         /// <summary>
         /// 设置tools的按钮是否可用
         /// </summary>

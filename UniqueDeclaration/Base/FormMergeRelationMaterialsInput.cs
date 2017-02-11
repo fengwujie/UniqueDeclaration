@@ -609,6 +609,12 @@ namespace UniqueDeclaration.Base
             setTool2Enabled();
         }
 
+        //导入
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void tool2_Add_Click(object sender, EventArgs e)
         {
             dtDetailsAddRow();
@@ -1008,5 +1014,6 @@ namespace UniqueDeclaration.Base
             }
         }
         #endregion
+
     }
 }

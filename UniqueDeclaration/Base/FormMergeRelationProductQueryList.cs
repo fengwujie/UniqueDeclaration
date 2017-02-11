@@ -29,7 +29,7 @@ namespace UniqueDeclaration.Base
         private void FormMergeRelationProductQueryList_Load(object sender, EventArgs e)
         {
             base.tool1_Number.Visible = false;
-            base.tool1_Import.Visible = false;
+            //base.tool1_Import.Visible = false;
             base.tool1_Print.Visible = false;
             base.tool1_PrintView.Visible = true;
             LoadDataSourceHead();
@@ -218,6 +218,115 @@ namespace UniqueDeclaration.Base
             this.myDataGridViewHead.Rows[this.myDataGridViewHead.RowCount - 1].Selected = true;
             this.myDataGridViewHead.CurrentCell = this.myDataGridViewHead.Rows[this.myDataGridViewHead.RowCount - 1].Cells["序号"];
             setTool1Enabled();
+        }
+
+        public override void tool1_Import_Click(object sender, EventArgs e)
+        {
+            //base.tool1_Import_Click(sender, e);
+            if (this.myDataGridViewHead.CurrentRow == null) return;
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            try
+            {
+                long CodeNumber = 0;
+                string codestring = string.Empty;
+                //IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                dataAccess.Open();
+                string strSQL = string.Format("SELECT max(序号) as 序号 from 归并前成品清单 where 归并后成品id={0}", this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value);
+                DataTable dt序号 = dataAccess.GetTable(strSQL, null);
+                //dataAccess.Close();
+                if (dt序号.Rows.Count > 0)
+                {
+                    long lStartNo = 0;
+                    if (Convert.ToInt64(dt序号.Rows[0]["序号"]) > 0)
+                    {
+                        lStartNo = Convert.ToInt64(dt序号.Rows[0]["序号"]) + 1;
+                        CodeNumber = Convert.ToInt64(dt序号.Rows[0]["序号"]) + 1;
+                    }
+                    else
+                    {
+                        lStartNo = 1;
+                        CodeNumber = 1;
+                    }
+                    FormCodeSelect codeSelect = new FormCodeSelect();
+                    codeSelect.lStartNo = lStartNo;
+                    if (codeSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        long iCount = codeSelect.iCount;
+                        for (long i = 1; i <= iCount; i++)
+                        {
+                            codestring = CodeNumber.ToString().PadLeft(4, '0');
+                            switch (Convert.ToInt32(myDataGridViewHead.CurrentRow.Cells["序号"].Value))
+                            {
+                                case 25:
+                                    //deManufacture.cnnPublic.Execute ("INSERT INTO 归并前成品清单(归并后成品id, 产品编号, 序号, 商品规格, 单价,日期) VALUES(" & mRs!归并后成品id & ",'" & Trim(str(10000000 + CodeNumber)) & "'," & CodeNumber & ",'" & "E-" & codestring & "'," & mRs!单价 & ",'" & Format(Date, "yyyyMMdd") & "')")
+                                    strSQL = string.Format(@"INSERT INTO 归并前成品清单(归并后成品id, 产品编号, 序号, 商品规格, 单价,日期) VALUES({0},'{1}',{2},'E-{3}',{4},'{5}')",
+                                                        this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value, 10000000 + CodeNumber, CodeNumber, codestring,
+                                                        this.myDataGridViewHead.CurrentRow.Cells["单价"].Value, DateTime.Today);
+                                    dataAccess.ExecuteNonQuery(strSQL, null);
+                                    break;
+                                case 26:
+                                    strSQL = string.Format(@"INSERT INTO 归并前成品清单(归并后成品id, 产品编号, 序号, 商品规格, 单价,日期) VALUES({0},'{1}',{2},'VE-{3}',{4},'{5}')",
+                                                        this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value, 10000000 + CodeNumber, CodeNumber, codestring,
+                                                        this.myDataGridViewHead.CurrentRow.Cells["单价"].Value, DateTime.Today);
+                                    dataAccess.ExecuteNonQuery(strSQL, null);
+                                    break;
+                                case 27:
+                                    strSQL = string.Format(@"INSERT INTO 归并前成品清单(归并后成品id, 产品编号, 序号, 商品规格, 单价,日期) VALUES({0},'{1}',{2},'NH-{3}',{4},'{5}')",
+                                                        this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value, 10000000 + CodeNumber, CodeNumber, codestring,
+                                                        this.myDataGridViewHead.CurrentRow.Cells["单价"].Value, DateTime.Today);
+                                    dataAccess.ExecuteNonQuery(strSQL, null);
+                                    break;
+                                case 28:
+                                    strSQL = string.Format(@"INSERT INTO 归并前成品清单(归并后成品id, 产品编号, 序号, 商品规格, 单价,日期) VALUES({0},'{1}',{2},'NL-{3}',{4},'{5}')",
+                                                        this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value, 10000000 + CodeNumber, CodeNumber, codestring,
+                                                        this.myDataGridViewHead.CurrentRow.Cells["单价"].Value, DateTime.Today);
+                                    dataAccess.ExecuteNonQuery(strSQL, null);
+                                    break;
+                                case 29:
+                                    strSQL = string.Format(@"INSERT INTO 归并前成品清单(归并后成品id, 产品编号, 序号, 商品规格, 单价,日期) VALUES({0},'{1}',{2},'EL-{3}',{4},'{5}')",
+                                                        this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value, 10000000 + CodeNumber, CodeNumber, codestring,
+                                                        this.myDataGridViewHead.CurrentRow.Cells["单价"].Value, DateTime.Today);
+                                    dataAccess.ExecuteNonQuery(strSQL, null);
+                                    break;
+                                case 30:
+                                    strSQL = string.Format(@"INSERT INTO 归并前成品清单(归并后成品id, 产品编号, 序号, 商品规格, 单价,日期) VALUES({0},'{1}',{2},'HD-{3}',{4},'{5}')",
+                                                        this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value, 10000000 + CodeNumber, CodeNumber, codestring,
+                                                        this.myDataGridViewHead.CurrentRow.Cells["单价"].Value, DateTime.Today);
+                                    dataAccess.ExecuteNonQuery(strSQL, null);
+                                    break;
+                                case 31:
+                                    strSQL = string.Format(@"INSERT INTO 归并前成品清单(归并后成品id, 产品编号, 序号, 商品规格, 单价,日期) VALUES({0},'{1}',{2},'U-{3}',{4},'{5}')",
+                                                        this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value, 10000000 + CodeNumber, CodeNumber, codestring,
+                                                        this.myDataGridViewHead.CurrentRow.Cells["单价"].Value, DateTime.Today);
+                                    dataAccess.ExecuteNonQuery(strSQL, null);
+                                    break;
+                                case 32:
+                                    strSQL = string.Format(@"INSERT INTO 归并前成品清单(归并后成品id, 产品编号, 序号, 商品规格, 单价,日期) VALUES({0},'{1}',{2},'B-{3}',{4},'{5}')",
+                                                        this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value, 10000000 + CodeNumber, CodeNumber, codestring,
+                                                        this.myDataGridViewHead.CurrentRow.Cells["单价"].Value, DateTime.Today);
+                                    dataAccess.ExecuteNonQuery(strSQL, null);
+                                    break;
+                                case 33:
+                                    strSQL = string.Format(@"INSERT INTO 归并前成品清单(归并后成品id, 产品编号, 序号, 商品规格, 单价,日期) VALUES({0},'{1}',{2},'R-{3}',{4},'{5}')",
+                                                        this.myDataGridViewHead.CurrentRow.Cells["归并后成品id"].Value, 10000000 + CodeNumber, CodeNumber, codestring,
+                                                        this.myDataGridViewHead.CurrentRow.Cells["单价"].Value, DateTime.Today);
+                                    dataAccess.ExecuteNonQuery(strSQL, null);
+                                    break;
+                            }
+                            CodeNumber++;
+                        }
+                        LoadDataSourceDetails();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SysMessage.ErrorMsg(ex.Message);
+            }
+            finally
+            {
+                dataAccess.Close();
+            }
         }
 
         public override void tool1_Add_Click(object sender, EventArgs e)

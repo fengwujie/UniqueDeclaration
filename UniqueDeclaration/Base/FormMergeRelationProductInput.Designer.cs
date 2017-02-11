@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tool1_Add = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Save = new System.Windows.Forms.ToolStripButton();
-            this.tool1_Close = new System.Windows.Forms.ToolStripButton();
             this.myTabControl1 = new UniqueDeclarationBaseForm.Controls.myTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.txt_换算因子 = new UniqueDeclarationBaseForm.Controls.myTextBox();
@@ -67,14 +64,18 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.myDataGridViewDetails = new UniqueDeclarationBaseForm.Controls.myDataGridView();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.myContextDetails = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
             this.tool2_First = new System.Windows.Forms.ToolStripButton();
             this.tool2_up = new System.Windows.Forms.ToolStripButton();
             this.tool2_Down = new System.Windows.Forms.ToolStripButton();
             this.tool2_End = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tool2_Add = new System.Windows.Forms.ToolStripButton();
             this.tool2_Delete = new System.Windows.Forms.ToolStripButton();
-            this.myContextDetails = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
+            this.tool1_Add = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Save = new System.Windows.Forms.ToolStripButton();
+            this.tool1_Close = new System.Windows.Forms.ToolStripButton();
+            this.btnImport = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.myTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -94,36 +95,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(922, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // tool1_Add
-            // 
-            this.tool1_Add.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Add.Image = global::UniqueDeclaration.Properties.Resources.Add_24px;
-            this.tool1_Add.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Add.Name = "tool1_Add";
-            this.tool1_Add.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Add.Text = "新增";
-            this.tool1_Add.Click += new System.EventHandler(this.tool1_Add_Click);
-            // 
-            // tool1_Save
-            // 
-            this.tool1_Save.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Save.Image = global::UniqueDeclaration.Properties.Resources.Save_24pxt;
-            this.tool1_Save.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Save.Name = "tool1_Save";
-            this.tool1_Save.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Save.Text = "保存";
-            this.tool1_Save.Click += new System.EventHandler(this.tool1_Save_Click);
-            // 
-            // tool1_Close
-            // 
-            this.tool1_Close.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tool1_Close.Image = global::UniqueDeclaration.Properties.Resources.close_24px;
-            this.tool1_Close.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tool1_Close.Name = "tool1_Close";
-            this.tool1_Close.Size = new System.Drawing.Size(23, 22);
-            this.tool1_Close.Text = "关闭";
-            this.tool1_Close.Click += new System.EventHandler(this.tool1_Close_Click);
             // 
             // myTabControl1
             // 
@@ -491,6 +462,7 @@
             this.tool2_Down,
             this.tool2_End,
             this.toolStripSeparator1,
+            this.btnImport,
             this.tool2_Add,
             this.tool2_Delete});
             this.toolStrip2.Location = new System.Drawing.Point(3, 3);
@@ -498,6 +470,17 @@
             this.toolStrip2.Size = new System.Drawing.Size(908, 25);
             this.toolStrip2.TabIndex = 5;
             this.toolStrip2.Text = "toolStrip2";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // myContextDetails
+            // 
+            this.myContextDetails.MyDataGridView = this.myDataGridViewDetails;
+            this.myContextDetails.Name = "myContextDetails";
+            this.myContextDetails.Size = new System.Drawing.Size(101, 26);
             // 
             // tool2_First
             // 
@@ -539,11 +522,6 @@
             this.tool2_End.Text = "末笔";
             this.tool2_End.Click += new System.EventHandler(this.tool2_End_Click);
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
             // tool2_Add
             // 
             this.tool2_Add.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -564,11 +542,45 @@
             this.tool2_Delete.Text = "删除";
             this.tool2_Delete.Click += new System.EventHandler(this.tool2_Delete_Click);
             // 
-            // myContextDetails
+            // tool1_Add
             // 
-            this.myContextDetails.MyDataGridView = this.myDataGridViewDetails;
-            this.myContextDetails.Name = "myContextDetails";
-            this.myContextDetails.Size = new System.Drawing.Size(101, 26);
+            this.tool1_Add.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Add.Image = global::UniqueDeclaration.Properties.Resources.Add_24px;
+            this.tool1_Add.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Add.Name = "tool1_Add";
+            this.tool1_Add.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Add.Text = "新增";
+            this.tool1_Add.Click += new System.EventHandler(this.tool1_Add_Click);
+            // 
+            // tool1_Save
+            // 
+            this.tool1_Save.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Save.Image = global::UniqueDeclaration.Properties.Resources.Save_24pxt;
+            this.tool1_Save.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Save.Name = "tool1_Save";
+            this.tool1_Save.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Save.Text = "保存";
+            this.tool1_Save.Click += new System.EventHandler(this.tool1_Save_Click);
+            // 
+            // tool1_Close
+            // 
+            this.tool1_Close.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_Close.Image = global::UniqueDeclaration.Properties.Resources.close_24px;
+            this.tool1_Close.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_Close.Name = "tool1_Close";
+            this.tool1_Close.Size = new System.Drawing.Size(23, 22);
+            this.tool1_Close.Text = "关闭";
+            this.tool1_Close.Click += new System.EventHandler(this.tool1_Close_Click);
+            // 
+            // btnImport
+            // 
+            this.btnImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnImport.Image = global::UniqueDeclaration.Properties.Resources.shopping_webshop_24px;
+            this.btnImport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(23, 22);
+            this.btnImport.Text = "toolStripButton1";
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // FormMergeRelationProductInput
             // 
@@ -644,5 +656,6 @@
         private System.Windows.Forms.ToolStripButton tool2_Add;
         public System.Windows.Forms.ToolStripButton tool2_Delete;
         private UniqueDeclarationBaseForm.Controls.myContextMenuStripCell myContextDetails;
+        private System.Windows.Forms.ToolStripButton btnImport;
     }
 }
