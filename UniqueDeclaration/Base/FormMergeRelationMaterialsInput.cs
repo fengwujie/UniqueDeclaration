@@ -185,8 +185,8 @@ namespace UniqueDeclaration.Base
             bCellKeyPress = false;
             this.myDataGridViewDetails.DataSource = dtDetails;
             bCellKeyPress = true;
-            if (dtDetails.Rows.Count == 0)
-                dtDetailsAddRow();
+            //if (dtDetails.Rows.Count == 0)
+            //    dtDetailsAddRow();
             setTool2Enabled();
         }
         /// <summary>
@@ -612,7 +612,38 @@ namespace UniqueDeclaration.Base
         //导入
         private void btnImport_Click(object sender, EventArgs e)
         {
-
+            // 保存对话框
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Execl files (*.xls)|*.xls";
+            openFileDialog.Title = "选择Excel文件";
+            openFileDialog.RestoreDirectory = true;
+            string strErrorMsg = string.Empty;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string FileName = openFileDialog.FileName;
+                DataTable dtData = ExcelTools.ExportToDatatable(FileName, false);
+                if (dtData.Rows.Count <= 5)
+                {
+                    SysMessage.InformationMsg("EXCEL文件没有数据！");
+                    return;
+                }
+                for (int i = 5; i < dtData.Rows.Count; i++)
+                {
+                    DataRow row = dtData.Rows[i];
+                    DataRow newRow = dtDetails.NewRow();
+                    newRow["序号"] = row[0];
+                    newRow["产品编号"] = row[1];
+                    newRow["商品编码"] = row[2];
+                    newRow["商品名称"] = row[3];
+                    newRow["商品规格"] = row[4];
+                    newRow["单价"] = row[5];
+                    newRow["币种"] = rowHead["币种"];
+                    newRow["计量单位"] = row[6];
+                    newRow["法定单位"] = row[7];
+                    newRow["换算因子"] = row[8];
+                    dtDetails.Rows.Add(newRow);
+                }
+            }
         }
 
         private void tool2_Add_Click(object sender, EventArgs e)
