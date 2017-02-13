@@ -157,7 +157,29 @@ namespace UniqueDeclaration.Base
         /// </summary>
         private void LoadDataSourceMaterialsDetails()
         {
+            int i, j, k, l, m, n, o, p;
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            dtMaterialsDetails = dataAccess.GetTable("select * from 料件组成打印虚表 where 代号<1", null);
+            dataAccess.Close();
+            string strSQL = string.Empty;
+            foreach (DataRow fitRow in dtFit.Rows)
+            {
+                if (fitRow.RowState == DataRowState.Deleted) continue;
+                DataRow newRow = dtMaterialsDetails.NewRow();
+                newRow["型号"] = string.Format("配件:{0}  X{1}", fitRow["型号"], row["数量"]);
+                newRow["品名"] = string.Format("组别:{0}", fitRow["配件组别"]);
+                dtMaterialsDetails.Rows.Add(newRow);
+                strSQL = string.Format(@"SELECT  料件资料表.料件型号, 料件资料表.料件名, 配件组成表.数量,配件组成表.损耗率,
+                    料件资料表.料件单位,配件组成表.备注, 配件组成表.配件组成id, 配件组成表.配件组成表id, 配件资料表.配件型号,配件资料表.配件组别 FROM 配件组成表 
+                    LEFT OUTER JOIN 配件资料表 ON 配件组成表.配件组成id = 配件资料表.配件id LEFT OUTER JOIN 料件资料表 ON 
+                    配件组成表.料件组成id = 料件资料表.料件id WHERE 配件组成表.配件id ={0} order by 配件组成id,配件组成表id", row["组成id"]);
+                DataTable rs0 = dataAccess.GetTable(strSQL, null);
+                foreach (DataRow rs0Row in rs0.Rows)
+                {
 
+                }
+            }
             initGridMaterialsDetails();
         }
         /// <summary>
