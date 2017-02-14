@@ -167,17 +167,37 @@ namespace UniqueDeclaration.Base
             {
                 if (fitRow.RowState == DataRowState.Deleted) continue;
                 DataRow newRow = dtMaterialsDetails.NewRow();
-                newRow["型号"] = string.Format("配件:{0}  X{1}", fitRow["型号"], row["数量"]);
+                newRow["型号"] = string.Format("配件:{0}  X{1}", fitRow["型号"], fitRow["数量"]);
                 newRow["品名"] = string.Format("组别:{0}", fitRow["配件组别"]);
                 dtMaterialsDetails.Rows.Add(newRow);
                 strSQL = string.Format(@"SELECT  料件资料表.料件型号, 料件资料表.料件名, 配件组成表.数量,配件组成表.损耗率,
                     料件资料表.料件单位,配件组成表.备注, 配件组成表.配件组成id, 配件组成表.配件组成表id, 配件资料表.配件型号,配件资料表.配件组别 FROM 配件组成表 
                     LEFT OUTER JOIN 配件资料表 ON 配件组成表.配件组成id = 配件资料表.配件id LEFT OUTER JOIN 料件资料表 ON 
-                    配件组成表.料件组成id = 料件资料表.料件id WHERE 配件组成表.配件id ={0} order by 配件组成id,配件组成表id", row["组成id"]);
+                    配件组成表.料件组成id = 料件资料表.料件id WHERE 配件组成表.配件id ={0} order by 配件组成id,配件组成表id", fitRow["组成id"]);
                 DataTable rs0 = dataAccess.GetTable(strSQL, null);
                 foreach (DataRow rs0Row in rs0.Rows)
                 {
+                    if (rs0Row["料件型号"] == DBNull.Value || rs0Row["料件型号"].ToString() == "")
+                    {
+                        DataRow newRow0 = dtMaterialsDetails.NewRow();
+                        n++;
+                        newRow0["代号"] = n;
+                        newRow0["型号"] = string.Format("  {0}", rs0Row["料件型号"]);
+                        newRow0["品名"] = rs0Row["料件名"];
+                        newRow0["数量"] = rs0Row["数量"];
+                        newRow0["损耗率"] = rs0Row["损耗率"];
+                        newRow0["单位"] = rs0Row["料件单位"];
+                        newRow0["备注"] = rs0Row["备注"];
+                        dtMaterialsDetails.Rows.Add(newRow0);
+                    }
+                    else
+                    {
+                        DataRow newRow0 = dtMaterialsDetails.NewRow();
+                        newRow0["型号"] = string.Format("  配件:{0}  X{1}", rs0Row["配件型号"], rs0Row["数量"]);
+                        newRow0["品名"] = string.Format("组别:{0}", rs0Row["配件组别"]);
+                        dtMaterialsDetails.Rows.Add(newRow0);
 
+                    }
                 }
             }
             initGridMaterialsDetails();
