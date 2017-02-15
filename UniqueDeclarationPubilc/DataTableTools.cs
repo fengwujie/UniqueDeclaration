@@ -11,11 +11,27 @@ namespace UniqueDeclarationPubilc
         /// <summary>
         /// 增加一行空数据（如果DataTable行数为0时）
         /// </summary>
-        /// <param name="dtData"></param>
+        /// <param name="dtData">需要增加空行的DataTable</param>
         public static void AddEmptyRow(DataTable dtData)
         {
-            if (dtData.Rows.Count == 0)
+            AddEmptyRow(dtData, true);
+        }
+        /// <summary>
+        /// 增加一行空数据（如果DataTable行数为0时）
+        /// </summary>
+        /// <param name="dtData">需要增加空行的DataTable</param>
+        /// <param name="bZeroRowAdd">是否行数为0时才增加</param>
+        public static void AddEmptyRow(DataTable dtData,bool bZeroRowAdd)
+        {
+            if (bZeroRowAdd)
+            {
+                if (dtData.Rows.Count == 0)
+                    dtData.Rows.Add(dtData.NewRow());
+            }
+            else
+            {
                 dtData.Rows.Add(dtData.NewRow());
+            }
         }
         /// <summary>
         /// 将一个DataTable中的数据添加到另一个DataTable中

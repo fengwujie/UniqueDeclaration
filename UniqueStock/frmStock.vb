@@ -252,8 +252,6 @@ Public Class frmStock
                     Exit Sub
                 End If
 
-                Dim No1, No2, No3 As Object
-                Dim NNo1, NNo2, NNo3 As Object
                 Dim n As Long
                 intTotalWeight = 0
 
