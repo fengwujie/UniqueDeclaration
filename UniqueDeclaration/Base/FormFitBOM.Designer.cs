@@ -31,6 +31,8 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tool1_Save = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tool1_BOM = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tool1_Close = new System.Windows.Forms.ToolStripButton();
             this.myTabControl1 = new UniqueDeclarationBaseForm.Controls.myTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -51,8 +53,6 @@
             this.btnDeleteDeclarationMaterialsDetails = new UniqueDeclarationBaseForm.Controls.myButton();
             this.myLable2 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myDataGridViewDeclarationMaterialsDetails = new UniqueDeclarationBaseForm.Controls.myDataGridView();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.myTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -73,7 +73,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tool1_Save,
             this.toolStripSeparator1,
-            this.toolStripButton1,
+            this.tool1_BOM,
             this.toolStripSeparator2,
             this.tool1_Close});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -90,11 +90,27 @@
             this.tool1_Save.Name = "tool1_Save";
             this.tool1_Save.Size = new System.Drawing.Size(23, 22);
             this.tool1_Save.Text = "保存";
+            this.tool1_Save.Click += new System.EventHandler(this.tool1_Save_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tool1_BOM
+            // 
+            this.tool1_BOM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool1_BOM.Image = global::UniqueDeclaration.Properties.Resources.structure_24px;
+            this.tool1_BOM.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool1_BOM.Name = "tool1_BOM";
+            this.tool1_BOM.Size = new System.Drawing.Size(23, 22);
+            this.tool1_BOM.Text = "结构组成";
+            this.tool1_BOM.Click += new System.EventHandler(this.tool1_BOM_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // tool1_Close
             // 
@@ -104,6 +120,7 @@
             this.tool1_Close.Name = "tool1_Close";
             this.tool1_Close.Size = new System.Drawing.Size(23, 22);
             this.tool1_Close.Text = "关闭";
+            this.tool1_Close.Click += new System.EventHandler(this.tool1_Close_Click);
             // 
             // myTabControl1
             // 
@@ -325,20 +342,6 @@
             this.myDataGridViewDeclarationMaterialsDetails.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.myDataGridViewDeclarationMaterialsDetails_DataError);
             this.myDataGridViewDeclarationMaterialsDetails.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myDataGridViewDeclarationMaterialsDetails_KeyPress);
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::UniqueDeclaration.Properties.Resources.structure_24px;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "结构组成";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
             // FormFitBOM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -396,7 +399,7 @@
         private UniqueDeclarationBaseForm.Controls.myButton btnDeleteDeclarationMaterialsDetails;
         private UniqueDeclarationBaseForm.Controls.myLable myLable2;
         private UniqueDeclarationBaseForm.Controls.myDataGridView myDataGridViewDeclarationMaterialsDetails;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton tool1_BOM;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
