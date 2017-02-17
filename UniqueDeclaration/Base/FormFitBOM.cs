@@ -115,8 +115,21 @@ namespace UniqueDeclaration.Base
             this.myDataGridViewFit.Columns["品名"].HeaderText = "料件名";
             this.myDataGridViewFit.Columns["配件组别"].HeaderText = "组别";
 
+            this.myDataGridViewFit.Columns["配件组别"].Width = 40;
+            this.myDataGridViewFit.Columns["数量"].Width = 40;
+            this.myDataGridViewFit.Columns["客户代码"].Width = 80;
+            this.myDataGridViewFit.Columns["类别描述"].Width = 80;
+
             this.myDataGridViewFit.Columns["品名"].ReadOnly = true;
             this.myDataGridViewFit.Columns["配件组别"].ReadOnly = true;
+            this.myDataGridViewFit.Columns["类别描述"].ReadOnly = true;
+
+            DataGridViewButtonColumn col_btn_insert = new DataGridViewButtonColumn();
+            col_btn_insert.HeaderText = "选择类别";
+            col_btn_insert.Text = "选择类别";//加上这两个就能显示
+            col_btn_insert.Width = 60;
+            col_btn_insert.UseColumnTextForButtonValue = true;//
+            myDataGridViewFit.Columns.Add(col_btn_insert);
         }
         /// <summary>
         /// 料件明细GRID（单独处理）
@@ -880,6 +893,28 @@ namespace UniqueDeclaration.Base
 
         #region myDataGridViewFit
 
+        private void myDataGridViewFit_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == myDataGridViewFit.Columns.Count - 1)
+            {
+                string strSQL = "select 配件类别,配件类别描述 from 配件类别表";
+                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                dataAccess.Open();
+                DataTable dtData = dataAccess.GetTable(strSQL, null);
+                dataAccess.Close();
+                FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
+                formSelect.strFormText = "选择配件类别";
+                formSelect.dtData = dtData;
+                if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    myDataGridViewFit.Rows[e.RowIndex].Cells["类别"].Value = formSelect.returnRow["配件类别"];
+                    myDataGridViewFit.Rows[e.RowIndex].Cells["类别描述"].Value = formSelect.returnRow["配件类别描述"];
+                }
+                //string str = myDataGridViewFit.Rows[e.RowIndex].Cells[0].Value.ToString();
+                //MessageBox.Show(str);
+            }
+        }
+
         private void myDataGridViewFit_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (!bCellEndEdit) return;
@@ -998,15 +1033,23 @@ namespace UniqueDeclaration.Base
                         }
                         else
                         {
-                            //否则跳转到下一行的客人型号，如果是最后一行，则新增一行
-                            if (cell.RowIndex == dgv.Rows.Count - 1)
+                            if (dgv.Rows[cell.RowIndex].Cells["类别描述"].Value == DBNull.Value
+                            || dgv.Rows[cell.RowIndex].Cells["类别描述"].Value.ToString().Trim() == "")
                             {
-                                DataTableTools.AddEmptyRow(dtFit, false);
-                                dgv.CurrentCell = dgv["型号", cell.RowIndex + 1];
+                                dgv.CurrentCell = dgv["类别描述", cell.RowIndex];
                             }
                             else
                             {
-                                dgv.CurrentCell = dgv["型号", cell.RowIndex + 1];
+                                //否则跳转到下一行的客人型号，如果是最后一行，则新增一行
+                                if (cell.RowIndex == dgv.Rows.Count - 1)
+                                {
+                                    DataTableTools.AddEmptyRow(dtFit, false);
+                                    dgv.CurrentCell = dgv["型号", cell.RowIndex + 1];
+                                }
+                                else
+                                {
+                                    dgv.CurrentCell = dgv["型号", cell.RowIndex + 1];
+                                }
                             }
                         }
                     }
@@ -1389,5 +1432,6 @@ namespace UniqueDeclaration.Base
             this.Close();
         }
         #endregion
+
     }
 }

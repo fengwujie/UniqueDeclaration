@@ -183,6 +183,7 @@
             this.myDataGridViewFit.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.myDataGridViewFit_CellEndEdit);
             this.myDataGridViewFit.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.myDataGridViewFit_DataError);
             this.myDataGridViewFit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myDataGridViewFit_KeyPress);
+            this.myDataGridViewFit.CellContentClick +=new System.Windows.Forms.DataGridViewCellEventHandler(myDataGridViewFit_CellContentClick);
             // 
             // groupBox1
             // 
