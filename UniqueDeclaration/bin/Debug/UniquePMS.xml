@@ -6,7 +6,45 @@ UniquePMS
 </name>
 </assembly>
 <members>
-<member name="P:UniquePMS.My.Resources.Resources.ResourceManager">
+<member name="T:UniquePMS.ErpDataHelper">
+	<summary>
+DataHelper 的摘要说明
+ </summary>
+</member><member name="M:UniquePMS.frmOutStock.LoadUniqueData">
+	<summary>
+ 取到来源数据
+ </summary>
+	<remarks></remarks>
+</member><member name="M:UniquePMS.frmOutStock.LoadAndyData(System.String)">
+	<summary>
+ 读取已导的数据
+ </summary>
+	<param name="strOrder"></param>
+	<remarks></remarks>
+</member><member name="M:UniquePMS.frmOutStockQuery.LoadAndyData(System.String)">
+	<summary>
+ 读取已导的数据
+ </summary>
+	<param name="strOrder"></param>
+	<remarks></remarks>
+</member><member name="M:UniquePMS.frmZztzd.LoadAndyData(System.String)">
+	<summary>
+ 读取已导的数据
+ </summary>
+	<param name="strOrder"></param>
+	<remarks></remarks>
+</member><member name="M:UniquePMS.frmInStock.LoadUniqueData">
+	<summary>
+ 取到来源数据
+ </summary>
+	<remarks></remarks>
+</member><member name="M:UniquePMS.frmInStock.LoadAndyData(System.String)">
+	<summary>
+ 读取已导的数据
+ </summary>
+	<param name="strOrder"></param>
+	<remarks></remarks>
+</member><member name="P:UniquePMS.My.Resources.Resources.ResourceManager">
 	<summary>
   返回此类使用的缓存的 ResourceManager 实例。
 </summary>
@@ -19,7 +57,7 @@ UniquePMS
 	<summary>
   一个强类型的资源类，用于查找本地化的字符串等。
 </summary>
-</member><member name="M:UniquePMS.frmZztzd.LoadAndyData(System.String)">
+</member><member name="M:UniquePMS.frmStock.LoadAndyData(System.String)">
 	<summary>
  读取已导的数据
  </summary>
@@ -171,44 +209,6 @@ UniquePMS
 	<remarks/>
 </member><member name="T:UniquePMS.WebReference.ExcelSqlCompletedEventArgs">
 	<remarks/>
-</member><member name="M:UniquePMS.frmInStock.LoadUniqueData">
-	<summary>
- 取到来源数据
- </summary>
-	<remarks></remarks>
-</member><member name="M:UniquePMS.frmInStock.LoadAndyData(System.String)">
-	<summary>
- 读取已导的数据
- </summary>
-	<param name="strOrder"></param>
-	<remarks></remarks>
-</member><member name="M:UniquePMS.frmOutStock.LoadUniqueData">
-	<summary>
- 取到来源数据
- </summary>
-	<remarks></remarks>
-</member><member name="M:UniquePMS.frmOutStock.LoadAndyData(System.String)">
-	<summary>
- 读取已导的数据
- </summary>
-	<param name="strOrder"></param>
-	<remarks></remarks>
-</member><member name="M:UniquePMS.frmStock.LoadAndyData(System.String)">
-	<summary>
- 读取已导的数据
- </summary>
-	<param name="strOrder"></param>
-	<remarks></remarks>
-</member><member name="T:UniquePMS.ErpDataHelper">
-	<summary>
-DataHelper 的摘要说明
- </summary>
-</member><member name="M:UniquePMS.frmOutStockQuery.LoadAndyData(System.String)">
-	<summary>
- 读取已导的数据
- </summary>
-	<param name="strOrder"></param>
-	<remarks></remarks>
 </member><member name="M:UniquePMS.frmInStockQuery.LoadAndyData(System.String)">
 	<summary>
  读取已导的数据

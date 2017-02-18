@@ -394,6 +394,26 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
+        //产品资料录入
+        private void FormProductInput_Click(object sender, EventArgs e)
+        {
+            FormProductInput objForm = new FormProductInput();
+            objForm.MdiParent = this;
+            objForm.giOrderID = 0;
+            objForm.Show();
+        }
+        //产品资料查询
+        private void FormProductQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormProductQueryCondition queryConditionForm = new FormProductQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                UniqueDeclaration.Base.FormProductQueryList queryListForm = new UniqueDeclaration.Base.FormProductQueryList();
+                queryListForm.gstrWhere = queryConditionForm.strReturnWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
         //手册资料录入
         private void FromManualInput_Click(object sender, EventArgs e)
         {
@@ -459,6 +479,7 @@ namespace UniqueDeclaration
         }
         #endregion
 
+     
 
 
     }

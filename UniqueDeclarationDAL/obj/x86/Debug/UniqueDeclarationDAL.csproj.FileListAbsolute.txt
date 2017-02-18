@@ -11,3 +11,16 @@ F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclaration
 F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.csproj.GenerateResource.Cache
 F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.dll
 F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.pdb
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\UniqueDeclarationDAL.dll
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\UniqueDeclarationDAL.pdb
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\DataAccess.dll
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\UniqueDeclarationModel.dll
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\UniqueDeclarationPubilc.dll
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\DataAccess.pdb
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\UniqueDeclarationModel.pdb
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\UniqueDeclarationPubilc.pdb
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.csprojResolveAssemblyReference.cache
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.Properties.Resources.resources
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.csproj.GenerateResource.Cache
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.dll
+D:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.pdb

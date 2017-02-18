@@ -35,6 +35,7 @@
             this.FormMaterialsInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormMaterialsQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.FormFitInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormFitQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.FromManualInput = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,7 +96,9 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStatus_Version = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.FormFitInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormProductQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormProductInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -127,6 +130,9 @@
             this.toolStripSeparator2,
             this.FormFitInput,
             this.FormFitQueryCondition,
+            this.toolStripSeparator4,
+            this.FormProductInput,
+            this.FormProductQueryCondition,
             this.toolStripSeparator3,
             this.FromManualInput,
             this.FormManualQueryCondition,
@@ -158,6 +164,13 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(229, 6);
+            // 
+            // FormFitInput
+            // 
+            this.FormFitInput.Name = "FormFitInput";
+            this.FormFitInput.Size = new System.Drawing.Size(232, 22);
+            this.FormFitInput.Text = "配件资料录入";
+            this.FormFitInput.Click += new System.EventHandler(this.FormFitInput_Click);
             // 
             // FormFitQueryCondition
             // 
@@ -604,12 +617,24 @@
             this.toolStatus_Version.Size = new System.Drawing.Size(85, 17);
             this.toolStatus_Version.Text = "当前系统版本";
             // 
-            // FormFitInput
+            // FormProductQueryCondition
             // 
-            this.FormFitInput.Name = "FormFitInput";
-            this.FormFitInput.Size = new System.Drawing.Size(232, 22);
-            this.FormFitInput.Text = "配件资料录入";
-            this.FormFitInput.Click += new System.EventHandler(this.FormFitInput_Click);
+            this.FormProductQueryCondition.Name = "FormProductQueryCondition";
+            this.FormProductQueryCondition.Size = new System.Drawing.Size(232, 22);
+            this.FormProductQueryCondition.Text = "产品资料查询";
+            this.FormProductQueryCondition.Click += new System.EventHandler(this.FormProductQueryCondition_Click);
+            // 
+            // FormProductInput
+            // 
+            this.FormProductInput.Name = "FormProductInput";
+            this.FormProductInput.Size = new System.Drawing.Size(232, 22);
+            this.FormProductInput.Text = "产品资料录入";
+            this.FormProductInput.Click += new System.EventHandler(this.FormProductInput_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(229, 6);
             // 
             // Form_Main
             // 
@@ -703,6 +728,9 @@
         private System.Windows.Forms.ToolStripMenuItem FormFitQueryCondition;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem FormFitInput;
+        private System.Windows.Forms.ToolStripMenuItem FormProductQueryCondition;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem FormProductInput;
     }
 }
 

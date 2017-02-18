@@ -85,26 +85,50 @@
     <Compile Include="Base\FormFitBOM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Base\FormFitBOM.Designer.cs">
+    <Compile Include="Base\FormFitBOM.designer.cs">
       <DependentUpon>FormFitBOM.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\FormFitInput.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Base\FormFitInput.Designer.cs">
+    <Compile Include="Base\FormFitInput.designer.cs">
       <DependentUpon>FormFitInput.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\FormFitQueryCondition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Base\FormFitQueryCondition.Designer.cs">
+    <Compile Include="Base\FormFitQueryCondition.designer.cs">
       <DependentUpon>FormFitQueryCondition.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\FormFitQueryList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Base\FormFitQueryList.Designer.cs">
+    <Compile Include="Base\FormFitQueryList.designer.cs">
       <DependentUpon>FormFitQueryList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormProductBOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormProductBOM.Designer.cs">
+      <DependentUpon>FormProductBOM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormProductInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormProductInput.Designer.cs">
+      <DependentUpon>FormProductInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormProductQueryCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormProductQueryCondition.Designer.cs">
+      <DependentUpon>FormProductQueryCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormProductQueryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormProductQueryList.Designer.cs">
+      <DependentUpon>FormProductQueryList.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\FormManualBOM.cs">
       <SubType>Form</SubType>
@@ -484,6 +508,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Base\FormFitQueryList.resx">
       <DependentUpon>FormFitQueryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormProductBOM.resx">
+      <DependentUpon>FormProductBOM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormProductInput.resx">
+      <DependentUpon>FormProductInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormProductQueryCondition.resx">
+      <DependentUpon>FormProductQueryCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormProductQueryList.resx">
+      <DependentUpon>FormProductQueryList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Base\FormManualBOM.resx">
       <DependentUpon>FormManualBOM.cs</DependentUpon>
