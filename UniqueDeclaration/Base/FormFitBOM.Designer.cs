@@ -180,10 +180,10 @@
             this.myDataGridViewFit.RowTemplate.Height = 23;
             this.myDataGridViewFit.Size = new System.Drawing.Size(668, 129);
             this.myDataGridViewFit.TabIndex = 0;
+            this.myDataGridViewFit.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.myDataGridViewFit_CellContentClick);
             this.myDataGridViewFit.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.myDataGridViewFit_CellEndEdit);
             this.myDataGridViewFit.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.myDataGridViewFit_DataError);
             this.myDataGridViewFit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myDataGridViewFit_KeyPress);
-            this.myDataGridViewFit.CellContentClick +=new System.Windows.Forms.DataGridViewCellEventHandler(myDataGridViewFit_CellContentClick);
             // 
             // groupBox1
             // 
@@ -336,6 +336,7 @@
             this.myDataGridViewDeclarationMaterialsDetails.Location = new System.Drawing.Point(7, 21);
             this.myDataGridViewDeclarationMaterialsDetails.MultiSelect = false;
             this.myDataGridViewDeclarationMaterialsDetails.Name = "myDataGridViewDeclarationMaterialsDetails";
+            this.myDataGridViewDeclarationMaterialsDetails.ReadOnly = true;
             this.myDataGridViewDeclarationMaterialsDetails.RowTemplate.Height = 23;
             this.myDataGridViewDeclarationMaterialsDetails.Size = new System.Drawing.Size(668, 336);
             this.myDataGridViewDeclarationMaterialsDetails.TabIndex = 0;

@@ -32,6 +32,10 @@ namespace UniqueDeclaration.Base
         /// 表头数据集的行数据
         /// </summary>
         public DataRow rowHead = null;
+        /// <summary>
+        /// 是否触发产品类别下拉框事件
+        /// </summary>
+        private bool bcbox_SelectedIndexChanged = false;
         #endregion
 
         #region 窗体事件
@@ -72,18 +76,41 @@ namespace UniqueDeclaration.Base
         /// </summary>
         public void InitControlData()
         {
-            datetime_配件建档日期.Value =DateTime.Now;
+            bcbox_SelectedIndexChanged = false;
+            DataTable dtTemp = new DataTable();
+            dtTemp.Columns.Add("产品类别", typeof(string));
+            dtTemp.Columns.Add("产品类别名称", typeof(string));
+            DataRow newRow1 = dtTemp.NewRow();
+            newRow1["产品类别"] = "A";
+            newRow1["产品类别名称"] = "A";
+            dtTemp.Rows.Add(newRow1);
+            DataRow newRow2 = dtTemp.NewRow();
+            newRow2["产品类别"] = "B";
+            newRow2["产品类别名称"] = "B";
+            dtTemp.Rows.Add(newRow2);
+            DataRow newRow3 = dtTemp.NewRow();
+            newRow3["产品类别"] = "C";
+            newRow3["产品类别名称"] = "C";
+            dtTemp.Rows.Add(newRow3);
+            DataRow newRow4 = dtTemp.NewRow();
+            newRow4["产品类别"] = "D";
+            newRow4["产品类别名称"] = "D";
+            dtTemp.Rows.Add(newRow4);
+            this.cbox_产品类别.InitialData(dtTemp, "产品类别", "产品类别名称", -1);
+            bcbox_SelectedIndexChanged = true;
+            datetime_产品建档日期.Value =DateTime.Now;
         }
         /// <summary>
         /// 加载数据
         /// </summary>
         public void LoadDataSource()
         {
-            string strSQL = string.Format("SELECT * FROM 配件资料表 WHERE 配件id = {0}", giOrderID);
+            string strSQL = string.Format("SELECT * FROM 产品资料表 WHERE 产品id = {0}", giOrderID);
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             dataAccess.Open();
             dtHead = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
+            bcbox_SelectedIndexChanged = false;
             if (dtHead.Rows.Count > 0)
             {
                 rowHead = dtHead.Rows[0];
@@ -93,10 +120,11 @@ namespace UniqueDeclaration.Base
             {
                 rowHead = dtHead.NewRow();
                 dtHead.Rows.Add(rowHead);
-                datetime_配件建档日期.Value = DateTime.Now;
-                rowHead["配件建档日期"] = DateTime.Now;
+                datetime_产品建档日期.Value = DateTime.Now;
+                rowHead["产品建档日期"] = DateTime.Now;
                 fillControl(rowHead);
             }
+            bcbox_SelectedIndexChanged = true;
         }
         /// <summary>
         /// 检查数据是否有修改，并返回对应的操作选项
@@ -112,7 +140,7 @@ namespace UniqueDeclaration.Base
             }
             else if (rowHead.RowState == DataRowState.Added)
             {
-                if (rowHead["配件型号"].ToString().Length > 0)
+                if (rowHead["产品型号"].ToString().Length > 0)
                 {
                     bModify = true;
                 }
@@ -142,33 +170,49 @@ namespace UniqueDeclaration.Base
             {
                 txt_电子帐册编号.Text = row["电子帐册编号"].ToString().Trim();
             }
-            if (row.Table.Columns.Contains("配件型号"))
+            if (row.Table.Columns.Contains("产品型号"))
             {
-                txt_配件型号.Text = row["配件型号"].ToString();
+                txt_产品型号.Text = row["产品型号"].ToString();
             }
-            if (row.Table.Columns.Contains("配件名"))
+            if (row.Table.Columns.Contains("产品名"))
             {
-                txt_配件名.Text = row["配件名"].ToString();
+                txt_产品名.Text = row["产品名"].ToString();
             }
-            if (row.Table.Columns.Contains("配件建档日期"))
+            if (row.Table.Columns.Contains("产品建档日期"))
             {
-                datetime_配件建档日期.Value = Convert.ToDateTime(row["配件建档日期"]);
+                datetime_产品建档日期.Value = Convert.ToDateTime(row["产品建档日期"]);
             }
-            if (row.Table.Columns.Contains("配件组别"))
+            if (row.Table.Columns.Contains("产品单位"))
             {
-                txt_配件组别.Text = row["配件组别"].ToString();
+                txt_产品单位.Text = row["产品单位"].ToString();
+            }
+            if (row.Table.Columns.Contains("产品颜色"))
+            {
+                txt_产品颜色.Text = row["产品颜色"].ToString();
+            }
+            if (row.Table.Columns.Contains("产品类别"))
+            {
+                cbox_产品类别.SelectedValue = row["产品类别"].ToString();
             }
             if (row.Table.Columns.Contains("实际总重"))
             {
                 txt_实际总重.Text = row["实际总重"].ToString();
             }
-            if (row.Table.Columns.Contains("配件存放位置"))
+            if (row.Table.Columns.Contains("内部版本号"))
             {
-                txt_配件存放位置.Text = row["配件存放位置"].ToString();
+                txt_内部版本号.Text = row["内部版本号"].ToString();
             }
-            if (row.Table.Columns.Contains("配件备注"))
+            if (row.Table.Columns.Contains("企业版本号"))
             {
-                txt_配件备注.Text = row["配件备注"].ToString();
+                txt_企业版本号.Text = row["企业版本号"].ToString();
+            }
+            if (row.Table.Columns.Contains("除数"))
+            {
+                txt_除数.Text = row["除数"].ToString();
+            }
+            if (row.Table.Columns.Contains("产品备注"))
+            {
+                txt_产品备注.Text = row["产品备注"].ToString();
             }
         }
         /// <summary>
@@ -184,16 +228,28 @@ namespace UniqueDeclaration.Base
             try
             {
                 #region 前期验证
-                if (txt_配件型号.Text.Trim().Length == 0)
+                if (txt_产品型号.Text.Trim().Length == 0)
                 {
-                    SysMessage.InformationMsg(string.Format("[{0}]不能为空！", lab_配件型号.Text));
-                    txt_配件型号.Focus();
+                    SysMessage.InformationMsg(string.Format("[{0}]不能为空！", lab_产品型号.Text));
+                    txt_产品型号.Focus();
                     return false;
                 }
-                if (txt_配件组别.Text.Trim().Length == 0)
+                if (txt_产品单位.Text.Trim().Length == 0)
                 {
-                    SysMessage.InformationMsg(string.Format("[{0}]不能为空！", lab_配件组别.Text));
-                    txt_配件组别.Focus();
+                    SysMessage.InformationMsg(string.Format("[{0}]不能为空！", lab_单位.Text));
+                    txt_产品单位.Focus();
+                    return false;
+                }
+                if (txt_产品颜色.Text.Trim().Length == 0)
+                {
+                    SysMessage.InformationMsg(string.Format("[{0}]不能为空！", lab_颜色.Text));
+                    txt_产品颜色.Focus();
+                    return false;
+                }
+                if (cbox_产品类别.SelectedValue == null || cbox_产品类别.SelectedValue.ToString() == "")
+                {
+                    SysMessage.InformationMsg(string.Format("[{0}]不能为空！", lab_产品类别.Text));
+                    cbox_产品类别.Focus();
                     return false;
                 }
                 #endregion
@@ -207,24 +263,29 @@ namespace UniqueDeclaration.Base
                     try
                     {
                         #region 新增表头数据
-                        strBuilder.AppendLine(@"INSERT INTO [配件资料表]([编号],[电子帐册编号],[配件型号],[配件名],[配件建档日期],[配件组别],[配件存放位置],[配件备注],[实际总重])");
-                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8})",
+                        strBuilder.AppendLine(@"INSERT INTO [产品资料表]([编号],[电子帐册编号],[产品型号],[产品名],[产品建档日期],[产品单位],[产品颜色],[产品备注],[实际总重],
+                                                [产品类别],[除数],[内部版本号],[企业版本号])");
+                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},,{11},{12})",
                             rowHead["编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["编号"].ToString()),
                             rowHead["电子帐册编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["电子帐册编号"].ToString()),
-                            rowHead["配件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件型号"].ToString()),
-                            rowHead["配件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件型号"].ToString()),
-                            rowHead["配件建档日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(Convert.ToDateTime(rowHead["配件建档日期"]).ToString("yyyy-MM-dd HH:mm:ss")),
-                            rowHead["配件组别"] == DBNull.Value ? "NULL" :rowHead["配件组别"],
-                            rowHead["配件存放位置"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件存放位置"].ToString()),
-                            rowHead["配件备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件备注"].ToString()),
-                            rowHead["实际总重"] == DBNull.Value ? "NULL" : rowHead["实际总重"]);
+                            rowHead["产品型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品型号"].ToString()),
+                            rowHead["产品型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品型号"].ToString()),
+                            rowHead["产品建档日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(Convert.ToDateTime(rowHead["产品建档日期"]).ToString("yyyy-MM-dd HH:mm:ss")),
+                            rowHead["产品单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品单位"].ToString()),
+                            rowHead["产品颜色"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品颜色"].ToString()),
+                            rowHead["产品备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品备注"].ToString()),
+                            rowHead["实际总重"] == DBNull.Value ? "NULL" : rowHead["实际总重"],
+                            rowHead["产品类别"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品类别"].ToString()),
+                            rowHead["除数"] == DBNull.Value ? "NULL" : rowHead["除数"],
+                            rowHead["内部版本号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["内部版本号"].ToString()),
+                            rowHead["企业版本号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["企业版本号"].ToString()));
                         strBuilder.AppendLine("select @@IDENTITY--新增预先录入订单时，自动生成的订单ID");
                         DataTable dtInsert = dataAccess.GetTable(strBuilder.ToString(), null);
-                        object 配件id = dtInsert.Rows[0][0]; // dataAccess.ExecScalar(strBuilder.ToString(), null);
-                        rowHead["配件id"] = 配件id;
+                        object 产品id = dtInsert.Rows[0][0]; // dataAccess.ExecScalar(strBuilder.ToString(), null);
+                        rowHead["产品id"] = 产品id;
                         strBuilder.Clear();
                         #endregion
-                        giOrderID = Convert.ToInt32(配件id);
+                        giOrderID = Convert.ToInt32(产品id);
                         dataAccess.CommitTran();
                         dataAccess.Close();
                     }
@@ -247,18 +308,22 @@ namespace UniqueDeclaration.Base
                         #region 修改表头数据
                         if (rowHead.RowState == DataRowState.Modified)
                         {
-                            strBuilder.AppendFormat(@"UPDATE [配件资料表] set [编号]={0},[电子帐册编号]={1},[配件型号]={2},[配件名]={3},[配件建档日期]={4},[配件组别]={5},
-                                                            [配件存放位置]={6},[配件备注]={7},[实际总重]={8} where 配件id={9}",
-                            rowHead["编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["编号"].ToString()),
+                            strBuilder.AppendFormat(@"UPDATE [产品资料表] set [编号]={0},[电子帐册编号]={1},[产品型号]={2},[产品名]={3},[产品建档日期]={4},[产品单位]={5},
+                                        [产品颜色]={6},[产品备注]={7},[实际总重]={8},[产品类别]={9},[除数]={10},[内部版本号]={11},[企业版本号]={12} where 产品id={13}",
+                           rowHead["编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["编号"].ToString()),
                             rowHead["电子帐册编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["电子帐册编号"].ToString()),
-                            rowHead["配件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件型号"].ToString()),
-                            rowHead["配件型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件型号"].ToString()),
-                            rowHead["配件建档日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(Convert.ToDateTime(rowHead["配件建档日期"]).ToString("yyyy-MM-dd HH:mm:ss")),
-                            rowHead["配件组别"] == DBNull.Value ? "NULL" : rowHead["配件组别"],
-                            rowHead["配件存放位置"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件存放位置"].ToString()),
-                            rowHead["配件备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["配件备注"].ToString()),
+                            rowHead["产品型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品型号"].ToString()),
+                            rowHead["产品型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品型号"].ToString()),
+                            rowHead["产品建档日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(Convert.ToDateTime(rowHead["产品建档日期"]).ToString("yyyy-MM-dd HH:mm:ss")),
+                            rowHead["产品单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品单位"].ToString()),
+                            rowHead["产品颜色"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品颜色"].ToString()),
+                            rowHead["产品备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品备注"].ToString()),
                             rowHead["实际总重"] == DBNull.Value ? "NULL" : rowHead["实际总重"],
-                            rowHead["配件id"]);
+                            rowHead["产品类别"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品类别"].ToString()),
+                            rowHead["除数"] == DBNull.Value ? "NULL" : rowHead["除数"],
+                            rowHead["内部版本号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["内部版本号"].ToString()),
+                            rowHead["企业版本号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["企业版本号"].ToString()),
+                            rowHead["产品id"]);
                             dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                             strBuilder.Clear();
                         }
@@ -324,27 +389,27 @@ namespace UniqueDeclaration.Base
         private void btnClone_Click(object sender, EventArgs e)
         {
             FormBaseDialogInput objForm = new FormBaseDialogInput();
-            objForm.strDefault = txt_配件型号.Text;
-            objForm.strFormText = "配件资料克隆(请输入源配件型号：)";
+            objForm.strDefault = txt_产品型号.Text;
+            objForm.strFormText = "产品资料克隆(请输入源产品型号：)";
             if (objForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 if (objForm.strReturn.Trim().Length > 0)
                 {
                     IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                     dataAccess.Open();
-                    string strSQL = string.Format("SELECT * FROM 配件资料表 WHERE 配件型号 = {0}", StringTools.SqlQ(objForm.strReturn));
+                    string strSQL = string.Format("SELECT * FROM 产品资料表 WHERE 产品型号 = {0}", StringTools.SqlQ(objForm.strReturn));
                     DataTable dtTemp = dataAccess.GetTable(strSQL.ToString(), null);
                     dataAccess.Close();
                     if (dtTemp.Rows.Count == 0)
                     {
-                        SysMessage.InformationMsg("指定的配件不存存！");
+                        SysMessage.InformationMsg("指定的产品不存存！");
                     }
                     else
                     {
-                        // "配件id", "配件型号", "配件建档日期"  不做处理
+                        // "产品id", "产品型号", "产品建档日期"  不做处理
                         foreach (DataColumn col in dtTemp.Columns)
                         {
-                            if (col.ColumnName != "配件id" && col.ColumnName != "配件型号" && col.ColumnName != "配件建档日期")
+                            if (col.ColumnName != "产品id" && col.ColumnName != "产品型号" && col.ColumnName != "产品建档日期")
                                 rowHead[col.ColumnName] = dtTemp.Rows[0][col.ColumnName];
                         }
                         fillControl(rowHead);
@@ -357,7 +422,7 @@ namespace UniqueDeclaration.Base
         {
             if (rowHead.RowState == DataRowState.Added)
             {
-                SysMessage.InformationMsg("新增配件资料未保存，不允许执行该操作！");
+                SysMessage.InformationMsg("新增产品资料未保存，不允许执行该操作！");
                 return;
             }
             #region 判断是否已经有打开的BOM窗体
@@ -366,7 +431,7 @@ namespace UniqueDeclaration.Base
                 if (childFrm.Name == "FormFitBOM")
                 {
                     FormProductBOM orderBomForm = (FormProductBOM)childFrm;
-                    if (orderBomForm.mnFId ==Convert.ToInt32(rowHead["配件id"]))
+                    if (orderBomForm.mnPId ==Convert.ToInt32(rowHead["产品id"]))
                     {
                         childFrm.Activate();
                         return;
@@ -377,9 +442,9 @@ namespace UniqueDeclaration.Base
 
             FormProductBOM formBOM = new FormProductBOM();
             formBOM.mbShow = false;
-            formBOM.mnFId = Convert.ToInt32(rowHead["配件id"]);
-            formBOM.mstrName = rowHead["配件型号"].ToString();
-            formBOM.mstrGroup = rowHead["配件组别"].ToString();
+            formBOM.mnPId = Convert.ToInt32(rowHead["产品id"]);
+            formBOM.mstrName = rowHead["产品型号"].ToString();
+            formBOM.mstrColor = rowHead["产品颜色"].ToString();
             formBOM.MdiParent = this.MdiParent;
             formBOM.Show();
         }
@@ -401,19 +466,19 @@ namespace UniqueDeclaration.Base
             IDataAccess dataAccess = null;
             switch (fieldName)
             {
-                case "配件型号":
-                    #region 配件型号
+                case "产品型号":
+                    #region 产品型号
                     if (rowHead.RowState == DataRowState.Added ||
-                        (rowHead.RowState == DataRowState.Modified && rowHead["配件型号", DataRowVersion.Original].ToString() != txtBox.Text))
+                        (rowHead.RowState == DataRowState.Modified && rowHead["产品型号", DataRowVersion.Original].ToString() != txtBox.Text))
                     {
-                        strSQL = string.Format("SELECT 配件id FROM 配件资料表 WHERE 配件型号 = {0}", StringTools.SqlQ(txtBox.Text));
+                        strSQL = string.Format("SELECT 产品id FROM 产品资料表 WHERE 产品型号 = {0}", StringTools.SqlQ(txtBox.Text));
                         dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                         dataAccess.Open();
                         DataTable dtManual = dataAccess.GetTable(strSQL.ToString(), null);
                         dataAccess.Close();
                         if (dtManual.Rows.Count > 0)
                         {
-                            SysMessage.InformationMsg("此配件型号已存在，请重新输入！");
+                            SysMessage.InformationMsg("此产品型号已存在，请重新输入！");
                             e.Cancel = true;
                             txtBox.Focus();
                         }
@@ -463,6 +528,16 @@ namespace UniqueDeclaration.Base
                 }
             }
         }
+        private void cbox_产品类别_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (bcbox_SelectedIndexChanged)
+            {
+                myComboBox cbox = (myComboBox)sender;
+                string fieldName = cbox.Name.Replace("cbox_", "");
+                rowHead[fieldName] = cbox.SelectedValue;
+            }
+        }
         #endregion
+
     }
 }

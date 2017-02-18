@@ -134,6 +134,7 @@ namespace UniqueDeclaration.Base
         {
             base.tool1_BOM_Click(sender, e);
             if (this.myDataGridViewHead.RowCount == 0) return;
+            if (this.myDataGridViewHead.CurrentRow.Cells["配件id"].Value == DBNull.Value) return;
             #region 判断是否已经有打开的BOM窗体
             foreach (Form childFrm in this.MdiParent.MdiChildren)
             {

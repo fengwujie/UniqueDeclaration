@@ -415,7 +415,7 @@ namespace UniqueDeclaration.Base
             dtDeclarationMaterialsDetails = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
             if (dtDeclarationMaterialsDetails.Rows.Count == 0)
-                dtDeclarationMaterialsDetailsAddRow();
+                DataTableTools.AddEmptyRow(dtDeclarationMaterialsDetails);
             this.myDataGridViewDeclarationMaterialsDetails.DataSource = dtDeclarationMaterialsDetails;
         }
         #endregion
@@ -436,7 +436,7 @@ namespace UniqueDeclaration.Base
                 dataAccess.BeginTran();
                 SaveMaterials(dataAccess);
                 SaveFit(dataAccess);
-                SaveDeclarationMaterialsDetails(dataAccess);
+                //SaveDeclarationMaterialsDetails(dataAccess);
                 SaveFitFiled(dataAccess);
                 dataAccess.CommitTran();
                 bSuccess = true;
@@ -1269,7 +1269,7 @@ namespace UniqueDeclaration.Base
                             //否则跳转到下一行的客人型号，如果是最后一行，则新增一行
                             if (cell.RowIndex == dgv.Rows.Count - 1)
                             {
-                                dtDeclarationMaterialsDetailsAddRow();
+                                DataTableTools.AddEmptyRow(dtDeclarationMaterialsDetails);
                                 dgv.CurrentCell = dgv["序号", cell.RowIndex + 1];
                             }
                             else
@@ -1347,16 +1347,16 @@ namespace UniqueDeclaration.Base
             }
         }
 
-        /// <summary>
-        /// 改样后表头GRID增加一条新行
-        /// </summary>
-        private void dtDeclarationMaterialsDetailsAddRow()
-        {
-            DataRow newRow = dtDeclarationMaterialsDetails.NewRow();
-            newRow["单位"] = "KGS";
-            newRow["配件id"] = mnFId;
-            dtDeclarationMaterialsDetails.Rows.Add(newRow);
-        }
+        ///// <summary>
+        ///// 改样后表头GRID增加一条新行
+        ///// </summary>
+        //private void dtDeclarationMaterialsDetailsAddRow()
+        //{
+        //    DataRow newRow = dtDeclarationMaterialsDetails.NewRow();
+        //    newRow["单位"] = "KGS";
+        //    newRow["配件id"] = mnFId;
+        //    dtDeclarationMaterialsDetails.Rows.Add(newRow);
+        //}
         #endregion
 
         #region 控件事件
@@ -1370,20 +1370,38 @@ namespace UniqueDeclaration.Base
         //删除TAB0的料件组成
         private void btnDeleteMaterials_Click(object sender, EventArgs e)
         {
-            if(myDataGridViewMaterials.CurrentRow!=null)
-                this.myDataGridViewMaterials.Rows.Remove(this.myDataGridViewMaterials.CurrentRow);
+            if (this.myDataGridViewMaterials.CurrentRow != null)
+            {
+                this.myDataGridViewMaterials.Rows.RemoveAt(this.myDataGridViewMaterials.CurrentRow.Index);
+            }
+            if (this.myDataGridViewMaterials.CurrentRow == null)
+            {
+                DataTableTools.AddEmptyRow(dtMaterials);
+            }
         }
         //删除TAB0的配件组成
         private void btnDeleteFit_Click(object sender, EventArgs e)
         {
-            if (myDataGridViewFit.CurrentRow != null)
-                this.myDataGridViewFit.Rows.Remove(this.myDataGridViewFit.CurrentRow);
+            if (this.myDataGridViewFit.CurrentRow != null)
+            {
+                this.myDataGridViewFit.Rows.RemoveAt(this.myDataGridViewFit.CurrentRow.Index);
+            }
+            if (this.myDataGridViewFit.CurrentRow == null)
+            {
+                DataTableTools.AddEmptyRow(dtFit);
+            }
         }
         //删除TAB2的报关料件明细
         private void btnDeleteDeclarationMaterialsDetails_Click(object sender, EventArgs e)
         {
-            if (myDataGridViewDeclarationMaterialsDetails.CurrentRow != null)
-                this.myDataGridViewDeclarationMaterialsDetails.Rows.Remove(this.myDataGridViewDeclarationMaterialsDetails.CurrentRow);
+            if (this.myDataGridViewDeclarationMaterialsDetails.CurrentRow != null)
+            {
+                this.myDataGridViewDeclarationMaterialsDetails.Rows.RemoveAt(this.myDataGridViewDeclarationMaterialsDetails.CurrentRow.Index);
+            }
+            if (this.myDataGridViewDeclarationMaterialsDetails.CurrentRow == null)
+            {
+                DataTableTools.AddEmptyRow(dtDeclarationMaterialsDetails);
+            }
         }
         #endregion
 

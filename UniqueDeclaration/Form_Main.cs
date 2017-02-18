@@ -410,6 +410,7 @@ namespace UniqueDeclaration
             {
                 UniqueDeclaration.Base.FormProductQueryList queryListForm = new UniqueDeclaration.Base.FormProductQueryList();
                 queryListForm.gstrWhere = queryConditionForm.strReturnWhere;
+                queryListForm.abOK = queryConditionForm.abOK;
                 queryListForm.MdiParent = this;
                 queryListForm.Show();
             }

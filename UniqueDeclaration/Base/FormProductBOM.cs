@@ -20,10 +20,11 @@ namespace UniqueDeclaration.Base
         }
 
         #region 外部调用传进来的变量值
-        public int mnFId = 0;
+        public int mnPId = 0;
         public bool mbShow = false;
         public string mstrName =string.Empty;
-        public string mstrGroup= string.Empty;
+        //public string mstrGroup= string.Empty;
+        public string mstrColor = string.Empty;
         #endregion
 
         #region 自定义变量
@@ -170,7 +171,7 @@ namespace UniqueDeclaration.Base
             LoadDataSourceMaterials();
             LoadDataSourceFit();
             LoadDataSourceDeclarationMaterialsDetails();
-            string strSQL = string.Format("select 明细备注,实际总重 from 配件资料表 where 配件id={0}",mnFId);
+            string strSQL = string.Format("select 明细备注,实际总重 from 配件资料表 where 配件id={0}",mnPId);
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             dataAccess.Open();
             DataTable dtData = dataAccess.GetTable(strSQL, null);
@@ -188,7 +189,7 @@ namespace UniqueDeclaration.Base
         {
             //string strSQL = string.Format("SELECT * FROM 配件组成表 WHERE 配件组成表.配件id = {0}",mnFId);
             string strSQL = string.Format(@"SELECT PZ.配件组成表id, PZ.料件组成id AS 组成id, L.料件型号 AS 型号, L.料件名 AS 品名, PZ.数量,PZ.损耗率,L.料件单位 as 单位,PZ.备注
-                                            FROM 配件组成表 PZ INNER JOIN 料件资料表 L ON L.料件id = PZ.料件组成id WHERE PZ.配件id ={0}", mnFId);
+                                            FROM 配件组成表 PZ INNER JOIN 料件资料表 L ON L.料件id = PZ.料件组成id WHERE PZ.配件id ={0}", mnPId);
 //            string strSQL = string.Format(@"SELECT PZ.配件组成表id, PZ.料件组成id, L.料件型号, L.料件名, PZ.数量,PZ.损耗率,L.料件单位,PZ.备注
 //                                            FROM 配件组成表 PZ INNER JOIN 料件资料表 L ON L.料件id = PZ.料件组成id WHERE PZ.配件id ={0}", mnFId);
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
@@ -207,7 +208,7 @@ namespace UniqueDeclaration.Base
             string strSQL = string.Format(@"SELECT PZ.配件组成表id, PZ.配件组成id AS 组成id, P.配件型号 AS 型号, P.配件名 AS 品名, P.配件组别,PZ.数量, PZ.客户代码, PZ.备注, PZ.类别, PL.配件类别描述 AS 类别描述
                                             FROM (配件组成表 PZ LEFT OUTER JOIN 配件类别表 PL ON PL.配件类别 = PZ.类别)
                                                 INNER JOIN 配件资料表 P ON P.配件id = PZ.配件组成id 
-                                                WHERE PZ.配件id = {0}", mnFId);
+                                                WHERE PZ.配件id = {0}", mnPId);
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             dataAccess.Open();
             dtFit = dataAccess.GetTable(strSQL, null);
@@ -409,13 +410,13 @@ namespace UniqueDeclaration.Base
         /// </summary>
         private void LoadDataSourceDeclarationMaterialsDetails()
         {
-            string strSQL = string.Format(@"SELECT 产品配件报关材料表id, 配件id,序号,报关类别, 数量, 单位, 备注 FROM 产品配件报关材料表 where 配件id= {0}", mnFId);
+            string strSQL = string.Format(@"SELECT 产品配件报关材料表id, 配件id,序号,报关类别, 数量, 单位, 备注 FROM 产品配件报关材料表 where 配件id= {0}", mnPId);
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             dataAccess.Open();
             dtDeclarationMaterialsDetails = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
             if (dtDeclarationMaterialsDetails.Rows.Count == 0)
-                dtDeclarationMaterialsDetailsAddRow();
+                DataTableTools.AddEmptyRow(dtDeclarationMaterialsDetails);
             this.myDataGridViewDeclarationMaterialsDetails.DataSource = dtDeclarationMaterialsDetails;
         }
         #endregion
@@ -436,7 +437,7 @@ namespace UniqueDeclaration.Base
                 dataAccess.BeginTran();
                 SaveMaterials(dataAccess);
                 SaveFit(dataAccess);
-                SaveDeclarationMaterialsDetails(dataAccess);
+                //SaveDeclarationMaterialsDetails(dataAccess);
                 SaveFitFiled(dataAccess);
                 dataAccess.CommitTran();
                 bSuccess = true;
@@ -481,7 +482,7 @@ namespace UniqueDeclaration.Base
                     if (row["组成id"] == DBNull.Value) continue;
                     strSQL += string.Format(@"INSERT INTO [配件组成表]([配件id],[料件组成id],[数量],[损耗率],[备注],[类别])
                                                 VALUES({0},{1},{2},{3},{4},{5})" + Environment.NewLine,
-                                    mnFId, row["组成id"] == DBNull.Value ? "NULL" : row["组成id"],
+                                    mnPId, row["组成id"] == DBNull.Value ? "NULL" : row["组成id"],
                                     row["数量"] == DBNull.Value ? "NULL" : row["数量"],
                                     row["损耗率"] == DBNull.Value ? "NULL" : row["损耗率"],
                                     row["备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["备注"].ToString()),"'A'");
@@ -535,7 +536,7 @@ namespace UniqueDeclaration.Base
                     if (row["组成id"] == DBNull.Value) continue;
                     strSQL += string.Format(@"INSERT INTO [配件组成表]([配件id],[配件组成id],[数量],[客户代码],[备注],[类别])
                                                     VALUES({0},{1},{2},{3},{4},{5})" + Environment.NewLine,
-                                    mnFId, row["组成id"] == DBNull.Value ? "NULL" : row["组成id"],
+                                    mnPId, row["组成id"] == DBNull.Value ? "NULL" : row["组成id"],
                                     row["数量"] == DBNull.Value ? "NULL" : row["数量"],
                                     row["客户代码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["客户代码"].ToString()),
                                     row["备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["备注"].ToString()),
@@ -587,7 +588,7 @@ namespace UniqueDeclaration.Base
                     strSQL += string.Format(@"INSERT INTO [产品配件报关材料表]
                                                        ([配件id],[序号],[报关类别] ,[数量],[单位],[备注])
                                                  VALUES({0},{1},{2},{3},{4},{5})" + Environment.NewLine,
-                                    mnFId, row["序号"] == DBNull.Value ? "NULL" : row["序号"],
+                                    mnPId, row["序号"] == DBNull.Value ? "NULL" : row["序号"],
                                     row["报关类别"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["报关类别"].ToString()),
                                     row["数量"] == DBNull.Value ? "NULL" : row["数量"],
                                     row["单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["单位"].ToString()),
@@ -631,7 +632,7 @@ namespace UniqueDeclaration.Base
             {
                 string strSQL = string.Format("update 配件资料表 set 明细备注={0},实际总重={1} where 配件id={2}",
                     StringTools.SqlQ(txt_明细备注.Text.Trim()),
-                    (txt_实际总重.Text.Trim().Length==0 || Convert.ToDecimal(txt_实际总重.Text.Trim())<0) ? "NULL" : txt_实际总重.Text.Trim(),mnFId);
+                    (txt_实际总重.Text.Trim().Length==0 || Convert.ToDecimal(txt_实际总重.Text.Trim())<0) ? "NULL" : txt_实际总重.Text.Trim(),mnPId);
                 dataAccess.ExecuteNonQuery(strSQL, null);
             }
         }
@@ -1269,7 +1270,7 @@ namespace UniqueDeclaration.Base
                             //否则跳转到下一行的客人型号，如果是最后一行，则新增一行
                             if (cell.RowIndex == dgv.Rows.Count - 1)
                             {
-                                dtDeclarationMaterialsDetailsAddRow();
+                                DataTableTools.AddEmptyRow(dtDeclarationMaterialsDetails);
                                 dgv.CurrentCell = dgv["序号", cell.RowIndex + 1];
                             }
                             else
@@ -1347,16 +1348,16 @@ namespace UniqueDeclaration.Base
             }
         }
 
-        /// <summary>
-        /// 改样后表头GRID增加一条新行
-        /// </summary>
-        private void dtDeclarationMaterialsDetailsAddRow()
-        {
-            DataRow newRow = dtDeclarationMaterialsDetails.NewRow();
-            newRow["单位"] = "KGS";
-            newRow["配件id"] = mnFId;
-            dtDeclarationMaterialsDetails.Rows.Add(newRow);
-        }
+        ///// <summary>
+        ///// 改样后表头GRID增加一条新行
+        ///// </summary>
+        //private void dtDeclarationMaterialsDetailsAddRow()
+        //{
+        //    DataRow newRow = dtDeclarationMaterialsDetails.NewRow();
+        //    newRow["单位"] = "KGS";
+        //    newRow["配件id"] = mnFId;
+        //    dtDeclarationMaterialsDetails.Rows.Add(newRow);
+        //}
         #endregion
 
         #region 控件事件
@@ -1370,20 +1371,38 @@ namespace UniqueDeclaration.Base
         //删除TAB0的料件组成
         private void btnDeleteMaterials_Click(object sender, EventArgs e)
         {
-            if(myDataGridViewMaterials.CurrentRow!=null)
-                this.myDataGridViewMaterials.Rows.Remove(this.myDataGridViewMaterials.CurrentRow);
+            if (this.myDataGridViewMaterials.CurrentRow != null)
+            {
+                this.myDataGridViewMaterials.Rows.RemoveAt(this.myDataGridViewMaterials.CurrentRow.Index);
+            }
+            if (this.myDataGridViewMaterials.CurrentRow == null)
+            {
+                DataTableTools.AddEmptyRow(dtMaterials);
+            }
         }
         //删除TAB0的配件组成
         private void btnDeleteFit_Click(object sender, EventArgs e)
         {
-            if (myDataGridViewFit.CurrentRow != null)
-                this.myDataGridViewFit.Rows.Remove(this.myDataGridViewFit.CurrentRow);
+            if (this.myDataGridViewFit.CurrentRow != null)
+            {
+                this.myDataGridViewFit.Rows.RemoveAt(this.myDataGridViewFit.CurrentRow.Index);
+            }
+            if (this.myDataGridViewFit.CurrentRow == null)
+            {
+                DataTableTools.AddEmptyRow(dtFit);
+            }
         }
         //删除TAB2的报关料件明细
         private void btnDeleteDeclarationMaterialsDetails_Click(object sender, EventArgs e)
         {
-            if (myDataGridViewDeclarationMaterialsDetails.CurrentRow != null)
-                this.myDataGridViewDeclarationMaterialsDetails.Rows.Remove(this.myDataGridViewDeclarationMaterialsDetails.CurrentRow);
+            if (this.myDataGridViewDeclarationMaterialsDetails.CurrentRow != null)
+            {
+                this.myDataGridViewDeclarationMaterialsDetails.Rows.RemoveAt(this.myDataGridViewDeclarationMaterialsDetails.CurrentRow.Index);
+            }
+            if (this.myDataGridViewDeclarationMaterialsDetails.CurrentRow == null)
+            {
+                DataTableTools.AddEmptyRow(dtDeclarationMaterialsDetails);
+            }
         }
         #endregion
 
@@ -1403,7 +1422,7 @@ namespace UniqueDeclaration.Base
                 if (childFrm.Name == "FormFitBOM")
                 {
                     FormProductBOM orderBomForm = (FormProductBOM)childFrm;
-                    if (orderBomForm.mnFId == Convert.ToInt32(this.myDataGridViewFit.CurrentRow.Cells["组成id"].Value))
+                    if (orderBomForm.mnPId == Convert.ToInt32(this.myDataGridViewFit.CurrentRow.Cells["组成id"].Value))
                     {
                         childFrm.Activate();
                         return;
@@ -1420,9 +1439,9 @@ namespace UniqueDeclaration.Base
              */
             FormProductBOM formBOM = new FormProductBOM();
             formBOM.mbShow = false;
-            formBOM.mnFId = Convert.ToInt32(this.myDataGridViewFit.CurrentRow.Cells["组成id"].Value);
-            formBOM.mstrName = this.myDataGridViewFit.CurrentRow.Cells["型号"].Value.ToString();
-            formBOM.mstrGroup = this.myDataGridViewFit.CurrentRow.Cells["配件组别"].Value.ToString();
+            formBOM.mnPId = Convert.ToInt32(this.myDataGridViewFit.CurrentRow.Cells["产品id"].Value);
+            formBOM.mstrName = this.myDataGridViewFit.CurrentRow.Cells["产品型号"].Value.ToString();
+            formBOM.mstrColor = this.myDataGridViewFit.CurrentRow.Cells["产品颜色"].Value.ToString();
             formBOM.MdiParent = this.MdiParent;
             formBOM.Show();
         }

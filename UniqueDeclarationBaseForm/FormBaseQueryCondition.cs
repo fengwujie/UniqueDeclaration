@@ -29,7 +29,9 @@ namespace UniqueDeclarationBaseForm
 
         public virtual void btnOK_Click(object sender, EventArgs e)
         {
+            BeforeBaseWhere();
             LoopControls(this);
+            AfterBaseWhere();
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }
@@ -133,6 +135,21 @@ namespace UniqueDeclarationBaseForm
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 组建WHERE语句之前处理
+        /// </summary>
+        public virtual void BeforeBaseWhere()
+        {
+
+        }
+        /// <summary>
+        /// 组建WHERE语句之后处理
+        /// </summary>
+        public virtual void AfterBaseWhere()
+        {
+
         }
     }
 }

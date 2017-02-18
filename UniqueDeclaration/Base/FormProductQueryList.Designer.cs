@@ -30,12 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // FormFitQueryList
+            // FormProductQueryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.ClientSize = new System.Drawing.Size(1060, 588);
-            this.Name = "FormFitQueryList";
-            this.Text = "配件资料查询窗体";
+            this.Name = "FormProductQueryList";
+            this.Text = "产品资料查询窗体";
             this.ResumeLayout(false);
             this.PerformLayout();
 

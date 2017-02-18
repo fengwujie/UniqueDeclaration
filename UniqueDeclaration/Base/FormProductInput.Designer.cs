@@ -38,24 +38,32 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tool1_Close = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txt_配件组别 = new UniqueDeclarationBaseForm.Controls.myTextBox();
-            this.datetime_配件建档日期 = new UniqueDeclarationBaseForm.Controls.myDateTimePicker();
+            this.txt_产品颜色 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.datetime_产品建档日期 = new UniqueDeclarationBaseForm.Controls.myDateTimePicker();
             this.myLable9 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.txt_配件备注 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.txt_产品备注 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable8 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.txt_配件存放位置 = new UniqueDeclarationBaseForm.Controls.myTextBox();
-            this.myLable7 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.txt_内部版本号 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.lab_内部版本号 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_实际总重 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable6 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.lab_配件组别 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.txt_配件名 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.lab_颜色 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.txt_产品名 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable4 = new UniqueDeclarationBaseForm.Controls.myLable();
-            this.txt_配件型号 = new UniqueDeclarationBaseForm.Controls.myTextBox();
-            this.lab_配件型号 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.txt_产品型号 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.lab_产品型号 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_电子帐册编号 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable2 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_编号 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable1 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.txt_产品单位 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.lab_单位 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.txt_除数 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.myLable5 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.lab_产品类别 = new UniqueDeclarationBaseForm.Controls.myLable();
+            this.cbox_产品类别 = new UniqueDeclarationBaseForm.Controls.myComboBox();
+            this.txt_企业版本号 = new UniqueDeclarationBaseForm.Controls.myTextBox();
+            this.myLable7 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -144,101 +152,110 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txt_配件组别);
-            this.groupBox1.Controls.Add(this.datetime_配件建档日期);
-            this.groupBox1.Controls.Add(this.myLable9);
-            this.groupBox1.Controls.Add(this.txt_配件备注);
-            this.groupBox1.Controls.Add(this.myLable8);
-            this.groupBox1.Controls.Add(this.txt_配件存放位置);
+            this.groupBox1.Controls.Add(this.txt_企业版本号);
             this.groupBox1.Controls.Add(this.myLable7);
+            this.groupBox1.Controls.Add(this.cbox_产品类别);
+            this.groupBox1.Controls.Add(this.txt_除数);
+            this.groupBox1.Controls.Add(this.myLable5);
+            this.groupBox1.Controls.Add(this.lab_产品类别);
+            this.groupBox1.Controls.Add(this.txt_产品单位);
+            this.groupBox1.Controls.Add(this.lab_单位);
+            this.groupBox1.Controls.Add(this.txt_产品颜色);
+            this.groupBox1.Controls.Add(this.datetime_产品建档日期);
+            this.groupBox1.Controls.Add(this.myLable9);
+            this.groupBox1.Controls.Add(this.txt_产品备注);
+            this.groupBox1.Controls.Add(this.myLable8);
+            this.groupBox1.Controls.Add(this.txt_内部版本号);
+            this.groupBox1.Controls.Add(this.lab_内部版本号);
             this.groupBox1.Controls.Add(this.txt_实际总重);
             this.groupBox1.Controls.Add(this.myLable6);
-            this.groupBox1.Controls.Add(this.lab_配件组别);
-            this.groupBox1.Controls.Add(this.txt_配件名);
+            this.groupBox1.Controls.Add(this.lab_颜色);
+            this.groupBox1.Controls.Add(this.txt_产品名);
             this.groupBox1.Controls.Add(this.myLable4);
-            this.groupBox1.Controls.Add(this.txt_配件型号);
-            this.groupBox1.Controls.Add(this.lab_配件型号);
+            this.groupBox1.Controls.Add(this.txt_产品型号);
+            this.groupBox1.Controls.Add(this.lab_产品型号);
             this.groupBox1.Controls.Add(this.txt_电子帐册编号);
             this.groupBox1.Controls.Add(this.myLable2);
             this.groupBox1.Controls.Add(this.txt_编号);
             this.groupBox1.Controls.Add(this.myLable1);
             this.groupBox1.Location = new System.Drawing.Point(13, 39);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(416, 283);
+            this.groupBox1.Size = new System.Drawing.Size(416, 386);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "配件资料";
+            this.groupBox1.Text = "产品资料";
             // 
-            // txt_配件组别
+            // txt_产品颜色
             // 
-            this.txt_配件组别.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_配件组别.Location = new System.Drawing.Point(71, 134);
-            this.txt_配件组别.Name = "txt_配件组别";
-            this.txt_配件组别.Size = new System.Drawing.Size(113, 21);
-            this.txt_配件组别.TabIndex = 4;
-            this.txt_配件组别.Validating += new System.ComponentModel.CancelEventHandler(this.txtInt_Validating);
-            this.txt_配件组别.Validated += new System.EventHandler(this.txt_Validated);
+            this.txt_产品颜色.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_产品颜色.Location = new System.Drawing.Point(71, 170);
+            this.txt_产品颜色.Name = "txt_产品颜色";
+            this.txt_产品颜色.Size = new System.Drawing.Size(113, 21);
+            this.txt_产品颜色.TabIndex = 4;
+            this.txt_产品颜色.Validating += new System.ComponentModel.CancelEventHandler(this.txtInt_Validating);
+            this.txt_产品颜色.Validated += new System.EventHandler(this.txt_Validated);
             // 
-            // datetime_配件建档日期
+            // datetime_产品建档日期
             // 
-            this.datetime_配件建档日期.Checked = false;
-            this.datetime_配件建档日期.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.datetime_配件建档日期.Enabled = false;
-            this.datetime_配件建档日期.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datetime_配件建档日期.Location = new System.Drawing.Point(71, 244);
-            this.datetime_配件建档日期.Name = "datetime_配件建档日期";
-            this.datetime_配件建档日期.Size = new System.Drawing.Size(175, 21);
-            this.datetime_配件建档日期.TabIndex = 8;
+            this.datetime_产品建档日期.Checked = false;
+            this.datetime_产品建档日期.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.datetime_产品建档日期.Enabled = false;
+            this.datetime_产品建档日期.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.datetime_产品建档日期.Location = new System.Drawing.Point(71, 355);
+            this.datetime_产品建档日期.Name = "datetime_产品建档日期";
+            this.datetime_产品建档日期.Size = new System.Drawing.Size(175, 21);
+            this.datetime_产品建档日期.TabIndex = 8;
             // 
             // myLable9
             // 
-            this.myLable9.Location = new System.Drawing.Point(6, 244);
+            this.myLable9.Location = new System.Drawing.Point(6, 355);
             this.myLable9.Name = "myLable9";
             this.myLable9.Size = new System.Drawing.Size(68, 16);
             this.myLable9.TabIndex = 17;
             this.myLable9.Text = "建档时间：";
             this.myLable9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txt_配件备注
+            // txt_产品备注
             // 
-            this.txt_配件备注.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_配件备注.Location = new System.Drawing.Point(71, 208);
-            this.txt_配件备注.Name = "txt_配件备注";
-            this.txt_配件备注.Size = new System.Drawing.Size(317, 21);
-            this.txt_配件备注.TabIndex = 7;
-            this.txt_配件备注.Validated += new System.EventHandler(this.txt_Validated);
+            this.txt_产品备注.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_产品备注.Location = new System.Drawing.Point(71, 319);
+            this.txt_产品备注.Name = "txt_产品备注";
+            this.txt_产品备注.Size = new System.Drawing.Size(317, 21);
+            this.txt_产品备注.TabIndex = 7;
+            this.txt_产品备注.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable8
             // 
-            this.myLable8.Location = new System.Drawing.Point(6, 208);
+            this.myLable8.Location = new System.Drawing.Point(6, 319);
             this.myLable8.Name = "myLable8";
             this.myLable8.Size = new System.Drawing.Size(68, 16);
             this.myLable8.TabIndex = 15;
             this.myLable8.Text = "备注：";
             this.myLable8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txt_配件存放位置
+            // txt_内部版本号
             // 
-            this.txt_配件存放位置.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_配件存放位置.Location = new System.Drawing.Point(71, 172);
-            this.txt_配件存放位置.Name = "txt_配件存放位置";
-            this.txt_配件存放位置.Size = new System.Drawing.Size(317, 21);
-            this.txt_配件存放位置.TabIndex = 6;
-            this.txt_配件存放位置.Validated += new System.EventHandler(this.txt_Validated);
+            this.txt_内部版本号.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_内部版本号.Location = new System.Drawing.Point(71, 244);
+            this.txt_内部版本号.Name = "txt_内部版本号";
+            this.txt_内部版本号.Size = new System.Drawing.Size(317, 21);
+            this.txt_内部版本号.TabIndex = 6;
+            this.txt_内部版本号.Validated += new System.EventHandler(this.txt_Validated);
             // 
-            // myLable7
+            // lab_内部版本号
             // 
-            this.myLable7.Location = new System.Drawing.Point(6, 172);
-            this.myLable7.Name = "myLable7";
-            this.myLable7.Size = new System.Drawing.Size(68, 16);
-            this.myLable7.TabIndex = 13;
-            this.myLable7.Text = "存放位置：";
-            this.myLable7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lab_内部版本号.Location = new System.Drawing.Point(-13, 244);
+            this.lab_内部版本号.Name = "lab_内部版本号";
+            this.lab_内部版本号.Size = new System.Drawing.Size(87, 16);
+            this.lab_内部版本号.TabIndex = 13;
+            this.lab_内部版本号.Text = "内部版本号：";
+            this.lab_内部版本号.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lab_内部版本号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_实际总重
             // 
             this.txt_实际总重.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_实际总重.Location = new System.Drawing.Point(275, 136);
+            this.txt_实际总重.Location = new System.Drawing.Point(275, 172);
             this.txt_实际总重.Name = "txt_实际总重";
             this.txt_实际总重.Size = new System.Drawing.Size(113, 21);
             this.txt_实际总重.TabIndex = 5;
@@ -247,31 +264,31 @@
             // 
             // myLable6
             // 
-            this.myLable6.Location = new System.Drawing.Point(177, 137);
+            this.myLable6.Location = new System.Drawing.Point(177, 173);
             this.myLable6.Name = "myLable6";
             this.myLable6.Size = new System.Drawing.Size(102, 16);
             this.myLable6.TabIndex = 11;
             this.myLable6.Text = "实际总重：";
             this.myLable6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lab_配件组别
+            // lab_颜色
             // 
-            this.lab_配件组别.Location = new System.Drawing.Point(6, 135);
-            this.lab_配件组别.Name = "lab_配件组别";
-            this.lab_配件组别.Size = new System.Drawing.Size(68, 16);
-            this.lab_配件组别.TabIndex = 8;
-            this.lab_配件组别.Text = "组别：";
-            this.lab_配件组别.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lab_颜色.Location = new System.Drawing.Point(6, 171);
+            this.lab_颜色.Name = "lab_颜色";
+            this.lab_颜色.Size = new System.Drawing.Size(68, 16);
+            this.lab_颜色.TabIndex = 8;
+            this.lab_颜色.Text = "颜色：";
+            this.lab_颜色.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txt_配件名
+            // txt_产品名
             // 
-            this.txt_配件名.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_配件名.Location = new System.Drawing.Point(71, 96);
-            this.txt_配件名.Name = "txt_配件名";
-            this.txt_配件名.Size = new System.Drawing.Size(317, 21);
-            this.txt_配件名.TabIndex = 3;
-            this.txt_配件名.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
-            this.txt_配件名.Validated += new System.EventHandler(this.txt_Validated);
+            this.txt_产品名.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_产品名.Location = new System.Drawing.Point(71, 96);
+            this.txt_产品名.Name = "txt_产品名";
+            this.txt_产品名.Size = new System.Drawing.Size(317, 21);
+            this.txt_产品名.TabIndex = 3;
+            this.txt_产品名.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
+            this.txt_产品名.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable4
             // 
@@ -279,26 +296,26 @@
             this.myLable4.Name = "myLable4";
             this.myLable4.Size = new System.Drawing.Size(68, 16);
             this.myLable4.TabIndex = 6;
-            this.myLable4.Text = "配件名：";
+            this.myLable4.Text = "产品名：";
             this.myLable4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txt_配件型号
+            // txt_产品型号
             // 
-            this.txt_配件型号.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_配件型号.Location = new System.Drawing.Point(71, 57);
-            this.txt_配件型号.Name = "txt_配件型号";
-            this.txt_配件型号.Size = new System.Drawing.Size(317, 21);
-            this.txt_配件型号.TabIndex = 2;
-            this.txt_配件型号.Validated += new System.EventHandler(this.txt_Validated);
+            this.txt_产品型号.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_产品型号.Location = new System.Drawing.Point(71, 57);
+            this.txt_产品型号.Name = "txt_产品型号";
+            this.txt_产品型号.Size = new System.Drawing.Size(317, 21);
+            this.txt_产品型号.TabIndex = 2;
+            this.txt_产品型号.Validated += new System.EventHandler(this.txt_Validated);
             // 
-            // lab_配件型号
+            // lab_产品型号
             // 
-            this.lab_配件型号.Location = new System.Drawing.Point(6, 57);
-            this.lab_配件型号.Name = "lab_配件型号";
-            this.lab_配件型号.Size = new System.Drawing.Size(68, 16);
-            this.lab_配件型号.TabIndex = 4;
-            this.lab_配件型号.Text = "型号：";
-            this.lab_配件型号.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lab_产品型号.Location = new System.Drawing.Point(6, 57);
+            this.lab_产品型号.Name = "lab_产品型号";
+            this.lab_产品型号.Size = new System.Drawing.Size(68, 16);
+            this.lab_产品型号.TabIndex = 4;
+            this.lab_产品型号.Text = "型号：";
+            this.lab_产品型号.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txt_电子帐册编号
             // 
@@ -336,14 +353,88 @@
             this.myLable1.Text = "编号：";
             this.myLable1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // FormFitInput
+            // txt_产品单位
+            // 
+            this.txt_产品单位.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_产品单位.Location = new System.Drawing.Point(71, 133);
+            this.txt_产品单位.Name = "txt_产品单位";
+            this.txt_产品单位.Size = new System.Drawing.Size(317, 21);
+            this.txt_产品单位.TabIndex = 18;
+            this.txt_产品单位.Validated += new System.EventHandler(this.txt_Validated);
+            // 
+            // lab_单位
+            // 
+            this.lab_单位.Location = new System.Drawing.Point(6, 133);
+            this.lab_单位.Name = "lab_单位";
+            this.lab_单位.Size = new System.Drawing.Size(68, 16);
+            this.lab_单位.TabIndex = 19;
+            this.lab_单位.Text = "单位：";
+            this.lab_单位.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txt_除数
+            // 
+            this.txt_除数.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_除数.Location = new System.Drawing.Point(275, 208);
+            this.txt_除数.Name = "txt_除数";
+            this.txt_除数.Size = new System.Drawing.Size(113, 21);
+            this.txt_除数.TabIndex = 21;
+            this.txt_除数.Validating += new System.ComponentModel.CancelEventHandler(this.txtFloat_Validating);
+            this.txt_除数.Validated += new System.EventHandler(this.txt_Validated);
+            // 
+            // myLable5
+            // 
+            this.myLable5.Location = new System.Drawing.Point(177, 210);
+            this.myLable5.Name = "myLable5";
+            this.myLable5.Size = new System.Drawing.Size(102, 16);
+            this.myLable5.TabIndex = 23;
+            this.myLable5.Text = "除数：";
+            this.myLable5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lab_产品类别
+            // 
+            this.lab_产品类别.Location = new System.Drawing.Point(6, 210);
+            this.lab_产品类别.Name = "lab_产品类别";
+            this.lab_产品类别.Size = new System.Drawing.Size(68, 16);
+            this.lab_产品类别.TabIndex = 22;
+            this.lab_产品类别.Text = "产品类别：";
+            this.lab_产品类别.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cbox_产品类别
+            // 
+            this.cbox_产品类别.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbox_产品类别.FormattingEnabled = true;
+            this.cbox_产品类别.Location = new System.Drawing.Point(71, 208);
+            this.cbox_产品类别.Name = "cbox_产品类别";
+            this.cbox_产品类别.Size = new System.Drawing.Size(113, 20);
+            this.cbox_产品类别.TabIndex = 24;
+            this.cbox_产品类别.SelectedIndexChanged += new System.EventHandler(this.cbox_产品类别_SelectedIndexChanged);
+            // 
+            // txt_企业版本号
+            // 
+            this.txt_企业版本号.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
+            this.txt_企业版本号.Location = new System.Drawing.Point(71, 281);
+            this.txt_企业版本号.Name = "txt_企业版本号";
+            this.txt_企业版本号.Size = new System.Drawing.Size(317, 21);
+            this.txt_企业版本号.TabIndex = 25;
+            this.txt_企业版本号.Validated += new System.EventHandler(this.txt_Validated);
+            // 
+            // myLable7
+            // 
+            this.myLable7.Location = new System.Drawing.Point(-13, 281);
+            this.myLable7.Name = "myLable7";
+            this.myLable7.Size = new System.Drawing.Size(87, 16);
+            this.myLable7.TabIndex = 26;
+            this.myLable7.Text = "企业版本号：";
+            this.myLable7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // FormProductInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.ClientSize = new System.Drawing.Size(445, 332);
+            this.ClientSize = new System.Drawing.Size(445, 437);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
-            this.Name = "FormFitInput";
-            this.Text = "配件资料录入";
+            this.Name = "FormProductInput";
+            this.Text = "产品资料录入";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormFitInput_FormClosing);
             this.Load += new System.EventHandler(this.FormFitInput_Load);
             this.toolStrip1.ResumeLayout(false);
@@ -367,23 +458,31 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton tool1_Close;
         private System.Windows.Forms.GroupBox groupBox1;
-        private UniqueDeclarationBaseForm.Controls.myDateTimePicker datetime_配件建档日期;
+        private UniqueDeclarationBaseForm.Controls.myDateTimePicker datetime_产品建档日期;
         private UniqueDeclarationBaseForm.Controls.myLable myLable9;
-        private UniqueDeclarationBaseForm.Controls.myTextBox txt_配件备注;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_产品备注;
         private UniqueDeclarationBaseForm.Controls.myLable myLable8;
-        private UniqueDeclarationBaseForm.Controls.myTextBox txt_配件存放位置;
-        private UniqueDeclarationBaseForm.Controls.myLable myLable7;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_内部版本号;
+        private UniqueDeclarationBaseForm.Controls.myLable lab_内部版本号;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_实际总重;
         private UniqueDeclarationBaseForm.Controls.myLable myLable6;
-        private UniqueDeclarationBaseForm.Controls.myLable lab_配件组别;
-        private UniqueDeclarationBaseForm.Controls.myTextBox txt_配件名;
+        private UniqueDeclarationBaseForm.Controls.myLable lab_颜色;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_产品名;
         private UniqueDeclarationBaseForm.Controls.myLable myLable4;
-        private UniqueDeclarationBaseForm.Controls.myTextBox txt_配件型号;
-        private UniqueDeclarationBaseForm.Controls.myLable lab_配件型号;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_产品型号;
+        private UniqueDeclarationBaseForm.Controls.myLable lab_产品型号;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_电子帐册编号;
         private UniqueDeclarationBaseForm.Controls.myLable myLable2;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_编号;
         private UniqueDeclarationBaseForm.Controls.myLable myLable1;
-        private UniqueDeclarationBaseForm.Controls.myTextBox txt_配件组别;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_产品颜色;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_产品单位;
+        private UniqueDeclarationBaseForm.Controls.myLable lab_单位;
+        private UniqueDeclarationBaseForm.Controls.myComboBox cbox_产品类别;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_除数;
+        private UniqueDeclarationBaseForm.Controls.myLable myLable5;
+        private UniqueDeclarationBaseForm.Controls.myLable lab_产品类别;
+        private UniqueDeclarationBaseForm.Controls.myTextBox txt_企业版本号;
+        private UniqueDeclarationBaseForm.Controls.myLable myLable7;
     }
 }

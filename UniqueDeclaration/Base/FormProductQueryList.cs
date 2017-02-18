@@ -17,11 +17,22 @@ namespace UniqueDeclaration.Base
             InitializeComponent();
         }
 
+        public bool abOK = false;
+
         public override void FormBaseDataQueryList_Load(object sender, EventArgs e)
         {
             base.tool1_ExportExcel.Visible = false;
             base.tool1_Print.Visible = false;
-            this.gstrSQL = "SELECT * FROM 配件资料表 {0} ORDER BY 配件型号";
+            if (!abOK)
+            {
+                this.gstrSQL ="SELECT * FROM 产品资料表 {0} ORDER BY 产品型号";
+            }
+            else
+            {
+                this.gstrSQL = @"SELECT *,A.产品A FROM 产品资料表 left outer join (SELECT DISTINCT 产品组成表.产品ID AS 产品A 
+                     FROM 产品组成表 where 产品组成表.备注 LIKE '组合好转' or  产品组成表.备注 LIKE '组合转' 
+                     GROUP BY 产品组成表.产品id) A on A.产品A = 产品资料表.产品id {0} ORDER BY 产品型号";
+            }
             this.gstrDetailFirstField = "编号";
             base.FormBaseDataQueryList_Load(sender, e);
         }
@@ -29,37 +40,40 @@ namespace UniqueDeclaration.Base
         public override void initGrid()
         {
             this.myDataGridViewHead.AutoGenerateColumns = false;
-            this.myDataGridViewHead.Columns["配件id"].Visible = false;
+            this.myDataGridViewHead.Columns["产品id"].Visible = false;
+            this.myDataGridViewHead.Columns["除数"].Visible = false;
             this.myDataGridViewHead.Columns["明细备注"].Visible = false;
             this.myDataGridViewHead.Columns["工时分"].Visible = false;
             this.myDataGridViewHead.Columns["工时秒"].Visible = false;
+            if (abOK)
+            {
+                this.myDataGridViewHead.Columns["产品A"].Visible = false;
+                this.myDataGridViewHead.Columns["产品A1"].Visible = false;
+            }
 
             this.myDataGridViewHead.Columns["编号"].DisplayIndex = 0;
             this.myDataGridViewHead.Columns["电子帐册编号"].DisplayIndex = 1;
-            this.myDataGridViewHead.Columns["配件型号"].DisplayIndex = 2;
-            this.myDataGridViewHead.Columns["配件型号"].HeaderText = "型号";
-            this.myDataGridViewHead.Columns["配件名"].DisplayIndex = 3;
-            this.myDataGridViewHead.Columns["配件组别"].DisplayIndex = 4;
-            this.myDataGridViewHead.Columns["配件组别"].HeaderText = "组别";
-            this.myDataGridViewHead.Columns["实际总重"].DisplayIndex = 5;
-            this.myDataGridViewHead.Columns["配件存放位置"].DisplayIndex = 6;
-            this.myDataGridViewHead.Columns["配件存放位置"].HeaderText = "存放位置";
-            this.myDataGridViewHead.Columns["配件备注"].DisplayIndex = 7;
-            this.myDataGridViewHead.Columns["配件备注"].HeaderText = "备注";
-            this.myDataGridViewHead.Columns["配件建档日期"].DisplayIndex = 8;
-            this.myDataGridViewHead.Columns["配件建档日期"].HeaderText = "建档时间";
+            this.myDataGridViewHead.Columns["产品型号"].DisplayIndex = 2;
+            this.myDataGridViewHead.Columns["产品型号"].HeaderText = "型号";
+            this.myDataGridViewHead.Columns["产品名"].DisplayIndex = 3;
+            this.myDataGridViewHead.Columns["产品单位"].DisplayIndex = 4;
+            this.myDataGridViewHead.Columns["产品单位"].HeaderText = "单位";
+            this.myDataGridViewHead.Columns["产品颜色"].DisplayIndex = 5;
+            this.myDataGridViewHead.Columns["产品颜色"].HeaderText = "颜色";
+            this.myDataGridViewHead.Columns["产品类别"].DisplayIndex = 6;
+            this.myDataGridViewHead.Columns["产品类别"].HeaderText = "类别";
+            this.myDataGridViewHead.Columns["实际总重"].DisplayIndex = 7;
+            this.myDataGridViewHead.Columns["内部版本号"].DisplayIndex = 8;
+            this.myDataGridViewHead.Columns["企业版本号"].DisplayIndex = 9;
+            this.myDataGridViewHead.Columns["产品备注"].DisplayIndex = 10;
+            this.myDataGridViewHead.Columns["产品备注"].HeaderText = "备注";
+            this.myDataGridViewHead.Columns["产品建档日期"].DisplayIndex = 11;
+            this.myDataGridViewHead.Columns["产品建档日期"].HeaderText = "建档时间";
             //System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             //dataGridViewCellStyle1.Format = "F1";
             //dataGridViewCellStyle1.NullValue = null;
             //this.myDataGridViewHead.Columns["单价"].DefaultCellStyle = dataGridViewCellStyle1;
             //this.myDataGridViewHead.Columns["换算因子"].DefaultCellStyle = dataGridViewCellStyle1;
-            foreach (DataGridViewColumn textBoxColumn in this.myDataGridViewHead.Columns)
-            {
-                if (textBoxColumn.Name != "计算库存")
-                {
-                    textBoxColumn.ContextMenuStrip = this.myContextMenu;
-                }
-            }
         }
 
         #region tool1事件
@@ -75,10 +89,10 @@ namespace UniqueDeclaration.Base
         {
             //base.tool1_Modify_Click(sender, e);
             bool bHave = false;
-            int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["配件id"].Value);
+            int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["产品id"].Value);
             foreach (Form childFrm in this.MdiParent.MdiChildren)
             {
-                if (childFrm.Name == "FormFitInput")
+                if (childFrm.Name == "FormProductInput")
                 {
                     FormProductInput inputForm = (FormProductInput)childFrm;
                     if (inputForm.giOrderID != 0 && inputForm.giOrderID == iOrderID)
@@ -104,7 +118,7 @@ namespace UniqueDeclaration.Base
             {
                 if (this.myDataGridViewHead.CurrentRow == null) return;
                 if (SysMessage.YesNoMsg("真的要删除吗？") == System.Windows.Forms.DialogResult.No) return;
-                string strSQL = string.Format("删除指定的配件资料 {0}", this.myDataGridViewHead.CurrentRow.Cells["配件id"].Value);
+                string strSQL = string.Format("删除指定的产品资料 {0}", this.myDataGridViewHead.CurrentRow.Cells["产品id"].Value);
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
                 dataAccess.Open();
                 dataAccess.ExecuteNonQuery(strSQL, null);
@@ -127,6 +141,7 @@ namespace UniqueDeclaration.Base
             if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 gstrWhere = queryConditionForm.strReturnWhere;
+                abOK = queryConditionForm.abOK;
                 LoadDataSource();
             }
         }
@@ -134,13 +149,14 @@ namespace UniqueDeclaration.Base
         {
             base.tool1_BOM_Click(sender, e);
             if (this.myDataGridViewHead.RowCount == 0) return;
+            if (this.myDataGridViewHead.CurrentRow.Cells["产品id"].Value == DBNull.Value) return;
             #region 判断是否已经有打开的BOM窗体
             foreach (Form childFrm in this.MdiParent.MdiChildren)
             {
-                if (childFrm.Name == "FormFitBOM")
+                if (childFrm.Name == "FormProductBOM")
                 {
                     FormProductBOM orderBomForm = (FormProductBOM)childFrm;
-                    if (orderBomForm.mnFId == Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["配件id"].Value))
+                    if (orderBomForm.mnPId == Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["产品id"].Value))
                     {
                         childFrm.Activate();
                         return;
@@ -151,9 +167,9 @@ namespace UniqueDeclaration.Base
 
             FormProductBOM formBOM = new FormProductBOM();
             formBOM.mbShow = false;
-            formBOM.mnFId =Convert.ToInt32( this.myDataGridViewHead.CurrentRow.Cells["配件id"].Value);
-            formBOM.mstrName = this.myDataGridViewHead.CurrentRow.Cells["配件型号"].Value.ToString();
-            formBOM.mstrGroup = this.myDataGridViewHead.CurrentRow.Cells["配件组别"].Value.ToString();
+            formBOM.mnPId =Convert.ToInt32( this.myDataGridViewHead.CurrentRow.Cells["产品id"].Value);
+            formBOM.mstrName = this.myDataGridViewHead.CurrentRow.Cells["产品型号"].Value.ToString();
+            formBOM.mstrColor = this.myDataGridViewHead.CurrentRow.Cells["产品颜色"].Value.ToString();
             formBOM.MdiParent = this.MdiParent;
             formBOM.Show();
         }
