@@ -53,6 +53,7 @@
             this.btnDeleteDeclarationMaterialsDetails = new UniqueDeclarationBaseForm.Controls.myButton();
             this.myLable2 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myDataGridViewDeclarationMaterialsDetails = new UniqueDeclarationBaseForm.Controls.myDataGridView();
+            this.btnAddFit = new UniqueDeclarationBaseForm.Controls.myButton();
             this.toolStrip1.SuspendLayout();
             this.myTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -149,18 +150,19 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnAddFit);
             this.groupBox2.Controls.Add(this.btnDeleteFit);
             this.groupBox2.Controls.Add(this.myDataGridViewFit);
-            this.groupBox2.Location = new System.Drawing.Point(8, 231);
+            this.groupBox2.Location = new System.Drawing.Point(6, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(681, 175);
+            this.groupBox2.Size = new System.Drawing.Size(681, 216);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "配件组成";
             // 
             // btnDeleteFit
             // 
-            this.btnDeleteFit.Location = new System.Drawing.Point(582, 152);
+            this.btnDeleteFit.Location = new System.Drawing.Point(582, 190);
             this.btnDeleteFit.Name = "btnDeleteFit";
             this.btnDeleteFit.Size = new System.Drawing.Size(75, 23);
             this.btnDeleteFit.TabIndex = 1;
@@ -178,7 +180,7 @@
             this.myDataGridViewFit.MultiSelect = false;
             this.myDataGridViewFit.Name = "myDataGridViewFit";
             this.myDataGridViewFit.RowTemplate.Height = 23;
-            this.myDataGridViewFit.Size = new System.Drawing.Size(668, 129);
+            this.myDataGridViewFit.Size = new System.Drawing.Size(668, 169);
             this.myDataGridViewFit.TabIndex = 0;
             this.myDataGridViewFit.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.myDataGridViewFit_CellContentClick);
             this.myDataGridViewFit.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.myDataGridViewFit_CellEndEdit);
@@ -189,16 +191,16 @@
             // 
             this.groupBox1.Controls.Add(this.btnDeleteMaterials);
             this.groupBox1.Controls.Add(this.myDataGridViewMaterials);
-            this.groupBox1.Location = new System.Drawing.Point(9, 7);
+            this.groupBox1.Location = new System.Drawing.Point(6, 226);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(681, 224);
+            this.groupBox1.Size = new System.Drawing.Size(681, 180);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "料件组成";
             // 
             // btnDeleteMaterials
             // 
-            this.btnDeleteMaterials.Location = new System.Drawing.Point(581, 195);
+            this.btnDeleteMaterials.Location = new System.Drawing.Point(582, 155);
             this.btnDeleteMaterials.Name = "btnDeleteMaterials";
             this.btnDeleteMaterials.Size = new System.Drawing.Size(75, 23);
             this.btnDeleteMaterials.TabIndex = 1;
@@ -216,7 +218,7 @@
             this.myDataGridViewMaterials.MultiSelect = false;
             this.myDataGridViewMaterials.Name = "myDataGridViewMaterials";
             this.myDataGridViewMaterials.RowTemplate.Height = 23;
-            this.myDataGridViewMaterials.Size = new System.Drawing.Size(668, 173);
+            this.myDataGridViewMaterials.Size = new System.Drawing.Size(668, 134);
             this.myDataGridViewMaterials.TabIndex = 0;
             this.myDataGridViewMaterials.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.myDataGridViewMaterials_CellEndEdit);
             this.myDataGridViewMaterials.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.myDataGridViewMaterials_DataError);
@@ -273,6 +275,7 @@
             this.myDataGridViewMaterialsDetails.Location = new System.Drawing.Point(7, 21);
             this.myDataGridViewMaterialsDetails.MultiSelect = false;
             this.myDataGridViewMaterialsDetails.Name = "myDataGridViewMaterialsDetails";
+            this.myDataGridViewMaterialsDetails.ReadOnly = true;
             this.myDataGridViewMaterialsDetails.RowTemplate.Height = 23;
             this.myDataGridViewMaterialsDetails.Size = new System.Drawing.Size(668, 306);
             this.myDataGridViewMaterialsDetails.TabIndex = 0;
@@ -344,6 +347,16 @@
             this.myDataGridViewDeclarationMaterialsDetails.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.myDataGridViewDeclarationMaterialsDetails_DataError);
             this.myDataGridViewDeclarationMaterialsDetails.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myDataGridViewDeclarationMaterialsDetails_KeyPress);
             // 
+            // btnAddFit
+            // 
+            this.btnAddFit.Location = new System.Drawing.Point(501, 190);
+            this.btnAddFit.Name = "btnAddFit";
+            this.btnAddFit.Size = new System.Drawing.Size(75, 23);
+            this.btnAddFit.TabIndex = 3;
+            this.btnAddFit.Text = "新增行";
+            this.btnAddFit.UseVisualStyleBackColor = true;
+            this.btnAddFit.Click += new System.EventHandler(this.btnAddFit_Click);
+            // 
             // FormProductBOM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -403,5 +416,6 @@
         private UniqueDeclarationBaseForm.Controls.myDataGridView myDataGridViewDeclarationMaterialsDetails;
         private System.Windows.Forms.ToolStripButton tool1_BOM;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private UniqueDeclarationBaseForm.Controls.myButton btnAddFit;
     }
 }

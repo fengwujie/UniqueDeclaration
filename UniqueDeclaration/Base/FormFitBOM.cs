@@ -102,7 +102,6 @@ namespace UniqueDeclaration.Base
             this.myDataGridViewFit.Columns["配件组成表id"].Visible = false;
             this.myDataGridViewFit.Columns["组成id"].Visible = false;
             this.myDataGridViewFit.Columns["类别"].Visible = false;
-            this.myDataGridViewFit.AutoGenerateColumns = false;
 
             this.myDataGridViewFit.Columns["型号"].DisplayIndex = 0;
             this.myDataGridViewFit.Columns["品名"].DisplayIndex = 1;
@@ -213,7 +212,8 @@ namespace UniqueDeclaration.Base
             dtFit = dataAccess.GetTable(strSQL, null);
             dataAccess.Close();
             if (dtFit.Rows.Count == 0)
-                DataTableTools.AddEmptyRow(dtFit);
+                //DataTableTools.AddEmptyRow(dtFit);
+                dtFitAddRow();
             this.myDataGridViewFit.DataSource = dtFit;
         }
         /// <summary>
@@ -741,7 +741,7 @@ namespace UniqueDeclaration.Base
                     {
                         if (StringTools.decimalParse(dgv.CurrentRow.Cells["损耗率"].Value.ToString()) == StringTools.decimalParse(cell.EditedFormattedValue.ToString()))
                         {
-                            dgv.CurrentCell = dgv["损耗率", cell.RowIndex];
+                            dgv.CurrentCell = dgv["备注", cell.RowIndex];
                         }
                         else
                         {
@@ -1043,7 +1043,8 @@ namespace UniqueDeclaration.Base
                                 //否则跳转到下一行的客人型号，如果是最后一行，则新增一行
                                 if (cell.RowIndex == dgv.Rows.Count - 1)
                                 {
-                                    DataTableTools.AddEmptyRow(dtFit, false);
+                                    //DataTableTools.AddEmptyRow(dtFit, false);
+                                    dtFitAddRow();
                                     dgv.CurrentCell = dgv["型号", cell.RowIndex + 1];
                                 }
                                 else
@@ -1154,6 +1155,16 @@ namespace UniqueDeclaration.Base
             }
         }
 
+        /// <summary>
+        /// 改样后表头GRID增加一条新行
+        /// </summary>
+        private void dtFitAddRow()
+        {
+            DataRow newRow = dtFit.NewRow();
+            newRow["类别"] = "A";
+            newRow["类别描述"] = "正常";
+            dtFit.Rows.Add(newRow);
+        }
         #endregion
 
         #region myDataGridViewDeclarationMaterialsDetails
@@ -1450,6 +1461,13 @@ namespace UniqueDeclaration.Base
             this.Close();
         }
         #endregion
+
+        private void btnAddFit_Click(object sender, EventArgs e)
+        {
+            //DataTableTools.AddEmptyRow(dtFit,false);
+            dtFitAddRow();
+            myDataGridViewFit.CurrentCell = myDataGridViewFit["型号", myDataGridViewFit.Rows.Count -1];
+        }
 
     }
 }

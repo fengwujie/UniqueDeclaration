@@ -53,6 +53,7 @@
             this.btnDeleteDeclarationMaterialsDetails = new UniqueDeclarationBaseForm.Controls.myButton();
             this.myLable2 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myDataGridViewDeclarationMaterialsDetails = new UniqueDeclarationBaseForm.Controls.myDataGridView();
+            this.btnAddFit = new UniqueDeclarationBaseForm.Controls.myButton();
             this.toolStrip1.SuspendLayout();
             this.myTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -149,6 +150,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnAddFit);
             this.groupBox2.Controls.Add(this.btnDeleteFit);
             this.groupBox2.Controls.Add(this.myDataGridViewFit);
             this.groupBox2.Location = new System.Drawing.Point(8, 231);
@@ -273,6 +275,7 @@
             this.myDataGridViewMaterialsDetails.Location = new System.Drawing.Point(7, 21);
             this.myDataGridViewMaterialsDetails.MultiSelect = false;
             this.myDataGridViewMaterialsDetails.Name = "myDataGridViewMaterialsDetails";
+            this.myDataGridViewMaterialsDetails.ReadOnly = true;
             this.myDataGridViewMaterialsDetails.RowTemplate.Height = 23;
             this.myDataGridViewMaterialsDetails.Size = new System.Drawing.Size(668, 306);
             this.myDataGridViewMaterialsDetails.TabIndex = 0;
@@ -344,6 +347,16 @@
             this.myDataGridViewDeclarationMaterialsDetails.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.myDataGridViewDeclarationMaterialsDetails_DataError);
             this.myDataGridViewDeclarationMaterialsDetails.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myDataGridViewDeclarationMaterialsDetails_KeyPress);
             // 
+            // btnAddFit
+            // 
+            this.btnAddFit.Location = new System.Drawing.Point(501, 152);
+            this.btnAddFit.Name = "btnAddFit";
+            this.btnAddFit.Size = new System.Drawing.Size(75, 23);
+            this.btnAddFit.TabIndex = 2;
+            this.btnAddFit.Text = "新增行";
+            this.btnAddFit.UseVisualStyleBackColor = true;
+            this.btnAddFit.Click += new System.EventHandler(this.btnAddFit_Click);
+            // 
             // FormFitBOM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -403,5 +416,6 @@
         private UniqueDeclarationBaseForm.Controls.myDataGridView myDataGridViewDeclarationMaterialsDetails;
         private System.Windows.Forms.ToolStripButton tool1_BOM;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private UniqueDeclarationBaseForm.Controls.myButton btnAddFit;
     }
 }

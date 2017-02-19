@@ -265,7 +265,7 @@ namespace UniqueDeclaration.Base
                         #region 新增表头数据
                         strBuilder.AppendLine(@"INSERT INTO [产品资料表]([编号],[电子帐册编号],[产品型号],[产品名],[产品建档日期],[产品单位],[产品颜色],[产品备注],[实际总重],
                                                 [产品类别],[除数],[内部版本号],[企业版本号])");
-                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},,{11},{12})",
+                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12})",
                             rowHead["编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["编号"].ToString()),
                             rowHead["电子帐册编号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["电子帐册编号"].ToString()),
                             rowHead["产品型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["产品型号"].ToString()),
