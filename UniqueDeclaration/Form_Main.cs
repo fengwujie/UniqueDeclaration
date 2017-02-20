@@ -478,10 +478,28 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
+        //报关产品确认录入
+        private void FormCheckOutInput_Click(object sender, EventArgs e)
+        {
+            FormCheckOutInput objForm = new FormCheckOutInput();
+            objForm.MdiParent = this;
+            objForm.giOrderID = 0;
+            objForm.Show();
+        }
+        //报关产品确认查询
+        private void FormCheckOutQueryCondition_Click(object sender, EventArgs e)
+        {
+            FormCheckOutQueryCondition queryConditionForm = new FormCheckOutQueryCondition();
+            if (queryConditionForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                //string cManualNo = queryConditionForm.cManualNo;
+                UniqueDeclaration.Base.FormCheckOutQueryList queryListForm = new UniqueDeclaration.Base.FormCheckOutQueryList();
+                //queryListForm.gstrManualNo = cManualNo;
+                queryListForm.gstrWhere = queryConditionForm.strReturnWhere;
+                queryListForm.MdiParent = this;
+                queryListForm.Show();
+            }
+        }
         #endregion
-
-     
-
-
     }
 }

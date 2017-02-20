@@ -93,7 +93,7 @@
             // 
             this.myContextMenuHead.MyDataGridView = this.myDataGridViewHead;
             this.myContextMenuHead.Name = "myContextMenuHead";
-            this.myContextMenuHead.Size = new System.Drawing.Size(101, 26);
+            this.myContextMenuHead.Size = new System.Drawing.Size(153, 48);
             // 
             // myContextMenuDetails
             // 

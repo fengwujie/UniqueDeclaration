@@ -76,6 +76,24 @@
     <Compile Include="Base\FormBaseDataQueryList.Designer.cs">
       <DependentUpon>FormBaseDataQueryList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Base\FormCheckOutInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormCheckOutInput.Designer.cs">
+      <DependentUpon>FormCheckOutInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormCheckOutQueryCondition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormCheckOutQueryCondition.Designer.cs">
+      <DependentUpon>FormCheckOutQueryCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\FormCheckOutQueryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormCheckOutQueryList.Designer.cs">
+      <DependentUpon>FormCheckOutQueryList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Base\FormCodeSelect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -493,6 +511,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Base\FormBaseDataQueryList.resx">
       <DependentUpon>FormBaseDataQueryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormCheckOutInput.resx">
+      <DependentUpon>FormCheckOutInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormCheckOutQueryCondition.resx">
+      <DependentUpon>FormCheckOutQueryCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormCheckOutQueryList.resx">
+      <DependentUpon>FormCheckOutQueryList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Base\FormCodeSelect.resx">
       <DependentUpon>FormCodeSelect.cs</DependentUpon>

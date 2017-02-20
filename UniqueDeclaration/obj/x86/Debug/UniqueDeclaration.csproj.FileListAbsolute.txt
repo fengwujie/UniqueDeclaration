@@ -118,6 +118,9 @@ F:\Unique\UniqueDeclaration\UniqueDeclaration\bin\Debug\UniqueDeclarationDAL.pdb
 F:\Unique\UniqueDeclaration\UniqueDeclaration\bin\Debug\office.xml
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.csprojResolveAssemblyReference.cache
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormBaseDataQueryList.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormCheckOutInput.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormCheckOutQueryCondition.resources
+F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormCheckOutQueryList.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormCodeSelect.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormFitBOM.resources
 F:\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormFitInput.resources

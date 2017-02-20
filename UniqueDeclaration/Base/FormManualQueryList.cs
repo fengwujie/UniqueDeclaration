@@ -16,8 +16,7 @@ namespace UniqueDeclaration.Base
         {
             InitializeComponent();
         }
-
-
+        
         /// <summary>
         /// 是否触发行变化事件
         /// </summary>
