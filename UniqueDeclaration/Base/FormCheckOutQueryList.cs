@@ -218,6 +218,175 @@ namespace UniqueDeclaration.Base
             }
         }
 
+        public override void tool1_Import_Click(object sender, EventArgs e)
+        {
+            //base.tool1_Import_Click(sender, e);
+            try
+            {
+                FormCheckOutImportSet objForm = new FormCheckOutImportSet();
+                if (objForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string date1 = objForm.date1;
+                    string date2 = objForm.date2;
+                    string 手册编号 = objForm.手册编号;
+                    int 手册id = objForm.手册id;
+                    IDataAccess dataAccessUniquegrade = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    dataAccessUniquegrade.Open();
+                    string strSQL = @"select top 0 * from 报关产品表
+                                    select top 0 * from 报关产品组成明细表";
+                    DataSet ds = dataAccessUniquegrade.GetDataSet(strSQL, null);
+                    DataTable rs1 = ds.Tables[0];
+                    DataTable rs2 = ds.Tables[1];
+                    strSQL = string.Format(@"SELECT ZX.报关单号, S.手册id, ZXMX.客人型号, ZXMX.优丽型号, ZXMX.成品项号,ZXMX.成品名称及商编, ZXMX.成品规格型号, 
+                                            ZXMX.单位 AS 产品表申报单位,'千克' AS 产品表法定单位, ZX.出货日期 AS 录入日期, ZXMX.归并前成品序号,ZXMX.订单号码,ZXMX.手册编号 
+                                        FROM dbo.手册资料表 S RIGHT OUTER JOIN dbo.装箱单明细表 ZXMX ON S.手册编号 = ZXMX.手册编号 
+                                        RIGHT OUTER JOIN dbo.装箱单表 ZX ON ZXMX.订单id = ZX.订单id 
+                                        where S.手册id={0} and ZX.出货日期 >='{1}' ORDER BY ZX.出货日期", 手册id, date1);
+                    DataTable mRsTemp = dataAccessUniquegrade.GetTable(strSQL, null);
+                    dataAccessUniquegrade.Close();
+                    if (mRsTemp.Rows.Count == 0) return;
+                    int nn = 1;
+                    int iCount = mRsTemp.Rows.Count;
+                    string temp1, temp2;
+                    //lab_ImportScale.Visible = true;
+                    this.panel2.Visible = true;
+                    this.progressBar1.Minimum = 0;
+                    this.progressBar1.Maximum = iCount;
+                    IDataAccess dataAccessManufacture = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                    foreach (DataRow mRsTempRow in mRsTemp.Rows)
+                    {
+                        temp1 = mRsTempRow["客人型号"].ToString();
+                        temp2 = mRsTempRow["优丽型号"].ToString();
+                        dataAccessManufacture.Open();
+                        strSQL = string.Format(@"SELECT 报关订单表.手册编号,报关订单明细表.客人型号,报关订单明细表.优丽型号, 报关订单明细表.成品项号,报关订单明细表.版本号,
+                                                报关订单表.订单号码 FROM 报关订单明细表 RIGHT OUTER JOIN 报关订单表 ON 报关订单明细表.订单id = 报关订单表.订单id 
+                                            where 报关订单表.订单号码='{0}' and 报关订单表.手册编号='{1}' 
+                                                    and 报关订单明细表.客人型号='{2}'and 报关订单明细表.优丽型号='{3}' and 
+                                                    报关订单明细表.成品项号={4} and 报关订单明细表.版本号={5}",
+                                                                                         mRsTempRow["订单号码"], 手册编号, temp1, temp2, 
+                                                                                         mRsTempRow["成品项号"] == DBNull.Value ? 0 : mRsTempRow["成品项号"], mRsTempRow["归并前成品序号"]);
+                        DataTable mRsTemp1 = dataAccessManufacture.GetTable(strSQL, null);
+                        dataAccessManufacture.Close();
+                        if (mRsTemp1.Rows.Count > 0)
+                        {
+                            foreach (DataRow mRsTempRow1 in mRsTemp1.Rows)
+                            {
+                                string filter = string.Format(@"手册id={0} and 客人型号='{1}'and 优丽型号='{2}' and 成品项号={3} and 归并前成品序号={4}",
+                                                                手册id, temp1, temp2, mRsTempRow["成品项号"], mRsTempRow["归并前成品序号"]);
+                                DataRow[] mRsTempRows = rs1.Select(filter);
+                                if (mRsTempRows.Length == 0)
+                                {
+//                                    strSQL = string.Format(@"SELECT * FROM 报关产品表 where 手册id={0} and 客人型号={1}'and 优丽型号='{2}' 
+//                                                            and 成品项号={3} and 归并前成品序号={4}",
+//                                                            手册id, temp1, temp2, mRsTempRow["成品项号"], mRsTempRow["归并前成品序号"]);
+                                    dataAccessUniquegrade.Open();
+                                    strSQL = string.Format(@"SELECT * FROM 报关产品表 where 手册id={0} and 客人型号='{1}'and 优丽型号='{2}' 
+                                                            and 成品项号={3} and 归并前成品序号={4}",
+                                                            手册id, temp1, temp2, mRsTempRow["成品项号"], mRsTempRow["归并前成品序号"]);
+                                    DataTable mRsTemp5 = dataAccessUniquegrade.GetTable(strSQL, null);
+                                    if (mRsTemp5.Rows.Count > 0)
+                                    {
+                                        strSQL = string.Format(@"delete from 报关产品组成明细表 where 报关产品表id={0}
+                                                                delete from 报关产品表 where 报关产品表id={0}", mRsTemp5.Rows[0]["报关产品表id"]);
+                                    }
+                                    dataAccessUniquegrade.ExecuteNonQuery(strSQL, null);
+                                    //dataAccessUniquegrade.Close();
+                                    /*
+                                    DataRow rs1NewRow = rs1.NewRow();
+                                    rs1NewRow["手册id"] = cManualCode;
+                                    rs1NewRow["客人型号"] = mRsTempRow["客人型号"];
+                                    rs1NewRow["优丽型号"] = mRsTempRow["优丽型号"];
+                                    rs1NewRow["成品规格型号"] = mRsTempRow["成品规格型号"];
+                                    rs1NewRow["产品表申报单位"] = mRsTempRow["产品表申报单位"];
+                                    rs1NewRow["产品表法定单位"] = mRsTempRow["产品表法定单位"];
+                                    rs1NewRow["录入日期"] = mRsTempRow["录入日期"];
+                                    rs1NewRow["报关订单号"] = mRsTempRow["报关单号"];
+                                    rs1NewRow["成品项号"] = mRsTempRow["成品项号"];
+                                    rs1NewRow["成品名称及商编"] = mRsTempRow["成品名称及商编"];
+                                    rs1NewRow["归并前成品序号"] = mRsTempRow["归并前成品序号"];
+                                    rs1.update()
+                                    */
+                                    strSQL = string.Format(@"INSERT INTO [报关产品表]([手册id],[客人型号],[优丽型号],[成品项号],[成品名称及商编],[成品规格型号],[产品表申报单位],
+                                                            [产品表法定单位],[归并前成品序号],[录入日期],[报关订单号])
+                                                        VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})
+                                                        select @@IDENTITY",
+                                                             手册id, mRsTempRow["客人型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(mRsTempRow["客人型号"].ToString()),
+                                                             mRsTempRow["优丽型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(mRsTempRow["优丽型号"].ToString()),
+                                                             mRsTempRow["成品项号"] == DBNull.Value ? "NULL" : mRsTempRow["成品项号"],
+                                                             mRsTempRow["成品名称及商编"] == DBNull.Value ? "NULL" : StringTools.SqlQ(mRsTempRow["成品名称及商编"].ToString()),
+                                                             mRsTempRow["成品规格型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(mRsTempRow["成品规格型号"].ToString()),
+                                                             mRsTempRow["产品表申报单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(mRsTempRow["产品表申报单位"].ToString()),
+                                                             mRsTempRow["产品表法定单位"] == DBNull.Value ? "NULL" : StringTools.SqlQ(mRsTempRow["产品表法定单位"].ToString()),
+                                                             mRsTempRow["归并前成品序号"] == DBNull.Value ? "NULL" : mRsTempRow["归并前成品序号"],
+                                                             mRsTempRow["录入日期"] == DBNull.Value ? "NULL" : StringTools.SqlQ(mRsTempRow["录入日期"].ToString()),
+                                                             mRsTempRow["报关单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(mRsTempRow["报关单号"].ToString()));
+                                    DataTable dtTemp1 = dataAccessUniquegrade.GetTable(strSQL, null);
+                                    int i报关产品表ID = Convert.ToInt32(dtTemp1.Rows[0][0]);
+                                    dataAccessUniquegrade.Close();
+
+                                    dataAccessManufacture.Open();
+                                    strSQL = string.Format(@"SELECT dbo.报关订单明细表.订单明细表id, dbo.报关订单明细表.订单id,dbo.报关订单明细表.产品id, dbo.报关订单明细表.配件id,
+                                                            dbo.报关订单明细表.版本号, dbo.报关订单明细表.成品项号,dbo.报关订单表.订单号码,dbo.报关订单表.手册编号 
+                                                        FROM dbo.报关订单明细表 RIGHT OUTER JOIN dbo.报关订单表 ON dbo.报关订单明细表.订单id = dbo.报关订单表.订单id 
+                                                        where 报关订单表.订单号码='{0}' and dbo.报关订单明细表.版本号='{1}' and dbo.报关订单明细表.成品项号='{2}'",
+                                                                mRsTempRow["订单号码"], mRsTempRow["归并前成品序号"], mRsTempRow["成品项号"]);
+                                    DataTable mRsTemp4 = dataAccessManufacture.GetTable(strSQL, null);
+                                    dataAccessManufacture.Close();
+                                    if (mRsTemp4.Rows.Count > 0)
+                                    {
+                                        foreach (DataRow mRsTemp4Row in mRsTemp4.Rows)
+                                        {
+                                            strSQL = string.Format(@"归并后料件汇总明细 {0},{1},{2},{3},'{4}'",
+                                            mRsTemp4Row["产品id"] == DBNull.Value ? "0" : mRsTemp4Row["产品id"], mRsTemp4Row["配件id"] == DBNull.Value ? "0" : mRsTemp4Row["配件id"],
+                                            mRsTemp4Row["订单id"], mRsTemp4Row["订单明细表id"], mRsTemp4Row["手册编号"]);
+                                            dataAccessManufacture.Open();
+                                            DataTable mRsTemp2 = dataAccessManufacture.GetTable(strSQL, null);
+                                            dataAccessManufacture.Close();
+                                            if (mRsTemp2.Rows.Count > 0)
+                                            {
+                                                foreach (DataRow mRsTemp2Row in mRsTemp2.Rows)
+                                                {
+                                                    string c料件名称及商编 = string.Format("{0}/{1}", mRsTemp2Row["商品名称"].ToString(), mRsTemp2Row["商品编码"].ToString());
+                                                    strSQL = string.Format(@"INSERT INTO [报关产品组成明细表]([报关产品表id],[料件项号],[料件名称及商编],[料件规格型号],
+                                                                                [明细表申报单位],[明细表法定单位],[备案净耗单位],[备案损耗])
+                                                                         VALUES({0},{1},{2},{3},{4},{5},{6},{7})",
+                                                                                    i报关产品表ID, mRsTemp2Row["项号"] == DBNull.Value ? "NULL" : mRsTemp2Row["项号"],
+                                                                                    StringTools.SqlQ( c料件名称及商编), 
+                                                                                    mRsTemp2Row["规格型号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(mRsTemp2Row["规格型号"].ToString()),
+                                                                                    mRsTemp2Row["计量单位"] == DBNull.Value ? "NULL" :StringTools.SqlQ( mRsTemp2Row["计量单位"].ToString()), "'千克'",
+                                                                                    (mRsTemp2Row["备案净耗单位"] == DBNull.Value ? 0 : Convert.ToDecimal(mRsTemp2Row["备案净耗单位"])).ToString("f5"),
+                                                                                     mRsTemp2Row["损耗率"] == DBNull.Value ? "NULL" : mRsTemp2Row["损耗率"]);
+                                                    dataAccessUniquegrade.Open();
+                                                    dataAccessUniquegrade.ExecuteNonQuery(strSQL, null);
+                                                    dataAccessUniquegrade.Close();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //提示正在处理数据的进度
+                        lab_ImportScale.Text = string.Format("数据正在处理，请耐心等待，现已完成 {0}/{1}", nn, iCount);
+                        this.progressBar1.Value = nn;
+
+                        Application.DoEvents();
+                        nn++;
+                    }
+                }
+                LoadDataSourceHead();
+            }
+            catch (Exception ex)
+            {
+                SysMessage.ErrorMsg(ex.Message);
+            }
+            finally
+            {
+                //lab_ImportScale.Visible = false;
+                this.panel2.Visible = false;
+            }
+        }
+
         public override void tool1_Add_Click(object sender, EventArgs e)
         {
             //base.tool1_Add_Click(sender, e);
@@ -230,7 +399,7 @@ namespace UniqueDeclaration.Base
         public override void tool1_Modify_Click(object sender, EventArgs e)
         {
             bool bHave = false;
-            int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["手册id"].Value);
+            int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["报关产品表id"].Value);
             foreach (Form childFrm in this.MdiParent.MdiChildren)
             {
                 if (childFrm.Name == "FormCheckOutInput")
@@ -258,7 +427,7 @@ namespace UniqueDeclaration.Base
             try
             {
                 if (this.myDataGridViewHead.CurrentRow == null) return;
-                int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["手册id"].Value);
+                int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["报关产品表id"].Value);
                 if (SysMessage.OKCancelMsg(string.Format("真的要删除 报关产品表id {0} 吗？", this.myDataGridViewHead.CurrentRow.Cells["报关产品表id"].Value)) == System.Windows.Forms.DialogResult.Cancel) return;
 
                 IDataAccess data = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
@@ -282,7 +451,8 @@ namespace UniqueDeclaration.Base
 
         public override void tool1_BOM_Click(object sender, EventArgs e)
         {
-            //base.tool1_BOM_Click(sender, e);
+            base.tool1_BOM_Click(sender, e);
+            /*
             #region 判断手册编号是否存在
             if (this.myDataGridViewDetails.RowCount == 0) return;
             #endregion
@@ -293,7 +463,7 @@ namespace UniqueDeclaration.Base
                 if (childFrm.Name == "FormManualBOM")
                 {
                     FormManualBOM orderBomForm = (FormManualBOM)childFrm;
-                    if (orderBomForm.mIntID == Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["手册id"].Value)
+                    if (orderBomForm.mIntID == Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["报关产品表"].Value)
                         && orderBomForm.mnPId == Convert.ToInt32(this.myDataGridViewDetails.CurrentRow.Cells["出口成品id"].Value))
                     {
                         childFrm.Activate();
@@ -312,6 +482,7 @@ namespace UniqueDeclaration.Base
             formBOM.MdiParent = this.MdiParent;
             formBOM.Show();
             #endregion
+             */
         }
 
         public override void tool1_ExportExcel_Click(object sender, EventArgs e)

@@ -76,6 +76,12 @@
     <Compile Include="Base\FormBaseDataQueryList.Designer.cs">
       <DependentUpon>FormBaseDataQueryList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Base\FormCheckOutImportSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\FormCheckOutImportSet.Designer.cs">
+      <DependentUpon>FormCheckOutImportSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Base\FormCheckOutInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -511,6 +517,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Base\FormBaseDataQueryList.resx">
       <DependentUpon>FormBaseDataQueryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormCheckOutImportSet.resx">
+      <DependentUpon>FormCheckOutImportSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Base\FormCheckOutInput.resx">
       <DependentUpon>FormCheckOutInput.cs</DependentUpon>
