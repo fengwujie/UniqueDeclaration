@@ -55,9 +55,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txt_变更规格型号);
             this.groupBox1.Controls.Add(this.txt_归并前成品序号);
             this.groupBox1.Controls.Add(this.myLable9);
-            this.groupBox1.Controls.Add(this.txt_变更规格型号);
             this.groupBox1.Controls.Add(this.myLable10);
             this.groupBox1.Controls.Add(this.txt_产品表法定单位);
             this.groupBox1.Controls.Add(this.myLable11);
@@ -86,7 +86,7 @@
             // 
             // myLable1
             // 
-            this.myLable1.Location = new System.Drawing.Point(13, 21);
+            this.myLable1.Location = new System.Drawing.Point(9, 21);
             this.myLable1.Name = "myLable1";
             this.myLable1.Size = new System.Drawing.Size(81, 19);
             this.myLable1.TabIndex = 0;
@@ -97,14 +97,15 @@
             // 
             this.cbox_手册id.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbox_手册id.FormattingEnabled = true;
-            this.cbox_手册id.Location = new System.Drawing.Point(89, 20);
+            this.cbox_手册id.Location = new System.Drawing.Point(85, 20);
             this.cbox_手册id.Name = "cbox_手册id";
             this.cbox_手册id.Size = new System.Drawing.Size(154, 20);
             this.cbox_手册id.TabIndex = 1;
+            this.cbox_手册id.SelectedIndexChanged += new System.EventHandler(this.cbox_SelectedIndexChanged);
             // 
             // myLable2
             // 
-            this.myLable2.Location = new System.Drawing.Point(272, 21);
+            this.myLable2.Location = new System.Drawing.Point(268, 21);
             this.myLable2.Name = "myLable2";
             this.myLable2.Size = new System.Drawing.Size(81, 19);
             this.myLable2.TabIndex = 2;
@@ -115,11 +116,12 @@
             // 
             this.datetime_录入日期.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.datetime_录入日期.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datetime_录入日期.Location = new System.Drawing.Point(350, 20);
+            this.datetime_录入日期.Location = new System.Drawing.Point(346, 20);
             this.datetime_录入日期.Name = "datetime_录入日期";
             this.datetime_录入日期.ShowCheckBox = true;
-            this.datetime_录入日期.Size = new System.Drawing.Size(160, 21);
+            this.datetime_录入日期.Size = new System.Drawing.Size(173, 21);
             this.datetime_录入日期.TabIndex = 3;
+            this.datetime_录入日期.ValueChanged += new System.EventHandler(this.datetime_录入日期_ValueChanged);
             // 
             // myLable3
             // 
@@ -137,6 +139,7 @@
             this.txt_客人型号.Name = "txt_客人型号";
             this.txt_客人型号.Size = new System.Drawing.Size(154, 21);
             this.txt_客人型号.TabIndex = 5;
+            this.txt_客人型号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // txt_优丽型号
             // 
@@ -145,6 +148,7 @@
             this.txt_优丽型号.Name = "txt_优丽型号";
             this.txt_优丽型号.Size = new System.Drawing.Size(154, 21);
             this.txt_优丽型号.TabIndex = 7;
+            this.txt_优丽型号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable4
             // 
@@ -158,14 +162,16 @@
             // txt_成品项号
             // 
             this.txt_成品项号.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_成品项号.Location = new System.Drawing.Point(89, 49);
+            this.txt_成品项号.Location = new System.Drawing.Point(85, 49);
             this.txt_成品项号.Name = "txt_成品项号";
             this.txt_成品项号.Size = new System.Drawing.Size(154, 21);
             this.txt_成品项号.TabIndex = 9;
+            this.txt_成品项号.Validating += new System.ComponentModel.CancelEventHandler(this.txtInt_Validating);
+            this.txt_成品项号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable5
             // 
-            this.myLable5.Location = new System.Drawing.Point(13, 50);
+            this.myLable5.Location = new System.Drawing.Point(9, 50);
             this.myLable5.Name = "myLable5";
             this.myLable5.Size = new System.Drawing.Size(81, 19);
             this.myLable5.TabIndex = 8;
@@ -175,14 +181,15 @@
             // txt_成品名称及商编
             // 
             this.txt_成品名称及商编.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_成品名称及商编.Location = new System.Drawing.Point(350, 49);
+            this.txt_成品名称及商编.Location = new System.Drawing.Point(346, 49);
             this.txt_成品名称及商编.Name = "txt_成品名称及商编";
-            this.txt_成品名称及商编.Size = new System.Drawing.Size(154, 21);
+            this.txt_成品名称及商编.Size = new System.Drawing.Size(173, 21);
             this.txt_成品名称及商编.TabIndex = 11;
+            this.txt_成品名称及商编.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable6
             // 
-            this.myLable6.Location = new System.Drawing.Point(247, 50);
+            this.myLable6.Location = new System.Drawing.Point(243, 50);
             this.myLable6.Name = "myLable6";
             this.myLable6.Size = new System.Drawing.Size(106, 19);
             this.myLable6.TabIndex = 10;
@@ -196,6 +203,7 @@
             this.txt_成品规格型号.Name = "txt_成品规格型号";
             this.txt_成品规格型号.Size = new System.Drawing.Size(154, 21);
             this.txt_成品规格型号.TabIndex = 13;
+            this.txt_成品规格型号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable7
             // 
@@ -213,6 +221,7 @@
             this.txt_产品表申报单位.Name = "txt_产品表申报单位";
             this.txt_产品表申报单位.Size = new System.Drawing.Size(154, 21);
             this.txt_产品表申报单位.TabIndex = 15;
+            this.txt_产品表申报单位.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable8
             // 
@@ -230,6 +239,8 @@
             this.txt_归并前成品序号.Name = "txt_归并前成品序号";
             this.txt_归并前成品序号.Size = new System.Drawing.Size(154, 21);
             this.txt_归并前成品序号.TabIndex = 21;
+            this.txt_归并前成品序号.Validating += new System.ComponentModel.CancelEventHandler(this.txtInt_Validating);
+            this.txt_归并前成品序号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable9
             // 
@@ -243,14 +254,15 @@
             // txt_变更规格型号
             // 
             this.txt_变更规格型号.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_变更规格型号.Location = new System.Drawing.Point(350, 78);
+            this.txt_变更规格型号.Location = new System.Drawing.Point(346, 78);
             this.txt_变更规格型号.Name = "txt_变更规格型号";
-            this.txt_变更规格型号.Size = new System.Drawing.Size(154, 21);
+            this.txt_变更规格型号.Size = new System.Drawing.Size(173, 21);
             this.txt_变更规格型号.TabIndex = 19;
+            this.txt_变更规格型号.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable10
             // 
-            this.myLable10.Location = new System.Drawing.Point(245, 79);
+            this.myLable10.Location = new System.Drawing.Point(241, 79);
             this.myLable10.Name = "myLable10";
             this.myLable10.Size = new System.Drawing.Size(108, 19);
             this.myLable10.TabIndex = 18;
@@ -260,14 +272,15 @@
             // txt_产品表法定单位
             // 
             this.txt_产品表法定单位.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
-            this.txt_产品表法定单位.Location = new System.Drawing.Point(89, 78);
+            this.txt_产品表法定单位.Location = new System.Drawing.Point(85, 78);
             this.txt_产品表法定单位.Name = "txt_产品表法定单位";
             this.txt_产品表法定单位.Size = new System.Drawing.Size(154, 21);
             this.txt_产品表法定单位.TabIndex = 17;
+            this.txt_产品表法定单位.Validated += new System.EventHandler(this.txt_Validated);
             // 
             // myLable11
             // 
-            this.myLable11.Location = new System.Drawing.Point(13, 79);
+            this.myLable11.Location = new System.Drawing.Point(9, 79);
             this.myLable11.Name = "myLable11";
             this.myLable11.Size = new System.Drawing.Size(81, 19);
             this.myLable11.TabIndex = 16;
@@ -280,8 +293,6 @@
             this.ClientSize = new System.Drawing.Size(1047, 504);
             this.Name = "FormCheckOutInput";
             this.Text = "报关产品申报资料录入";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormCheckOutInput_FormClosing);
-            this.Load += new System.EventHandler(this.FormCheckOutInput_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
