@@ -33,6 +33,7 @@ F:\Unique\UniqueDeclaration\UniqueStock\bin\Debug\UniquePMS.xml
 F:\Unique\UniqueDeclaration\UniqueStock\bin\Debug\office.dll
 F:\Unique\UniqueDeclaration\UniqueStock\bin\Debug\Microsoft.Vbe.Interop.dll
 F:\Unique\UniqueDeclaration\UniqueStock\bin\Debug\office.xml
+F:\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.vbprojResolveAssemblyReference.cache
 F:\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.AboutBox1.resources
 F:\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.getData.resources
 F:\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.inputdata.resources

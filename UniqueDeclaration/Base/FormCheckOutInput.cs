@@ -569,7 +569,72 @@ namespace UniqueDeclaration.Base
         #region tool2事件
         public override void tool2_Import_Click(object sender, EventArgs e)
         {
-            base.tool2_Import_Click(sender, e);
+            //base.tool2_Import_Click(sender, e);
+            if (txt_客人型号.Text.Trim().Length > 0)
+            {
+                string strSQL = string.Format("select * from 报关订单明细表 where 客人型号='{0}' and 优丽型号='{1}'", txt_客人型号.Text.Trim(),txt_优丽型号.Text.Trim());
+                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                dataAccess.Open();
+                DataTable rs = dataAccess.GetTable(strSQL, null);
+                dataAccess.Close();
+                if (rs.Rows.Count == 0) return;
+                strSQL = string.Format("报关订单料件明细查询 {0}",rs.Rows[0]["订单id"]);
+                dataAccess.Open();
+                DataTable rs1 = dataAccess.GetTable(strSQL, null);
+                dataAccess.Close();
+                DataRow[] rows = null;
+                string filter = string.Empty;
+                if (rs.Rows[0]["产品id"] != DBNull.Value)
+                {
+                    filter = string.Format("产品id={0}", rs.Rows[0]["产品id"]);
+                }
+                else if (rs.Rows[0]["产品配件id"] != DBNull.Value)
+                {
+                    filter = string.Format("产品配件id={0}", rs.Rows[0]["配件id"]);
+                }
+                else
+                {
+                    filter = "产品配件id=0";
+                }
+                rows = rs.Select(filter);
+                if (rows != null && rows.Length > 0)
+                {
+                    IDataAccess dataAccessUniquegrade = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    dataAccessUniquegrade.Open();
+                    foreach (DataRow rs1Row in rows)
+                    {
+                        DataRow newRow = dtDetails.NewRow();
+                        if (rs1Row["报关类别"] == DBNull.Value || rs1Row["报关类别"].ToString().Trim() == "")
+                        {
+                            strSQL = string.Format("select * from 进口料件表,手册资料表 where 进口料件表.手册id=手册资料表.手册id and 手册资料表.手册编号='{0}' and 品名规格型号='{1}' order by 进口料件id desc",cbox_手册id.Text,rs1Row["报关类别"]);
+                            DataTable rs3 = dataAccessUniquegrade.GetTable(strSQL, null);
+                            if (rs3.Rows.Count > 0)  // '判断在进口料件里是否存在该品名
+                            {
+                                newRow["料件名称及商编"] = (rs1Row["报关类别"] == DBNull.Value || rs1Row["报关类别"].ToString().Trim() == "") ? "" : string.Format("{0}/{1}", rs1Row["报关类别"], rs3.Rows[0]["商品编号"]);
+                                newRow["料件项号"] = (rs3.Rows[0]["序号"] == DBNull.Value || rs3.Rows[0]["序号"].ToString().Trim() == "") ? "" : rs3.Rows[0]["序号"].ToString().Trim();
+                            }
+                            else
+                            {
+                                newRow["料件名称及商编"] = (rs1Row["报关类别"] == DBNull.Value || rs1Row["报关类别"].ToString().Trim() == "") ? "" :  rs1Row["报关类别"].ToString();
+                            }
+                            newRow["料件规格型号"]="";
+                            newRow["明细表申报单位"] = "千克";
+                            newRow["明细表法定单位"] = "千克";
+                            if(rs.Rows[0]["订单数量"] == DBNull.Value || Convert.ToDecimal(rs.Rows[0]["订单数量"])==0)
+                            {
+                                newRow["备案净耗单位"] = Convert.ToDecimal( 0).ToString("f5");
+                            }
+                            else
+                            {
+                                newRow["备案净耗单位"] = (rs1Row["总用量"] == DBNull.Value || Convert.ToDecimal(rs1Row["总用量"])==0) ? "0" : (Convert.ToDecimal(rs1Row["总用量"])/Convert.ToDecimal(rs.Rows[0]["订单数量"])).ToString("f5");
+                            }
+                            newRow["备案损耗"]=0;
+                            dtDetails.Rows.Add(newRow);
+                        }
+                    }
+                    dataAccessUniquegrade.Close();
+                }
+            }
         }
 
         #endregion
@@ -579,31 +644,40 @@ namespace UniqueDeclaration.Base
         private void txt_Validating(object sender, CancelEventArgs e)
         {
             myTextBox txtBox = (myTextBox)sender;
-            if (txtBox.Text.Trim().Length == 0) return;
+            //if (txtBox.Text.Trim().Length == 0) return;
             string fieldName = txtBox.Name.Replace("txt_", "");
             string strSQL = string.Empty;
             IDataAccess dataAccess = null;
             switch (fieldName)
             {
-                case "配件型号":
-                    #region 配件型号
-                    if (rowHead.RowState == DataRowState.Added ||
-                        (rowHead.RowState == DataRowState.Modified && rowHead["配件型号", DataRowVersion.Original].ToString() != txtBox.Text))
+                case "客人型号":
+                    #region 客人型号
+                    //VB源码中的查询存储过程中有BUG,返回都是空数据,无法进行验证,暂时不处理
+                    break;
+                    #endregion
+                case "成品名称及商编":
+                    strSQL = string.Format("select 商品编号,品名规格型号 from 出口成品表,手册资料表 where  出口成品表.手册id=手册资料表.手册id and 手册资料表.手册编号 like '%{0}%'", cbox_手册id.Text);
+                    dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+                    dataAccess.Open();
+                    DataTable dt出口成品表 = dataAccess.GetTable(strSQL, null);
+                    dataAccess.Close();
+                    if (dt出口成品表.Rows.Count == 1)
                     {
-                        strSQL = string.Format("SELECT 配件id FROM 配件资料表 WHERE 配件型号 = {0}", StringTools.SqlQ(txtBox.Text));
-                        dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-                        dataAccess.Open();
-                        DataTable dtManual = dataAccess.GetTable(strSQL.ToString(), null);
-                        dataAccess.Close();
-                        if (dtManual.Rows.Count > 0)
+                        rowHead["成品名称及商编"] = string.Format("{0}/{1}", dt出口成品表.Rows[0]["品名规格型号"].ToString(), dt出口成品表.Rows[0]["商品编号"].ToString());
+                        txt_成品名称及商编.Text = string.Format("{0}/{1}", dt出口成品表.Rows[0]["品名规格型号"].ToString(), dt出口成品表.Rows[0]["商品编号"].ToString());
+                    }
+                    else if (dt出口成品表.Rows.Count > 1)
+                    {
+                        FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
+                        formSelect.strFormText = "选择成品名称及商编";
+                        formSelect.dtData = dt出口成品表;
+                        if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
-                            SysMessage.InformationMsg("此配件型号已存在，请重新输入！");
-                            e.Cancel = true;
-                            txtBox.Focus();
+                            rowHead["成品名称及商编"] = string.Format("{0}/{1}", formSelect.returnRow["品名规格型号"].ToString(), formSelect.returnRow["商品编号"].ToString());
+                            txt_成品名称及商编.Text = string.Format("{0}/{1}", formSelect.returnRow["品名规格型号"].ToString(), formSelect.returnRow["商品编号"].ToString());
                         }
                     }
                     break;
-                    #endregion
             }
         }
         private void txt_Validated(object sender, EventArgs e)

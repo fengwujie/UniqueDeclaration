@@ -1009,12 +1009,18 @@ namespace UniqueDeclaration.Base
                     break;
                 case "备注":
                     #region CELL回车跳转
-                    dgv.CurrentCell = dgv["客户代码", cell.RowIndex];
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["客户代码", cell.RowIndex];
+                    }
                     #endregion
                     break;
                 case "客户代码":
                     #region CELL回车跳转
-                    dgv.CurrentCell = dgv["类别描述", cell.RowIndex];
+                    if (bKeyEnter)
+                    {
+                        dgv.CurrentCell = dgv["类别描述", cell.RowIndex];
+                    }
                     #endregion
                     break;
                 case "类别描述":

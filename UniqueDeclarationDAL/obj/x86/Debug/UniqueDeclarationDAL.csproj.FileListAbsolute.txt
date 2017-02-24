@@ -19,7 +19,6 @@ F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\UniqueDeclarationPubi
 F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\DataAccess.pdb
 F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\UniqueDeclarationModel.pdb
 F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\bin\Debug\UniqueDeclarationPubilc.pdb
-F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.csprojResolveAssemblyReference.cache
 F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.Properties.Resources.resources
 F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.csproj.GenerateResource.Cache
 F:\Unique\UniqueDeclaration\UniqueDeclarationDAL\obj\x86\Debug\UniqueDeclarationDAL.dll
