@@ -169,7 +169,7 @@ namespace UniqueDeclaration.Base
             {
                 rowHead = dtHead.NewRow();
                 dtHead.Rows.Add(rowHead);
-                rowHead["主料"] = cbox_主料.SelectedText;
+                rowHead["主料"] = cbox_主料.Text;
                 rowHead["电子帐册号"] = cbox_电子帐册号.SelectedValue;
                 fillControl(rowHead);
             }
@@ -274,7 +274,9 @@ namespace UniqueDeclaration.Base
             }
             if (row.Table.Columns.Contains("主料"))
             {
-                cbox_主料.SelectedText = row["主料"].ToString();
+                bcbox_SelectedIndexChanged = false;
+                cbox_主料.Text = row["主料"].ToString().Trim();
+                bcbox_SelectedIndexChanged = true;
             }
             if (row.Table.Columns.Contains("电子帐册号"))
             {
@@ -808,6 +810,7 @@ namespace UniqueDeclaration.Base
                 newRow["产品编号"] = i序号 > 9 ? string.Format("{0}{1}", txt_产品编号.Text.Trim(), i序号) : string.Format("{0}0{1}", txt_产品编号.Text.Trim(), i序号);
                 newRow["商品编码"] = txt_商品编码.Text.Trim();
                 newRow["商品名称"] = txt_商品名称.Text.Trim();
+                newRow["商品规格"] = txt_商品规格.Text.Trim();
                 newRow["计量单位"] = txt_计量单位.Text.Trim();
                 newRow["法定单位"] = txt_法定单位.Text.Trim();
                 newRow["币种"] = "USD";
