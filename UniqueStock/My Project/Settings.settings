@@ -6,7 +6,7 @@
       <Value Profile="(Default)">192.168.1.4</Value>
     </Setting>
     <Setting Name="datasource" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ManufactureTest</Value>
+      <Value Profile="(Default)">Manufacture</Value>
     </Setting>
     <Setting Name="sa" Type="System.String" Scope="User">
       <Value Profile="(Default)">sa</Value>

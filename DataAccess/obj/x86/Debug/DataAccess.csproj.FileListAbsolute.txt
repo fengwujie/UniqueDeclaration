@@ -10,3 +10,15 @@ F:\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.Properties.Resou
 F:\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.csproj.GenerateResource.Cache
 F:\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.dll
 F:\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.pdb
+G:\fengwujie\Unique\UniqueDeclaration\DataAccess\bin\Debug\DataAccess.dll
+G:\fengwujie\Unique\UniqueDeclaration\DataAccess\bin\Debug\DataAccess.pdb
+G:\fengwujie\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.Properties.Resources.resources
+G:\fengwujie\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.csproj.GenerateResource.Cache
+G:\fengwujie\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.dll
+G:\fengwujie\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.pdb
+C:\wesoft\Unique\UniqueDeclaration\UniqueDeclaration\DataAccess\bin\Debug\DataAccess.dll
+C:\wesoft\Unique\UniqueDeclaration\UniqueDeclaration\DataAccess\bin\Debug\DataAccess.pdb
+C:\wesoft\Unique\UniqueDeclaration\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.Properties.Resources.resources
+C:\wesoft\Unique\UniqueDeclaration\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.csproj.GenerateResource.Cache
+C:\wesoft\Unique\UniqueDeclaration\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.dll
+C:\wesoft\Unique\UniqueDeclaration\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.pdb

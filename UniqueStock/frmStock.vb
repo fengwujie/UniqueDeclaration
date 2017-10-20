@@ -168,7 +168,8 @@ Public Class frmStock
         Dim pdtReturn As DataTable = Nothing
         Dim objData As New ErpDataHelper(My.Settings.server, My.Settings.datasource, My.Settings.sa, My.Settings.pw)
 
-        Dim strSQL As String = "select 制造通知单明细表id,制造通知单id,客人型号,优丽型号,颜色,订单数量,已入库数量-isnull(已出库数量,0) As 库存数量,单位 from 报关制造通知单明细表 Where 制造通知单id=" & strFromId
+        'Dim strPrice As String = ",(select top 1 stockprice from uniquestockprice where 优丽型号=uniqueno order by setdate desc) as 库存成本"
+        Dim strSQL As String = "select 制造通知单明细表id,制造通知单id,客人型号,优丽型号,颜色,订单数量,已入库数量-isnull(已出库数量,0) As 库存数量,库存成本,单位 from 报关制造通知单明细表 Where 制造通知单id=" & strFromId
         pdtReturn = objData.GetDataTableBySql(strSQL, strError)
         If pdtReturn Is Nothing Then
             MessageBox.Show("查询出现错误：" & strError)

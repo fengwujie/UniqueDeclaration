@@ -152,7 +152,7 @@ Public Class frmInStock
         Dim pdtReturn As DataTable = Nothing
         Dim objData As New ErpDataHelper(My.Settings.server, My.Settings.datasource, My.Settings.sa, My.Settings.pw)
 
-        Dim strSQL As String = "select 制造通知单明细表id,制造通知单id,客人型号,优丽型号,颜色,订单数量,单位,已入库数量,0 As 入库数量,Convert(varchar(10),入库日期,120) as 入库日期,已出库数量 from 报关制造通知单明细表 Where isnull(订单数量,0)>0 and 制造通知单id=" & strFromId
+        Dim strSQL As String = "select 制造通知单明细表id,制造通知单id,客人型号,优丽型号,颜色,订单数量,单位,已入库数量,0 As 入库数量,入库单价,Convert(varchar(10),入库日期,120) as 入库日期,已出库数量 from 报关制造通知单明细表 Where isnull(订单数量,0)>0 and 制造通知单id=" & strFromId
 
 
         'pdtReturn = objData.SqlProc2("料件进销存查询", ComboBox1.Text, DateTimePicker1.Value.ToShortDateString, DateTimePicker2.Value.ToShortDateString, strError)
@@ -185,8 +185,8 @@ Public Class frmInStock
             tdgDetail.Columns(6).DefaultCellStyle.BackColor = Color.Silver
             tdgDetail.Columns(7).ReadOnly = True
             tdgDetail.Columns(7).DefaultCellStyle.BackColor = Color.Silver
-            tdgDetail.Columns(9).ReadOnly = True
-            tdgDetail.Columns(9).DefaultCellStyle.BackColor = Color.Silver
+            tdgDetail.Columns(11).ReadOnly = True
+            tdgDetail.Columns(11).DefaultCellStyle.BackColor = Color.Silver
         End If
 
         Me.Cursor = Cursors.Default
@@ -253,13 +253,14 @@ Public Class frmInStock
         Dim dtData As DataTable = Me.tdgDetail.DataSource
         For Each dtRow As DataRow In dtData.Rows
 
+            Dim strUniqueNo As String = dtRow("优丽型号").ToString
             If Val(dtRow("已入库数量").ToString) + Val(dtRow("入库数量").ToString) > Val(dtRow("订单数量").ToString) Then
                 MessageBox.Show("优丽型号：" & dtRow("优丽型号").ToString & "  已入库数量 + 入库数量已超出订单数量，请修改！")
-                strSql = "Update 报关制造通知单明细表 set 入库日期='" & DateTimePicker1.Value & "' where 制造通知单明细表id=" & dtRow("制造通知单明细表id").ToString
+                strSql = "Update 报关制造通知单明细表 set 入库单价=" & Val(dtRow("入库单价").ToString) & ",入库日期='" & DateTimePicker1.Value & "' where 制造通知单明细表id=" & dtRow("制造通知单明细表id").ToString
                 Dim intRet As Integer = objData.ExcelSql(strSql, strError)
                 blnRef = True
             ElseIf Val(dtRow("入库数量").ToString) > 0 Then
-                strSql = "Update 报关制造通知单明细表 set 已入库数量 =isnull(已入库数量,0)+" & dtRow("入库数量").ToString & ",入库日期='" & DateTimePicker1.Value & "' where 制造通知单明细表id=" & dtRow("制造通知单明细表id").ToString
+                strSql = "Update 报关制造通知单明细表 set 已入库数量 =isnull(已入库数量,0)+" & dtRow("入库数量").ToString & ",入库单价=" & Val(dtRow("入库单价").ToString) & ",入库日期='" & DateTimePicker1.Value & "' where 制造通知单明细表id=" & dtRow("制造通知单明细表id").ToString
                 Dim intRet As Integer = objData.ExcelSql(strSql, strError)
                 If intRet < 0 Then
                     MessageBox.Show("更新错误：" & strError)
@@ -268,6 +269,8 @@ Public Class frmInStock
                 End If
             End If
 
+
+            objData.SetStockPrice(strUniqueNo)
 
         Next
 

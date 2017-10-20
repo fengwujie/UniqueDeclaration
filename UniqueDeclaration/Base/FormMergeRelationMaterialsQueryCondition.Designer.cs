@@ -28,7 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FormMergeRelationMaterialsQueryCondition
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.ClientSize = new System.Drawing.Size(426, 183);
+            this.Name = "FormMergeRelationMaterialsQueryCondition";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

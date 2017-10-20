@@ -190,43 +190,88 @@ Public Class ErpDataHelper
     Return strRet
   End Function
 
-  Public Function ExcelSql(ByVal strSql As String, ByRef strMsg As String) As Integer
-    Dim intRet As Integer = 0
+    Public Function ExcelSql(ByVal strSql As String, ByRef strMsg As String) As Integer
+        Dim intRet As Integer = 0
 
-    'If InitialConnection(strMsg) < 0 Then
-    '  Return -1
-    'End If
-    Dim mecn As New SqlConnection(strCn)
-    Dim tsn As SqlTransaction = Nothing
-    Try
-      mecn.Open()
-      Dim meCmd As New SqlCommand()
-      meCmd.Connection = mecn
-      meCmd.CommandType = CommandType.Text
-      meCmd.CommandTimeout = 120
-      tsn = mecn.BeginTransaction()
+        'If InitialConnection(strMsg) < 0 Then
+        '  Return -1
+        'End If
+        Dim mecn As New SqlConnection(strCn)
+        Dim tsn As SqlTransaction = Nothing
+        Try
+            mecn.Open()
+            Dim meCmd As New SqlCommand()
+            meCmd.Connection = mecn
+            meCmd.CommandType = CommandType.Text
+            meCmd.CommandTimeout = 120
+            tsn = mecn.BeginTransaction()
 
-      Dim strS As String() = strSql.Split(Chr(8))
-      meCmd.Transaction = tsn
+            Dim strS As String() = strSql.Split(Chr(8))
+            meCmd.Transaction = tsn
 
-      For Each strIn As String In strS
-        If strIn <> "" Then
-          meCmd.CommandText = strIn
-          meCmd.ExecuteNonQuery()
+            For Each strIn As String In strS
+                If strIn <> "" Then
+                    meCmd.CommandText = strIn
+                    meCmd.ExecuteNonQuery()
+                End If
+            Next
+            tsn.Commit()
+        Catch e As Exception
+            strMsg = e.Message
+            tsn.Rollback()
+            intRet = -1
+        Finally
+            If mecn IsNot Nothing Then
+                mecn.Close()
+            End If
+        End Try
+        Return intRet
+    End Function
+
+
+    Public Function SetStockPrice(ByVal strUniqueNo) As Integer
+
+        Dim intFunctionRet As Integer = -1
+        Dim strSql As String = ""
+        Dim strError As String = ""
+
+        '处理库存成本
+        Dim strAllAmt As String = GetDataTableByField("select sum((已入库数量-isnull(已出库数量,0))*isnull(入库单价,0))  from 报关制造通知单明细表 where 优丽型号='" & strUniqueNo & "'", strError)
+        If strAllAmt = "" Then
+            strAllAmt = "0"
         End If
-      Next
-      tsn.Commit()
-    Catch e As Exception
-      strMsg = e.Message
-      tsn.Rollback()
-      intRet = -1
-    Finally
-      If mecn IsNot Nothing Then
-        mecn.Close()
-      End If
-    End Try
-    Return intRet
-  End Function
+        Dim strAllCount As String = GetDataTableByField("select sum(已入库数量-isnull(已出库数量,0)) from 报关制造通知单明细表 where 优丽型号='" & strUniqueNo & "'", strError)
+        If strAllCount = "" Then
+            strAllCount = "0"
+        End If
+
+        Dim strStockPrice As String = 0
+        If strAllAmt <> "0" AndAlso strAllCount <> "0" Then
+            strStockPrice = Math.Round(Double.Parse(strAllAmt) / Double.Parse(strAllCount), 2).ToString()
+        End If
+
+        strSql = "update 报关制造通知单明细表 set 库存成本=" & strStockPrice & " Where 优丽型号='" & strUniqueNo & "'"
+        Dim intRet As Integer = ExcelSql(strSql, strError)
+        If intRet < 0 Then
+            'MessageBox.Show("更新错误：" & strError)
+        Else
+            intFunctionRet += 1
+        End If
+
+        '保存成本历史
+        Dim strOldStockPrice As String = GetDataTableByField("select stockprice from uniquestockprice where uniqueno='" & strUniqueNo & "'", strError)
+        If strStockPrice <> strOldStockPrice Then
+            strSql = "insert into uniquestockprice (uniqueno,stockprice,setdate)values('" & strUniqueNo & "'," & strStockPrice & ",getdate())"
+            intRet = ExcelSql(strSql, strError)
+            If intRet < 0 Then
+                'MessageBox.Show("更新错误：" & strError)
+            Else
+                intFunctionRet += 1
+            End If
+        End If
+
+        Return intFunctionRet
+    End Function
 
 End Class
 

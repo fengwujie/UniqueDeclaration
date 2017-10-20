@@ -72,11 +72,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniqueDeclarationDAL\UniqueDeclarationDAL.csproj">
-      <Project>{AFB6E15F-7C26-4F16-AEDC-B0F0A331D7FD}</Project>
+      <Project>{afb6e15f-7c26-4f16-aedc-b0f0a331d7fd}</Project>
       <Name>UniqueDeclarationDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniqueDeclarationModel\UniqueDeclarationModel.csproj">
-      <Project>{A4E1611A-D38D-4CFC-B734-DCB674328557}</Project>
+      <Project>{a4e1611a-d38d-4cfc-b734-dcb674328557}</Project>
       <Name>UniqueDeclarationModel</Name>
     </ProjectReference>
   </ItemGroup>

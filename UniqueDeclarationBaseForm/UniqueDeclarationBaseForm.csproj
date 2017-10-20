@@ -263,7 +263,7 @@
       <Name>DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniqueDeclarationPubilc\UniqueDeclarationPubilc.csproj">
-      <Project>{287C532F-02AD-444C-AC6B-D1B5E96114EF}</Project>
+      <Project>{287c532f-02ad-444c-ac6b-d1b5e96114ef}</Project>
       <Name>UniqueDeclarationPubilc</Name>
     </ProjectReference>
   </ItemGroup>

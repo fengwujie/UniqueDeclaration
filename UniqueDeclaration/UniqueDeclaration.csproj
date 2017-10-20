@@ -545,6 +545,9 @@
     <EmbeddedResource Include="Base\FormFitQueryList.resx">
       <DependentUpon>FormFitQueryList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Base\FormMergeRelationMaterialsQueryCondition.resx">
+      <DependentUpon>FormMergeRelationMaterialsQueryCondition.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Base\FormProductBOM.resx">
       <DependentUpon>FormProductBOM.cs</DependentUpon>
     </EmbeddedResource>
@@ -765,32 +768,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{76211863-AA3D-439E-853F-4408F1F7B951}</Project>
-      <Name>DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UniqueDeclarationBaseForm\UniqueDeclarationBaseForm.csproj">
-      <Project>{1038F1D6-6C9A-494B-AE40-C720DCCF5E25}</Project>
-      <Name>UniqueDeclarationBaseForm</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UniqueDeclarationBLL\UniqueDeclarationBLL.csproj">
-      <Project>{CAB4E58B-97BF-4AF9-9D40-6C619A64EDEB}</Project>
-      <Name>UniqueDeclarationBLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UniqueDeclarationModel\UniqueDeclarationModel.csproj">
-      <Project>{A4E1611A-D38D-4CFC-B734-DCB674328557}</Project>
-      <Name>UniqueDeclarationModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UniqueDeclarationPubilc\UniqueDeclarationPubilc.csproj">
-      <Project>{287C532F-02AD-444C-AC6B-D1B5E96114EF}</Project>
-      <Name>UniqueDeclarationPubilc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UniqueStock\UniquePMS.vbproj">
-      <Project>{BF9DED45-5921-493D-9446-14B652C4B3CE}</Project>
-      <Name>UniquePMS</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 和 x64%29</ProductName>
@@ -834,7 +811,36 @@
     <None Include="bin\Debug\Image\back_24px.png" />
     <None Include="bin\Debug\Image\Add_24px.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{76211863-aa3d-439e-853f-4408f1f7b951}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniqueDeclarationBaseForm\UniqueDeclarationBaseForm.csproj">
+      <Project>{1038f1d6-6c9a-494b-ae40-c720dccf5e25}</Project>
+      <Name>UniqueDeclarationBaseForm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniqueDeclarationBLL\UniqueDeclarationBLL.csproj">
+      <Project>{cab4e58b-97bf-4af9-9d40-6c619a64edeb}</Project>
+      <Name>UniqueDeclarationBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniqueDeclarationDAL\UniqueDeclarationDAL.csproj">
+      <Project>{afb6e15f-7c26-4f16-aedc-b0f0a331d7fd}</Project>
+      <Name>UniqueDeclarationDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniqueDeclarationModel\UniqueDeclarationModel.csproj">
+      <Project>{a4e1611a-d38d-4cfc-b734-dcb674328557}</Project>
+      <Name>UniqueDeclarationModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniqueDeclarationPubilc\UniqueDeclarationPubilc.csproj">
+      <Project>{287c532f-02ad-444c-ac6b-d1b5e96114ef}</Project>
+      <Name>UniqueDeclarationPubilc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniqueStock\UniquePMS.vbproj">
+      <Project>{bf9ded45-5921-493d-9446-14b652c4b3ce}</Project>
+      <Name>UniquePMS</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

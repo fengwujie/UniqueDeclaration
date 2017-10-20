@@ -525,7 +525,7 @@ namespace UniqueDeclaration
 
         private void cbox_电子帐册号_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (bcbox_电子帐册号_SelectedIndexChanged && rowHead["电子帐册号"].ToString() != cbox_电子帐册号.SelectedValue.ToString())
+            if (cbox_电子帐册号.SelectedValue!=null && bcbox_电子帐册号_SelectedIndexChanged && rowHead["电子帐册号"].ToString() != cbox_电子帐册号.SelectedValue.ToString())
                 rowHead["电子帐册号"] = cbox_电子帐册号.SelectedValue;
         }
 

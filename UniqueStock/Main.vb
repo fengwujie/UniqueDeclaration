@@ -99,4 +99,10 @@ Public Class Main
         objForm.ShowDialog()
 
     End Sub
+
+    Private Sub ²ÄÁÏ¿â´æToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ²ÄÁÏ¿â´æToolStripMenuItem.Click
+        Dim objForm As New frmLjStock
+        objForm.ShowDialog()
+    End Sub
+
 End Class
