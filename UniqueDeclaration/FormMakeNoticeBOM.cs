@@ -2229,7 +2229,7 @@ namespace UniqueDeclaration
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["编号", cell.RowIndex];
+                        dgv.CurrentCell = dgv["序号", cell.RowIndex];
                     }
                     #endregion
                     break;
@@ -2675,8 +2675,8 @@ namespace UniqueDeclaration
                         foreach (DataRow row in dt产品配件改样报关订单材料明细表.Rows)
                         {
                             DataRow newRow = dtModifyAfterHead.NewRow();
-                            newRow["订单id"] = OrderId;
-                            newRow["订单明细表id"] = OrderListId;
+                            newRow["制造通知单id"] = OrderId;
+                            newRow["制造通知单明细表id"] = OrderListId;
                             newRow["产品id"] = Pid;
                             newRow["配件id"] = Fid;
                             newRow["料件id"] = row["料件id"];
@@ -2706,8 +2706,8 @@ namespace UniqueDeclaration
                         foreach (DataRow row in dt产品配件改样报关订单材料表.Rows)
                         {
                             DataRow newRow = dtModifyAfterDetail.NewRow();
-                            newRow["订单id"] = OrderId;
-                            newRow["订单明细表id"] = OrderListId;
+                            newRow["制造通知单id"] = OrderId;
+                            newRow["制造通知单明细表id"] = OrderListId;
                             newRow["产品id"] = Pid;
                             newRow["配件id"] = Fid;
                             newRow["料件id"] = row["料件id"];

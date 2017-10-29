@@ -79,7 +79,6 @@ G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\bin\Debug\office.dll
 G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\bin\Debug\Microsoft.Vbe.Interop.dll
 G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\bin\Debug\stdole.dll
 G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\bin\Debug\office.xml
-G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.vbprojResolveAssemblyReference.cache
 G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.AboutBox1.resources
 G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.frmLjStock.resources
 G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.getData.resources

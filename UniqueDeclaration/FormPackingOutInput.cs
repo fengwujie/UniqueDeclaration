@@ -110,6 +110,8 @@ namespace UniqueDeclaration
             this.cbox_comid.InitialData(DataAccess.DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade,
                 "SELECT comid, com_Abbr FROM company", "comid", "com_Abbr", -1);
             bcbox_custid_SelectedIndexChanged = true;
+            txt_工缴费率.Visible = false;
+            lab_工缴费率.Visible = false;
         }
         /// <summary>
         /// 加载表头数据

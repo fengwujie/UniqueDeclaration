@@ -127,11 +127,11 @@ namespace UniqueDeclarationBaseForm
                     strFieldName = tag.Split(',')[1];
                     if (index == "1")  //表示起始时间
                     {
-                        strReturnWhere += (strReturnWhere.Length > 0 ? " and " : "") + string.Format("{0}>='{1}'", strFieldName, dtp.Value);
+                        strReturnWhere += (strReturnWhere.Length > 0 ? " and " : "") + string.Format("{0}>='{1}'", strFieldName, dtp.Value.ToString("yyyy-MM-dd HH:mm:ss"));
                     }
                     else if (index == "2")  //表示截止时间
                     {
-                        strReturnWhere += (strReturnWhere.Length > 0 ? " and " : "") + string.Format("{0}<'{1}'", strFieldName, dtp.Value);
+                        strReturnWhere += (strReturnWhere.Length > 0 ? " and " : "") + string.Format("{0}<'{1}'", strFieldName, dtp.Value.ToString("yyyy-MM-dd HH:mm:ss"));
                     }
                 }
             }
