@@ -500,6 +500,14 @@ namespace UniqueDeclaration
                 queryListForm.Show();
             }
         }
+        //汇率资料表
+        private void FormExchangeRate_Click(object sender, EventArgs e)
+        {
+            FormExchangeRate objForm = new FormExchangeRate();
+            objForm.MdiParent = this;
+            objForm.Show();
+        }
         #endregion
+
     }
 }

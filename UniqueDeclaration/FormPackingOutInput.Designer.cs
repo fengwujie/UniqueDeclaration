@@ -88,6 +88,8 @@
             this.txt_Mark1 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable14 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myContextDetails = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
+            this.lab_发票号 = new System.Windows.Forms.Label();
+            this.txt_发票号 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.myTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -97,16 +99,16 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.myTabControl1);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.groupBox1.Size = new System.Drawing.Size(1381, 240);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(5);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(5);
+            this.groupBox1.Size = new System.Drawing.Size(1381, 242);
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(0, 267);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.groupBox2.Size = new System.Drawing.Size(1381, 425);
+            this.groupBox2.Location = new System.Drawing.Point(0, 269);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(5);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(5);
+            this.groupBox2.Size = new System.Drawing.Size(1381, 423);
             // 
             // myTabControl1
             // 
@@ -114,14 +116,16 @@
             this.myTabControl1.Controls.Add(this.tabPage2);
             this.myTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myTabControl1.Location = new System.Drawing.Point(5, 23);
-            this.myTabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.myTabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.myTabControl1.Name = "myTabControl1";
             this.myTabControl1.SelectedIndex = 0;
-            this.myTabControl1.Size = new System.Drawing.Size(1371, 212);
+            this.myTabControl1.Size = new System.Drawing.Size(1371, 214);
             this.myTabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.txt_发票号);
+            this.tabPage1.Controls.Add(this.lab_发票号);
             this.tabPage1.Controls.Add(this.txt_工缴费率);
             this.tabPage1.Controls.Add(this.lab_工缴费率);
             this.tabPage1.Controls.Add(this.txt_ContractNo);
@@ -155,10 +159,10 @@
             this.tabPage1.Controls.Add(this.txt_InvoiceNO);
             this.tabPage1.Controls.Add(this.myLable1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage1.Size = new System.Drawing.Size(1363, 183);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Size = new System.Drawing.Size(1363, 185);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "PACKING LIST";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -167,7 +171,7 @@
             // 
             this.txt_工缴费率.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_工缴费率.Location = new System.Drawing.Point(1123, 145);
-            this.txt_工缴费率.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_工缴费率.Margin = new System.Windows.Forms.Padding(4);
             this.txt_工缴费率.Name = "txt_工缴费率";
             this.txt_工缴费率.Size = new System.Drawing.Size(153, 25);
             this.txt_工缴费率.TabIndex = 15;
@@ -190,7 +194,7 @@
             // 
             this.txt_ContractNo.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_ContractNo.Location = new System.Drawing.Point(668, 110);
-            this.txt_ContractNo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_ContractNo.Margin = new System.Windows.Forms.Padding(4);
             this.txt_ContractNo.Name = "txt_ContractNo";
             this.txt_ContractNo.Size = new System.Drawing.Size(153, 25);
             this.txt_ContractNo.TabIndex = 11;
@@ -210,7 +214,7 @@
             // 
             this.txt_装箱单号.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_装箱单号.Location = new System.Drawing.Point(155, 41);
-            this.txt_装箱单号.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_装箱单号.Margin = new System.Windows.Forms.Padding(4);
             this.txt_装箱单号.Name = "txt_装箱单号";
             this.txt_装箱单号.Size = new System.Drawing.Size(153, 25);
             this.txt_装箱单号.TabIndex = 4;
@@ -231,7 +235,7 @@
             // 
             this.txt_Messrs.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Messrs.Location = new System.Drawing.Point(477, 41);
-            this.txt_Messrs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Messrs.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Messrs.Name = "txt_Messrs";
             this.txt_Messrs.Size = new System.Drawing.Size(476, 25);
             this.txt_Messrs.TabIndex = 5;
@@ -242,7 +246,7 @@
             // 
             this.txt_PriceTerm.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_PriceTerm.Location = new System.Drawing.Point(557, 145);
-            this.txt_PriceTerm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_PriceTerm.Margin = new System.Windows.Forms.Padding(4);
             this.txt_PriceTerm.Name = "txt_PriceTerm";
             this.txt_PriceTerm.Size = new System.Drawing.Size(428, 25);
             this.txt_PriceTerm.TabIndex = 14;
@@ -262,7 +266,7 @@
             // 
             this.txt_Remark.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Remark.Location = new System.Drawing.Point(968, 110);
-            this.txt_Remark.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Remark.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Remark.Name = "txt_Remark";
             this.txt_Remark.Size = new System.Drawing.Size(371, 25);
             this.txt_Remark.TabIndex = 12;
@@ -282,7 +286,7 @@
             // 
             this.txt_YourOrderNo.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_YourOrderNo.Location = new System.Drawing.Point(155, 145);
-            this.txt_YourOrderNo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_YourOrderNo.Margin = new System.Windows.Forms.Padding(4);
             this.txt_YourOrderNo.Name = "txt_YourOrderNo";
             this.txt_YourOrderNo.Size = new System.Drawing.Size(267, 25);
             this.txt_YourOrderNo.TabIndex = 13;
@@ -302,7 +306,7 @@
             // 
             this.txt_PackingTo.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_PackingTo.Location = new System.Drawing.Point(367, 110);
-            this.txt_PackingTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_PackingTo.Margin = new System.Windows.Forms.Padding(4);
             this.txt_PackingTo.Name = "txt_PackingTo";
             this.txt_PackingTo.Size = new System.Drawing.Size(153, 25);
             this.txt_PackingTo.TabIndex = 10;
@@ -322,7 +326,7 @@
             // 
             this.txt_PackingFrom.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_PackingFrom.Location = new System.Drawing.Point(155, 110);
-            this.txt_PackingFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_PackingFrom.Margin = new System.Windows.Forms.Padding(4);
             this.txt_PackingFrom.Name = "txt_PackingFrom";
             this.txt_PackingFrom.Size = new System.Drawing.Size(153, 25);
             this.txt_PackingFrom.TabIndex = 9;
@@ -342,7 +346,7 @@
             // 
             this.txt_sailingabout.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_sailingabout.Location = new System.Drawing.Point(800, 76);
-            this.txt_sailingabout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_sailingabout.Margin = new System.Windows.Forms.Padding(4);
             this.txt_sailingabout.Name = "txt_sailingabout";
             this.txt_sailingabout.Size = new System.Drawing.Size(476, 25);
             this.txt_sailingabout.TabIndex = 8;
@@ -362,7 +366,7 @@
             // 
             this.txt_per.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_per.Location = new System.Drawing.Point(155, 76);
-            this.txt_per.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_per.Margin = new System.Windows.Forms.Padding(4);
             this.txt_per.Name = "txt_per";
             this.txt_per.Size = new System.Drawing.Size(428, 25);
             this.txt_per.TabIndex = 7;
@@ -393,7 +397,7 @@
             this.cbox_comid.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbox_comid.FormattingEnabled = true;
             this.cbox_comid.Location = new System.Drawing.Point(1123, 41);
-            this.cbox_comid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbox_comid.Margin = new System.Windows.Forms.Padding(4);
             this.cbox_comid.Name = "cbox_comid";
             this.cbox_comid.Size = new System.Drawing.Size(153, 23);
             this.cbox_comid.TabIndex = 6;
@@ -414,7 +418,7 @@
             this.date_ShipDate.CustomFormat = "yyyy-MM-dd";
             this.date_ShipDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.date_ShipDate.Location = new System.Drawing.Point(1123, 8);
-            this.date_ShipDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.date_ShipDate.Margin = new System.Windows.Forms.Padding(4);
             this.date_ShipDate.Name = "date_ShipDate";
             this.date_ShipDate.ShowCheckBox = true;
             this.date_ShipDate.Size = new System.Drawing.Size(153, 25);
@@ -436,7 +440,7 @@
             this.date_ExportDate.CustomFormat = "yyyy-MM-dd";
             this.date_ExportDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.date_ExportDate.Location = new System.Drawing.Point(800, 8);
-            this.date_ExportDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.date_ExportDate.Margin = new System.Windows.Forms.Padding(4);
             this.date_ExportDate.Name = "date_ExportDate";
             this.date_ExportDate.ShowCheckBox = true;
             this.date_ExportDate.Size = new System.Drawing.Size(153, 25);
@@ -457,7 +461,7 @@
             // 
             this.txt_报关单号.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_报关单号.Location = new System.Drawing.Point(477, 8);
-            this.txt_报关单号.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_报关单号.Margin = new System.Windows.Forms.Padding(4);
             this.txt_报关单号.Name = "txt_报关单号";
             this.txt_报关单号.Size = new System.Drawing.Size(153, 25);
             this.txt_报关单号.TabIndex = 1;
@@ -477,7 +481,7 @@
             // 
             this.txt_InvoiceNO.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_InvoiceNO.Location = new System.Drawing.Point(155, 8);
-            this.txt_InvoiceNO.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_InvoiceNO.Margin = new System.Windows.Forms.Padding(4);
             this.txt_InvoiceNO.Name = "txt_InvoiceNO";
             this.txt_InvoiceNO.Size = new System.Drawing.Size(153, 25);
             this.txt_InvoiceNO.TabIndex = 0;
@@ -521,10 +525,10 @@
             this.tabPage2.Controls.Add(this.txt_Mark1);
             this.tabPage2.Controls.Add(this.myLable14);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage2.Size = new System.Drawing.Size(1363, 215);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Size = new System.Drawing.Size(1363, 104);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "MARK";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -533,7 +537,7 @@
             // 
             this.txt_Remark4.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Remark4.Location = new System.Drawing.Point(781, 142);
-            this.txt_Remark4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Remark4.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Remark4.Name = "txt_Remark4";
             this.txt_Remark4.Size = new System.Drawing.Size(537, 25);
             this.txt_Remark4.TabIndex = 47;
@@ -553,7 +557,7 @@
             // 
             this.txt_Remark2.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Remark2.Location = new System.Drawing.Point(781, 109);
-            this.txt_Remark2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Remark2.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Remark2.Name = "txt_Remark2";
             this.txt_Remark2.Size = new System.Drawing.Size(537, 25);
             this.txt_Remark2.TabIndex = 45;
@@ -573,7 +577,7 @@
             // 
             this.txt_Remark3.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Remark3.Location = new System.Drawing.Point(111, 142);
-            this.txt_Remark3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Remark3.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Remark3.Name = "txt_Remark3";
             this.txt_Remark3.Size = new System.Drawing.Size(537, 25);
             this.txt_Remark3.TabIndex = 43;
@@ -593,7 +597,7 @@
             // 
             this.txt_Remark1.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Remark1.Location = new System.Drawing.Point(111, 109);
-            this.txt_Remark1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Remark1.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Remark1.Name = "txt_Remark1";
             this.txt_Remark1.Size = new System.Drawing.Size(537, 25);
             this.txt_Remark1.TabIndex = 41;
@@ -613,7 +617,7 @@
             // 
             this.txt_inputuser.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_inputuser.Location = new System.Drawing.Point(559, 76);
-            this.txt_inputuser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_inputuser.Margin = new System.Windows.Forms.Padding(4);
             this.txt_inputuser.Name = "txt_inputuser";
             this.txt_inputuser.Size = new System.Drawing.Size(312, 25);
             this.txt_inputuser.TabIndex = 39;
@@ -633,7 +637,7 @@
             // 
             this.txt_Mark7.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Mark7.Location = new System.Drawing.Point(111, 76);
-            this.txt_Mark7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Mark7.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Mark7.Name = "txt_Mark7";
             this.txt_Mark7.Size = new System.Drawing.Size(312, 25);
             this.txt_Mark7.TabIndex = 37;
@@ -653,7 +657,7 @@
             // 
             this.txt_Mark6.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Mark6.Location = new System.Drawing.Point(1007, 42);
-            this.txt_Mark6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Mark6.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Mark6.Name = "txt_Mark6";
             this.txt_Mark6.Size = new System.Drawing.Size(312, 25);
             this.txt_Mark6.TabIndex = 35;
@@ -673,7 +677,7 @@
             // 
             this.txt_Mark5.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Mark5.Location = new System.Drawing.Point(559, 42);
-            this.txt_Mark5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Mark5.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Mark5.Name = "txt_Mark5";
             this.txt_Mark5.Size = new System.Drawing.Size(312, 25);
             this.txt_Mark5.TabIndex = 33;
@@ -693,7 +697,7 @@
             // 
             this.txt_Mark4.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Mark4.Location = new System.Drawing.Point(111, 42);
-            this.txt_Mark4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Mark4.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Mark4.Name = "txt_Mark4";
             this.txt_Mark4.Size = new System.Drawing.Size(312, 25);
             this.txt_Mark4.TabIndex = 31;
@@ -713,7 +717,7 @@
             // 
             this.txt_Mark3.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Mark3.Location = new System.Drawing.Point(1007, 8);
-            this.txt_Mark3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Mark3.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Mark3.Name = "txt_Mark3";
             this.txt_Mark3.Size = new System.Drawing.Size(312, 25);
             this.txt_Mark3.TabIndex = 29;
@@ -733,7 +737,7 @@
             // 
             this.txt_Mark2.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Mark2.Location = new System.Drawing.Point(559, 8);
-            this.txt_Mark2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Mark2.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Mark2.Name = "txt_Mark2";
             this.txt_Mark2.Size = new System.Drawing.Size(312, 25);
             this.txt_Mark2.TabIndex = 27;
@@ -753,7 +757,7 @@
             // 
             this.txt_Mark1.DataType = UniqueDeclarationBaseForm.Controls.myTextBox.DataTypeEnum.DataTypeString;
             this.txt_Mark1.Location = new System.Drawing.Point(111, 8);
-            this.txt_Mark1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_Mark1.Margin = new System.Windows.Forms.Padding(4);
             this.txt_Mark1.Name = "txt_Mark1";
             this.txt_Mark1.Size = new System.Drawing.Size(312, 25);
             this.txt_Mark1.TabIndex = 25;
@@ -775,6 +779,23 @@
             this.myContextDetails.MyDataGridView = this.dataGridViewDetail;
             this.myContextDetails.Name = "myContextDetails";
             this.myContextDetails.Size = new System.Drawing.Size(115, 30);
+            // 
+            // lab_发票号
+            // 
+            this.lab_发票号.AutoSize = true;
+            this.lab_发票号.Location = new System.Drawing.Point(1047, 151);
+            this.lab_发票号.Name = "lab_发票号";
+            this.lab_发票号.Size = new System.Drawing.Size(67, 15);
+            this.lab_发票号.TabIndex = 31;
+            this.lab_发票号.Text = "发票号：";
+            // 
+            // txt_发票号
+            // 
+            this.txt_发票号.Location = new System.Drawing.Point(1123, 145);
+            this.txt_发票号.Name = "txt_发票号";
+            this.txt_发票号.Size = new System.Drawing.Size(153, 25);
+            this.txt_发票号.TabIndex = 32;
+            this.txt_发票号.Validated += new System.EventHandler(this.txt_发票号_Validated);
             // 
             // FormPackingOutInput
             // 
@@ -858,5 +879,7 @@
         private UniqueDeclarationBaseForm.Controls.myLable myLable27;
         private UniqueDeclarationBaseForm.Controls.myTextBox txt_Remark1;
         private UniqueDeclarationBaseForm.Controls.myLable myLable28;
+        private System.Windows.Forms.TextBox txt_发票号;
+        private System.Windows.Forms.Label lab_发票号;
     }
 }

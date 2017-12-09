@@ -180,10 +180,22 @@ namespace UniqueDeclaration
             dataGridViewCellStyle1.NullValue = null;
             this.myDataGridViewDetails.Columns["入库数量"].DefaultCellStyle = dataGridViewCellStyle1;
 
-            this.myDataGridViewDetails.Columns["单位"].DisplayIndex = 8;
+            this.myDataGridViewDetails.Columns["总金额"].DisplayIndex = 8;
+            //this.myDataGridViewDetails.Columns["总金额"].Width = 60;
+            this.myDataGridViewDetails.Columns["总金额"].ContextMenuStrip = this.myContextDetails;
+            this.myDataGridViewDetails.Columns["总金额"].DefaultCellStyle = dataGridViewCellStyle2;
+
+            this.myDataGridViewDetails.Columns["成本价"].DisplayIndex = 9;
+            //this.myDataGridViewDetails.Columns["成本价"].Width = 60;
+            this.myDataGridViewDetails.Columns["成本价"].ContextMenuStrip = this.myContextDetails;
+            this.myDataGridViewDetails.Columns["成本价"].DefaultCellStyle = dataGridViewCellStyle2;
+
+            this.myDataGridViewDetails.Columns["单位"].DisplayIndex = 10;
             this.myDataGridViewDetails.Columns["单位"].Width = 60;
             this.myDataGridViewDetails.Columns["单位"].ContextMenuStrip = this.myContextDetails;
-            this.myDataGridViewDetails.Columns["备注"].DisplayIndex = 9;
+
+
+            this.myDataGridViewDetails.Columns["备注"].DisplayIndex = 11;
             this.myDataGridViewDetails.Columns["备注"].Width = 130;
             this.myDataGridViewDetails.Columns["备注"].ContextMenuStrip = this.myContextDetails;
 
@@ -241,6 +253,12 @@ namespace UniqueDeclaration
         {
             base.tool1_Modify_Click(sender, e);
             bool bHave = false;
+            if (this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value != DBNull.Value && this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value != null
+                    && Convert.ToBoolean(this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value) == true)
+            {
+                SysMessage.InformationMsg("料件入库单已经过帐，不允许执行该操作！");
+                return;
+            }
             int iOrderID = Convert.ToInt32(this.myDataGridViewHead.CurrentRow.Cells["料件入库表id"].Value);
             string strBooksNo = this.myDataGridViewHead.CurrentRow.Cells["电子帐册号"].Value.ToString();
             foreach (Form childFrm in this.MdiParent.MdiChildren)
@@ -270,6 +288,12 @@ namespace UniqueDeclaration
         {
             base.tool1_Delete_Click(sender, e);
             if (this.myDataGridViewHead.CurrentRow == null) return;
+            if (this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value != DBNull.Value && this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value != null
+                    && Convert.ToBoolean(this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value) == true)
+            {
+                SysMessage.InformationMsg("料件入库单已经过帐，不允许执行该操作！");
+                return;
+            }
             string strText = string.Format("真的要删除入库单号 【{0}】 吗？", this.myDataGridViewHead.CurrentRow.Cells["入库单号"].Value);
             if (SysMessage.OKCancelMsg(strText) == System.Windows.Forms.DialogResult.Cancel) return;
             try
@@ -316,29 +340,41 @@ namespace UniqueDeclaration
         {
             base.tool1_Import_Click(sender, e);
             if (this.myDataGridViewHead.CurrentRow == null) return;
-            string strTemp = string.Empty;
-            int i过帐标志 = 0;
-            if (this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value != DBNull.Value && this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value != null
-                && Convert.ToBoolean(this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value) == true)
+            try
             {
-                strTemp = "取消";
-                i过帐标志 = 0;
-            }
-            else
-            {
-                i过帐标志 = 1;
-            }
+                string strTemp = string.Empty;
+                int i过帐标志 = 0;
+                if (this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value != DBNull.Value && this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value != null
+                    && Convert.ToBoolean(this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value) == true)
+                {
+                    strTemp = "取消";
+                    i过帐标志 = 0;
+                }
+                else
+                {
+                    i过帐标志 = 1;
+                }
 
-            string strText = string.Format("确定要{0}过帐入库单号【{1}】 吗？", strTemp, this.myDataGridViewHead.CurrentRow.Cells["入库单号"].Value);
-            if (SysMessage.OKCancelMsg(strText) == System.Windows.Forms.DialogResult.Cancel) return;
-            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
-            dataAccess.Open();
-            string strSQL = string.Format("UPDATE 进口料件入库表 SET 过帐标志 ={0} WHERE 料件入库表id ={1}", i过帐标志, this.myDataGridViewHead.CurrentRow.Cells["料件入库表id"].Value);
-            dataAccess.ExecuteNonQuery(strSQL, null);
-            dataAccess.Close();
-            this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value = i过帐标志;
-            //string strSuccess = string.Format("{0}[{1}]成功！", tool1_Delete.Text, this.myDataGridViewHead.CurrentRow.Cells["出库单号"].Value);
-            //SysMessage.InformationMsg(strSuccess);
+                string strText = string.Format("确定要{0}过帐入库单号【{1}】 吗？", strTemp, this.myDataGridViewHead.CurrentRow.Cells["入库单号"].Value);
+                if (SysMessage.OKCancelMsg(strText) == System.Windows.Forms.DialogResult.Cancel) return;
+
+                DataTable dtDetail = (DataTable)this.myDataGridViewDetails.DataSource;
+                foreach (DataRow row in dtDetail.Rows)
+                    SysMethod.updateCost(row, Convert.ToBoolean(i过帐标志)); 
+
+                IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+                dataAccess.Open();
+                string strSQL = string.Format("UPDATE 进口料件入库表 SET 过帐标志 ={0} WHERE 料件入库表id ={1}", i过帐标志, this.myDataGridViewHead.CurrentRow.Cells["料件入库表id"].Value);
+                dataAccess.ExecuteNonQuery(strSQL, null);
+                dataAccess.Close();
+                this.myDataGridViewHead.CurrentRow.Cells["过帐标志"].Value = i过帐标志;
+                //string strSuccess = string.Format("{0}[{1}]成功！", tool1_Delete.Text, this.myDataGridViewHead.CurrentRow.Cells["出库单号"].Value);
+                //SysMessage.InformationMsg(strSuccess);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
         /// <summary>
         /// 设置tools的按钮是否可用

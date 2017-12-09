@@ -34,6 +34,7 @@ namespace UniqueDeclaration
         private void FormInvoiceOutQueryList_Load(object sender, EventArgs e)
         {
             this.tool1_Import.Visible = false;
+            this.tool1_Print.Visible = true;
             this.tool1_Add.Visible = false;
             this.tool1_Delete.Visible = false;
             this.tool1_Modify.Visible = false;
@@ -546,6 +547,176 @@ namespace UniqueDeclaration
         public override void tool1_Print_Click(object sender, EventArgs e)
         {
             base.tool1_Print_Click(sender, e);
+            int custid = 0;
+            DataGridViewRow dgv = null;
+            if (this.myDataGridViewHead.CurrentRowNew != null)
+            {
+                if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["custid"].Value != DBNull.Value)
+                {
+                    custid = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["custid"].Value;
+                    dgv = this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index];
+                }
+                else
+                    return;
+            }
+            else
+                return;
+            string st = string.Empty;
+            string st2 = string.Empty;
+            string sql = string.Empty;
+            DataTable rs = null;
+            DataTable rs1 = null;
+            DataTable rs2 = null;
+            string st3 = string.Empty;
+            int i = 0;
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+            dataAccess.Open();
+            sql = string.Format("select * from customer where custid={0}",custid);
+            rs = dataAccess.GetTable(sql, null);
+            dataAccess.Close();
+            if(rs.Rows.Count > 0)
+            {
+                DataRow row = rs.Rows[0];
+                if (row["addr1"] != DBNull.Value && row["addr1"].ToString().Trim() != "")
+                    st = row["addr1"].ToString();
+                if (row["addr2"] != DBNull.Value && row["addr2"].ToString().Trim() != "")
+                    st = string.Format("{0},{1}",st,row["addr2"].ToString());
+                if (row["addr3"] != DBNull.Value && row["addr3"].ToString().Trim() != "")
+                    st = string.Format("{0},{1}", st, row["addr3"].ToString());
+                if (row["addr4"] != DBNull.Value && row["addr4"].ToString().Trim() != "")
+                    st = string.Format("{0},{1}", st, row["addr4"].ToString());
+            }
+            List<string> listMark = new List<string>();
+            if(dgv.Cells["mark1"].Value !=DBNull.Value && dgv.Cells["mark1"].ToString().Trim() !="")
+            {
+                st2 = dgv.Cells["mark1"].Value.ToString();
+                listMark.Add(dgv.Cells["mark1"].Value.ToString());
+            }
+            if (dgv.Cells["mark2"].Value != DBNull.Value && dgv.Cells["mark2"].ToString().Trim() != "")
+            {
+                st2 = st2 + Environment.NewLine + dgv.Cells["mark2"].Value.ToString();
+                listMark.Add(dgv.Cells["mark2"].Value.ToString());
+            }
+            if (dgv.Cells["mark3"].Value != DBNull.Value && dgv.Cells["mark3"].ToString().Trim() != "")
+            {
+                st2 = st2 + Environment.NewLine + dgv.Cells["mark3"].Value.ToString();
+                listMark.Add(dgv.Cells["mark3"].Value.ToString());
+            }
+            if (dgv.Cells["mark4"].Value != DBNull.Value && dgv.Cells["mark4"].ToString().Trim() != "")
+            {
+                st2 = st2 + Environment.NewLine + dgv.Cells["mark4"].Value.ToString();
+                listMark.Add(dgv.Cells["mark4"].Value.ToString());
+            }
+            if (dgv.Cells["mark5"].Value != DBNull.Value && dgv.Cells["mark5"].ToString().Trim() != "")
+            {
+                st2 = st2 + Environment.NewLine + dgv.Cells["mark5"].Value.ToString();
+                listMark.Add(dgv.Cells["mark5"].Value.ToString());
+            }
+            if (dgv.Cells["mark6"].Value != DBNull.Value && dgv.Cells["mark6"].ToString().Trim() != "")
+            {
+                st2 = st2 + Environment.NewLine + dgv.Cells["mark6"].Value.ToString();
+                listMark.Add(dgv.Cells["mark6"].Value.ToString());
+            }
+            if (dgv.Cells["mark7"].Value != DBNull.Value && dgv.Cells["mark7"].ToString().Trim() != "")
+            {
+                st2 = st2 + Environment.NewLine + dgv.Cells["mark7"].Value.ToString();
+                listMark.Add(dgv.Cells["mark7"].Value.ToString());
+            }
+            int pid = Convert.ToInt32(dgv.Cells["pid"].Value);
+            sql = string.Format("SELECT SUM(Quantity) AS Quantity, Unit FROM PackingDetail1 where pid = {0} GROUP BY Unit", pid);  //单位数量汇总
+            dataAccess.Open();
+            rs2 = dataAccess.GetTable(sql);
+            sql = string.Format("SELECT count(id) AS totalbox FROM dbo.PackingDetail1 WHERE (PackageNo IS NOT NULL) and pid={0}", pid);  //总数量汇总
+            rs1 = dataAccess.GetTable(sql);
+            sql = string.Format("SELECT SUM(Quantity*unitprice) AS Totalprice FROM PackingDetail1 where pid={0}",pid);   //总金额汇总
+            DataTable rs5 = dataAccess.GetTable(sql);
+            decimal totalPrice = 0;
+            if (rs5.Rows.Count > 0)
+                totalPrice = Convert.ToDecimal(rs5.Rows[0]["Totalprice"]);
+            dataAccess.Close();
+
+            string strSourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\发票INVOICE.xls");
+            string strDestFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"ExcelTemp\发票INVOICE{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss")));
+            File.Copy(strSourceFile, strDestFile);
+            File.SetAttributes(strDestFile, File.GetAttributes(strDestFile) | FileAttributes.ReadOnly);
+            string fn = strDestFile;
+            //string fn = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\制造单清单明细表.xls");
+            ExcelTools ea = new ExcelTools();
+            ea.SafeOpen(fn);
+            ea.ActiveSheet(1); // 激活
+            DataRow rowCust = rs.Rows[0];
+            ea.SetValue("E8", "     " + Convert.ToDateTime( dgv.Cells["ExportDate"].Value).ToString("yyyy-MM-dd"));
+            ea.SetValue("B10", "     " + rowCust["e_name"].ToString());
+            //ea.SetValue("B11", "     " + rowCust["c_address"].ToString());
+            ea.SetValue("B12", "     " + dgv.Cells["per"].Value.ToString());
+            ea.SetValue("E12", "     " + Convert.ToDateTime( dgv.Cells["shipdate"].Value).ToString("yyyy-MM-dd"));
+            ea.SetValue("B13", "     " + dgv.Cells["PackingFrom"].Value.ToString());
+            ea.SetValue("E13", "     " + dgv.Cells["PackingTo"].Value.ToString());
+
+            ea.SetValue("B16", string.Format("{0}CARTONS",rs1.Rows[0]["totalbox"]));
+            ea.SetValue("F16", dgv.Cells["priceterm"].Value.ToString());
+            int iExcelModelBeginIndex = 17;
+            int iExcelModelEndIndex = 30;
+            DataTable dtDetail = (DataTable)this.myDataGridViewDetails.DataSource;
+            int iIndex = 0;
+            for (int iRow = 0; iRow < dtDetail.Rows.Count; iRow++)
+            {
+                DataRow row = dtDetail.Rows[iRow];
+                iIndex = iExcelModelBeginIndex + iRow;
+                if (iIndex > iExcelModelEndIndex - 1)
+                    ea.InsertRows(iIndex);
+                ea.SetValue(string.Format("C{0}", iIndex), row["品名规格型号"] == DBNull.Value ? "" : row["品名规格型号"].ToString());
+                ea.SetValue(string.Format("E{0}", iIndex), string.Format("{0}{1}", row["QUANTITY"],row["UNIT"]));
+                ea.SetValue(string.Format("F{0}", iIndex), (iRow == 0 ? "USD " : "") + Convert.ToDecimal( row["单价"]).ToString("F2"));
+                ea.SetValue(string.Format("G{0}", iIndex), Convert.ToDecimal(row["amount"]).ToString("F2"));
+            }
+            
+            int iIndex2 = 0;
+            if (listMark.Count > 0)
+            {
+                iIndex++;
+                for (int iRow = 0; iRow < listMark.Count; iRow++)
+                {
+                    iIndex2 = iIndex + iRow;
+                    if (iIndex2 > iExcelModelEndIndex - 1)
+                        ea.InsertRows(iIndex2);
+                    ea.SetValue(string.Format("A{0}", iIndex2), string.Format("     {0}", listMark[iRow]));
+                }
+            }
+            else
+                iIndex2 = iIndex;
+            int iIndex3 = 0;
+            iIndex2++;
+            for (int iRow = 0;iRow<rs2.Rows.Count; iRow ++)
+            {
+                DataRow row = rs2.Rows[iRow];
+                iIndex3 = iIndex2 + iRow;
+                if (iIndex3 > iExcelModelEndIndex - 1)
+                    ea.InsertRows(iIndex2);
+                ea.SetValue(string.Format("E{0}", iIndex3), string.Format("{0}{1}", row["QUANTITY"], row["UNIT"]));
+                if(iRow == 0)
+                {
+                    ea.SetValue(string.Format("C{0}",iIndex3), string.Format("TOTAL: {0} CARTONS", rs1.Rows[0]["totalbox"]));
+                    ea.SetValue(string.Format("G{0}", iIndex3), "USD " + totalPrice.ToString("F2"));
+                }
+            }
+            //ea.Save(saveFileDialog.FileName);
+            if (iIndex3 > iExcelModelEndIndex - 1)
+                ea.InsertRows(iIndex3);
+            ea.SetValue(string.Format("A{0}", iIndex3), "产地：厦门同安");
+
+            if(iIndex3<= iExcelModelEndIndex)
+                ea.SetValue("D32", SysMethod.CmycurD(totalPrice));
+            else
+            {
+                ea.SetValue(string.Format("D{0}", 32 + iIndex3-iExcelModelEndIndex), SysMethod.CmycurD(totalPrice));
+            }
+            ea.Visible = true;
+            ea.Dispose();
+
+            /*
+             * Set rs2 = DataEn.cnnPublic.Execute("SELECT SUM(Quantity*unitprice) AS Totalprice FROM PackingDetail1 where pid=" & mRs.Fields("Pid"))
+             */
         }
         /// <summary>
         /// 设置tools的按钮是否可用
@@ -628,6 +799,178 @@ namespace UniqueDeclaration
             {
                 LoadDataSourceDetails2();
             }
+        }
+
+        private void btnOutContact_Click(object sender, EventArgs e)
+        {
+            int custid = 0;
+            DataGridViewRow dgv = null;
+            if (this.myDataGridViewHead.CurrentRowNew != null)
+            {
+                if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["custid"].Value != DBNull.Value)
+                {
+                    custid = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["custid"].Value;
+                    dgv = this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index];
+                }
+                else
+                    return;
+            }
+            else
+                return;
+          
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+            
+            int pid = Convert.ToInt32(dgv.Cells["pid"].Value);
+            dataAccess.Open();
+            string sql = string.Format("SELECT SUM(Quantity*unitprice) AS Totalprice FROM PackingDetail1 where pid={0}", pid);   //总金额汇总
+            DataTable rs1 = dataAccess.GetTable(sql);
+            decimal totalPrice = 0;
+            if (rs1.Rows.Count > 0)
+                totalPrice = Convert.ToDecimal(rs1.Rows[0]["Totalprice"]);
+            dataAccess.Close();
+
+            string strSourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\出口合同.xls");
+            string strDestFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"ExcelTemp\出口合同{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss")));
+            File.Copy(strSourceFile, strDestFile);
+            File.SetAttributes(strDestFile, File.GetAttributes(strDestFile) | FileAttributes.ReadOnly);
+            string fn = strDestFile;
+            //string fn = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\制造单清单明细表.xls");
+            ExcelTools ea = new ExcelTools();
+            ea.SafeOpen(fn);
+            ea.ActiveSheet(1); // 激活
+            dataAccess.Open();
+            DataTable dtContactNo = dataAccess.GetTable(string.Format("exec getcontactno '{0}'",dgv.Cells["InvoiceNo"].Value));
+            dataAccess.Close();
+            ea.SetValue("H4", dtContactNo.Rows[0]["no"].ToString());
+            ea.SetValue("H5", DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"));
+            int iExcelModelBeginIndex = 18;
+            int iExcelModelEndIndex = 32;
+            DataTable dtDetail = (DataTable)this.myDataGridViewDetails.DataSource;
+            int iIndex = 0;
+            for (int iRow = 0; iRow < dtDetail.Rows.Count; iRow++)
+            {
+                DataRow row = dtDetail.Rows[iRow];
+                iIndex = iExcelModelBeginIndex + iRow;
+                if (iIndex > iExcelModelEndIndex - 1)
+                    ea.InsertRows(iIndex);
+                ea.SetValue(string.Format("C{0}", iIndex), row["品名规格型号"] == DBNull.Value ? "" : row["品名规格型号"].ToString());
+                ea.SetValue(string.Format("D{0}", iIndex), Convert.ToDecimal( row["QUANTITY"]).ToString("F2"));
+                ea.SetValue(string.Format("E{0}", iIndex), row["UNIT"].ToString().Trim());
+                ea.SetValue(string.Format("F{0}", iIndex), "USD：");
+                ea.SetValue(string.Format("G{0}", iIndex), Convert.ToDecimal(row["单价"]).ToString("F2"));
+                ea.SetValue(string.Format("H{0}", iIndex), "USD：");
+                ea.SetValue(string.Format("I{0}", iIndex), Convert.ToDecimal(row["amount"]).ToString("F2"));
+            }
+
+            if (iIndex <= iExcelModelEndIndex)
+            {
+                ea.SetValue("A33", string.Format("合计美元：{0}", SysMethod.CmycurD(totalPrice)));
+                ea.SetValue("I33", totalPrice.ToString("F2"));
+                ea.SetValue("H35", dgv.Cells["PackingTo"].Value.ToString().Trim());
+                ea.SetValue("C37", string.Format("BEFORE {0}" ,DateTime.Now.AddMonths(4).ToString("yyyy-MM-dd")));
+            }
+            else
+            {
+                ea.SetValue(string.Format("H{0}", 33 + iIndex - iExcelModelEndIndex), string.Format("合计美元：{0}", SysMethod.CmycurD(totalPrice)));
+                ea.SetValue(string.Format("I{0}", 33 + iIndex - iExcelModelEndIndex), totalPrice.ToString("F2"));
+                ea.SetValue(string.Format("H{0}", 35 + iIndex - iExcelModelEndIndex), dgv.Cells["PackingTo"].Value.ToString().Trim());
+                ea.SetValue(string.Format("C{0}", 37 + iIndex - iExcelModelEndIndex), string.Format("BEFORE {0}", DateTime.Now.AddMonths(-4).ToString("yyyy-MM-dd")));
+            }
+            ea.Visible = true;
+            ea.Dispose();
+        }
+
+        private void btnMoneyContact_Click(object sender, EventArgs e)
+        {
+            int custid = 0;
+            DataGridViewRow dgv = null;
+            if (this.myDataGridViewHead.CurrentRowNew != null)
+            {
+                if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["custid"].Value != DBNull.Value)
+                {
+                    custid = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["custid"].Value;
+                    dgv = this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index];
+                }
+                else
+                    return;
+            }
+            else
+                return;
+
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+
+            int pid = Convert.ToInt32(dgv.Cells["pid"].Value);
+            dataAccess.Open();
+            DataTable dtExchangeRate = dataAccess.GetTable(string.Format("select * from exchangerate where iyear={0} and imonth={1}", DateTime.Now.Year, DateTime.Now.Month));
+            string sql = string.Format("SELECT SUM(Quantity*unitprice) AS Totalprice FROM PackingDetail1 where pid={0}", pid);   //总金额汇总
+            DataTable rs1 = dataAccess.GetTable(sql);
+            dataAccess.Close();
+            decimal rate = 0;
+            if (dtExchangeRate.Rows.Count > 0)
+                rate = Convert.ToDecimal(dtExchangeRate.Rows[0]["rate"]);
+            if(rate == 0)
+            {
+                SysMessage.InformationMsg(string.Format("【{0}】年【{1}】月还没有维护汇率，请先维护汇率！",DateTime.Now.Year,DateTime.Now.Month));
+            }
+            decimal totalPrice = 0;
+            if (rs1.Rows.Count > 0)
+                totalPrice = Convert.ToDecimal(rs1.Rows[0]["Totalprice"]);
+
+
+
+            string strSourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\财务合同.xls");
+            string strDestFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"ExcelTemp\出口合同{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss")));
+            File.Copy(strSourceFile, strDestFile);
+            File.SetAttributes(strDestFile, File.GetAttributes(strDestFile) | FileAttributes.ReadOnly);
+            string fn = strDestFile;
+            //string fn = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\制造单清单明细表.xls");
+            ExcelTools ea = new ExcelTools();
+            ea.SafeOpen(fn);
+            ea.ActiveSheet(1); // 激活
+            dataAccess.Open();
+            DataTable dtContactNo = dataAccess.GetTable(string.Format("exec getcontactno '{0}'", dgv.Cells["InvoiceNo"].Value));
+            dataAccess.Close();
+            ea.SetValue("H4", dtContactNo.Rows[0]["no"].ToString());
+            ea.SetValue("H5", DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"));
+            int iExcelModelBeginIndex = 18;
+            int iExcelModelEndIndex = 32;
+            DataTable dtDetail = (DataTable)this.myDataGridViewDetails.DataSource;
+            int iIndex = iExcelModelBeginIndex - 1;
+            for (int iRow = 0; iRow < dtDetail.Rows.Count; iRow++)
+            {
+                DataRow row = dtDetail.Rows[iRow];
+                //iIndex = iExcelModelBeginIndex + iRow;
+                iIndex++;
+                if (iIndex > iExcelModelEndIndex - 1)
+                    ea.InsertRows(iIndex);
+                ea.SetValue(string.Format("C{0}", iIndex), row["品名规格型号"] == DBNull.Value ? "" : row["品名规格型号"].ToString());
+                ea.SetValue(string.Format("D{0}", iIndex), Convert.ToDecimal(row["QUANTITY"]).ToString("F2"));
+                ea.SetValue(string.Format("E{0}", iIndex), row["UNIT"].ToString().Trim());
+                ea.SetValue(string.Format("F{0}", iIndex), "USD：");
+                ea.SetValue(string.Format("G{0}", iIndex), Convert.ToDecimal(row["单价"]).ToString("F2"));
+                ea.SetValue(string.Format("H{0}", iIndex), "USD：");
+                ea.SetValue(string.Format("I{0}", iIndex), Convert.ToDecimal(row["amount"]).ToString("F2"));
+                iIndex++;
+                ea.SetValue(string.Format("H{0}", iIndex), "RMB：");
+                ea.SetValue(string.Format("I{0}", iIndex), rate == 0 ? Convert.ToDecimal(row["amount"]).ToString("F2") : (Convert.ToDecimal(row["amount"]) * rate).ToString("F2"));
+            }
+
+            if (iIndex <= iExcelModelEndIndex)
+            {
+                ea.SetValue("A33", string.Format("合计美元：{0}", SysMethod.CmycurD(totalPrice)));
+                ea.SetValue("I33", totalPrice.ToString("F2"));
+                ea.SetValue("H35", dgv.Cells["PackingTo"].Value.ToString().Trim());
+                ea.SetValue("C37", string.Format("BEFORE {0}", DateTime.Now.AddMonths(4).ToString("yyyy-MM-dd")));
+            }
+            else
+            {
+                ea.SetValue(string.Format("H{0}", 33 + iIndex - iExcelModelEndIndex), string.Format("合计美元：{0}", SysMethod.CmycurD(totalPrice)));
+                ea.SetValue(string.Format("I{0}", 33 + iIndex - iExcelModelEndIndex), totalPrice.ToString("F2"));
+                ea.SetValue(string.Format("H{0}", 35 + iIndex - iExcelModelEndIndex), dgv.Cells["PackingTo"].Value.ToString().Trim());
+                ea.SetValue(string.Format("C{0}", 37 + iIndex - iExcelModelEndIndex), string.Format("BEFORE {0}", DateTime.Now.AddMonths(-4).ToString("yyyy-MM-dd")));
+            }
+            ea.Visible = true;
+            ea.Dispose();
         }
     }
 }

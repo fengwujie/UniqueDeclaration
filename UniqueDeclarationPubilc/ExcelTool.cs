@@ -751,8 +751,8 @@ namespace UniqueDeclarationPubilc
         public void SetBorderStyle(string range, int Style)
         {
             Range = WorkSheet.GetType().InvokeMember("Range", BindingFlags.GetProperty, null, WorkSheet, new object[] { range });
-            object[] args = new object[] { 1 };
-            object[] args1 = new object[] { 1 };
+            object[] args = new object[] { Style };
+            //object[] args1 = new object[] { 1 };
             object Borders = Range.GetType().InvokeMember("Borders", BindingFlags.GetProperty, null, Range, null);
             Borders = Range.GetType().InvokeMember("LineStyle", BindingFlags.SetProperty, null, Borders, args);
         }

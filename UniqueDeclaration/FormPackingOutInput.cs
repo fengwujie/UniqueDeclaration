@@ -258,8 +258,8 @@ namespace UniqueDeclaration
                         #region 新增表头数据
                         strBuilder.AppendLine(@"INSERT INTO [Packing1]([custid],[InvoiceNo] ,[ExportDate],[shipdate] ,[comid] ,[per] ,[sailingabout],[PackingFrom] ,
                                                     [PackingTo] ,[InputDate] ,[InputUser],[ContractNo] ,[YourOrderNo],[Remark],[PriceTerm],[Mark1],[Mark2],[Mark3] ,
-                                                    [Mark4] ,[Mark5] ,[Mark6],[Mark7],[工缴费率] ,[报关单号] ,[remark1],[remark2] ,[remark3] ,[Remark4] ,[装箱单号])");
-                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28})",
+                                                    [Mark4] ,[Mark5] ,[Mark6],[Mark7],[工缴费率] ,[报关单号] ,[remark1],[remark2] ,[remark3] ,[Remark4] ,[装箱单号],[发票号])");
+                        strBuilder.AppendFormat("VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29})",
                             rowHead["custid"] == DBNull.Value ? "NULL" : rowHead["custid"],
                             rowHead["InvoiceNo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["InvoiceNo"].ToString()),
                             rowHead["ExportDate"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["ExportDate"].ToString()),
@@ -288,7 +288,8 @@ namespace UniqueDeclaration
                             rowHead["remark2"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["remark2"].ToString()),
                             rowHead["remark3"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["remark3"].ToString()),
                             rowHead["Remark4"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Remark4"].ToString()),
-                            rowHead["装箱单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["装箱单号"].ToString()));
+                            rowHead["装箱单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["装箱单号"].ToString()),
+                            rowHead["发票号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["发票号"].ToString()));
                         strBuilder.AppendLine("select @@IDENTITY--自动生成的订单ID");
                         DataTable dtInsert = dataAccess.GetTable(strBuilder.ToString(), null);
                         object Pid = dtInsert.Rows[0][0];
@@ -344,7 +345,7 @@ namespace UniqueDeclaration
                                     ,[per] = {5},[sailingabout] ={6} ,[PackingFrom] = {7} ,[PackingTo] = {8} ,[InputDate] = {9},[InputUser] ={10},[ContractNo] = {11}
                                     ,[YourOrderNo] = {12} ,[Remark] = {13} ,[PriceTerm] = {14},[Mark1] = {15} ,[Mark2] = {16} ,[Mark3] = {17} ,[Mark4] = {18}
                                     ,[Mark5] = {19},[Mark6] = {20} ,[Mark7] = {21} ,[工缴费率] = {22} ,[报关单号] = {23} ,[remark1] ={24} ,[remark2] = {25},
-                                    [remark3] = {26} ,[Remark4] = {27},[装箱单号] = {28} WHERE Pid={29}",
+                                    [remark3] = {26} ,[Remark4] = {27},[装箱单号] = {28},发票号 = {29} WHERE Pid={30}",
                             rowHead["custid"] == DBNull.Value ? "NULL" : rowHead["custid"],
                             rowHead["InvoiceNo"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["InvoiceNo"].ToString()),
                             rowHead["ExportDate"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["ExportDate"].ToString()),
@@ -374,6 +375,7 @@ namespace UniqueDeclaration
                             rowHead["remark3"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["remark3"].ToString()),
                             rowHead["Remark4"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["Remark4"].ToString()),
                             rowHead["装箱单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["装箱单号"].ToString()),
+                            rowHead["发票号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["发票号"].ToString()),
                             rowHead["Pid"] == DBNull.Value ? "NULL" : rowHead["Pid"]);
                             dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                             strBuilder.Clear();
@@ -639,6 +641,10 @@ namespace UniqueDeclaration
                 {
                     txt_工缴费率.Text = row["工缴费率"].ToString();
                 }
+            }
+            if (row.Table.Columns.Contains("发票号"))
+            {
+                txt_发票号.Text = row["发票号"].ToString();
             }
         }
         #endregion
@@ -1000,6 +1006,13 @@ namespace UniqueDeclaration
             if (rowHead["PriceTerm"].ToString() != txt_PriceTerm.Text)
             {
                 rowHead["PriceTerm"] = txt_PriceTerm.Text;
+            }
+        }
+        private void txt_发票号_Validated(object sender, EventArgs e)
+        {
+            if (rowHead["发票号"].ToString() != txt_发票号.Text)
+            {
+                rowHead["发票号"] = txt_Remark4.Text;
             }
         }
         #endregion
@@ -1486,6 +1499,6 @@ namespace UniqueDeclaration
             setTool1Enabled();
         }
         #endregion
-        
+
     }
 }

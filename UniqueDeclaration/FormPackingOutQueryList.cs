@@ -29,6 +29,7 @@ namespace UniqueDeclaration
         private void FormPackingQueryList_Load(object sender, EventArgs e)
         {
             this.tool1_Import.Visible = false;
+            this.tool1_Print.Visible = true;
             LoadDataSourceHead();
             InitGridDetails();
             InitGridHead();
@@ -117,6 +118,9 @@ namespace UniqueDeclaration
             this.myDataGridViewHead.Columns["Mark7"].ContextMenuStrip = this.myContextHead;
             this.myDataGridViewHead.Columns["工缴费率"].DisplayIndex = 23;
             this.myDataGridViewHead.Columns["工缴费率"].ContextMenuStrip = this.myContextHead;
+            this.myDataGridViewHead.Columns["工缴费率"].Visible = false;
+            this.myDataGridViewHead.Columns["发票号"].DisplayIndex = 23;
+            this.myDataGridViewHead.Columns["发票号"].ContextMenuStrip = this.myContextHead;
         }
 
         private void InitGridDetails()
@@ -363,6 +367,161 @@ namespace UniqueDeclaration
         public override void tool1_Print_Click(object sender, EventArgs e)
         {
             base.tool1_Print_Click(sender, e);
+            int custid = 0;
+            DataGridViewRow dgv = null;
+            if (this.myDataGridViewHead.CurrentRowNew != null)
+            {
+                if (this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["custid"].Value != DBNull.Value)
+                {
+                    custid = (int)this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index].Cells["custid"].Value;
+                    dgv = this.myDataGridViewHead.Rows[this.myDataGridViewHead.CurrentRowNew.Index];
+                }
+                else
+                    return;
+            }
+            else
+                return;
+            string sql = string.Empty;
+            DataTable rs = null;
+            DataTable rs1 = null;
+            DataTable rs2 = null;
+            string st3 = string.Empty;
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
+            dataAccess.Open();
+            sql = string.Format("select * from customer where custid={0}", custid);
+            rs = dataAccess.GetTable(sql, null);
+            dataAccess.Close();
+            List<string> listMark = new List<string>();
+            if (dgv.Cells["mark1"].Value != DBNull.Value && dgv.Cells["mark1"].ToString().Trim() != "")
+            {
+                listMark.Add(dgv.Cells["mark1"].Value.ToString());
+            }
+            if (dgv.Cells["mark2"].Value != DBNull.Value && dgv.Cells["mark2"].ToString().Trim() != "")
+            {
+                listMark.Add(dgv.Cells["mark2"].Value.ToString());
+            }
+            if (dgv.Cells["mark3"].Value != DBNull.Value && dgv.Cells["mark3"].ToString().Trim() != "")
+            {
+                listMark.Add(dgv.Cells["mark3"].Value.ToString());
+            }
+            if (dgv.Cells["mark4"].Value != DBNull.Value && dgv.Cells["mark4"].ToString().Trim() != "")
+            {
+                listMark.Add(dgv.Cells["mark4"].Value.ToString());
+            }
+            if (dgv.Cells["mark5"].Value != DBNull.Value && dgv.Cells["mark5"].ToString().Trim() != "")
+            {
+                listMark.Add(dgv.Cells["mark5"].Value.ToString());
+            }
+            if (dgv.Cells["mark6"].Value != DBNull.Value && dgv.Cells["mark6"].ToString().Trim() != "")
+            {
+                listMark.Add(dgv.Cells["mark6"].Value.ToString());
+            }
+            if (dgv.Cells["mark7"].Value != DBNull.Value && dgv.Cells["mark7"].ToString().Trim() != "")
+            {
+                listMark.Add(dgv.Cells["mark7"].Value.ToString());
+            }
+            int pid = Convert.ToInt32(dgv.Cells["pid"].Value);
+            sql = string.Format("SELECT SUM(Quantity) AS Quantity, Unit FROM PackingDetail1 where pid = {0} GROUP BY Unit", pid);  //单位数量汇总
+            dataAccess.Open();
+            rs2 = dataAccess.GetTable(sql);
+            sql = string.Format("SELECT count(id) AS totalbox FROM dbo.PackingDetail1 WHERE (PackageNo IS NOT NULL) and pid={0}", pid);  //总数量汇总
+            rs1 = dataAccess.GetTable(sql);
+            //sql = string.Format("SELECT SUM(Quantity*unitprice) AS Totalprice FROM PackingDetail1 where pid={0}", pid);   //总金额汇总
+            //DataTable rs5 = dataAccess.GetTable(sql);
+            //decimal totalPrice = 0;
+            //if (rs5.Rows.Count > 0)
+            //    totalPrice = Convert.ToDecimal(rs5.Rows[0]["Totalprice"]);
+            dataAccess.Close();
+
+            string strSourceFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\出口装箱单明细.xls");
+            string strDestFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"ExcelTemp\出口装箱单明细{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss")));
+            File.Copy(strSourceFile, strDestFile);
+            File.SetAttributes(strDestFile, File.GetAttributes(strDestFile) | FileAttributes.ReadOnly);
+            string fn = strDestFile;
+            //string fn = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Excel\制造单清单明细表.xls");
+            ExcelTools ea = new ExcelTools();
+            ea.SafeOpen(fn);
+            ea.ActiveSheet(1); // 激活
+            DataRow rowCust = rs.Rows[0];
+            ea.SetValue("C9", "     " + dgv.Cells["INVOICENO"].Value.ToString());
+            ea.SetValue("I9", "     " + Convert.ToDateTime(dgv.Cells["ExportDate"].Value).ToString("yyyy-MM-dd"));
+            ea.SetValue("C12", "     " + rowCust["e_name"].ToString());
+            ea.SetValue("F14", "    " + dgv.Cells["PackingFrom"].Value.ToString());
+            ea.SetValue("C15", "    " + dgv.Cells["PackingTo"].Value.ToString());
+            int iMark = 11;
+            for(int i = 0; i< listMark.Count; i++)
+            {
+                ea.SetValue(string.Format("H{0}", iMark + i), listMark[i]);
+            }
+
+            int iExcelModelBeginIndex = 19;
+            DataTable dtDetail = (DataTable)this.myDataGridViewDetails.DataSource;
+            int iIndex = iExcelModelBeginIndex;
+            int iCount = dtDetail.Rows.Count;
+
+            decimal nw = 0;
+            for (int iRow = 0; iRow < dtDetail.Rows.Count; iRow++)
+            {
+                DataRow row = dtDetail.Rows[iRow];
+                //if (iCount > 1 && iRow < iCount - 1)
+                //{
+                    ea.InsertRows(iIndex +1);
+                    ea.SetMerge(string.Format("A{0}:B{0}", iIndex));
+                    ea.SetHorisontalAlignment(string.Format("A{0}:B{0}", iIndex), 3);  //居中
+                    //ea.SetBorderStyle(string.Format("A{0}:B{0}", iIndex), 1);
+
+                    ea.SetMerge(string.Format("C{0}:F{0}", iIndex));
+                    ea.SetHorisontalAlignment(string.Format("C{0}:F{0}", iIndex), 1);  //左对齐
+                    
+                    ea.SetHorisontalAlignment(string.Format("G{0}", iIndex), 4);   //右对齐
+
+                    ea.SetMerge(string.Format("H{0}:I{0}", iIndex));
+                    ea.SetHorisontalAlignment(string.Format("H{0}:I{0}", iIndex), 4);
+                    //ea.SetBorderStyle(string.Format("H{0}:I{0}", iIndex), 4);
+                    ea.SetHorisontalAlignment(string.Format("J{0}", iIndex), 4);
+                //}
+                ea.SetValue(string.Format("A{0}", iIndex), row["PackageNo"] == DBNull.Value ? "" : row["PackageNo"].ToString());
+                ea.SetValue(string.Format("C{0}", iIndex), row["品名规格型号"] == DBNull.Value ? "" : row["品名规格型号"].ToString());
+                ea.SetValue(string.Format("G{0}", iIndex), string.Format("{0}{1}", row["QUANTITY"] == DBNull.Value ? "" : Convert.ToDecimal(row["QUANTITY"]).ToString("F2"),row["UNIT"].ToString().Trim()));
+                ea.SetValue(string.Format("H{0}", iIndex), string.Format("{0}{1}", row["NW"] == DBNull.Value ? "" : Convert.ToDecimal(row["NW"]).ToString("F2"), row["UNIT1"].ToString().Trim()));
+                ea.SetValue(string.Format("J{0}", iIndex), string.Format("{0}{1}", row["GW"] ==DBNull.Value ? "" : Convert.ToDecimal(row["GW"]).ToString("F2"), row["UNIT2"].ToString().Trim()));
+                nw += (row["NW"] == DBNull.Value ? 0 : Convert.ToDecimal(row["NW"]));
+
+                ea.SetRowHeight(string.Format("A{0}", iIndex), 20);
+                iIndex++;
+            }
+            ea.SetRowHeight(string.Format("A{0}", iIndex), 2);
+            ea.SetRowHeight(string.Format("A{0}", iIndex+1), 2);
+            iIndex = iIndex + 2;
+            //ea.SetValue(string.Format("C{0}", iIndex), "TOTAL:");
+            //ea.SetHorisontalAlignment(string.Format("C{0}", iIndex), 4);   //右对齐
+            //Font font = new Font("楷体", 12, FontStyle.Bold);
+            //ea.SetFont(string.Format("C{0}", iIndex), font);
+
+            ea.SetValue(string.Format("D{0}", iIndex), rs1.Rows[0]["totalbox"].ToString());
+            //ea.SetHorisontalAlignment(string.Format("D{0}", iIndex), 3);  //居中
+            //ea.SetFont(string.Format("D{0}", iIndex), font);
+
+            //ea.SetValue(string.Format("E{0}", iIndex), "CARTONS");
+            //ea.SetHorisontalAlignment(string.Format("E{0}", iIndex), 1);  //左对齐
+            ////Font font = new Font("楷体", 12, FontStyle.Bold);
+            //ea.SetFont(string.Format("E{0}",iIndex), font);
+            if (nw > 0)
+            {
+                ea.SetMerge(string.Format("H{0}:I{0}", iIndex));
+                ea.SetValue(string.Format("H{0}", iIndex), nw.ToString("F2") + "KGS");
+                ea.SetHorisontalAlignment(string.Format("H{0}", iIndex), 4);   //右对齐
+            }
+            for(int i=0;i<rs2.Rows.Count; i++)
+            {
+                DataRow row = rs2.Rows[i];
+                ea.SetValue(string.Format("G{0}", iIndex), string.Format("{0}{1}", row["QUANTITY"] == DBNull.Value ? "" : Convert.ToDecimal(row["QUANTITY"]).ToString("F2"), row["UNIT"].ToString().Trim()));
+                ea.SetHorisontalAlignment(string.Format("G{0}", iIndex), 4);
+                ea.SetRowHeight(string.Format("A{0}", iIndex), 20);
+                iIndex++;
+            }
+            ea.Visible = true;
+            ea.Dispose();
         }
         //过帐或取消过帐处理
         public override void tool1_Import_Click(object sender, EventArgs e)

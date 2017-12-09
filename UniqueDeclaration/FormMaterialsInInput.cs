@@ -91,10 +91,23 @@ namespace UniqueDeclaration
             dataGridViewCellStyle1.NullValue = null;
             this.dataGridViewDetail.Columns["入库数量"].DefaultCellStyle = dataGridViewCellStyle1;
 
-            this.dataGridViewDetail.Columns["单位"].DisplayIndex = 8;
+
+            this.dataGridViewDetail.Columns["总金额"].DisplayIndex = 8;
+            //this.myDataGridViewDetails.Columns["总金额"].Width = 60;
+            this.dataGridViewDetail.Columns["总金额"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["总金额"].DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewDetail.Columns["总金额"].ReadOnly = true;
+
+            this.dataGridViewDetail.Columns["成本价"].DisplayIndex = 9;
+            //this.myDataGridViewDetails.Columns["成本价"].Width = 60;
+            this.dataGridViewDetail.Columns["成本价"].ContextMenuStrip = this.myContextDetails;
+            this.dataGridViewDetail.Columns["成本价"].DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewDetail.Columns["成本价"].ReadOnly = true;
+
+            this.dataGridViewDetail.Columns["单位"].DisplayIndex = 10;
             this.dataGridViewDetail.Columns["单位"].ReadOnly = true;
             this.dataGridViewDetail.Columns["单位"].ContextMenuStrip = this.myContextDetails;
-            this.dataGridViewDetail.Columns["备注"].DisplayIndex = 9;
+            this.dataGridViewDetail.Columns["备注"].DisplayIndex = 11;
             this.dataGridViewDetail.Columns["备注"].ContextMenuStrip = this.myContextDetails;
         }
         public override void InitControlData()
@@ -264,6 +277,7 @@ namespace UniqueDeclaration
                 if (!Convert.ToBoolean(rowHead["过帐标志"]) && SysMessage.YesNoMsg("要过帐吗？") == System.Windows.Forms.DialogResult.Yes)
                     rowHead["过帐标志"] = 1;
 
+                //bool bUpdateCost = true;
                 StringBuilder strBuilder = new StringBuilder();
                 if (rowHead.RowState == DataRowState.Added)
                 {
@@ -312,6 +326,11 @@ namespace UniqueDeclaration
                             object 料件入库明细表id = dataAccess.ExecScalar(strBuilder.ToString(), null);
                             strBuilder.Clear();
                             row["料件入库明细表id"] = 料件入库明细表id;
+                            //updateCost(row);
+                            //if (bUpdateCost)
+                            //{
+                            //    SysMethod.updateCost(row, true);
+                            //}
                         }
                         #endregion
                         giOrderID = Convert.ToInt32(料件入库表id);
@@ -375,6 +394,8 @@ namespace UniqueDeclaration
                                 object 料件入库明细表id = dataAccess.ExecScalar(strBuilder.ToString(), null);
                                 strBuilder.Clear();
                                 row["料件入库明细表id"] = 料件入库明细表id;
+                                //updateCost(row);
+                                //if (bUpdateCost) SysMethod.updateCost(row, true);
                             }
                             #endregion
 
@@ -382,6 +403,11 @@ namespace UniqueDeclaration
                             else if (row.RowState == DataRowState.Deleted)
                             {
                                 if (row["料件入库明细表id", DataRowVersion.Original] == DBNull.Value) continue;
+                                //updateCost(row);
+                                //if (bUpdateCost)
+                                //{
+                                //    SysMethod.updateCost(row, false);
+                                //}
                                 strBuilder.AppendFormat(@"DELETE FROM [进口料件入库明细表] WHERE 料件入库明细表id={0}", row["料件入库明细表id", DataRowVersion.Original]);
                                 dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                                 strBuilder.Clear();
@@ -398,11 +424,13 @@ namespace UniqueDeclaration
                                 }
                                 else
                                 {
+                                    //updateCost(row);
                                     strBuilder.AppendFormat(@"UPDATE [进口料件入库明细表] SET [料件入库表id] = {0},[料件id] = {1},[单价] = {2} ,[入库数量] = {3}
                                                     ,[备注] = {4} where 料件入库明细表id={5}",
                                             rowHead["料件入库表id"], row["料件id"], row["单价"] == DBNull.Value ? "NULL" : row["单价"].ToString(),
                                     row["入库数量"] == DBNull.Value ? "NULL" : row["入库数量"].ToString(),
                                     row["备注"] == DBNull.Value ? "NULL" : StringTools.SqlQ(row["备注"].ToString()), row["料件入库明细表id"]);
+                                    //if (bUpdateCost) SysMethod.updateCost(row, true);
                                 }
                                 dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
                                 strBuilder.Clear();
@@ -424,6 +452,11 @@ namespace UniqueDeclaration
                 bCellKeyPress = false;
                 dtDetails.AcceptChanges();
                 bCellKeyPress = true;
+                if (Convert.ToBoolean(rowHead["过帐标志"]))
+                {
+                    foreach (DataRow row in dtDetails.Rows)
+                        SysMethod.updateCost(row, true);
+                }
                 if (bSuccess && bShowSuccessMsg)
                 {
                     SysMessage.InformationMsg("保存成功！");
@@ -1054,6 +1087,7 @@ namespace UniqueDeclaration
                 dgv.Rows[cell.RowIndex].Cells["料件id"].Value = dttabArticle.Rows[0]["料件id"];
                 dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
                 dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
+                dgv.Rows[cell.RowIndex].Cells["成本价"].Value = dttabArticle.Rows[0]["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(dttabArticle.Rows[0]["成本价"]);
             }
             else if (dttabArticle.Rows.Count > 1)
             {
@@ -1077,6 +1111,7 @@ namespace UniqueDeclaration
                     dgv.Rows[cell.RowIndex].Cells["料件id"].Value = dttabArticle.Rows[0]["料件id"];
                     dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
                     dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
+                    dgv.Rows[cell.RowIndex].Cells["成本价"].Value = dttabArticle.Rows[0]["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(dttabArticle.Rows[0]["成本价"]);
                 }
                 else
                 {
@@ -1137,6 +1172,7 @@ namespace UniqueDeclaration
                 dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["显示型号"];
                 dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
                 dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
+                dgv.Rows[cell.RowIndex].Cells["成本价"].Value = dttabArticle.Rows[0]["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(dttabArticle.Rows[0]["成本价"]);
             }
             else if (dttabArticle.Rows.Count > 1)
             {
@@ -1150,6 +1186,7 @@ namespace UniqueDeclaration
                     dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["显示型号"];
                     dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
                     dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
+                    dgv.Rows[cell.RowIndex].Cells["成本价"].Value = dttabArticle.Rows[0]["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(dttabArticle.Rows[0]["成本价"]);
                 }
                 else
                 {
@@ -1182,6 +1219,7 @@ namespace UniqueDeclaration
             if (cell.EditedFormattedValue.ToString() == "")
             {
                 dgv.Rows[cell.RowIndex].Cells["单价"].Value = 0;
+                dgv.Rows[cell.RowIndex].Cells["总金额"].Value = 0;
             }
             else
             {
@@ -1189,10 +1227,21 @@ namespace UniqueDeclaration
                 {
                     decimal.Parse(cell.EditedFormattedValue.ToString());
                     dgv.Rows[cell.RowIndex].Cells["单价"].Value = cell.EditedFormattedValue;
+
+                    if (dgv.Rows[cell.RowIndex].Cells["入库数量"].Value == DBNull.Value || Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["入库数量"].Value) == 0)
+                    {
+                        dgv.Rows[cell.RowIndex].Cells["总金额"].Value = 0;
+                    }
+                    else
+                    {
+                        dgv.Rows[cell.RowIndex].Cells["总金额"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["单价"].Value) *
+                            Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["入库数量"].Value);
+                    }
                 }
                 catch
                 {
                     dgv.Rows[cell.RowIndex].Cells["单价"].Value = 0;
+                    dgv.Rows[cell.RowIndex].Cells["总金额"].Value = 0;
                 }
             }
         }
@@ -1201,6 +1250,7 @@ namespace UniqueDeclaration
             if (cell.EditedFormattedValue.ToString() == "")
             {
                 dgv.Rows[cell.RowIndex].Cells["入库数量"].Value = 0;
+                dgv.Rows[cell.RowIndex].Cells["总金额"].Value = 0;
             }
             else
             {
@@ -1208,10 +1258,21 @@ namespace UniqueDeclaration
                 {
                     decimal.Parse(cell.EditedFormattedValue.ToString());
                     dgv.Rows[cell.RowIndex].Cells["入库数量"].Value = cell.EditedFormattedValue;
+
+                    if (dgv.Rows[cell.RowIndex].Cells["单价"].Value == DBNull.Value || Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["单价"].Value) == 0)
+                    {
+                        dgv.Rows[cell.RowIndex].Cells["总金额"].Value = 0;
+                    }
+                    else
+                    {
+                        dgv.Rows[cell.RowIndex].Cells["总金额"].Value = Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["单价"].Value) *
+                            Convert.ToDecimal(dgv.Rows[cell.RowIndex].Cells["入库数量"].Value);
+                    }
                 }
                 catch
                 {
                     dgv.Rows[cell.RowIndex].Cells["入库数量"].Value = 0;
+                    dgv.Rows[cell.RowIndex].Cells["总金额"].Value = 0;
                 }
             }
         }
@@ -1261,5 +1322,105 @@ namespace UniqueDeclaration
         }
 
         #endregion
+
+        /// <summary>
+        /// 更新料件成本
+        /// </summary>
+        /// <param name="row">料件行数据</param>
+        private void updateCostT(DataRow row)
+        {
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            try
+            {
+                if (row.RowState == DataRowState.Added)  //新增入库
+                {
+                    int 料件id = Convert.ToInt32(row["料件id"]);
+                    dataAccess.ExecuteNonQuery(string.Format("exec 进口料件初始化库存成本 {0}", 料件id));
+                    object 成本价 = dataAccess.ExecScalar(string.Format("select 成本价 from 料件资料表 where 料件id={0}", 料件id));
+                    if(成本价 == null || 成本价== DBNull.Value || Convert.ToDouble(成本价)==0)
+                    {
+                        dataAccess.ExecuteNonQuery(string.Format("update 料件资料表 set 成本价={0} where 料件id={1}",row["单价"], 料件id));
+                    }
+                    else
+                    {
+                        DataTable dt = dataAccess.GetTable(string.Format("select * from 单耗库存查询表 where 料件id={0}", 料件id));
+                        if(dt.Rows.Count == 0 || Convert.ToDouble(dt.Rows[0]["入库数量"]) == 0)
+                        {
+                            dataAccess.ExecuteNonQuery(string.Format("update 料件资料表 set 成本价={0} where 料件id={1}", row["单价"], 料件id));
+                        }
+                        else
+                        {
+                            decimal 数量 = Convert.ToDecimal(dt.Rows[0]["入库数量"]);
+                            成本价 = (Convert.ToDecimal(成本价) * 数量 + Convert.ToDecimal(row["总金额"])) / (数量 + Convert.ToDecimal( row["入库数量"]));
+                            dataAccess.ExecuteNonQuery(string.Format("update 料件资料表 set 成本价={0} where 料件id={1}", row["单价"], 料件id));
+                        }
+                    }
+                }
+                else if (row.RowState == DataRowState.Deleted)  //删除入库
+                {
+                    //1、撤消修改前的库存金额和数量，算出成本
+                    int 旧料件id = Convert.ToInt32(row["料件id", DataRowVersion.Original]);
+                    DataTable dt旧料件库存 = dataAccess.GetTable(string.Format("select * from 单耗库存查询表 where 料件id={0}", 旧料件id));
+                    decimal 旧料件库存数量 = Convert.ToDecimal(dt旧料件库存.Rows[0]["数量"]);
+                    if (旧料件库存数量 == Convert.ToDecimal(row["入库数量", DataRowVersion.Original]))
+                    {
+                        dataAccess.ExecuteNonQuery(string.Format("update 料件资料表 set 成本价=0 where 料件id={0}", 旧料件id));
+                    }
+                    else
+                    {
+                        decimal 旧料件成本 = Convert.ToDecimal(dataAccess.ExecScalar(string.Format("select 成本价 from 料件资料表 where 料件id={0}", 旧料件id)));
+                        decimal 旧料件总金额 = 旧料件库存数量 * 旧料件成本;
+                        decimal 旧料件成本更新 = (旧料件总金额 - Convert.ToDecimal(row["总金额", DataRowVersion.Original])) / (旧料件库存数量 - Convert.ToDecimal(row["入库数量", DataRowVersion.Original]));
+                        dataAccess.ExecuteNonQuery(string.Format("update 料件资料表 set 成本价={0} where 料件id={1}", 旧料件成本更新, 旧料件id));
+                    }
+                }
+                else //if (row.RowState == DataRowState.Modified)  //修改入库
+                {
+                    //1、撤消修改前的库存金额和数量，算出成本
+                    int 旧料件id = Convert.ToInt32(row["料件id",DataRowVersion.Original]);
+                    DataTable dt旧料件库存 = dataAccess.GetTable(string.Format("select * from 单耗库存查询表 where 料件id={0}", 旧料件id));
+                    decimal 旧料件库存数量 = Convert.ToDecimal(dt旧料件库存.Rows[0]["数量"]);
+                    if (旧料件库存数量 == Convert.ToDecimal(row["入库数量", DataRowVersion.Original]))
+                    {
+                        dataAccess.ExecuteNonQuery(string.Format("update 料件资料表 set 成本价=0 where 料件id={0}", 旧料件id));
+                    }
+                    else
+                    {
+                        decimal 旧料件成本 = Convert.ToDecimal(dataAccess.ExecScalar(string.Format("select 成本价 from 料件资料表 where 料件id={0}", 旧料件id)));
+                        decimal 旧料件总金额 = 旧料件库存数量 * 旧料件成本;
+                        decimal 旧料件成本更新 = (旧料件总金额 - Convert.ToDecimal(row["总金额", DataRowVersion.Original])) / (旧料件库存数量 - Convert.ToDecimal(row["入库数量", DataRowVersion.Original]));
+                        dataAccess.ExecuteNonQuery(string.Format("update 料件资料表 set 成本价={0} where 料件id={1}",旧料件成本更新, 旧料件id));
+                    }
+                    //2、不管料件ID是否有变，根据现有的料件ID，数量，总金额重算一次成本价
+                    int 新料件id = Convert.ToInt32(row["料件id"]);
+                    dataAccess.ExecuteNonQuery(string.Format("exec 进口料件初始化库存成本 {0}", 新料件id));
+                    object 成本价 = dataAccess.ExecScalar(string.Format("select 成本价 from 料件资料表 where 料件id={0}", 新料件id));
+                    if (成本价 == null || 成本价 == DBNull.Value || Convert.ToDouble(成本价) == 0)
+                    {
+                        dataAccess.ExecuteNonQuery(string.Format("update 料件资料表 set 成本价={0} where 料件id={1}", row["单价"], 新料件id));
+                    }
+                    else
+                    {
+                        DataTable dt = dataAccess.GetTable(string.Format("select * from 单耗库存查询表 where 料件id={0}", 新料件id));
+                        if (dt.Rows.Count == 0 || Convert.ToDouble(dt.Rows[0]["数量"]) == 0)
+                        {
+                            dataAccess.ExecuteNonQuery(string.Format("update 料件资料表 set 成本价={0} where 料件id={1}", row["单价"], 新料件id));
+                        }
+                        else
+                        {
+                            decimal 数量 = Convert.ToDecimal(dt.Rows[0]["数量"]);
+                            成本价 = (Convert.ToDecimal(成本价) * 数量 + Convert.ToDecimal(row["总金额"])) / (数量 + Convert.ToDecimal(row["入库数量"]));
+                            dataAccess.ExecuteNonQuery(string.Format("update 料件资料表 set 成本价={0} where 料件id={1}", row["单价"], 新料件id));
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(string.Format("更新料件【{0}】库存成本出错：{1}",row["料件id"],ex.Message),"错误",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+
+        }
     }
 }
