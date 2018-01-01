@@ -215,8 +215,16 @@ namespace UniqueDeclaration
             objForm.MdiParent = this;
             objForm.Show();
         }
+
+        //料件出口报关统计（成本价）
+        private void FormMaterialsOutPrice_Click(object sender, EventArgs e)
+        {
+            FormMaterialsOutPrice objForm = new FormMaterialsOutPrice();
+            objForm.MdiParent = this;
+            objForm.Show();
+        }
         #endregion
-        
+
         #region 业务管理菜单
         //成品出货录入
         private void FormFinishedProductOutInput_Click(object sender, EventArgs e)

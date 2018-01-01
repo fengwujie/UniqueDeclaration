@@ -933,7 +933,7 @@ namespace UniqueDeclaration
             ea.SetValue("H4", dtContactNo.Rows[0]["no"].ToString());
             ea.SetValue("H5", DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"));
             int iExcelModelBeginIndex = 18;
-            int iExcelModelEndIndex = 32;
+            int iExcelModelEndIndex = 31;
             DataTable dtDetail = (DataTable)this.myDataGridViewDetails.DataSource;
             int iIndex = iExcelModelBeginIndex - 1;
             for (int iRow = 0; iRow < dtDetail.Rows.Count; iRow++)
@@ -957,6 +957,9 @@ namespace UniqueDeclaration
 
             if (iIndex <= iExcelModelEndIndex)
             {
+                ea.SetValue("H32", "RMB:");
+                ea.SetValue("I32", (totalPrice * rate).ToString("F2"));
+
                 ea.SetValue("A33", string.Format("合计美元：{0}", SysMethod.CmycurD(totalPrice)));
                 ea.SetValue("I33", totalPrice.ToString("F2"));
                 ea.SetValue("H35", dgv.Cells["PackingTo"].Value.ToString().Trim());
@@ -964,6 +967,9 @@ namespace UniqueDeclaration
             }
             else
             {
+                ea.SetValue(string.Format("H{0}", 32 + iIndex - iExcelModelEndIndex), "RMB:");
+                ea.SetValue(string.Format("I{0}", 32 + iIndex - iExcelModelEndIndex), (totalPrice * rate).ToString("F2"));
+
                 ea.SetValue(string.Format("H{0}", 33 + iIndex - iExcelModelEndIndex), string.Format("合计美元：{0}", SysMethod.CmycurD(totalPrice)));
                 ea.SetValue(string.Format("I{0}", 33 + iIndex - iExcelModelEndIndex), totalPrice.ToString("F2"));
                 ea.SetValue(string.Format("H{0}", 35 + iIndex - iExcelModelEndIndex), dgv.Cells["PackingTo"].Value.ToString().Trim());

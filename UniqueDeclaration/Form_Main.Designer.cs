@@ -52,6 +52,8 @@
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.FormCheckOutInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormCheckOutQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
+            this.FormExchangeRate = new System.Windows.Forms.ToolStripMenuItem();
             this.Order = new System.Windows.Forms.ToolStripMenuItem();
             this.FormOrderInput = new System.Windows.Forms.ToolStripMenuItem();
             this.FormOrderQueryCondition = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,8 +95,6 @@
             this.arrangeIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -102,8 +102,10 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStatus_Version = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
-            this.FormExchangeRate = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
+            this.FormMaterialsOutPrice = new System.Windows.Forms.ToolStripMenuItem();
+            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -286,6 +288,18 @@
             this.FormCheckOutQueryCondition.Text = "报关成品确认查询";
             this.FormCheckOutQueryCondition.Click += new System.EventHandler(this.FormCheckOutQueryCondition_Click);
             // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(276, 6);
+            // 
+            // FormExchangeRate
+            // 
+            this.FormExchangeRate.Name = "FormExchangeRate";
+            this.FormExchangeRate.Size = new System.Drawing.Size(279, 26);
+            this.FormExchangeRate.Text = "汇率资料维护";
+            this.FormExchangeRate.Click += new System.EventHandler(this.FormExchangeRate_Click);
+            // 
             // Order
             // 
             this.Order.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -396,7 +410,9 @@
             this.FormMaterialsOut,
             this.FormMaterialsOutQueryCondition,
             this.toolStripMenuItem2,
-            this.FormMaterialsJXCQueryCondition});
+            this.FormMaterialsJXCQueryCondition,
+            this.toolStripMenuItem8,
+            this.FormMaterialsOutPrice});
             this.Materials.Name = "Materials";
             this.Materials.Size = new System.Drawing.Size(85, 24);
             this.Materials.Text = " 料件管理";
@@ -404,45 +420,45 @@
             // FormMaterialsInInput
             // 
             this.FormMaterialsInInput.Name = "FormMaterialsInInput";
-            this.FormMaterialsInInput.Size = new System.Drawing.Size(189, 26);
+            this.FormMaterialsInInput.Size = new System.Drawing.Size(279, 26);
             this.FormMaterialsInInput.Text = "料件入库";
             this.FormMaterialsInInput.Click += new System.EventHandler(this.FormMaterialsInInput_Click);
             // 
             // FormMaterialsInQueryCondition
             // 
             this.FormMaterialsInQueryCondition.Name = "FormMaterialsInQueryCondition";
-            this.FormMaterialsInQueryCondition.Size = new System.Drawing.Size(189, 26);
+            this.FormMaterialsInQueryCondition.Size = new System.Drawing.Size(279, 26);
             this.FormMaterialsInQueryCondition.Text = "料件入库查询";
             this.FormMaterialsInQueryCondition.Click += new System.EventHandler(this.FormMaterialsInQueryCondition_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(186, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(276, 6);
             // 
             // FormMaterialsOut
             // 
             this.FormMaterialsOut.Name = "FormMaterialsOut";
-            this.FormMaterialsOut.Size = new System.Drawing.Size(189, 26);
+            this.FormMaterialsOut.Size = new System.Drawing.Size(279, 26);
             this.FormMaterialsOut.Text = "料件出库";
             this.FormMaterialsOut.Click += new System.EventHandler(this.FormMaterialsOut_Click);
             // 
             // FormMaterialsOutQueryCondition
             // 
             this.FormMaterialsOutQueryCondition.Name = "FormMaterialsOutQueryCondition";
-            this.FormMaterialsOutQueryCondition.Size = new System.Drawing.Size(189, 26);
+            this.FormMaterialsOutQueryCondition.Size = new System.Drawing.Size(279, 26);
             this.FormMaterialsOutQueryCondition.Text = "料件出库查询";
             this.FormMaterialsOutQueryCondition.Click += new System.EventHandler(this.FormMaterialsOutQueryCondition_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(186, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(276, 6);
             // 
             // FormMaterialsJXCQueryCondition
             // 
             this.FormMaterialsJXCQueryCondition.Name = "FormMaterialsJXCQueryCondition";
-            this.FormMaterialsJXCQueryCondition.Size = new System.Drawing.Size(189, 26);
+            this.FormMaterialsJXCQueryCondition.Size = new System.Drawing.Size(279, 26);
             this.FormMaterialsJXCQueryCondition.Text = "料件进销存查询";
             this.FormMaterialsJXCQueryCondition.Click += new System.EventHandler(this.FormMaterialsJXCQueryCondition_Click);
             // 
@@ -605,22 +621,6 @@
             this.contentsToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.contentsToolStripMenuItem.Text = "目录(&C)";
             // 
-            // indexToolStripMenuItem
-            // 
-            this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
-            this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
-            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
-            this.indexToolStripMenuItem.Text = "索引(&I)";
-            // 
-            // searchToolStripMenuItem
-            // 
-            this.searchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("searchToolStripMenuItem.Image")));
-            this.searchToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
-            this.searchToolStripMenuItem.Text = "搜索(&S)";
-            // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
@@ -669,17 +669,33 @@
             this.toolStatus_Version.Size = new System.Drawing.Size(104, 18);
             this.toolStatus_Version.Text = "当前系统版本";
             // 
-            // toolStripMenuItem7
+            // toolStripMenuItem8
             // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(276, 6);
+            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(276, 6);
             // 
-            // FormExchangeRate
+            // FormMaterialsOutPrice
             // 
-            this.FormExchangeRate.Name = "FormExchangeRate";
-            this.FormExchangeRate.Size = new System.Drawing.Size(279, 26);
-            this.FormExchangeRate.Text = "汇率资料维护";
-            this.FormExchangeRate.Click += new System.EventHandler(this.FormExchangeRate_Click);
+            this.FormMaterialsOutPrice.Name = "FormMaterialsOutPrice";
+            this.FormMaterialsOutPrice.Size = new System.Drawing.Size(279, 26);
+            this.FormMaterialsOutPrice.Text = "料件出口报关统计（成本价）";
+            this.FormMaterialsOutPrice.Click += new System.EventHandler(this.FormMaterialsOutPrice_Click);
+            // 
+            // indexToolStripMenuItem
+            // 
+            this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
+            this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
+            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
+            this.indexToolStripMenuItem.Text = "索引(&I)";
+            // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("searchToolStripMenuItem.Image")));
+            this.searchToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
+            this.searchToolStripMenuItem.Text = "搜索(&S)";
             // 
             // Form_Main
             // 
@@ -691,7 +707,7 @@
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form_Main";
             this.Text = "优丽报关管理系统";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -782,6 +798,8 @@
         private System.Windows.Forms.ToolStripMenuItem FormCheckOutQueryCondition;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem FormExchangeRate;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
+        private System.Windows.Forms.ToolStripMenuItem FormMaterialsOutPrice;
     }
 }
 

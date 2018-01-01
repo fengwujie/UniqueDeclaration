@@ -30,6 +30,8 @@
         {
             this.myTabControl1 = new UniqueDeclarationBaseForm.Controls.myTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txt_发票号 = new System.Windows.Forms.TextBox();
+            this.lab_发票号 = new System.Windows.Forms.Label();
             this.txt_工缴费率 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.lab_工缴费率 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.txt_ContractNo = new UniqueDeclarationBaseForm.Controls.myTextBox();
@@ -88,8 +90,6 @@
             this.txt_Mark1 = new UniqueDeclarationBaseForm.Controls.myTextBox();
             this.myLable14 = new UniqueDeclarationBaseForm.Controls.myLable();
             this.myContextDetails = new UniqueDeclarationBaseForm.Controls.myContextMenuStripCell();
-            this.lab_发票号 = new System.Windows.Forms.Label();
-            this.txt_发票号 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.myTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -101,14 +101,14 @@
             this.groupBox1.Controls.Add(this.myTabControl1);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(5);
             this.groupBox1.Padding = new System.Windows.Forms.Padding(5);
-            this.groupBox1.Size = new System.Drawing.Size(1381, 242);
+            this.groupBox1.Size = new System.Drawing.Size(1381, 241);
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(0, 269);
+            this.groupBox2.Location = new System.Drawing.Point(0, 268);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(5);
             this.groupBox2.Padding = new System.Windows.Forms.Padding(5);
-            this.groupBox2.Size = new System.Drawing.Size(1381, 423);
+            this.groupBox2.Size = new System.Drawing.Size(1381, 424);
             // 
             // myTabControl1
             // 
@@ -119,7 +119,7 @@
             this.myTabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.myTabControl1.Name = "myTabControl1";
             this.myTabControl1.SelectedIndex = 0;
-            this.myTabControl1.Size = new System.Drawing.Size(1371, 214);
+            this.myTabControl1.Size = new System.Drawing.Size(1371, 213);
             this.myTabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -162,10 +162,27 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(1363, 185);
+            this.tabPage1.Size = new System.Drawing.Size(1363, 194);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "PACKING LIST";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txt_发票号
+            // 
+            this.txt_发票号.Location = new System.Drawing.Point(1123, 145);
+            this.txt_发票号.Name = "txt_发票号";
+            this.txt_发票号.Size = new System.Drawing.Size(153, 25);
+            this.txt_发票号.TabIndex = 32;
+            this.txt_发票号.Validated += new System.EventHandler(this.txt_发票号_Validated);
+            // 
+            // lab_发票号
+            // 
+            this.lab_发票号.AutoSize = true;
+            this.lab_发票号.Location = new System.Drawing.Point(1047, 151);
+            this.lab_发票号.Name = "lab_发票号";
+            this.lab_发票号.Size = new System.Drawing.Size(67, 15);
+            this.lab_发票号.TabIndex = 31;
+            this.lab_发票号.Text = "发票号：";
             // 
             // txt_工缴费率
             // 
@@ -528,7 +545,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(1363, 104);
+            this.tabPage2.Size = new System.Drawing.Size(1363, 184);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "MARK";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -779,23 +796,6 @@
             this.myContextDetails.MyDataGridView = this.dataGridViewDetail;
             this.myContextDetails.Name = "myContextDetails";
             this.myContextDetails.Size = new System.Drawing.Size(115, 30);
-            // 
-            // lab_发票号
-            // 
-            this.lab_发票号.AutoSize = true;
-            this.lab_发票号.Location = new System.Drawing.Point(1047, 151);
-            this.lab_发票号.Name = "lab_发票号";
-            this.lab_发票号.Size = new System.Drawing.Size(67, 15);
-            this.lab_发票号.TabIndex = 31;
-            this.lab_发票号.Text = "发票号：";
-            // 
-            // txt_发票号
-            // 
-            this.txt_发票号.Location = new System.Drawing.Point(1123, 145);
-            this.txt_发票号.Name = "txt_发票号";
-            this.txt_发票号.Size = new System.Drawing.Size(153, 25);
-            this.txt_发票号.TabIndex = 32;
-            this.txt_发票号.Validated += new System.EventHandler(this.txt_发票号_Validated);
             // 
             // FormPackingOutInput
             // 

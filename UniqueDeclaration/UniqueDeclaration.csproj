@@ -375,6 +375,12 @@
     <Compile Include="FormMaterialsOutInput.Designer.cs">
       <DependentUpon>FormMaterialsOutInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMaterialsOutPrice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMaterialsOutPrice.Designer.cs">
+      <DependentUpon>FormMaterialsOutPrice.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMaterialsOutQuertList_CheckCondition.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -674,6 +680,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMaterialsOutInput.resx">
       <DependentUpon>FormMaterialsOutInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMaterialsOutPrice.resx">
+      <DependentUpon>FormMaterialsOutPrice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMaterialsOutQuertList_CheckCondition.resx">
       <DependentUpon>FormMaterialsOutQuertList_CheckCondition.cs</DependentUpon>

@@ -890,6 +890,12 @@ namespace UniqueDeclaration
         public override void GridKeyEnter(myDataGridView dgv, DataGridViewCell cell, bool bKeyEnter)//
         {
             if (!bCellKeyPress) return;
+            if(cbox_电子帐册号.SelectedValue == null)
+            {
+                SysMessage.InformationMsg(string.Format("【{0}】不能为空！", myLable5.Text));
+                cbox_电子帐册号.Focus();
+                return;
+            }
             string colName = dgv.Columns[cell.ColumnIndex].Name;
             switch (colName)
             {

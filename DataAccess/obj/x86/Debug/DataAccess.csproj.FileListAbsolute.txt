@@ -18,6 +18,7 @@ C:\wesoft\Unique\UniqueDeclaration\UniqueDeclaration\DataAccess\obj\x86\Debug\Da
 C:\wesoft\Unique\UniqueDeclaration\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.pdb
 G:\fengwujie\Unique\UniqueDeclaration\DataAccess\bin\Debug\DataAccess.dll
 G:\fengwujie\Unique\UniqueDeclaration\DataAccess\bin\Debug\DataAccess.pdb
+G:\fengwujie\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.csprojResolveAssemblyReference.cache
 G:\fengwujie\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.Properties.Resources.resources
 G:\fengwujie\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.csproj.GenerateResource.Cache
 G:\fengwujie\Unique\UniqueDeclaration\DataAccess\obj\x86\Debug\DataAccess.dll

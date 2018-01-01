@@ -460,6 +460,7 @@ namespace UniqueDeclaration
             int iCount = dtDetail.Rows.Count;
 
             decimal nw = 0;
+            decimal gw = 0;
             for (int iRow = 0; iRow < dtDetail.Rows.Count; iRow++)
             {
                 DataRow row = dtDetail.Rows[iRow];
@@ -486,7 +487,7 @@ namespace UniqueDeclaration
                 ea.SetValue(string.Format("H{0}", iIndex), string.Format("{0}{1}", row["NW"] == DBNull.Value ? "" : Convert.ToDecimal(row["NW"]).ToString("F2"), row["UNIT1"].ToString().Trim()));
                 ea.SetValue(string.Format("J{0}", iIndex), string.Format("{0}{1}", row["GW"] ==DBNull.Value ? "" : Convert.ToDecimal(row["GW"]).ToString("F2"), row["UNIT2"].ToString().Trim()));
                 nw += (row["NW"] == DBNull.Value ? 0 : Convert.ToDecimal(row["NW"]));
-
+                gw += (row["GW"] == DBNull.Value ? 0 : Convert.ToDecimal(row["GW"]));
                 ea.SetRowHeight(string.Format("A{0}", iIndex), 20);
                 iIndex++;
             }
@@ -512,7 +513,12 @@ namespace UniqueDeclaration
                 ea.SetValue(string.Format("H{0}", iIndex), nw.ToString("F2") + "KGS");
                 ea.SetHorisontalAlignment(string.Format("H{0}", iIndex), 4);   //右对齐
             }
-            for(int i=0;i<rs2.Rows.Count; i++)
+            if (gw > 0)
+            {
+                ea.SetValue(string.Format("J{0}", iIndex), gw.ToString("F2") + "KGS");
+                ea.SetHorisontalAlignment(string.Format("J{0}", iIndex), 4);   //右对齐
+            }
+            for (int i=0;i<rs2.Rows.Count; i++)
             {
                 DataRow row = rs2.Rows[i];
                 ea.SetValue(string.Format("G{0}", iIndex), string.Format("{0}{1}", row["QUANTITY"] == DBNull.Value ? "" : Convert.ToDecimal(row["QUANTITY"]).ToString("F2"), row["UNIT"].ToString().Trim()));

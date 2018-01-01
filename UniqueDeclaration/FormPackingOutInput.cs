@@ -1205,7 +1205,7 @@ namespace UniqueDeclaration
                     {
                         //if (dgv.CurrentRow.Cells["NW"].Value.ToString() != cell.EditedFormattedValue.ToString())
                         //{
-                            validateQuantity(dgv, cell);
+                            validateNW(dgv, cell);
                         //}
                     }
                     #endregion

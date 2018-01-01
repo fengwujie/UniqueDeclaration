@@ -328,6 +328,8 @@ G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDecl
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormCheckOutQueryCondition.resources
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormCheckOutQueryList.resources
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormCodeSelect.resources
+G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormExchangeRate.resources
+G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormExchangeRate_Edit.resources
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormFitBOM.resources
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormFitInput.resources
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormFitQueryCondition.resources
@@ -398,5 +400,4 @@ G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDecl
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.csproj.GenerateResource.Cache
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.exe
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.pdb
-G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormExchangeRate.resources
-G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.Base.FormExchangeRate_Edit.resources
+G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclaration\obj\x86\Debug\UniqueDeclaration.FormMaterialsOutPrice.resources
