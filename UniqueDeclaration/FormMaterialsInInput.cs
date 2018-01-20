@@ -63,7 +63,7 @@ namespace UniqueDeclaration
             this.dataGridViewDetail.Columns["料号"].DisplayIndex = 1;
             this.dataGridViewDetail.Columns["料号"].ContextMenuStrip = this.myContextDetails;
             this.dataGridViewDetail.Columns["料件名"].DisplayIndex = 2;
-            this.dataGridViewDetail.Columns["料件名"].ReadOnly = true;
+            this.dataGridViewDetail.Columns["料件名"].ReadOnly = false;
             this.dataGridViewDetail.Columns["料件名"].ContextMenuStrip = this.myContextDetails;
             this.dataGridViewDetail.Columns["商品编码"].DisplayIndex = 3;
             this.dataGridViewDetail.Columns["商品编码"].ReadOnly = true;
@@ -956,10 +956,38 @@ namespace UniqueDeclaration
                     #endregion
                     break;
                 case "料件名":   //跳转到"商品编码"
+                              /*
+                              #region CELL回车跳转
+                              if (bKeyEnter)
+                              {
+                                  dgv.CurrentCell = dgv["商品编码", cell.RowIndex];
+                              }
+                              #endregion
+                              */
                     #region CELL回车跳转
                     if (bKeyEnter)
                     {
-                        dgv.CurrentCell = dgv["商品编码", cell.RowIndex];
+                        if (dgv.CurrentRow.Cells["料件名"].Value.ToString() == cell.EditedFormattedValue.ToString())
+                        {
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["商品编码", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                        else if (validate料件名(dgv, cell))
+                        {
+                            //dtDetails.Rows[cell.RowIndex].EndEdit();
+                            (dgv.CurrentRow.DataBoundItem as DataRowView).Row.EndEdit();
+                            bCellEndEdit = false;
+                            dgv.CurrentCell = dgv["商品编码", cell.RowIndex];
+                            bCellEndEdit = true;
+                        }
+                    }
+                    else
+                    {
+                        if (dgv.CurrentRow.Cells["料件名"].Value.ToString() != cell.EditedFormattedValue.ToString())
+                        {
+                            validate料件名(dgv, cell);
+                        }
                     }
                     #endregion
                     break;
@@ -1161,6 +1189,81 @@ namespace UniqueDeclaration
             {
                 strSQL = string.Format(@"帮助录入查询 {0}, 13, 0, 0, 0, '', ''", StringTools.SqlQ(cell.EditedFormattedValue.ToString()));
             }
+
+            IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
+            dataAccess.Open();
+            DataTable dttabArticle = dataAccess.GetTable(strSQL, null);
+            dataAccess.Close();
+            if (dttabArticle.Rows.Count == 0)
+            {
+                SysMessage.InformationMsg("此料件不存在！");
+                dgv.CurrentCell = cell;
+                return false;
+            }
+            else if (dttabArticle.Rows.Count == 1)
+            {
+                dgv.Rows[cell.RowIndex].Cells["料件id"].Value = dttabArticle.Rows[0]["料件id"];
+                dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["显示型号"];
+                dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
+                dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
+                dgv.Rows[cell.RowIndex].Cells["成本价"].Value = dttabArticle.Rows[0]["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(dttabArticle.Rows[0]["成本价"]);
+            }
+            else if (dttabArticle.Rows.Count > 1)
+            {
+                FormBaseSingleSelect formSelect = new FormBaseSingleSelect();
+                formSelect.strFormText = "选择客户型号";
+                formSelect.dtData = dttabArticle;
+                if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+
+                    dgv.Rows[cell.RowIndex].Cells["料件id"].Value = dttabArticle.Rows[0]["料件id"];
+                    dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["显示型号"];
+                    dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
+                    dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
+                    dgv.Rows[cell.RowIndex].Cells["成本价"].Value = dttabArticle.Rows[0]["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(dttabArticle.Rows[0]["成本价"]);
+                }
+                else
+                {
+                    dgv.CurrentCell = cell;
+                    return false;
+                }
+            }
+            if (dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString() != "")
+            {
+                strSQL = string.Format(@"SELECT Q.产品编号,H.序号,H.商品编码, H.商品名称, Q.商品规格, H.计量单位,H.计量单位,H.损耗率,H.单价 
+                                        FROM 归并后料件清单 H LEFT OUTER JOIN 归并前料件清单 Q ON H.归并后料件id = Q.归并后料件id 
+                                        where Q.产品编号='{0}' AND H.电子帐册号='{1}'",
+                                    dgv.Rows[cell.RowIndex].Cells["料号"].Value.ToString().Substring(0, 5), cbox_电子帐册号.SelectedValue);
+                dataAccess.Open();
+                dttabArticle = dataAccess.GetTable(strSQL, null);
+                dataAccess.Close();
+                if (dttabArticle.Rows.Count > 0)
+                {
+                    dgv.Rows[cell.RowIndex].Cells["商品编码"].Value = dttabArticle.Rows[0]["商品编码"];
+                    dgv.Rows[cell.RowIndex].Cells["商品名称"].Value = dttabArticle.Rows[0]["商品名称"];
+                    dgv.Rows[cell.RowIndex].Cells["商品规格"].Value = dttabArticle.Rows[0]["商品规格"];
+                    dgv.Rows[cell.RowIndex].Cells["单位"].Value = "KGS";
+                    dgv.Rows[cell.RowIndex].Cells["单价"].Value = dttabArticle.Rows[0]["单价"];
+                }
+            }
+            return true;
+        }
+        private bool validate料件名(myDataGridView dgv, DataGridViewCell cell)
+        {
+            if (Importid) return false;
+            string strSQL = string.Empty;
+            //if (cbox_电子帐册号.SelectedValue.ToString() == "B37167420012")
+            //{
+            //    strSQL = string.Format(@"帮助录入查询 {0}, 12, 0, 0, 0, '',''", StringTools.SqlQ(cell.EditedFormattedValue.ToString()));
+            //}
+            //else if (cbox_电子帐册号.SelectedValue.ToString() == "B37168420019")
+            //{
+            //    strSQL = string.Format(@"帮助录入查询 {0}, 14, 0, 0, 0,'', ''", StringTools.SqlQ(cell.EditedFormattedValue.ToString()));
+            //}
+            //else
+            //{
+                strSQL = string.Format(@"帮助录入查询 {0}, 21, 0, 0, 0, '', ''", StringTools.SqlQ(cell.EditedFormattedValue.ToString()));
+            //}
 
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Manufacture);
             dataAccess.Open();

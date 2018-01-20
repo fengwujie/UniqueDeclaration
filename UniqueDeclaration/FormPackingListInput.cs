@@ -758,7 +758,11 @@ namespace UniqueDeclaration
                 dataManufacture.Open();
                 DataTable dt报关订单录入查询 = dataManufacture.GetTable(string.Format("报关订单录入查询 {0}",dt报关订单表.Rows[0]["订单id"]), null);
                 dataManufacture.Close();
-                foreach (DataRow row in dt报关订单录入查询.Rows)
+                DataTable dtData = dt报关订单录入查询.Clone();
+                DataRow[] rows = dt报关订单录入查询.Select("","成品项号");
+                foreach (DataRow r in rows)
+                    dtData.ImportRow(r);
+                foreach (DataRow row in dtData.Rows)
                 {
                     dataUniquegrade.Open();
                     DataTable dt装箱单 = dataUniquegrade.GetTable(string.Format(@"select 客人型号,优丽型号,sum(数量) as 数量  from 装箱单表 
@@ -785,7 +789,7 @@ namespace UniqueDeclaration
                             newRow["单位"] = (row["申报单位"] == DBNull.Value || row["申报单位"].ToString() == "") ? "个" : row["申报单位"];
                             if (row["总重"] != DBNull.Value && StringTools.decimalParse(row["总重"].ToString()) > 0)
                             {
-                                newRow["成品规格型号"] = string.Format("{0}G/{1}", row["总重"], row["单位"]);
+                                newRow["成品规格型号"] = string.Format("{0}G/{1}", row["总重"], row["申报单位"]);
                             }
                             newRow["归并前成品序号"] = row["版本号"];
                             newRow["内部版本号"] = row["内部版本号"];
@@ -806,7 +810,7 @@ namespace UniqueDeclaration
                         newRow["单位"] = (row["申报单位"] == DBNull.Value || row["申报单位"].ToString() == "") ? "个" : row["申报单位"];
                         if (row["总重"] != DBNull.Value && StringTools.decimalParse(row["总重"].ToString()) > 0)
                         {
-                            newRow["成品规格型号"] = string.Format("{0}G/{1}", row["总重"], row["单位"]);
+                            newRow["成品规格型号"] = string.Format("{0}G/{1}", row["总重"], row["申报单位"]);
                         }
                         newRow["归并前成品序号"] = row["版本号"];
                         newRow["内部版本号"] = row["内部版本号"];

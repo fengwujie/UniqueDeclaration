@@ -264,6 +264,11 @@ namespace UniqueDeclaration
             this.dataGridViewDetails.Columns["实际总重"].Width = 78;
             this.dataGridViewDetails.Columns["总重"].DisplayIndex = 10;
             this.dataGridViewDetails.Columns["总重"].Width = 55;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.dataGridViewDetails.Columns["总重"].DefaultCellStyle = dataGridViewCellStyle1;
+
             this.dataGridViewDetails.Columns["版本号"].DisplayIndex = 11;
             this.dataGridViewDetails.Columns["版本号"].Width = 90;
             this.dataGridViewDetails.Columns["版本号"].HeaderText = "企业版本号";

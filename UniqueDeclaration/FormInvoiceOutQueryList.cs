@@ -40,6 +40,9 @@ namespace UniqueDeclaration
             this.tool1_Modify.Visible = false;
             this.tool1_Number.Visible = true;
             
+            this.toolStrip2.Items.Remove(this.tool1_ExportExcel);
+            this.toolStrip2.Items.Insert(0, this.tool1_ExportExcel);
+
             this.myDataGridViewDetails.SelectionChanged += new EventHandler(myDataGridViewDetails_SelectionChanged);
             LoadDataSourceHead();
             InitGridHead();

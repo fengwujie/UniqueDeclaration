@@ -30,6 +30,8 @@ namespace UniqueDeclaration
         {
             this.tool1_Import.Visible = false;
             this.tool1_Print.Visible = true;
+            this.toolStrip2.Items.Remove(this.tool1_ExportExcel);
+            this.toolStrip2.Items.Insert(0, this.tool1_ExportExcel);
             LoadDataSourceHead();
             InitGridDetails();
             InitGridHead();

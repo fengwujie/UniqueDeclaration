@@ -60,6 +60,17 @@ namespace UniqueDeclaration
             订单明细表id.ReadOnly = true;
             订单明细表id.Visible = false;
             // 
+            // 制造通知单号
+            // 
+            DataGridViewTextBoxColumn 制造通知单号 = new DataGridViewTextBoxColumn();
+            制造通知单号.DataPropertyName = "制造通知单号";
+            制造通知单号.HeaderText = "制造通知单号";
+            制造通知单号.Name = "制造通知单号";
+            制造通知单号.ReadOnly = false;
+            制造通知单号.Visible = true;
+            制造通知单号.Width = 100;
+
+            // 
             // 客人型号
             // 
             DataGridViewTextBoxColumn 客人型号 = new DataGridViewTextBoxColumn();
@@ -272,7 +283,7 @@ namespace UniqueDeclaration
             制造通知单id.Name = "制造通知单id";
             制造通知单id.ReadOnly = true;
             制造通知单id.Visible = false;
-            this.dataGridViewDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[]{BM,订单明细表id,客人型号,优丽型号,颜色,订单数量,单位,
+            this.dataGridViewDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[]{BM,订单明细表id,制造通知单号,客人型号,优丽型号,颜色,订单数量,单位,
                         箱数,产品id,配件id,型号,生产数量,实际总重, 成品项号,成品名称及商编,成品规格型号,申报单位,法定单位,版本号,内部版本号,变更规格型号,总重,
                         订单备注,制造通知单id});
 
@@ -665,7 +676,7 @@ namespace UniqueDeclaration
                 if (dttabCustomer.Rows.Count == 0)
                 {
                     SysMessage.InformationMsg("此客户编号不存在！");
-                    e.Cancel = true;
+                    //e.Cancel = true;
                     return;
                 }
                 else

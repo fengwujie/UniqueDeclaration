@@ -511,7 +511,7 @@ namespace UniqueDeclaration
                         #region //修改表头数据
                         if (rowHead.RowState == DataRowState.Modified)
                         {
-                            strBuilder.AppendFormat("UPDATE [报关制造通知单表] SET [制造通知单号]={0},[客户代码]={1},[客户名称]={2},[出货日期]={3},[录入日期]={4},[手册编号]={5},[总单号码]={6} where 制造通知单id={7}",
+                            strBuilder.AppendFormat("UPDATE [报关制造通知单表] SET [制造通知单号]={0},[客户代码]={1},[客户名称]={2},[出货日期]='{3}',[录入日期]='{4}',[手册编号]='{5}',[总单号码]={6} where 制造通知单id={7}",
                                                     rowHead["制造通知单号"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["制造通知单号"].ToString()),
                                 rowHead["客户代码"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["客户代码"].ToString()),
                                 rowHead["客户名称"] == DBNull.Value ? "NULL" : StringTools.SqlQ(rowHead["客户名称"].ToString()),
@@ -731,9 +731,9 @@ namespace UniqueDeclaration
         #region 表头控件值变化事件
         private void txt_总单号码_Validated(object sender, EventArgs e)
         {
-            if (rowHead["制造通知单号"].ToString() != txt_制造通知单号.Text)
+            if (rowHead["总单号码"].ToString() != txt_总单号码.Text)
             {
-                rowHead["制造通知单号"] = txt_制造通知单号.Text;
+                rowHead["总单号码"] = txt_总单号码.Text;
             }
         }
 
@@ -749,7 +749,7 @@ namespace UniqueDeclaration
                 if (dttabCustomer.Rows.Count == 0)
                 {
                     SysMessage.InformationMsg("此客户编号不存在！");
-                    e.Cancel = true;
+                    //e.Cancel = true;
                     return;
                 }
                 else
@@ -777,9 +777,9 @@ namespace UniqueDeclaration
 
         private void txt_制造通知单号_Validated(object sender, EventArgs e)
         {
-            if (rowHead["总单号码"].ToString() != txt_总单号码.Text)
+            if (rowHead["制造通知单号"].ToString() != txt_制造通知单号.Text)
             {
-                rowHead["总单号码"] = txt_总单号码.Text;
+                rowHead["制造通知单号"] = txt_制造通知单号.Text;
             }
         }
 
@@ -926,6 +926,7 @@ namespace UniqueDeclaration
         public override void GridKeyEnter(myDataGridView dgv, DataGridViewCell cell, bool bKeyEnter)//
         {
             if (!bCellKeyPress) return;
+            if (dgv.CurrentRow == null) return;
             string colName = dgv.Columns[cell.ColumnIndex].Name;
             switch (colName)
             {

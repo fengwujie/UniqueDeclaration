@@ -266,8 +266,8 @@ namespace UniqueDeclaration
             try
             {
                 StringBuilder strBuilder = new StringBuilder();
-                strBuilder.AppendLine(string.Format("delete from 装箱单明细表 where 订单id=", this.myDataGridViewHead.CurrentRow.Cells["订单id"].Value));
-                strBuilder.AppendLine(string.Format("delete from 装箱单表 where 订单id=", this.myDataGridViewHead.CurrentRow.Cells["订单id"].Value));
+                strBuilder.AppendLine(string.Format("delete from 装箱单明细表 where 订单id={0}", this.myDataGridViewHead.CurrentRow.Cells["订单id"].Value));
+                strBuilder.AppendLine(string.Format("delete from 装箱单表 where 订单id={0}", this.myDataGridViewHead.CurrentRow.Cells["订单id"].Value));
                 IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
                 dataAccess.Open();
                 dataAccess.ExecuteNonQuery(strBuilder.ToString(), null);
@@ -316,7 +316,7 @@ namespace UniqueDeclaration
 
             IDataAccess dataAccess = DataAccessFactory.CreateDataAccess(DataAccessEnum.DataAccessName.DataAccessName_Uniquegrade);
             dataAccess.Open();
-            DataTable dtExcel = dataAccess.GetTable(string.Format("select * from 装箱单明细表 where 订单id={0}", myDataGridViewHead.CurrentRow.Cells["订单id"].Value), null);
+            DataTable dtExcel = dataAccess.GetTable(string.Format("select * from 装箱单明细表 where 订单id={0} order by 成品项号", myDataGridViewHead.CurrentRow.Cells["订单id"].Value), null);
             dataAccess.Close();
             ea.SetValue("E8", dtExcel.Rows.Count>0 ? dtExcel.Rows[0]["手册编号"].ToString() : "");
             int iExcelModelBeginIndex = 10;
