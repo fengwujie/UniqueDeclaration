@@ -1132,20 +1132,20 @@ namespace UniqueDeclaration
                 {
                     if (cbox_电子帐册号.SelectedValue.ToString() == "B37167420012")
                     {
-                        dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["显示型号"];
+                        dgv.Rows[cell.RowIndex].Cells["料号"].Value = formSelect.returnRow["显示型号"];
                     }
                     else if (cbox_电子帐册号.SelectedValue.ToString() == "B37168420019")
                     {
-                        dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["新显示型号"];
+                        dgv.Rows[cell.RowIndex].Cells["料号"].Value = formSelect.returnRow["新显示型号"];
                     }
                     else
                     {
-                        dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["电子帐册型号"];
+                        dgv.Rows[cell.RowIndex].Cells["料号"].Value = formSelect.returnRow["电子帐册型号"];
                     }
-                    dgv.Rows[cell.RowIndex].Cells["料件id"].Value = dttabArticle.Rows[0]["料件id"];
-                    dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
-                    dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
-                    dgv.Rows[cell.RowIndex].Cells["成本价"].Value = dttabArticle.Rows[0]["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(dttabArticle.Rows[0]["成本价"]);
+                    dgv.Rows[cell.RowIndex].Cells["料件id"].Value = formSelect.returnRow["料件id"];
+                    dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = formSelect.returnRow["料件型号"];
+                    dgv.Rows[cell.RowIndex].Cells["料件名"].Value = formSelect.returnRow["料件名"];
+                    dgv.Rows[cell.RowIndex].Cells["成本价"].Value = formSelect.returnRow["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(formSelect.returnRow["成本价"]);
                 }
                 else
                 {
@@ -1216,11 +1216,11 @@ namespace UniqueDeclaration
                 if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
 
-                    dgv.Rows[cell.RowIndex].Cells["料件id"].Value = dttabArticle.Rows[0]["料件id"];
-                    dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["显示型号"];
-                    dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
-                    dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
-                    dgv.Rows[cell.RowIndex].Cells["成本价"].Value = dttabArticle.Rows[0]["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(dttabArticle.Rows[0]["成本价"]);
+                    dgv.Rows[cell.RowIndex].Cells["料件id"].Value =formSelect.returnRow["料件id"];
+                    dgv.Rows[cell.RowIndex].Cells["料号"].Value = formSelect.returnRow["显示型号"];
+                    dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = formSelect.returnRow["料件型号"];
+                    dgv.Rows[cell.RowIndex].Cells["料件名"].Value = formSelect.returnRow["料件名"];
+                    dgv.Rows[cell.RowIndex].Cells["成本价"].Value = formSelect.returnRow["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(formSelect.returnRow["成本价"]);
                 }
                 else
                 {
@@ -1291,11 +1291,11 @@ namespace UniqueDeclaration
                 if (formSelect.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
 
-                    dgv.Rows[cell.RowIndex].Cells["料件id"].Value = dttabArticle.Rows[0]["料件id"];
-                    dgv.Rows[cell.RowIndex].Cells["料号"].Value = dttabArticle.Rows[0]["显示型号"];
-                    dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = dttabArticle.Rows[0]["料件型号"];
-                    dgv.Rows[cell.RowIndex].Cells["料件名"].Value = dttabArticle.Rows[0]["料件名"];
-                    dgv.Rows[cell.RowIndex].Cells["成本价"].Value = dttabArticle.Rows[0]["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(dttabArticle.Rows[0]["成本价"]);
+                    dgv.Rows[cell.RowIndex].Cells["料件id"].Value = formSelect.returnRow["料件id"];
+                    dgv.Rows[cell.RowIndex].Cells["料号"].Value = formSelect.returnRow["显示型号"];
+                    dgv.Rows[cell.RowIndex].Cells["料件编号"].Value = formSelect.returnRow["料件型号"];
+                    dgv.Rows[cell.RowIndex].Cells["料件名"].Value = formSelect.returnRow["料件名"];
+                    dgv.Rows[cell.RowIndex].Cells["成本价"].Value = formSelect.returnRow["成本价"] == DBNull.Value ? 0 : Convert.ToDecimal(formSelect.returnRow["成本价"]);
                 }
                 else
                 {

@@ -29,7 +29,6 @@ G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclarationPubilc\bin\Debug\UniqueDe
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclarationPubilc\bin\Debug\UniqueDeclarationPubilc.pdb
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclarationPubilc\bin\Debug\UniqueDeclarationModel.dll
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclarationPubilc\bin\Debug\UniqueDeclarationModel.pdb
-G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclarationPubilc\obj\x86\Debug\UniqueDeclarationPubilc.csprojResolveAssemblyReference.cache
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclarationPubilc\obj\x86\Debug\UniqueDeclarationPubilc.Properties.Resources.resources
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclarationPubilc\obj\x86\Debug\UniqueDeclarationPubilc.csproj.GenerateResource.Cache
 G:\fengwujie\Unique\UniqueDeclaration\UniqueDeclarationPubilc\obj\x86\Debug\UniqueDeclarationPubilc.dll

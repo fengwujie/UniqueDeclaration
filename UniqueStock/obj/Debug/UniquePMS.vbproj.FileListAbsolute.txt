@@ -96,3 +96,4 @@ G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.vbproj.Gen
 G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.exe
 G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.xml
 G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.pdb
+G:\fengwujie\Unique\UniqueDeclaration\UniqueStock\obj\Debug\UniquePMS.vbprojResolveAssemblyReference.cache
